@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Professional Assessment Center</title>
+    <title>People Assets | Human Capital Analytics</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <nav>
@@ -18,64 +19,45 @@
 
     <section id="home" class="page">
         <div class="hero">
-            <h1>Human Capital Analytics</h1>
-            <p>Empowering talent through validated psychometric insights.</p>
-            <button class="btn-primary" onclick="showPage('tests')">Get Started</button>
+            <div class="badge">Professional Grade</div>
+            <h1>Scientific <span class="text-gradient">Behavioral Insights</span></h1>
+            <p>Our assessment suite provides deep-dive analytics into personality, motivation, and leadership potential.</p>
+            <button class="btn-primary" onclick="showPage('tests')">Enter Assessment Center</button>
         </div>
     </section>
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Assessment Battery</h2>
-            <div class="test-grid">
-                <div class="card">
-                    <h3>Open DISC (ODAT)</h3>
-                    <p>Analyze Dominance, Influence, Steadiness, and Compliance.</p>
-                    <button class="btn-outline" onclick="loadTest('odat')">Take Test</button>
+            <h2 class="section-title">Available Assessments</h2>
+            <div class="test-grid" id="test-grid-ui">
                 </div>
-                <div class="card">
-                    <h3>Big Five (BFI)</h3>
-                    <p>The gold standard for measuring core personality traits.</p>
-                    <button class="btn-outline" onclick="loadTest('bigfive')">Take Test</button>
-                </div>
-                <div class="card">
-                    <h3>Enneagram (OEPS)</h3>
-                    <p>Understand core motivations and worldviews.</p>
-                    <button class="btn-outline" onclick="loadTest('oeps')">Take Test</button>
-                </div>
-                <div class="card">
-                    <h3>Eysenck EPI</h3>
-                    <p>Measures Extraversion and Emotional Stability.</p>
-                    <button class="btn-outline" onclick="loadTest('epi')">Take Test</button>
-                </div>
-                <div class="card">
-                    <h3>MPQ (Ambien)</h3>
-                    <p>Multidimensional profile of temperament and behavior.</p>
-                    <button class="btn-outline" onclick="loadTest('ambien')">Take Test</button>
-                </div>
-            </div>
         </div>
     </section>
 
     <section id="engine" class="page" style="display:none;">
-        <div class="test-container">
+        <div class="engine-header">
+            <div class="progress-container">
+                <span id="progress-text">0% Complete</span>
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+            </div>
             <h2 id="test-title"></h2>
-            <form id="quiz-form">
-                <div id="question-area"></div>
-            </form>
-            <button class="btn-primary" id="submit-btn" onclick="calculateReport()">Generate Analysis</button>
+        </div>
+        <div class="test-container">
+            <form id="quiz-form"><div id="question-area"></div></form>
+            
+            <div class="email-section">
+                <h3>Finalize Your Report</h3>
+                <p>Enter your email to receive a professional PDF-style analysis of your results.</p>
+                <input type="email" id="user-email" placeholder="Enter your email address">
+            </div>
+            
+            <button class="btn-primary full-width" onclick="calculateReport()">Generate & Send Report</button>
         </div>
     </section>
 
     <section id="report" class="page" style="display:none;">
-        <div class="report-container">
-            <div class="report-header">
-                <h2>Professional Assessment Report</h2>
-                <p>Catering to: <span id="report-user-type">Candidate</span></p>
+        <div class="report-wrapper" id="report-wrapper">
             </div>
-            <div id="report-content"></div>
-            <button class="btn-primary" onclick="showPage('tests')">Back to Dashboard</button>
-        </div>
     </section>
 
     <script src="app.js"></script>
