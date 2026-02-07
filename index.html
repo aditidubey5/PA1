@@ -21,7 +21,7 @@
         <div class="hero">
             <div class="badge">Enterprise Analytics</div>
             <h1>Decode <span class="text-gradient">Human Potential</span></h1>
-            <p>Advanced psychometric instruments providing granular insights into behavioral architecture and cognitive alignment.</p>
+            <p>Advanced psychometric instruments providing granular insights into behavioral architecture.</p>
             <button class="btn-primary" onclick="showPage('tests')">Explore Assessments</button>
         </div>
     </section>
@@ -34,14 +34,15 @@
     </section>
 
     <section id="engine" class="page" style="display:none;">
-        <div class="engine-layout">
-            <div class="progress-container">
+        <div class="sticky-progress">
+            <div class="progress-wrapper">
                 <div class="progress-bar"><div id="progress-fill"></div></div>
                 <span id="progress-text">0% Complete</span>
             </div>
-            
+        </div>
+
+        <div class="engine-layout">
             <h2 id="test-title"></h2>
-            
             <form id="quiz-form">
                 <div id="question-area"></div>
             </form>
