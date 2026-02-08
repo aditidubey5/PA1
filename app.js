@@ -1,3 +1,74 @@
+// 1. YOUR UNIQUE IDs FROM EMAILJS.COM
+const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
+const SERVICE_ID = "service_u11zlzf";
+const TEMPLATE_ID = "template_zpcklyu";
+
+// Initialize the SDK
+(function() {
+    emailjs.init(PUBLIC_KEY); 
+})();
+
+// ... (Rest of your testData array) ...
+
+function calculateReport() {
+    const emailAddr = document.getElementById('user-email').value;
+    const form = new FormData(document.getElementById('quiz-form'));
+    let total = 0, count = 0;
+    
+    for (let v of form.values()) { 
+        total += parseInt(v); 
+        count++; 
+    }
+
+    // Check if the user answered all questions (assuming 40 or 50 based on test)
+    if (count < testData[activeKey].questions.length) {
+        return alert("Please answer all questions before generating the report.");
+    }
+
+    const avg = total / count;
+    const report = testData[activeKey].interpret(avg);
+
+    // Display the report on the screen
+    document.getElementById('report-wrapper').innerHTML = `
+        <div class="report-header-dark">
+            <small>Official Psychometric Analysis</small>
+            <h1>${report.title}</h1>
+        </div>
+        <div class="report-body">
+            <div class="report-section">
+                <h3>Executive Summary</h3>
+                <p class="summary-text">${report.summary}</p>
+            </div>
+            <hr>
+            <div class="report-section">
+                <h3>Behavioral Deep-Dive</h3>
+                <div class="deep-dive-text">${report.deepDive}</div>
+            </div>
+            <button class="btn-primary" onclick="showPage('tests')" style="margin-top:2rem">Return to Dashboard</button>
+        </div>
+    `;
+    
+    showPage('report');
+
+    // 2. SEND THE EMAIL
+    if (emailAddr) {
+        const templateParams = {
+            user_email: emailAddr,
+            test_name: testData[activeKey].title,
+            report_summary: report.summary,
+            report_details: report.deepDive.replace(/<[^>]*>/g, '') // Removes HTML tags for the email
+        };
+
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+            .then(() => {
+               alert("Success! Your comprehensive report has been sent to " + emailAddr);
+            })
+            .catch((error) => {
+               alert("Connection Error: " + JSON.stringify(error));
+               console.error("EmailJS Error:", error);
+            });
+    }
+}
 // INITIALIZE EMAILJS - Replace with your Public Key from the Account tab
 (function() {
     emailjs.init("YOUR_PUBLIC_KEY"); 
