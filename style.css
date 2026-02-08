@@ -210,3 +210,38 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 3rem 0; }
     .q-card { padding: 2rem; }
     .q-text { font-size: 1.1rem; }
 }
+/* Styling for the new report sections */
+.report-section {
+    margin-bottom: 2.5rem;
+}
+
+.report-section h3 {
+    font-size: 1.4rem;
+    color: var(--blue);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+}
+
+.report-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #334155;
+}
+
+.report-section ul {
+    padding-left: 20px;
+}
+
+.report-section li {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+/* Print settings to ensure the PDF looks professional */
+@media print {
+    nav, .no-print, .sticky-progress { display: none !important; }
+    body { background: white; }
+    .report-wrapper { box-shadow: none; margin: 0; width: 100%; }
+    .report-header-dark { background: #000 !important; -webkit-print-color-adjust: exact; }
+}
