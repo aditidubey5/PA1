@@ -1,77 +1,11 @@
-// 1. YOUR UNIQUE IDs FROM EMAILJS.COM
+// 1. CONFIGURATION
 const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
 const SERVICE_ID = "service_u11zlzf";
 const TEMPLATE_ID = "template_zpcklyu";
 
-// Initialize the SDK
+// Initialize EmailJS once
 (function() {
     emailjs.init(PUBLIC_KEY); 
-})();
-
-// ... (Rest of your testData array) ...
-
-function calculateReport() {
-    const emailAddr = document.getElementById('user-email').value;
-    const form = new FormData(document.getElementById('quiz-form'));
-    let total = 0, count = 0;
-    
-    for (let v of form.values()) { 
-        total += parseInt(v); 
-        count++; 
-    }
-
-    // Check if the user answered all questions (assuming 40 or 50 based on test)
-    if (count < testData[activeKey].questions.length) {
-        return alert("Please answer all questions before generating the report.");
-    }
-
-    const avg = total / count;
-    const report = testData[activeKey].interpret(avg);
-
-    // Display the report on the screen
-    document.getElementById('report-wrapper').innerHTML = `
-        <div class="report-header-dark">
-            <small>Official Psychometric Analysis</small>
-            <h1>${report.title}</h1>
-        </div>
-        <div class="report-body">
-            <div class="report-section">
-                <h3>Executive Summary</h3>
-                <p class="summary-text">${report.summary}</p>
-            </div>
-            <hr>
-            <div class="report-section">
-                <h3>Behavioral Deep-Dive</h3>
-                <div class="deep-dive-text">${report.deepDive}</div>
-            </div>
-            <button class="btn-primary" onclick="showPage('tests')" style="margin-top:2rem">Return to Dashboard</button>
-        </div>
-    `;
-    
-    showPage('report');
-
-    // 2. SEND THE EMAIL
-    if (emailAddr) {
-        const templateParams = {
-            user_email: emailAddr,
-            test_name: testData[activeKey].title,
-            report_summary: report.summary,
-            report_details: report.deepDive.replace(/<[^>]*>/g, '') // Removes HTML tags for the email
-        };
-
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
-            .then(() => {
-               alert("Success! Your comprehensive report has been sent to " + emailAddr);
-            })
-            .catch((error) => {
-               alert("Connection Error: " + JSON.stringify(error));
-               console.error("EmailJS Error:", error);
-            });
-    }
-}
-// INITIALIZE EMAILJS - Replace with your Public Key from the Account tab
-(function() {
-    emailjs.init("YOUR_PUBLIC_KEY"); 
 })();
 
 const testData = {
@@ -91,21 +25,17 @@ const testData = {
         ],
         interpret: (avg) => generateLongReport("Five-Factor Inventory", avg)
     }
-    // Add other tests using the same structure...
 };
 
 function generateLongReport(name, avg) {
     const isHigh = avg > 3;
     const execSummary = isHigh 
-        ? `The assessment indicates a highly proactive and results-driven psychological configuration. Your responses suggest an individual who thrives in high-pressure environments where strategic decision-making and rapid execution are prioritized. There is a clear tendency toward organizational leadership, characterized by an ability to synthesize complex variables into actionable goals. This profile is typical of high-impact contributors who prioritize objective outcomes over subjective process constraints.`
-        : `The assessment reveals a highly methodical and stable psychological baseline, characterized by a preference for structured environments and data-driven consistency. Your profile suggests a deep-seated value for operational excellence and long-term sustainability rather than immediate, high-risk pivots. You likely serve as a foundational pillar in professional settings, ensuring that quality standards are maintained and that team dynamics remain harmonious.`
+        ? `The assessment indicates a highly proactive and results-driven psychological configuration. Your responses suggest an individual who thrives in high-pressure environments where strategic decision-making and rapid execution are prioritized.`
+        : `The assessment reveals a highly methodical and stable psychological baseline, characterized by a preference for structured environments and data-driven consistency.`;
 
     const deepDive = `
-        <p>Your primary behavioral driver is centered on <strong>${isHigh ? 'Strategic Agency' : 'Operational Precision'}</strong>. This cognitive framework influences how you perceive challenges and manage resource allocation.</p>
-        <p>In high-stakes scenarios, you rely on a ${isHigh ? 'broad-scope vision seeking to maximize impact' : 'focused analytical lens seeking to mitigate risk'}. This contributes to a specialized work style that favors ${isHigh ? 'innovation' : 'refinement'}.</p>
-        <p>Interpersonally, you communicate with ${isHigh ? 'high directness' : 'deliberate consensus'}. Your profile indicates that you are most effective when ${isHigh ? 'you have autonomy' : 'there is a validated roadmap'}.</p>
-        <p>When faced with ambiguity, your instinct is to ${isHigh ? 'resolve it through immediate action' : 'deconstruct it through logic'}. This trait is essential for roles requiring ${isHigh ? 'crisis management' : 'complex project stability'}.</p>
-        <p>Your career trajectory is best served by environments valuing ${isHigh ? 'meritocracy and speed' : 'integrity and mastery'}. You provide the rare combination of ${isHigh ? 'visionary logic' : 'system-wide reliability'}.</p>
+        <p>Your primary behavioral driver is centered on <strong>${isHigh ? 'Strategic Agency' : 'Operational Precision'}</strong>.</p>
+        <p>Interpersonally, you communicate with ${isHigh ? 'high directness' : 'deliberate consensus'}.</p>
     `;
 
     return { title: name, summary: execSummary, deepDive: deepDive };
@@ -121,13 +51,15 @@ function showPage(id) {
 
 // Initializing Test Cards
 const grid = document.getElementById('test-grid-ui');
-for (let key in testData) {
-    grid.innerHTML += `
-        <div class="card">
-            <h3>${testData[key].title}</h3>
-            <p>${testData[key].desc}</p>
-            <button class="btn-outline" onclick="loadTest('${key}')">Start Assessment</button>
-        </div>`;
+if(grid) {
+    for (let key in testData) {
+        grid.innerHTML += `
+            <div class="card">
+                <h3>${testData[key].title}</h3>
+                <p>${testData[key].desc}</p>
+                <button class="btn-outline" onclick="loadTest('${key}')">Start Assessment</button>
+            </div>`;
+    }
 }
 
 function loadTest(id) {
@@ -144,27 +76,39 @@ function loadTest(id) {
                 <span>Agree</span>
             </div>
         </div>`).join('');
+    updateProgress(); // Initial reset
 }
 
 function updateProgress() {
     const total = testData[activeKey].questions.length;
-    const answered = document.querySelectorAll('input:checked').length;
+    const answered = document.querySelectorAll('#question-area input:checked').length;
     const pct = Math.round((answered / total) * 100);
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-text').innerText = pct + '% Complete';
+    
+    const fill = document.getElementById('progress-fill');
+    const text = document.getElementById('progress-text');
+    
+    if(fill) fill.style.width = pct + '%';
+    if(text) text.innerText = pct + '% Complete';
 }
 
 function calculateReport() {
     const emailAddr = document.getElementById('user-email').value;
     const form = new FormData(document.getElementById('quiz-form'));
     let total = 0, count = 0;
-    for (let v of form.values()) { total += parseInt(v); count++; }
+    
+    for (let v of form.values()) { 
+        total += parseInt(v); 
+        count++; 
+    }
 
-    if (count < testData[activeKey].questions.length) return alert("Assessment incomplete. Please answer all items.");
+    if (count < testData[activeKey].questions.length) {
+        return alert("Please answer all questions before generating the report.");
+    }
 
     const avg = total / count;
     const report = testData[activeKey].interpret(avg);
 
+    // Display the report UI
     document.getElementById('report-wrapper').innerHTML = `
         <div class="report-header-dark">
             <small>Official Psychometric Analysis</small>
@@ -186,22 +130,22 @@ function calculateReport() {
     
     showPage('report');
 
+    // Email logic
     if (emailAddr) {
-        // Prepare parameters for EmailJS
         const templateParams = {
             user_email: emailAddr,
             test_name: testData[activeKey].title,
             report_summary: report.summary,
-            report_details: report.deepDive.replace(/<[^>]*>/g, '') // Strips HTML tags
+            report_details: report.deepDive.replace(/<[^>]*>/g, '') 
         };
 
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
             .then(function(response) {
                console.log('SUCCESS!', response.status, response.text);
-               alert("Detailed report successfully sent to " + emailAddr);
+               alert("Success! Your report has been sent to " + emailAddr);
             }, function(error) {
                console.error('FAILED...', error);
-               alert("Email delivery failed. Please check the console for technical details.");
+               alert("Delivery failed: " + error.text);
             });
     }
 }
