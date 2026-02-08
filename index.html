@@ -12,7 +12,8 @@
     <nav>
         <div class="logo" onclick="showPage('home')">PEOPLE<span>ASSETS</span></div>
         <div class="nav-links">
-            <a href="#" onclick="showPage('tests')">All Assessments</a>
+            <a href="#" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('tests')">Assessments</a>
         </div>
     </nav>
 
@@ -42,12 +43,11 @@
 
         <div class="engine-layout">
             <h2 id="test-title" style="font-size: 1.2rem; color: #64748b; margin-bottom: 2rem;"></h2>
-            
             <div id="question-container">
                 <div id="active-question-area"></div>
                 <div class="navigation-controls">
                     <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
-                    <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
+                    <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next Question</button>
                 </div>
             </div>
 
