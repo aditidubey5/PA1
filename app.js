@@ -22,15 +22,12 @@ let activeKey = null;
 let currentIdx = 0;
 let userAnswers = {};
 
-/* --- NAVIGATION LOGIC --- */
+/* --- NAVIGATION --- */
 function showPage(id) {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(p => p.style.display = 'none');
-    
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     const target = document.getElementById(id);
     if(target) target.style.display = 'block';
-    
-    if (id === 'tests') renderGrid();
+    if(id === 'tests') renderGrid();
     window.scrollTo(0, 0);
 }
 
@@ -40,13 +37,14 @@ function renderGrid() {
     for (let key in testData) {
         grid.innerHTML += `
             <div class="card">
-                <h3>${testData[key].title}</h3>
+                <div class="badge" style="margin-bottom:10px">Validated</div>
+                <h3 style="margin-bottom:20px">${testData[key].title}</h3>
                 <button class="btn-outline" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
 }
 
-/* --- ENGINE LOGIC --- */
+/* --- TEST ENGINE --- */
 function loadTest(id) {
     activeKey = id;
     currentIdx = 0;
@@ -64,16 +62,16 @@ function renderQuestion() {
     
     area.innerHTML = `
         <div class="q-card fade-in">
-            <span style="color: var(--blue); font-weight: 800; font-size: 0.8rem;">QUESTION ${currentIdx + 1} OF ${testData[activeKey].questions.length}</span>
+            <span style="color: var(--blue); font-weight: 800; font-size: 0.85rem; letter-spacing:1px">QUESTION ${currentIdx + 1} OF ${testData[activeKey].questions.length}</span>
             <p class="q-text">${qText}</p>
             <div class="opt-group">
-                <span style="font-size: 0.7rem; font-weight: 800; color: #64748b;">DISAGREE</span>
+                <span style="font-size: 0.7rem; font-weight: 800; color: #94a3b8;">DISAGREE</span>
                 ${[1, 2, 3, 4, 5].map(v => `
                     <input type="radio" name="activeQ" value="${v}" 
                     ${userAnswers[currentIdx] == v ? 'checked' : ''} 
                     onchange="userAnswers[${currentIdx}]=${v}; updateProgress();">
                 `).join('')}
-                <span style="font-size: 0.7rem; font-weight: 800; color: #64748b;">AGREE</span>
+                <span style="font-size: 0.7rem; font-weight: 800; color: #94a3b8;">AGREE</span>
             </div>
         </div>`;
     
@@ -83,7 +81,7 @@ function renderQuestion() {
 }
 
 function changeQuestion(step) {
-    if (step === 1 && !userAnswers[currentIdx]) return alert("Please select an answer.");
+    if (step === 1 && !userAnswers[currentIdx]) return alert("Please select an option to continue.");
     currentIdx += step;
     if (currentIdx >= testData[activeKey].questions.length) {
         document.getElementById('question-container').style.display = 'none';
@@ -101,11 +99,13 @@ function updateProgress() {
     document.getElementById('progress-text').innerText = pct + '% Complete';
 }
 
-/* --- REPORT & EMAIL --- */
+/* --- ANALYSIS & EMAIL --- */
 function generateLongReport(name, avg) {
     const isHigh = avg > 3;
-    const summary = isHigh ? "High Impact Leadership Profile." : "Methodical Operational Profile.";
-    const deepDive = `<div class="report-section"><h3>Detailed Analysis</h3><p>Your responses suggest a ${isHigh ? 'dynamic' : 'stable'} approach to professional challenges...</p></div>`;
+    const summary = isHigh ? "Strategic Agency: Your profile indicates a results-oriented mindset with high decisiveness." : "Systemic Integrity: Your profile indicates a methodical approach with high operational reliability.";
+    const deepDive = `
+        <div class="report-section"><h3>Detailed Architecture</h3><p>Based on your scoring, you exhibit a ${isHigh ? 'proactive' : 'stable'} behavioral baseline...</p></div>
+        <div class="report-section"><h3>Leadership Impact</h3><p>Your professional value lies in your ability to ${isHigh ? 'drive vision' : 'maintain quality'}...</p></div>`;
     return { title: name, summary, deepDive };
 }
 
@@ -117,11 +117,16 @@ function calculateReport() {
     const report = testData[activeKey].interpret(avg);
 
     document.getElementById('report-wrapper').innerHTML = `
-        <div class="report-header-dark"><h1>${report.title}</h1></div>
+        <div class="report-header-dark">
+            <small style="text-transform:uppercase; letter-spacing:2px">Official People Assets Analysis</small>
+            <h1 style="margin-top:10px">${report.title}</h1>
+        </div>
         <div class="report-body">
-            <p class="summary-text">${report.summary}</p>
+            <p class="summary-text" style="font-size:1.3rem; border-left:6px solid var(--blue); padding-left:20px">${report.summary}</p>
             ${report.deepDive}
-            <button class="btn-primary" onclick="showPage('tests')">Take Another Test</button>
+            <div style="text-align:center; margin-top:3rem">
+                <button class="btn-primary" onclick="window.print()">Download PDF Report</button>
+            </div>
         </div>`;
     showPage('report');
 
@@ -135,7 +140,7 @@ function calculateReport() {
     }
 }
 
-// BOOTSTRAP: This makes sure the app starts on the Home page
+// BOOTSTRAP: Start at Home
 document.addEventListener('DOMContentLoaded', () => {
     showPage('home');
 });
