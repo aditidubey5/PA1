@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>People Assets | Behavioral Analytics</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -10,7 +11,7 @@
 <body>
     <nav>
         <div class="logo-container" onclick="showPage('home')">
-            <img src="People-assets-photo.jpeg" alt="People Assets Logo" class="nav-logo">
+            <img src="People assets photo.jpeg" alt="People Assets Logo" class="nav-logo">
         </div>
         <div class="nav-links">
             <button onclick="showPage('home')">Home</button>
@@ -30,21 +31,22 @@
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 2.5rem;">Available Tests</h2>
-            <div class="test-grid" id="test-grid-ui"></div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 2.5rem; font-weight: 800;">Available Tests</h2>
+            <div class="test-grid" id="test-grid-ui">
+                </div>
         </div>
     </section>
 
     <section id="coaching" class="page" style="display:none;">
         <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Executive Coaching</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800;">Expert Coaching</h2>
             <div class="coaching-form-container">
                 <div class="input-group">
                     <input type="text" id="c-name" placeholder="Full Name">
                     <input type="email" id="c-email" placeholder="Email Address">
                     <input type="tel" id="c-phone" placeholder="Phone Number">
-                    <textarea id="c-msg" placeholder="What are your goals?"></textarea>
-                    <button class="btn-primary" style="width:100%" onclick="alert('Request Sent!')">Submit</button>
+                    <textarea id="c-msg" placeholder="Tell us about your goals..."></textarea>
+                    <button class="btn-primary" style="width:100%" onclick="alert('Message Sent!')">Book Session</button>
                 </div>
             </div>
         </div>
@@ -57,20 +59,21 @@
                 <p id="progress-text">0% Complete</p>
             </div>
         </div>
-        <div class="engine-layout">
-            <h2 id="test-title"></h2>
+        <div class="container" style="max-width:700px;">
+            <h2 id="test-title" style="margin-bottom: 2rem;"></h2>
             <div id="question-container">
                 <div id="active-question-area"></div>
-                <div class="navigation-controls">
+                <div style="display:flex; justify-content:space-between; margin-top:3rem;">
                     <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
                     <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
                 </div>
             </div>
             <div id="final-step" style="display:none;">
                 <div class="card">
-                    <h3>Report Ready</h3>
-                    <input type="email" id="u-email" placeholder="email@example.com">
-                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Analysis</button>
+                    <h3>Analysis Complete</h3>
+                    <p style="margin-bottom: 1.5rem;">Enter your email to view your detailed report.</p>
+                    <input type="email" id="u-email" placeholder="email@example.com" style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:20px;">
+                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Report</button>
                 </div>
             </div>
         </div>
