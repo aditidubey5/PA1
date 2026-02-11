@@ -31,24 +31,9 @@
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 2.5rem; font-weight: 800;">Available Tests</h2>
+            <h2 class="section-title">Available Tests</h2>
             <div class="test-grid" id="test-grid-ui">
                 </div>
-        </div>
-    </section>
-
-    <section id="coaching" class="page" style="display:none;">
-        <div class="container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800;">Expert Coaching</h2>
-            <div class="coaching-form-container">
-                <div class="input-group">
-                    <input type="text" id="c-name" placeholder="Full Name">
-                    <input type="email" id="c-email" placeholder="Email Address">
-                    <input type="tel" id="c-phone" placeholder="Phone Number">
-                    <textarea id="c-msg" placeholder="Tell us about your goals..."></textarea>
-                    <button class="btn-primary" style="width:100%" onclick="alert('Message Sent!')">Book Session</button>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -59,20 +44,20 @@
                 <p id="progress-text">0% Complete</p>
             </div>
         </div>
-        <div class="container" style="max-width:700px;">
-            <h2 id="test-title" style="margin-bottom: 2rem;"></h2>
+        <div class="container" style="max-width:750px;">
+            <h2 id="test-title"></h2>
             <div id="question-container">
                 <div id="active-question-area"></div>
-                <div style="display:flex; justify-content:space-between; margin-top:3rem;">
+                <div class="engine-nav">
                     <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
                     <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
                 </div>
             </div>
             <div id="final-step" style="display:none;">
-                <div class="card">
+                <div class="card result-card">
                     <h3>Analysis Complete</h3>
-                    <p style="margin-bottom: 1.5rem;">Enter your email to view your detailed report.</p>
-                    <input type="email" id="u-email" placeholder="email@example.com" style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:20px;">
+                    <p>Enter your email to view your detailed report.</p>
+                    <input type="email" id="u-email" placeholder="email@example.com">
                     <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Report</button>
                 </div>
             </div>
@@ -81,6 +66,20 @@
 
     <section id="report" class="page" style="display:none;">
         <div id="report-wrapper"></div>
+    </section>
+
+    <section id="coaching" class="page" style="display:none;">
+        <div class="container">
+            <h2 class="section-title">Expert Coaching</h2>
+            <div class="coaching-form-container">
+                <div class="input-group">
+                    <input type="text" id="c-name" placeholder="Full Name">
+                    <input type="email" id="c-email" placeholder="Email Address">
+                    <textarea id="c-msg" placeholder="Tell us about your goals..."></textarea>
+                    <button class="btn-primary" style="width:100%" onclick="alert('Message Sent!')">Book Session</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="app.js"></script>
