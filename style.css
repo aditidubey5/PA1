@@ -1,72 +1,91 @@
 :root {
-    --brand-grad: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    --brand-purple: #a855f7;
-    --text-dark: #1e293b;
-    --text-light: #64748b;
+    /* Updated brand palette from your logo */
+    --brand-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --brand-purple: #8b5cf6;
+    --brand-magenta: #d946ef;
+    --hover-dark-purple: #4c1d95; /* Deep purple for the 'Begin' hover */
+    --text-dark: #0f172a;
     --bg-white: #ffffff;
-    --border: #f1f5f9;
+    --border-light: #f1f5f9;
 }
 
-body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg-white); color: var(--text-dark); }
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    margin: 0; 
+    background: var(--bg-white); 
+    color: var(--text-dark); 
+}
 
 /* NAVIGATION */
 nav { 
-    padding: 0.8rem 10%; 
+    padding: 1rem 10%; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    background: white; 
-    border-bottom: 1px solid var(--border); 
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--border-light); 
     position: sticky; top: 0; z-index: 1000; 
 }
-.logo-container { cursor: pointer; display: flex; align-items: center; }
-.nav-logo { height: 45px; width: auto; } /* Adjust height to fit your logo nicely */
+.logo-container { cursor: pointer; }
+.nav-logo { height: 60px; width: auto; transition: transform 0.3s ease; }
+.nav-logo:hover { transform: scale(1.05); }
 
 .nav-links button { 
     background: none; border: none; font-weight: 700; 
-    margin-left: 25px; cursor: pointer; color: var(--text-light); transition: 0.3s;
+    margin-left: 30px; cursor: pointer; color: var(--text-dark); 
+    font-size: 1rem; position: relative;
 }
-.nav-links button:hover { color: var(--brand-purple); }
+.nav-links button::after {
+    content: ''; position: absolute; width: 0; height: 3px;
+    bottom: -5px; left: 0; background: var(--brand-grad);
+    transition: width 0.3s;
+}
+.nav-links button:hover::after { width: 100%; }
 
-/* HERO */
-.hero { padding: 120px 10%; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.hero h1 { font-size: 4rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: -2px; }
+/* HERO SECTION */
+.hero { padding: 140px 10%; text-align: center; background: radial-gradient(circle at top right, #f5f3ff, transparent); }
+.hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -3px; line-height: 1; }
 .text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.badge { background: #fdf2f8; color: #db2777; padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; margin-bottom: 20px; }
+.badge { 
+    background: linear-gradient(to right, #f5f3ff, #fdf2f8); 
+    color: var(--brand-purple); padding: 8px 20px; border-radius: 50px; 
+    font-weight: 800; font-size: 0.8rem; margin-bottom: 25px; border: 1px solid #ddd6fe;
+}
 
-/* TEST CARDS & BUTTONS */
-.container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-
+/* CARDS & TEST GRID */
 .card { 
-    background: white; padding: 3rem; border-radius: 24px; 
-    border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: white; padding: 3rem; border-radius: 30px; 
+    border: 2px solid var(--border-light); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
-.card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1); border-color: var(--brand-purple); }
+.card:hover { 
+    transform: translateY(-15px); 
+    border-color: var(--brand-magenta);
+    box-shadow: 0 30px 60px -12px rgba(168, 85, 247, 0.2);
+}
 
-/* The Requested "Dark" Hover Effect */
+/* BUTTONS & HOVER STATES */
 .btn-outline { 
-    border: 2px solid var(--brand-purple); color: var(--brand-purple); 
-    background: transparent; padding: 1rem 2rem; border-radius: 14px; 
-    font-weight: 700; cursor: pointer; transition: 0.3s;
+    border: 2.5px solid var(--brand-purple); color: var(--brand-purple); 
+    background: transparent; padding: 1.2rem 2rem; border-radius: 18px; 
+    font-weight: 800; cursor: pointer; transition: all 0.3s ease;
 }
+
+/* The requested "Match the shade" hover effect */
 .btn-outline:hover { 
-    background: var(--text-dark); /* Turns dark on hover */
+    background: var(--hover-dark-purple); 
     color: white; 
-    border-color: var(--text-dark);
+    border-color: var(--hover-dark-purple);
+    transform: translateY(-2px);
 }
 
 .btn-primary { 
     background: var(--brand-grad); color: white; border: none; 
-    padding: 1.2rem 2.8rem; border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; 
+    padding: 1.4rem 3rem; border-radius: 18px; font-weight: 800; 
+    cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3);
 }
-.btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(168, 85, 247, 0.5); }
 
-/* ENGINE & FORM */
-.sticky-progress { position: sticky; top: 70px; background: white; padding: 1rem 0; border-bottom: 1px solid var(--border); z-index: 999; }
-.progress-bar { width: 100%; height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-#progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.4s; }
-.q-card { background: white; padding: 3.5rem; border-radius: 30px; border: 1px solid var(--border); }
-.coaching-form-container { max-width: 550px; margin: 0 auto; background: #f8fafc; padding: 3rem; border-radius: 30px; }
-.input-group input, .input-group textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; }
+/* ENGINE PROGRESS */
+#progress-fill { height: 100%; background: var(--brand-grad); transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
