@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>People Assets | Behavioral Excellence</title>
+    <title>People Assets | Behavioral Analytics</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <nav>
@@ -13,25 +14,70 @@
         </div>
         <div class="nav-links">
             <button onclick="showPage('home')">Home</button>
-            <button onclick="showPage('tests')">Assessments</button>
+            <button onclick="showPage('tests')">Tests</button>
             <button onclick="showPage('coaching')">Coaching</button>
         </div>
     </nav>
 
     <section id="home" class="page">
         <div class="hero">
-            <div class="badge">ELEVATE PERFORMANCE</div>
-            <h1>The Science of <br><span class="text-gradient">Human Capital</span></h1>
-            <p>Go beyond the surface. Utilize advanced behavioral analytics to optimize professional alignment and leadership trajectory.</p>
-            <button class="btn-primary" onclick="showPage('tests')">Explore Assessments</button>
+            <div class="badge">Advanced Psychometrics</div>
+            <h1>Unlock Your <span class="text-gradient">Core Potential</span></h1>
+            <p>Scientific behavioral analysis designed to map human potential and professional trajectory.</p>
+            <button class="btn-primary" onclick="showPage('tests')">Get Started</button>
         </div>
     </section>
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 3rem;">Discovery <span class="text-gradient">Lab</span></h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 2.5rem;">Available Tests</h2>
             <div class="test-grid" id="test-grid-ui"></div>
         </div>
+    </section>
+
+    <section id="coaching" class="page" style="display:none;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Executive Coaching</h2>
+            <div class="coaching-form-container">
+                <div class="input-group">
+                    <input type="text" id="c-name" placeholder="Full Name">
+                    <input type="email" id="c-email" placeholder="Email Address">
+                    <input type="tel" id="c-phone" placeholder="Phone Number">
+                    <textarea id="c-msg" placeholder="What are your goals?"></textarea>
+                    <button class="btn-primary" style="width:100%" onclick="alert('Request Sent!')">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="engine" class="page" style="display:none;">
+        <div class="sticky-progress">
+            <div class="progress-wrapper">
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+                <p id="progress-text">0% Complete</p>
+            </div>
+        </div>
+        <div class="engine-layout">
+            <h2 id="test-title"></h2>
+            <div id="question-container">
+                <div id="active-question-area"></div>
+                <div class="navigation-controls">
+                    <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
+                    <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
+                </div>
+            </div>
+            <div id="final-step" style="display:none;">
+                <div class="card">
+                    <h3>Report Ready</h3>
+                    <input type="email" id="u-email" placeholder="email@example.com">
+                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Analysis</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="report" class="page" style="display:none;">
+        <div id="report-wrapper"></div>
     </section>
 
     <script src="app.js"></script>
