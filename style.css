@@ -4,97 +4,69 @@
     --text-dark: #1e293b;
     --text-light: #64748b;
     --bg-white: #ffffff;
-    --bg-alt: #f8fafc;
     --border: #f1f5f9;
 }
 
-body { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    margin: 0; 
-    background: var(--bg-white); 
-    color: var(--text-dark); 
-}
+body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg-white); color: var(--text-dark); }
 
 /* NAVIGATION */
 nav { 
-    padding: 1.2rem 10%; 
+    padding: 0.8rem 10%; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     background: white; 
     border-bottom: 1px solid var(--border); 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; 
+    position: sticky; top: 0; z-index: 1000; 
 }
-.logo { font-weight: 800; font-size: 1.4rem; cursor: pointer; color: var(--text-dark); }
-.logo span { color: var(--brand-purple); }
+.logo-container { cursor: pointer; display: flex; align-items: center; }
+.nav-logo { height: 45px; width: auto; } /* Adjust height to fit your logo nicely */
 
 .nav-links button { 
     background: none; border: none; font-weight: 700; 
-    margin-left: 25px; cursor: pointer; color: var(--text-light); 
-    transition: 0.3s;
+    margin-left: 25px; cursor: pointer; color: var(--text-light); transition: 0.3s;
 }
 .nav-links button:hover { color: var(--brand-purple); }
 
-/* HERO & GRADIENTS */
+/* HERO */
 .hero { padding: 120px 10%; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .hero h1 { font-size: 4rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: -2px; }
+.text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.badge { background: #fdf2f8; color: #db2777; padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; margin-bottom: 20px; }
 
-.text-gradient { 
-    background: var(--brand-grad); 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-}
-
-.badge { 
-    background: #fdf2f8; color: #db2777; 
-    padding: 6px 16px; border-radius: 50px; 
-    font-weight: 700; font-size: 0.75rem; margin-bottom: 20px; 
-}
-
-/* CARDS & HOVER */
+/* TEST CARDS & BUTTONS */
 .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
 .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
 
 .card { 
     background: white; padding: 3rem; border-radius: 24px; 
-    border: 1px solid var(--border); text-align: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    cursor: pointer;
+    border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-.card:hover { 
-    transform: translateY(-12px) scale(1.02); 
-    box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.15);
-    border-color: var(--brand-purple);
-}
+.card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1); border-color: var(--brand-purple); }
 
-/* BUTTONS */
-.btn-primary { 
-    background: var(--brand-grad); color: white; border: none; 
-    padding: 1.2rem 2.8rem; border-radius: 14px; font-weight: 700; 
-    cursor: pointer; transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.3);
-}
-.btn-primary:hover { transform: scale(1.05); opacity: 0.9; }
-
+/* The Requested "Dark" Hover Effect */
 .btn-outline { 
     border: 2px solid var(--brand-purple); color: var(--brand-purple); 
     background: transparent; padding: 1rem 2rem; border-radius: 14px; 
-    font-weight: 700; cursor: pointer; 
+    font-weight: 700; cursor: pointer; transition: 0.3s;
+}
+.btn-outline:hover { 
+    background: var(--text-dark); /* Turns dark on hover */
+    color: white; 
+    border-color: var(--text-dark);
 }
 
-/* ENGINE */
-.sticky-progress { position: sticky; top: 72px; background: white; padding: 1rem 0; border-bottom: 1px solid var(--border); z-index: 999; }
+.btn-primary { 
+    background: var(--brand-grad); color: white; border: none; 
+    padding: 1.2rem 2.8rem; border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; 
+}
+.btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* ENGINE & FORM */
+.sticky-progress { position: sticky; top: 70px; background: white; padding: 1rem 0; border-bottom: 1px solid var(--border); z-index: 999; }
 .progress-bar { width: 100%; height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
 #progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.4s; }
-
-.q-card { background: white; padding: 3.5rem; border-radius: 30px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
-input[type="radio"] { accent-color: var(--brand-purple); width: 25px; height: 25px; cursor: pointer; }
-
-/* COACHING FORM */
-.coaching-form-container { max-width: 550px; margin: 0 auto; background: var(--bg-alt); padding: 3rem; border-radius: 30px; }
-.input-group input, .input-group textarea { 
-    width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); 
-    border-radius: 12px; font-family: inherit; font-size: 1rem;
-}
+.q-card { background: white; padding: 3.5rem; border-radius: 30px; border: 1px solid var(--border); }
+.coaching-form-container { max-width: 550px; margin: 0 auto; background: #f8fafc; padding: 3rem; border-radius: 30px; }
+.input-group input, .input-group textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; }
