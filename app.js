@@ -1,10 +1,13 @@
-/* --- CONFIGURATION --- */
+/* --- 1. CONFIGURATION & INITIALIZATION --- */
 const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
 const SERVICE_ID = "service_u11zlzf";
 const TEMPLATE_ID = "template_zpcklyu";
 
-(function() { emailjs.init(PUBLIC_KEY); })();
+(function() { 
+    emailjs.init(PUBLIC_KEY); 
+})();
 
+/* --- 2. ASSESSMENT DATA --- */
 const testData = {
     'odat': {
         title: "Open DISC Assessment (ODAT)",
@@ -18,38 +21,55 @@ const testData = {
     }
 };
 
+/* --- 3. STATE MANAGEMENT --- */
 let activeKey = null;
 let currentIdx = 0;
 let userAnswers = {};
 
-/* --- NAVIGATION --- */
+/* --- 4. NAVIGATION LOGIC --- */
 function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    // Hide all pages
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.style.display = 'none');
+
+    // Show selected page
     const target = document.getElementById(id);
-    if(target) target.style.display = 'block';
-    if(id === 'tests') renderGrid();
-    window.scrollTo(0, 0);
+    if(target) {
+        target.style.display = 'block';
+    }
+
+    // Refresh assessment grid if entering lab
+    if(id === 'tests') {
+        renderGrid();
+    }
+
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderGrid() {
     const grid = document.getElementById('test-grid-ui');
+    if(!grid) return;
+    
     grid.innerHTML = "";
     for (let key in testData) {
         grid.innerHTML += `
             <div class="card">
-                <div class="badge" style="margin-bottom:10px">Validated</div>
-                <h3 style="margin-bottom:20px">${testData[key].title}</h3>
-                <button class="btn-outline" onclick="loadTest('${key}')">Begin Analysis</button>
+                <div class="mini-badge">VALIDATED</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 15px 0;">${testData[key].title}</h3>
+                <p style="color: #636e72; margin-bottom: 25px;">Scientific behavioral mapping for personal clarity.</p>
+                <button class="btn-solid-sage" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
 }
 
-/* --- TEST ENGINE --- */
+/* --- 5. ASSESSMENT ENGINE --- */
 function loadTest(id) {
     activeKey = id;
     currentIdx = 0;
     userAnswers = {};
     showPage('engine');
+    
     document.getElementById('test-title').innerText = testData[id].title;
     document.getElementById('question-container').style.display = 'block';
     document.getElementById('final-step').style.display = 'none';
@@ -62,7 +82,9 @@ function renderQuestion() {
     
     area.innerHTML = `
         <div class="q-card fade-in">
-            <span style="color: var(--blue); font-weight: 800; font-size: 0.85rem; letter-spacing:1px">QUESTION ${currentIdx + 1} OF ${testData[activeKey].questions.length}</span>
+            <span style="color: #8fab77; font-weight: 800; font-size: 0.85rem; letter-spacing:1px">
+                QUESTION ${currentIdx + 1} OF ${testData[activeKey].questions.length}
+            </span>
             <p class="q-text">${qText}</p>
             <div class="opt-group">
                 <span style="font-size: 0.7rem; font-weight: 800; color: #94a3b8;">DISAGREE</span>
@@ -81,7 +103,11 @@ function renderQuestion() {
 }
 
 function changeQuestion(step) {
-    if (step === 1 && !userAnswers[currentIdx]) return alert("Please select an option to continue.");
+    if (step === 1 && !userAnswers[currentIdx]) {
+        alert("Please select an option to continue.");
+        return;
+    }
+    
     currentIdx += step;
     if (currentIdx >= testData[activeKey].questions.length) {
         document.getElementById('question-container').style.display = 'none';
@@ -99,13 +125,19 @@ function updateProgress() {
     document.getElementById('progress-text').innerText = pct + '% Complete';
 }
 
-/* --- ANALYSIS & EMAIL --- */
+/* --- 6. REPORT GENERATION & EMAIL --- */
 function generateLongReport(name, avg) {
     const isHigh = avg > 3;
-    const summary = isHigh ? "Strategic Agency: Your profile indicates a results-oriented mindset with high decisiveness." : "Systemic Integrity: Your profile indicates a methodical approach with high operational reliability.";
+    const summary = isHigh 
+        ? "High Impact Profile: You demonstrate a strong preference for strategic agency and decisive action." 
+        : "Foundational Profile: You exhibit high systemic integrity and a methodical approach to complex tasks.";
+    
     const deepDive = `
-        <div class="report-section"><h3>Detailed Architecture</h3><p>Based on your scoring, you exhibit a ${isHigh ? 'proactive' : 'stable'} behavioral baseline...</p></div>
-        <div class="report-section"><h3>Leadership Impact</h3><p>Your professional value lies in your ability to ${isHigh ? 'drive vision' : 'maintain quality'}...</p></div>`;
+        <div class="report-section">
+            <h3 style="font-family: 'Playfair Display', serif;">Core Architecture</h3>
+            <p>Your responses suggest a ${isHigh ? 'dynamic' : 'stable'} behavioral baseline. You likely excel in environments that value ${isHigh ? 'rapid pivot and vision' : 'consistency and data-backed security'}.</p>
+        </div>`;
+    
     return { title: name, summary, deepDive };
 }
 
@@ -117,30 +149,7 @@ function calculateReport() {
     const report = testData[activeKey].interpret(avg);
 
     document.getElementById('report-wrapper').innerHTML = `
-        <div class="report-header-dark">
-            <small style="text-transform:uppercase; letter-spacing:2px">Official People Assets Analysis</small>
-            <h1 style="margin-top:10px">${report.title}</h1>
+        <div class="report-header-dark" style="background: #2d3436; color: white; padding: 4rem 2rem; text-align: center;">
+            <small style="text-transform:uppercase; letter-spacing:2px">Discovery Hub Analysis</small>
+            <h1 style="font-family: 'Playfair Display', serif; margin-top:10px">${report.title}</h1>
         </div>
-        <div class="report-body">
-            <p class="summary-text" style="font-size:1.3rem; border-left:6px solid var(--blue); padding-left:20px">${report.summary}</p>
-            ${report.deepDive}
-            <div style="text-align:center; margin-top:3rem">
-                <button class="btn-primary" onclick="window.print()">Download PDF Report</button>
-            </div>
-        </div>`;
-    showPage('report');
-
-    if (emailAddr) {
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-            user_email: emailAddr,
-            test_name: report.title,
-            report_summary: report.summary,
-            report_details: report.deepDive.replace(/<[^>]*>/g, '')
-        });
-    }
-}
-
-// BOOTSTRAP: Start at Home
-document.addEventListener('DOMContentLoaded', () => {
-    showPage('home');
-});
