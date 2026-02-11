@@ -1,123 +1,42 @@
-:root {
-    --sage-dark: #8fab77;
-    --sage-light: #eef2e6;
-    --text-main: #2d3436;
-    --white: #ffffff;
-    --border: #e2e8f0;
-}
+:root { --dark: #0f172a; --blue: #2563eb; --bg: #f8fafc; --white: #ffffff; --border: #e2e8f0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: 0;
-    background-color: var(--sage-light);
-    color: var(--text-main);
-}
+/* NAV */
+nav { padding: 1rem 10%; display: flex; justify-content: space-between; align-items: center; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+.logo { font-weight: 800; font-size: 1.4rem; cursor: pointer; }
+.logo span { color: var(--blue); }
+.nav-links button { background: none; border: none; font-weight: 600; margin-left: 20px; cursor: pointer; color: var(--dark); font-size: 0.9rem; }
 
-/* NAVIGATION MATCHING IMAGE */
-.main-nav {
-    margin: 20px auto;
-    width: 90%;
-    max-width: 1200px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 15px 30px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 20px;
-    z-index: 1000;
-}
+/* HERO */
+.hero { padding: 120px 10%; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.hero h1 { font-size: 3.5rem; margin-bottom: 1rem; max-width: 800px; }
+.text-gradient { background: linear-gradient(to right, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.badge { background: #dbeafe; color: var(--blue); padding: 5px 15px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; }
 
-.logo-wrapper { display: flex; align-items: center; cursor: pointer; }
-.logo-icon { 
-    background: var(--sage-dark); 
-    color: white; 
-    width: 35px; height: 35px; 
-    display: flex; align-items: center; justify-content: center; 
-    border-radius: 8px; font-weight: 800; margin-right: 12px;
+/* GRID & HOVER */
+.container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.card { 
+    background: white; padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; 
 }
-.logo-text { font-weight: 700; font-size: 1.2rem; color: #1a1a1a; }
+.card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--blue); }
 
-.nav-links a { 
-    text-decoration: none; color: #636e72; 
-    margin: 0 15px; font-weight: 500; font-size: 0.95rem; 
-}
-
-.btn-book { 
-    background: var(--sage-dark); color: white; border: none; 
-    padding: 10px 25px; border-radius: 15px; font-weight: 600; cursor: pointer;
-}
-
-/* HERO SECTION MATCHING IMAGE */
-.discovery-hero {
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 10%;
-}
-
-.mini-badge {
-    background: #e1e9d5;
-    color: #5d6d4a;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
-
-.discovery-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    margin: 0;
-    color: #1e272e;
-}
-
-.discovery-hero h1 span {
-    font-style: italic;
-    font-weight: 400;
-    color: #4b5a38;
-}
-
-.discovery-hero p {
-    max-width: 600px;
-    font-size: 1.25rem;
-    color: #636e72;
-    margin: 20px 0 40px 0;
-    line-height: 1.6;
-}
+/* COACHING FORM */
+.coaching-form-container { max-width: 500px; margin: 0 auto; background: white; padding: 3rem; border-radius: 24px; border: 1px solid var(--border); }
+.input-group input, .input-group textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; }
+.input-group textarea { height: 100px; }
 
 /* BUTTONS */
-.hero-cta-group { display: flex; gap: 20px; }
-.btn-solid-sage {
-    background: var(--sage-dark);
-    color: white; border: none;
-    padding: 18px 35px; border-radius: 15px;
-    font-weight: 700; cursor: pointer; transition: 0.3s;
-}
-.btn-outline-sage {
-    background: transparent;
-    border: 2px solid var(--sage-dark);
-    color: #5d6d4a;
-    padding: 18px 35px; border-radius: 15px;
-    font-weight: 700; cursor: pointer;
-}
+.btn-primary { background: var(--dark); color: white; border: none; padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 700; cursor: pointer; }
+.btn-outline { border: 2px solid var(--blue); color: var(--blue); background: transparent; padding: 1rem 2rem; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-/* ASSESSMENT CARDS (RESTORED HOVER) */
-.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-.card { 
-    background: white; padding: 40px; border-radius: 25px; 
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-
-/* MISC */
-.serif-title { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; }
-.page { animation: fadeIn 0.6s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* ENGINE */
+.sticky-progress { position: sticky; top: 65px; background: white; padding: 1rem 0; border-bottom: 1px solid var(--border); z-index: 999; }
+.progress-wrapper { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+.progress-bar { width: 100%; height: 8px; background: #eee; border-radius: 10px; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--blue); width: 0%; transition: 0.3s; }
+.engine-layout { max-width: 600px; margin: 40px auto; text-align: center; }
+.q-card { background: white; padding: 3rem; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 2rem; }
+.opt-group { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
+input[type="radio"] { width: 25px; height: 25px; cursor: pointer; }
