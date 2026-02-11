@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Behavioral Analytics</title>
+    <title>People Assets | Analytics</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
@@ -20,31 +19,31 @@
 
     <section id="home" class="page">
         <div class="hero">
-            <div class="badge">Advanced Psychometrics</div>
-            <h1>Unlock Your <span class="text-gradient">Core Assets</span></h1>
-            <p>Scientific behavioral analysis designed to map human potential and professional trajectory.</p>
+            <div class="badge">Professional Grade</div>
+            <h1>Map Your <span class="text-gradient">People Assets</span></h1>
+            <p>Scientific psychometric framework designed for clarity and growth.</p>
             <button class="btn-primary" onclick="showPage('tests')">Get Started</button>
         </div>
     </section>
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Assessment Battery</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Assessment Library</h2>
             <div class="test-grid" id="test-grid-ui"></div>
         </div>
     </section>
 
     <section id="coaching" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Executive Coaching</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Expert Coaching</h2>
+            <p style="color: var(--text-light); margin-bottom: 3rem;">Connect with our lead specialists for a deep dive.</p>
             <div class="coaching-form-container">
-                <p>Request a 1-on-1 session to decode your results.</p>
                 <div class="input-group">
-                    <input type="text" id="coach-name" placeholder="Full Name">
-                    <input type="email" id="coach-email" placeholder="Email Address">
-                    <input type="tel" id="coach-phone" placeholder="Phone Number">
-                    <textarea id="coach-msg" placeholder="What would you like to focus on?"></textarea>
-                    <button class="btn-primary" style="width:100%" onclick="alert('Request Sent!')">Submit Request</button>
+                    <input type="text" id="c-name" placeholder="Your Name">
+                    <input type="email" id="c-email" placeholder="Your Email">
+                    <input type="tel" id="c-phone" placeholder="Phone Number">
+                    <textarea id="c-msg" placeholder="How can we help?"></textarea>
+                    <button class="btn-primary" style="width:100%" onclick="alert('Sent!')">Book Session</button>
                 </div>
             </div>
         </div>
@@ -52,32 +51,32 @@
 
     <section id="engine" class="page" style="display:none;">
         <div class="sticky-progress">
-            <div class="progress-wrapper">
+            <div class="progress-wrapper" style="max-width:700px; margin:0 auto; padding:0 20px;">
                 <div class="progress-bar"><div id="progress-fill"></div></div>
-                <span id="progress-text">0% Complete</span>
+                <p id="progress-text" style="font-weight:800; font-size:0.8rem; margin-top:10px; color:var(--brand-purple)">0% Complete</p>
             </div>
         </div>
-        <div class="engine-layout">
-            <h2 id="test-title"></h2>
+        <div class="container" style="max-width:700px;">
+            <h3 id="test-title" style="color:var(--text-light); margin-bottom:2rem;"></h3>
             <div id="question-container">
                 <div id="active-question-area"></div>
-                <div class="navigation-controls">
+                <div style="display:flex; justify-content:space-between; margin-top:3rem;">
                     <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
                     <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
                 </div>
             </div>
             <div id="final-step" style="display:none;">
-                <div class="email-capture-box">
-                    <h3>Analysis Ready</h3>
-                    <input type="email" id="user-email" placeholder="Enter email for report">
+                <div class="card">
+                    <h3>Report Ready</h3>
+                    <input type="email" id="u-email" placeholder="Enter email for delivery" style="width:100%; padding:15px; border-radius:12px; border:1px solid var(--border); margin:20px 0;">
+                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">View Analysis</button>
                 </div>
-                <button class="btn-primary large" onclick="calculateReport()">Generate Analysis</button>
             </div>
         </div>
     </section>
 
     <section id="report" class="page" style="display:none;">
-        <div class="report-wrapper" id="report-wrapper"></div>
+        <div id="report-wrapper"></div>
     </section>
 
     <script src="app.js"></script>
