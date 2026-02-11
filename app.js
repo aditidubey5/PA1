@@ -1,12 +1,11 @@
 const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
 const SERVICE_ID = "service_u11zlzf";
 const TEMPLATE_ID = "template_zpcklyu";
-
 (function() { emailjs.init(PUBLIC_KEY); })();
 
 const testData = {
-    'odat': { title: "DISC Assessment", questions: ["I am assertive and demand results.", "I enjoy influencing others.", "I prefer a stable environment.", "I pay close attention to details.", "I take charge in groups.", "I am sociable.", "I am patient.", "I value accuracy.", "I am direct.", "I like to inspire."] },
-    'bigfive': { title: "Big Five Inventory", questions: ["I am the life of the party.", "I feel concern for others.", "I am always prepared.", "I get stressed easily.", "I have a rich vocabulary.", "I am quiet.", "I am interested in people.", "I leave a mess.", "I am relaxed.", "I like abstract ideas."] }
+    'odat': { title: "Open DISC Assessment (ODAT)", questions: ["I am assertive and demand results.", "I enjoy influencing others.", "I prefer a stable environment.", "I pay close attention to details.", "I tend to take charge in groups.", "I am sociable.", "I am patient.", "I value accuracy.", "I am direct.", "I like to inspire others."] },
+    'bigfive': { title: "Big Five Personality Inventory", questions: ["I am the life of the party.", "I feel concern for others.", "I am always prepared.", "I get stressed easily.", "I have a rich vocabulary.", "I am quiet.", "I am interested in people.", "I leave a mess.", "I am relaxed.", "I like abstract ideas."] }
 };
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
@@ -24,11 +23,12 @@ function renderGrid() {
     for (let key in testData) {
         grid.innerHTML += `
             <div class="card">
-                <h3 style="margin-bottom:25px; font-size: 1.8rem; font-weight: 800;">${testData[key].title}</h3>
+                <h3 style="margin-bottom:20px; font-weight:800;">${testData[key].title}</h3>
                 <button class="btn-outline" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
 }
+
 function loadTest(id) {
     activeKey = id; currentIdx = 0; userAnswers = {};
     showPage('engine');
@@ -41,21 +41,20 @@ function loadTest(id) {
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
     document.getElementById('active-question-area').innerHTML = `
-        <div class="q-card">
-            <p style="font-weight:800; color:var(--brand-purple); font-size:0.8rem;">STEP ${currentIdx + 1}</p>
-            <p style="font-size:1.6rem; font-weight:700; margin:1.5rem 0;">${qText}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem;">
-                <span style="font-weight:700; font-size:0.7rem; color:var(--text-light)">DISAGREE</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();">`).join('')}
-                <span style="font-weight:700; font-size:0.7rem; color:var(--text-light)">AGREE</span>
+        <div style="background:white; padding:3rem; border-radius:25px; border:1px solid #eee;">
+            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem;">QUESTION ${currentIdx + 1}</p>
+            <p style="font-size:1.5rem; font-weight:700; margin-bottom:2rem;">${qText}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.7rem; font-weight:800; color:#94a3b8;">DISAGREE</span>
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:25px; height:25px; accent-color:var(--brand-purple);">`).join('')}
+                <span style="font-size:0.7rem; font-weight:800; color:#94a3b8;">AGREE</span>
             </div>
         </div>`;
     document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
-    document.getElementById('next-btn').innerText = currentIdx === testData[activeKey].questions.length - 1 ? "Finish" : "Next";
 }
 
 function changeQuestion(step) {
-    if (step === 1 && !userAnswers[currentIdx]) return alert("Select an answer.");
+    if (step === 1 && !userAnswers[currentIdx]) return alert("Please select an answer.");
     currentIdx += step;
     if (currentIdx >= testData[activeKey].questions.length) {
         document.getElementById('question-container').style.display = 'none';
@@ -73,8 +72,7 @@ function calculateReport() {
     const email = document.getElementById('u-email').value;
     if(!email) return alert("Email required.");
     showPage('report');
-    document.getElementById('report-wrapper').innerHTML = `<div class="container"><h1>Analysis Sent!</h1><p>Results for ${testData[activeKey].title} sent to ${email}</p><button class="btn-primary" onclick="showPage('home')">Back Home</button></div>`;
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, { user_email: email, test_name: testData[activeKey].title });
+    document.getElementById('report-wrapper').innerHTML = `<div class="container"><h1>Results Sent!</h1><p>Your analysis for ${testData[activeKey].title} is on its way to ${email}.</p><button class="btn-primary" onclick="showPage('home')">Return Home</button></div>`;
 }
 
 document.addEventListener('DOMContentLoaded', () => showPage('home'));
