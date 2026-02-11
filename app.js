@@ -23,13 +23,12 @@ function renderGrid() {
     grid.innerHTML = "";
     for (let key in testData) {
         grid.innerHTML += `
-            <div class="card" onclick="loadTest('${key}')">
-                <h3 style="margin-bottom:20px">${testData[key].title}</h3>
-                <button class="btn-outline" style="width:100%">Begin</button>
+            <div class="card">
+                <h3 style="margin-bottom:25px; font-size: 1.8rem; font-weight: 800;">${testData[key].title}</h3>
+                <button class="btn-outline" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
 }
-
 function loadTest(id) {
     activeKey = id; currentIdx = 0; userAnswers = {};
     showPage('engine');
