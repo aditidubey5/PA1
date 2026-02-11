@@ -3,32 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Behavioral Analytics</title>
+    <title>People Assets | Discovery Hub</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="logo" onclick="showPage('home')">PEOPLE<span>ASSETS</span></div>
-        <div class="nav-links">
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('tests')">Assessments</a>
+    <nav class="main-nav">
+        <div class="logo-wrapper" onclick="showPage('home')">
+            <div class="logo-icon">S</div>
+            <div class="logo-text">Discovery Hub</div>
         </div>
+        <div class="nav-links">
+            <a href="#" onclick="showPage('home')" id="nav-home">Home</a>
+            <a href="#" onclick="showPage('tests')" id="nav-tests">Discovery Lab</a>
+            <a href="#" onclick="showPage('coaching')" id="nav-coaching">Coaching</a>
+        </div>
+        <button class="btn-book">Book Now</button>
     </nav>
 
     <section id="home" class="page">
-        <div class="hero">
-            <div class="badge">Advanced Psychometrics</div>
-            <h1>Unlock Your <span class="text-gradient">Core Assets</span></h1>
-            <p>Scientific behavioral analysis designed to map human potential and professional trajectory.</p>
-            <button class="btn-primary" onclick="showPage('tests')">Get Started</button>
+        <div class="discovery-hero">
+            <div class="mini-badge">PRECISION GROWTH</div>
+            <h1>Tools for <span>Clarity</span></h1>
+            <p>Moving from insight to action. We provide the psychometric framework to help you navigate life with intentionality.</p>
+            <div class="hero-cta-group">
+                <button class="btn-solid-sage" onclick="showPage('tests')">Explore the Library</button>
+                <button class="btn-outline-sage">How it Works</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="coaching" class="page" style="display:none;">
+        <div class="container">
+            <div class="mini-badge">EXECUTIVE GUIDANCE</div>
+            <h2 class="serif-title">Personalized Coaching</h2>
+            <p>One-on-one sessions to integrate your assessment insights into actionable career growth.</p>
+            <div class="card" style="max-width: 600px; margin: 40px auto;">
+                <h3>Schedule a Session</h3>
+                <p>Speak with our lead consultants to decode your profile results.</p>
+                <button class="btn-solid-sage">View Calendar</button>
+            </div>
         </div>
     </section>
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Available Instruments</h2>
+            <div class="mini-badge">THE LABORATORY</div>
+            <h2 class="serif-title">Assessment Library</h2>
             <div class="test-grid" id="test-grid-ui"></div>
         </div>
     </section>
@@ -40,9 +62,8 @@
                 <span id="progress-text">0% Complete</span>
             </div>
         </div>
-
         <div class="engine-layout">
-            <h2 id="test-title" style="font-size: 1.2rem; color: #64748b; margin-bottom: 2rem;"></h2>
+            <h2 id="test-title"></h2>
             <div id="question-container">
                 <div id="active-question-area"></div>
                 <div class="navigation-controls">
@@ -50,11 +71,9 @@
                     <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next Question</button>
                 </div>
             </div>
-
             <div id="final-step" style="display:none;">
                 <div class="email-capture-box">
                     <h3>Analysis Ready</h3>
-                    <p>Enter your email to receive the full People Assets Comprehensive Report.</p>
                     <input type="email" id="user-email" placeholder="email@example.com">
                 </div>
                 <button class="btn-primary large" onclick="calculateReport()">Generate Analysis</button>
