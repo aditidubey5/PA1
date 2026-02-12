@@ -35,7 +35,7 @@ function renderGrid() {
     for (let key in testData) {
         grid.innerHTML += `
             <div class="card">
-                <h3 style="margin-bottom:30px; font-weight:800; font-size:1.8rem;">${testData[key].title}</h3>
+                <h3 style="margin-bottom:30px; font-weight:800; font-size:1.6rem;">${testData[key].title}</h3>
                 <button class="btn-outline" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
@@ -53,13 +53,13 @@ function loadTest(id) {
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
     document.getElementById('active-question-area').innerHTML = `
-        <div style="background:white; padding:4rem; border-radius:30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);">
-            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem;">QUESTION ${currentIdx + 1}</p>
+        <div style="background:white; padding:4rem; border-radius:40px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align:center;">
+            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem;">STEP ${currentIdx + 1}</p>
             <p style="font-size:1.8rem; font-weight:800; margin-bottom:3rem; line-height:1.2;">${qText}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-weight:800; color:#94a3b8;">NEVER</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:30px; height:30px; accent-color:var(--brand-magenta);">`).join('')}
-                <span style="font-weight:800; color:#94a3b8;">ALWAYS</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; max-width:500px; margin:0 auto;">
+                <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">NEVER</span>
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:30px; height:30px; accent-color:var(--brand-magenta); cursor:pointer;">`).join('')}
+                <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">ALWAYS</span>
             </div>
         </div>`;
     document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
@@ -89,9 +89,17 @@ function calculateReport() {
 
     if (activeKey === 'friction') {
         let cat = totalScore <= 12 ? "The Essentialist" : (totalScore <= 21 ? "Balanced Achiever" : "Friction Seeker");
-        resultHTML = `<div class="container"><h1>Result: ${cat}</h1><button class="btn-primary" onclick="showPage('home')">Back Home</button></div>`;
+        resultHTML = `
+            <div class="container" style="text-align:left; max-width:800px;">
+                <h1 class="text-gradient" style="font-size:3.5rem;">Result: ${cat}</h1>
+                <div class="card" style="margin-top:40px; text-align:left; border-left: 8px solid var(--brand-magenta);">
+                    <h3 style="color:var(--brand-purple)">Mindset Overview</h3>
+                    <p>Based on your Friction Score of ${totalScore}/30, you are currently operating in the ${cat} zone.</p>
+                </div>
+                <button class="btn-primary" style="margin-top:40px" onclick="showPage('home')">Return Home</button>
+            </div>`;
     } else {
-        resultHTML = `<div class="container"><h1>Analysis Sent!</h1><p>Sent to: ${email}</p></div>`;
+        resultHTML = `<div class="container"><h1>Report Sent</h1><p>Your results are being sent to ${email}.</p></div>`;
     }
 
     showPage('report');
