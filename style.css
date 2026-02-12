@@ -2,10 +2,8 @@
     --brand-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
     --brand-purple: #8b5cf6;
     --brand-magenta: #d946ef;
-    --hover-magenta: #701a75; /* Deep magenta for hover */
+    --hover-magenta: #701a75;
     --text-dark: #0f172a;
-    /* DARKER BACKGROUND: Highly visible contrast */
-    --bg-color: #d8cfff; 
     --bg-grad: linear-gradient(180deg, #ffffff 0%, #c4b5fd 100%);
 }
 
@@ -19,81 +17,79 @@ body {
 
 /* NAV */
 nav { 
-    padding: 1rem 10%; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    background: white; 
-    border-bottom: 3px solid var(--brand-magenta);
+    padding: 1rem 8%; 
+    display: flex; justify-content: space-between; align-items: center; 
+    background: white; border-bottom: 4px solid var(--brand-magenta);
     position: sticky; top: 0; z-index: 1000; 
 }
-.nav-logo { height: 60px; width: auto; }
+.nav-logo { height: 60px; width: auto; cursor: pointer; }
 .nav-links button { 
     background: none; border: none; font-weight: 800; 
-    margin-left: 25px; cursor: pointer; color: var(--text-dark); 
-    transition: 0.3s;
+    margin-left: 30px; cursor: pointer; color: var(--text-dark); 
+    transition: 0.3s; font-size: 1rem;
 }
 .nav-links button:hover { color: var(--brand-magenta); }
 
 /* HERO */
-.hero { padding: 100px 10%; text-align: center; }
+.hero { padding: 120px 10%; text-align: center; }
 .hero h1 { font-size: 4.5rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -3px; }
-.text-gradient { 
-    background: var(--brand-grad); 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-    display: inline-block;
-}
-.badge { background: #fdf2f8; color: var(--brand-magenta); padding: 8px 20px; border-radius: 50px; font-weight: 800; margin-bottom: 20px; display: inline-block; }
+.text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.badge { background: #fdf2f8; color: var(--brand-magenta); padding: 8px 20px; border-radius: 50px; font-weight: 800; margin-bottom: 25px; display: inline-block; }
 
-/* TEST GRID: STRICT SIDE-BY-SIDE */
+/* TEST GRID: 3 PER ROW */
 .test-grid { 
-    display: flex; 
-    flex-direction: row; 
-    justify-content: center; 
-    gap: 20px; 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* FORCES 3 PER ROW */
+    gap: 30px; 
     padding: 40px 0;
-    overflow-x: auto; /* Allows scrolling if screen is too small */
 }
+@media (max-width: 1024px) { .test-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .test-grid { grid-template-columns: 1fr; } }
+
 .card { 
-    background: white; 
-    min-width: 380px; 
-    padding: 3rem; 
-    border-radius: 30px; 
-    border: 2px solid transparent; 
-    transition: 0.4s; 
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: white; padding: 3rem 2rem; 
+    border-radius: 30px; border: 2px solid transparent; 
+    transition: 0.4s; text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
 }
-.card:hover { 
-    transform: translateY(-15px); 
-    border-color: var(--brand-magenta); 
+.card:hover { transform: translateY(-10px); border-color: var(--brand-magenta); }
+
+/* COACHING PAGE STYLES */
+.coaching-header { text-align: center; margin-bottom: 3rem; }
+.coaching-header p { color: #64748b; font-size: 1.2rem; font-weight: 600; }
+.coaching-form-container { 
+    max-width: 600px; margin: 0 auto; 
+    background: white; padding: 4rem; 
+    border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);
 }
+.input-stack { display: flex; flex-direction: column; text-align: left; }
+.input-stack label { font-weight: 800; font-size: 0.85rem; text-transform: uppercase; color: var(--brand-purple); margin-bottom: 8px; margin-left: 5px; }
 
 /* BUTTONS */
 .btn-outline { 
-    border: 3px solid var(--brand-purple); 
-    color: var(--brand-purple); 
-    background: transparent; 
-    padding: 1.2rem; border-radius: 15px; 
+    border: 3px solid var(--brand-purple); color: var(--brand-purple); 
+    background: transparent; padding: 1.2rem; border-radius: 15px; 
     font-weight: 800; cursor: pointer; transition: 0.3s; 
 }
-
-/* THE DARKENED HOVER EFFECT */
-.btn-outline:hover { 
-    background: var(--hover-magenta); 
-    color: white; 
-    border-color: var(--hover-magenta); 
-}
+.btn-outline:hover { background: var(--hover-magenta); color: white; border-color: var(--hover-magenta); }
 
 .btn-primary { 
-    background: var(--brand-grad); 
-    color: white; border: none; 
+    background: var(--brand-grad); color: white; border: none; 
     padding: 1.2rem 3rem; border-radius: 15px; 
     font-weight: 800; cursor: pointer; transition: 0.3s; 
 }
 
 /* UTILS */
-.container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-.section-title { font-size: 3rem; font-weight: 800; text-align: center; margin-bottom: 3rem; }
+.container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+.section-title { font-size: 3.5rem; font-weight: 800; text-align: center; margin-bottom: 1rem; }
+.main-input { 
+    width: 100%; padding: 16px; margin-bottom: 25px; 
+    border: 2px solid #f1f5f9; border-radius: 12px; 
+    background: #f8fafc; font-family: inherit; font-size: 1rem;
+    transition: 0.3s;
+}
+.main-input:focus { border-color: var(--brand-purple); outline: none; background: white; }
+.sticky-progress { position: sticky; top: 90px; background: white; padding: 1rem 0; z-index: 999; border-bottom: 1px solid #eee; }
+.progress-bar { width: 100%; height: 10px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.4s; }
 .engine-nav { display: flex; justify-content: space-between; margin-top: 40px; }
