@@ -2,7 +2,7 @@
     --brand-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
     --brand-purple: #8b5cf6;
     --brand-magenta: #d946ef;
-    --bg-soft: #f5f3ff; /* The purple-tinted background */
+    --bg-lavender: #dcd6f7; /* That "middle-ground" professional purple */
 }
 
 * { box-sizing: border-box; }
@@ -10,9 +10,8 @@
 body { 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     margin: 0; 
-    background: var(--bg-soft); 
+    background-color: var(--bg-lavender); 
     color: #0f172a; 
-    overflow-x: hidden; 
 }
 
 /* NAVIGATION */
@@ -23,81 +22,60 @@ nav {
     align-items: center; 
     background: white; 
     border-bottom: 3px solid var(--brand-magenta); 
-    position: sticky; 
-    top: 0; 
-    z-index: 2000; 
+    position: sticky; top: 0; z-index: 2000; 
 }
-.nav-logo { height: 55px; cursor: pointer; }
+.nav-logo { height: 45px; cursor: pointer; }
 .nav-links { display: flex; gap: 30px; }
 .nav-links span { 
-    font-weight: 800; cursor: pointer; font-size: 1rem; 
+    font-weight: 700; cursor: pointer; font-size: 0.9rem; /* Reduced font */
     color: #1e293b; transition: 0.3s; 
 }
-.nav-links span:hover { color: var(--brand-magenta); }
 
-/* HERO - CENTERED */
-.hero { 
-    padding: 100px 20px; 
-    text-align: center; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-}
-.hero h1 { font-size: 4.5rem; font-weight: 800; letter-spacing: -3px; margin: 20px 0; line-height: 1; }
-.hero p { font-size: 1.25rem; color: #64748b; max-width: 650px; margin-bottom: 40px; }
+/* HERO SECTION */
+.hero { padding: 80px 20px; text-align: center; }
+.hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 15px; } /* Reduced font */
+.hero p { font-size: 1.1rem; color: #475569; max-width: 600px; margin: 0 auto 30px; }
 
-/* TEST GRID - 3 COLUMNS */
-.container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+/* GRID */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 .test-grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 30px; 
-    padding: 40px 0; 
+    gap: 25px; 
 }
 
-/* CARDS - THE RESTORED HOVER EFFECT */
+/* CARDS - NEW HOVER FILL EFFECT */
 .card { 
     background: white; 
-    padding: 3.5rem 2rem; 
-    border-radius: 35px; 
+    padding: 3rem 2rem; 
+    border-radius: 25px; 
     border: 3px solid transparent; 
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: all 0.3s ease-in-out; 
     text-align: center; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Hover: Fill box with color and match border */
 .card:hover { 
-    transform: translateY(-12px); 
-    border-color: var(--brand-magenta); 
-    box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15); 
+    background: #fdf2f8; /* Soft magenta fill */
+    border-color: var(--brand-magenta);
+    transform: translateY(-5px);
 }
 
-/* PROGRESS BAR */
-.sticky-progress { 
-    position: sticky; top: 86px; background: white; 
-    padding: 20px 0; z-index: 1000; border-bottom: 1px solid #eee; text-align: center; 
-}
-.progress-bar { width: 80%; max-width: 700px; height: 12px; background: #e2e8f0; border-radius: 20px; margin: 0 auto; overflow: hidden; }
-#progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.5s; }
-
-/* REPORT - CENTER ALIGNED */
-.report-wrapper { max-width: 850px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-.report-section { 
-    background: white; padding: 3.5rem; border-radius: 35px; 
-    margin-bottom: 30px; border-top: 10px solid var(--brand-magenta); 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05); 
-}
+.card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #1e293b; }
 
 /* BUTTONS & INPUTS */
 .btn-primary { 
-    background: var(--brand-grad); color: white; border: none; padding: 1.2rem 3rem; 
-    border-radius: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; 
+    background: var(--brand-grad); color: white; border: none; padding: 1rem 2.5rem; 
+    border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.3s; 
 }
-.btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+.btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
 
 .main-input { 
-    width: 100%; padding: 18px; border-radius: 15px; 
-    border: 2px solid #eee; margin-bottom: 20px; font-size: 1rem; 
+    width: 100%; padding: 14px; border-radius: 10px; 
+    border: 2px solid #e2e8f0; margin-bottom: 15px; font-size: 0.9rem; 
 }
 
 .text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.badge { background: #fdf2f8; color: var(--brand-magenta); padding: 8px 20px; border-radius: 50px; font-weight: 800; display: inline-block; }
