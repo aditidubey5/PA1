@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Behavioral Excellence</title>
+    <title>People Assets | Professional Analysis</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <nav>
-        <div class="logo-container" onclick="showPage('home')">
-            <img src="People assets photo.jpeg" alt="People Assets Logo" class="nav-logo">
-        </div>
+        <img src="People assets photo.jpeg" class="nav-logo" onclick="showPage('home')">
         <div class="nav-links">
-            <button onclick="showPage('home')">Home</button>
-            <button onclick="showPage('tests')">Tests</button>
-            <button onclick="showPage('coaching')">Coaching</button>
+            <span onclick="showPage('home')">Home</span>
+            <span onclick="showPage('tests')">Tests</span>
+            <span onclick="showPage('coaching')">Coaching</span>
         </div>
     </nav>
 
     <section id="home" class="page">
         <div class="hero">
-            <div class="badge">Advanced Psychometrics</div>
+            <div class="badge">Elite Psychometrics</div>
             <h1>Unlock Your <span class="text-gradient">Core Potential</span></h1>
             <p>Scientific behavioral analysis designed to map human potential and professional trajectory.</p>
             <button class="btn-primary" onclick="showPage('tests')">Get Started</button>
@@ -31,63 +29,46 @@
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Assessment Library</h2>
+            <h2 style="text-align:center; font-size:3rem; font-weight:800;">Assessment Library</h2>
             <div class="test-grid" id="test-grid-ui"></div>
         </div>
     </section>
 
     <section id="engine" class="page" style="display:none;">
         <div class="sticky-progress">
-            <div class="container" style="padding: 10px 20px;">
-                <div class="progress-bar"><div id="progress-fill"></div></div>
-                <p id="progress-text" style="font-weight:800; margin-top:10px;">0% Complete</p>
-            </div>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <p id="progress-text">0% Complete</p>
         </div>
-        <div class="container" style="max-width:800px; padding-top: 50px;">
-            <h2 id="test-title" class="text-gradient" style="font-size: 2rem; margin-bottom: 30px; text-align: center;"></h2>
-            <div id="question-container">
-                <div id="active-question-area"></div>
-                <div class="engine-nav">
-                    <button id="prev-btn" class="btn-outline" onclick="changeQuestion(-1)">Back</button>
-                    <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next</button>
-                </div>
+        <div class="container" style="text-align:center;">
+            <h2 id="test-title" class="text-gradient"></h2>
+            <div id="question-area"></div>
+            <div style="display:flex; justify-content:center; gap:20px; margin-top:30px;">
+                <button class="btn-primary" style="background:#64748b" onclick="changeQuestion(-1)">Back</button>
+                <button class="btn-primary" onclick="changeQuestion(1)">Next</button>
             </div>
             <div id="final-step" style="display:none;">
-                <div class="card result-card">
-                    <h3 style="font-size: 2rem; margin-bottom: 10px;">Analysis Complete</h3>
-                    <p style="margin-bottom:30px; color:#64748b;">Submit your email to generate your high-performance report.</p>
-                    <div class="input-stack">
-                        <label>Email Delivery Address</label>
-                        <input type="email" id="u-email" placeholder="alex@company.com" class="main-input">
-                    </div>
-                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate & Send Report</button>
+                <div class="card" style="max-width:500px; margin:40px auto;">
+                    <h3>Analysis Complete</h3>
+                    <input type="email" id="u-email" placeholder="Enter your email" class="main-input">
+                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Send My Report</button>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="report" class="page" style="display:none;">
-        <div id="report-wrapper"></div>
+        <div id="report-page-content"></div>
     </section>
 
     <section id="coaching" class="page" style="display:none;">
-        <div class="container">
-            <div class="coaching-header">
-                <h2 class="section-title">Executive Coaching</h2>
-                <p>Strategic alignment sessions for high-performers.</p>
-            </div>
-            <div class="coaching-form-container">
-                <div class="input-stack">
-                    <label>Full Name</label>
-                    <input type="text" id="c-name" placeholder="Full Name" class="main-input">
-                    <label>Email Address</label>
-                    <input type="email" id="c-email" placeholder="Email Address" class="main-input">
-                    <label>Phone Number</label>
-                    <input type="tel" id="c-phone" placeholder="Phone Number" class="main-input">
-                    <label>Focus Area</label>
-                    <textarea id="c-msg" placeholder="Tell us about your goals..." class="main-input" rows="4"></textarea>
-                    <button class="btn-primary" style="width:100%" onclick="alert('Inquiry Sent!')">Request Consultation</button>
-                </div>
+        <div class="hero">
+            <h2 class="text-gradient" style="font-size:3.5rem;">Executive Coaching</h2>
+            <p>Strategic behavioral alignment for high-performers.</p>
+            <div class="card" style="max-width:600px; text-align:left;">
+                <input type="text" placeholder="Full Name" class="main-input">
+                <input type="email" placeholder="Email Address" class="main-input">
+                <textarea placeholder="Tell us about your goals" class="main-input" rows="4"></textarea>
+                <button class="btn-primary" style="width:100%">Book Consultation</button>
             </div>
         </div>
     </section>
