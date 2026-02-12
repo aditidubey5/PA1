@@ -36,41 +36,15 @@
         </div>
     </section>
 
-    <section id="coaching" class="page" style="display:none;">
-        <div class="container">
-            <div class="coaching-header">
-                <h2 class="section-title">Executive Coaching</h2>
-                <p>Strategic alignment sessions for high-performers and leadership teams.</p>
-            </div>
-            <div class="coaching-form-container">
-                <div class="input-stack">
-                    <label>Full Name</label>
-                    <input type="text" id="c-name" placeholder="e.g. Alex Rivera" class="main-input">
-                    
-                    <label>Email Address</label>
-                    <input type="email" id="c-email" placeholder="alex@company.com" class="main-input">
-                    
-                    <label>Phone Number</label>
-                    <input type="tel" id="c-phone" placeholder="+1 (555) 000-0000" class="main-input">
-                    
-                    <label>Focus Area</label>
-                    <textarea id="c-msg" placeholder="Briefly describe your current professional challenges..." class="main-input" rows="5"></textarea>
-                    
-                    <button class="btn-primary" style="width:100%; margin-top: 10px;" onclick="alert('Inquiry Sent. Our team will contact you within 24 hours.')">Request Consultation</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="engine" class="page" style="display:none;">
         <div class="sticky-progress">
-            <div class="progress-wrapper">
+            <div class="container" style="padding: 10px 20px;">
                 <div class="progress-bar"><div id="progress-fill"></div></div>
-                <p id="progress-text">0% Complete</p>
+                <p id="progress-text" style="font-weight:800; margin-top:10px;">0% Complete</p>
             </div>
         </div>
-        <div class="container" style="max-width:750px;">
-            <h2 id="test-title"></h2>
+        <div class="container" style="max-width:800px; padding-top: 50px;">
+            <h2 id="test-title" class="text-gradient" style="font-size: 2rem; margin-bottom: 30px; text-align: center;"></h2>
             <div id="question-container">
                 <div id="active-question-area"></div>
                 <div class="engine-nav">
@@ -79,10 +53,14 @@
                 </div>
             </div>
             <div id="final-step" style="display:none;">
-                <div class="card">
-                    <h3>Analysis Complete</h3>
-                    <input type="email" id="u-email" placeholder="Enter email for delivery" class="main-input">
-                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Report</button>
+                <div class="card result-card">
+                    <h3 style="font-size: 2rem; margin-bottom: 10px;">Analysis Complete</h3>
+                    <p style="margin-bottom:30px; color:#64748b;">Submit your email to generate your high-performance report.</p>
+                    <div class="input-stack">
+                        <label>Email Delivery Address</label>
+                        <input type="email" id="u-email" placeholder="alex@company.com" class="main-input">
+                    </div>
+                    <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate & Send Report</button>
                 </div>
             </div>
         </div>
@@ -90,6 +68,28 @@
 
     <section id="report" class="page" style="display:none;">
         <div id="report-wrapper"></div>
+    </section>
+
+    <section id="coaching" class="page" style="display:none;">
+        <div class="container">
+            <div class="coaching-header">
+                <h2 class="section-title">Executive Coaching</h2>
+                <p>Strategic alignment sessions for high-performers.</p>
+            </div>
+            <div class="coaching-form-container">
+                <div class="input-stack">
+                    <label>Full Name</label>
+                    <input type="text" id="c-name" placeholder="Full Name" class="main-input">
+                    <label>Email Address</label>
+                    <input type="email" id="c-email" placeholder="Email Address" class="main-input">
+                    <label>Phone Number</label>
+                    <input type="tel" id="c-phone" placeholder="Phone Number" class="main-input">
+                    <label>Focus Area</label>
+                    <textarea id="c-msg" placeholder="Tell us about your goals..." class="main-input" rows="4"></textarea>
+                    <button class="btn-primary" style="width:100%" onclick="alert('Inquiry Sent!')">Request Consultation</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="app.js"></script>
