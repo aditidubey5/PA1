@@ -7,9 +7,37 @@ const TEMPLATE_ID = "template_zpcklyu";
 (function() { emailjs.init("zs8EuLqOZPjTVHF0M"); })();
 
 const testData = {
-    'friction': { title: "Friction vs. Flow", questions: ["Achievements count only if hard.", "Guilt when not reading everything.", "Prefer complex over easy.", "Skip small habits.", "Skeptical of shortcuts."] },
-    'odat': { title: "Open DISC", questions: ["Assertive.", "Influential.", "Steady pace.", "Detail oriented.", "Results focused."] },
-    'bigfive': { title: "Big Five Personality", questions: ["Outgoing.", "Compassionate.", "Organized.", "Anxious.", "Creative."] }
+    'friction': {
+        title: "Friction vs. Flow Quiz",
+        questions: [
+            "If I achieve a goal quickly and easily, I often feel like I haven't 'really' earned the result.",
+            "When learning something new, I feel a sense of guilt if I don't read the entire material from start to finish.",
+            "I find myself preferring to work on complex, difficult problems, even if they are less profitable than simpler ones.",
+            "I would rather wait until I can do a 'perfect' one-hour session than settle for a productive 10-minute window.",
+            "I feel significantly more productive and virtuous on days when I am physically or mentally exhausted by the end.",
+            "I am naturally skeptical of new tools, AI, or shortcuts that promise to make my professional work 10x faster."
+        ]
+    },
+    'odat': {
+        title: "Open DISC Assessment",
+        questions: [
+            "I tend to be assertive and direct when dealing with others, even if it causes slight tension.",
+            "I find great enjoyment in influencing others and persuading them to see my point of view.",
+            "I prioritize a steady, predictable, and calm work environment over a fast-paced and chaotic one.",
+            "I pay extremely close attention to accuracy, high standards, and the fine details of every project.",
+            "When making decisions, I consistently prioritize objective results and logic over personal relationships."
+        ]
+    },
+    'bigfive': {
+        title: "Big Five Personality Inventory",
+        questions: [
+            "I see myself as someone who is the life of the party and feels energized by large social gatherings.",
+            "I consider myself to be a person who has a soft heart and is deeply concerned about others' feelings.",
+            "I am someone who is always prepared, highly organized, and follows a strict personal schedule.",
+            "I find that I am a person who gets upset or anxious easily when faced with unexpected stress.",
+            "I have a very vivid imagination and I am constantly looking for new, abstract ways of thinking."
+        ]
+    }
 };
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
