@@ -5,19 +5,9 @@ const TEMPLATE_ID = "template_zpcklyu";
 (function() { emailjs.init(PUBLIC_KEY); })();
 
 const testData = {
-    'friction': {
-        title: "Friction vs. Flow Quiz",
-        questions: [
-            "If I achieve a goal quickly and easily, I feel like I haven't 'really' earned it.",
-            "When learning something new, I feel guilty if I don't read the entire material from start to finish.",
-            "I prefer to work on complex problems, even if they are less profitable than simple ones.",
-            "I would rather wait until I can do a 'perfect' 1-hour session than settle for 10 minutes.",
-            "I feel more productive on days when I am exhausted at the end.",
-            "I am skeptical of new tools or shortcuts that promise to make work 10x faster."
-        ]
-    },
-    'odat': { title: "Open DISC Assessment", questions: ["I am assertive.", "I enjoy influencing others.", "I prefer stability.", "I pay attention to detail.", "I take charge."] },
-    'bigfive': { title: "Big Five Personality", questions: ["I am outgoing.", "I am compassionate.", "I am organized.", "I am anxious.", "I am creative."] }
+    'friction': { title: "Friction vs. Flow", questions: ["I feel guilty if I don't read the entire material.", "Achievements only count if they were hard.", "I prefer complex problems over profitable ones.", "I skip small habits if they don't feel substantial.", "I'm skeptical of shortcuts."] },
+    'odat': { title: "Open DISC Assessment", questions: ["I am assertive.", "I enjoy influencing others.", "I prefer stability.", "I pay attention to detail."] },
+    'bigfive': { title: "Big Five Personality", questions: ["I am outgoing.", "I am compassionate.", "I am organized.", "I am anxious."] }
 };
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
@@ -34,9 +24,9 @@ function renderGrid() {
     grid.innerHTML = "";
     for (let key in testData) {
         grid.innerHTML += `
-            <div class="card">
-                <h3 style="margin-bottom:30px; font-weight:800; font-size:1.8rem;">${testData[key].title}</h3>
-                <button class="btn-outline" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
+            <div class="card" onclick="loadTest('${key}')">
+                <h3>${testData[key].title}</h3>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Click to start analysis</p>
             </div>`;
     }
 }
@@ -53,13 +43,13 @@ function loadTest(id) {
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
     document.getElementById('active-question-area').innerHTML = `
-        <div class="question-card">
-            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem; text-transform:uppercase;">Question ${currentIdx + 1} of ${testData[activeKey].questions.length}</p>
-            <p style="font-size:1.8rem; font-weight:800; margin-bottom:3.5rem; line-height:1.2;">${qText}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center; max-width:500px; margin:0 auto;">
-                <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">NEVER</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:30px; height:30px; cursor:pointer;">`).join('')}
-                <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">ALWAYS</span>
+        <div style="background:white; padding:50px; border-radius:30px; box-shadow:0 10px 40px rgba(0,0,0,0.05); margin: 30px 0;">
+            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:15px; text-transform:uppercase;">Step ${currentIdx + 1}</p>
+            <p style="font-size:1.8rem; font-weight:800; line-height:1.3;">${qText}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; max-width:500px; margin:40px auto 0;">
+                <span style="font-weight:800; color:#94a3b8; font-size:0.75rem;">NEVER</span>
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:25px; height:25px; cursor:pointer;">`).join('')}
+                <span style="font-weight:800; color:#94a3b8; font-size:0.75rem;">ALWAYS</span>
             </div>
         </div>`;
     document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
@@ -84,31 +74,17 @@ function calculateReport() {
     const email = document.getElementById('u-email').value;
     if(!email) return alert("Email required.");
     
-    let totalScore = Object.values(userAnswers).reduce((a, b) => a + b, 0);
-    let resultHTML = "";
+    let score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
+    let title = score >= 18 ? "The Friction Seeker" : (score >= 10 ? "The Balanced Achiever" : "The Flow Specialist");
 
-    if (activeKey === 'friction') {
-        let title = totalScore >= 22 ? "The Friction Seeker" : (totalScore >= 13 ? "The Balanced Achiever" : "The Flow Specialist");
-        
-        resultHTML = `
-            <h1 class="text-gradient" style="font-size:3rem;">Detailed Report: ${title}</h1>
-            <div class="report-section">
-                <h3>The Diagnosis</h3>
-                <p>Scoring in this category suggests that your internal 'value compass' is calibrated to effort rather than outcomes. For you, the struggle is evidence of the work’s worth.</p>
-            </div>
-            <div class="report-section">
-                <h3>Your 30-Day Plan</h3>
-                <p>Start viewing efficiency as the new 'hard' skill. It is easy to work long hours; it is incredibly difficult to have the discipline to do only what matters.</p>
-            </div>
-            <button class="btn-primary" style="margin-top:40px" onclick="showPage('home')">Finish</button>`;
-    }
-
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, { user_email: email, score: totalScore }).then(() => {
-        alert("Report Sent to " + email);
-    });
+    let reportHTML = `
+        <h1 class="text-gradient" style="font-size:3.5rem; margin-bottom:20px;">Profile: ${title}</h1>
+        <div class="report-section"><h3>Core Analysis</h3><p>Based on your responses, you prioritize effort as a metric of value. This can lead to mastery but also significant burnout risk.</p></div>
+        <div class="report-section"><h3>30-Day Outlook</h3><p>Focus on reducing "structural friction" by automating repetitive tasks this month.</p></div>
+        <button class="btn-primary" onclick="showPage('home')">Return Home</button>`;
 
     showPage('report');
-    document.getElementById('report-wrapper').innerHTML = resultHTML;
+    document.getElementById('report-wrapper').innerHTML = reportHTML;
 }
 
 document.addEventListener('DOMContentLoaded', () => showPage('home'));
