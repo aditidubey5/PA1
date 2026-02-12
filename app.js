@@ -1,3 +1,9 @@
+// REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
+const SERVICE_ID = "service_u11zlzf";
+const TEMPLATE_ID = "template_zpcklyu";
+(function() { emailjs.init(PUBLIC_KEY); })();
+
 const testData = {
     'friction': {
         title: "Friction vs. Flow Quiz",
@@ -10,14 +16,8 @@ const testData = {
             "I am skeptical of new tools or shortcuts that promise to make work 10x faster."
         ]
     },
-    'odat': { 
-        title: "Open DISC Assessment", 
-        questions: ["I am assertive and demand results.", "I enjoy influencing others.", "I prefer a stable environment.", "I pay close attention to details.", "I tend to take charge in groups."] 
-    },
-    'bigfive': { 
-        title: "Big Five Personality", 
-        questions: ["I am the life of the party.", "I feel concern for others.", "I am always prepared.", "I get stressed easily.", "I have a rich vocabulary."] 
-    }
+    'odat': { title: "Open DISC Assessment", questions: ["I am assertive.", "I enjoy influencing others.", "I prefer stability.", "I pay attention to detail.", "I take charge."] },
+    'bigfive': { title: "Big Five Personality", questions: ["I am outgoing.", "I am compassionate.", "I am organized.", "I am anxious.", "I am creative."] }
 };
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
@@ -35,7 +35,7 @@ function renderGrid() {
     for (let key in testData) {
         grid.innerHTML += `
             <div class="card">
-                <h3 style="margin-bottom:30px; font-weight:800; font-size:1.6rem;">${testData[key].title}</h3>
+                <h3 style="margin-bottom:30px; font-weight:800; font-size:1.8rem;">${testData[key].title}</h3>
                 <button class="btn-outline" style="width:100%" onclick="loadTest('${key}')">Begin Analysis</button>
             </div>`;
     }
@@ -53,16 +53,17 @@ function loadTest(id) {
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
     document.getElementById('active-question-area').innerHTML = `
-        <div style="background:white; padding:4rem; border-radius:40px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align:center;">
-            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem;">STEP ${currentIdx + 1}</p>
-            <p style="font-size:1.8rem; font-weight:800; margin-bottom:3rem; line-height:1.2;">${qText}</p>
+        <div class="question-card">
+            <p style="font-weight:800; color:var(--brand-purple); margin-bottom:1rem; text-transform:uppercase; letter-spacing:1px;">Question ${currentIdx + 1} of ${testData[activeKey].questions.length}</p>
+            <p style="font-size:1.8rem; font-weight:800; margin-bottom:3.5rem; line-height:1.2; color:var(--text-dark);">${qText}</p>
             <div style="display:flex; justify-content:space-between; align-items:center; max-width:500px; margin:0 auto;">
                 <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">NEVER</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:30px; height:30px; accent-color:var(--brand-magenta); cursor:pointer;">`).join('')}
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" ${userAnswers[currentIdx] == v ? 'checked' : ''} onchange="userAnswers[${currentIdx}]=${v}; updateProgress();" style="width:30px; height:30px; cursor:pointer;">`).join('')}
                 <span style="font-weight:800; color:#94a3b8; font-size:0.8rem;">ALWAYS</span>
             </div>
         </div>`;
     document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
+    document.getElementById('next-btn').innerText = (currentIdx === testData[activeKey].questions.length - 1) ? "Finalize" : "Next";
 }
 
 function changeQuestion(step) {
@@ -71,6 +72,7 @@ function changeQuestion(step) {
     if (currentIdx >= testData[activeKey].questions.length) {
         document.getElementById('question-container').style.display = 'none';
         document.getElementById('final-step').style.display = 'block';
+        window.scrollTo(0,0);
     } else { renderQuestion(); }
 }
 
@@ -82,25 +84,53 @@ function updateProgress() {
 
 function calculateReport() {
     const email = document.getElementById('u-email').value;
-    if(!email) return alert("Email required.");
+    if(!email) return alert("Email is required for report generation.");
     
     let totalScore = Object.values(userAnswers).reduce((a, b) => a + b, 0);
     let resultHTML = "";
 
     if (activeKey === 'friction') {
-        let cat = totalScore <= 12 ? "The Essentialist" : (totalScore <= 21 ? "Balanced Achiever" : "Friction Seeker");
+        let title, intro, drivers, risks, plan;
+
+        if (totalScore >= 22) {
+            title = "The Friction Seeker";
+            intro = "Scoring in the Friction Seeker category suggests that your internal 'value compass' is calibrated to effort rather than outcomes. For you, the struggle isn't just a byproduct of work—it is the evidence of the work’s worth.";
+            drivers = "<b>The Competence Shield:</b> Complexity acts as a shield against self-judgment.<br><b>Moralizing the Grind:</b> You feel 'lazy' if a task is easy.<br><b>Prohibitive Perfectionism:</b> You skip small habits because they aren't 'painful' enough to count.";
+            risks = "<b>Burnout without Breakthrough:</b> High risk of exhaustion.<br><b>Opportunity Cost:</b> Missing big wins while 'hand-carving' small solutions.";
+            plan = "<b>The 7-Minute Rule:</b> Commit to the tiny version of goals.<br><b>Re-Define 'Hard':</b> View efficiency as the new difficult skill.";
+        } else if (totalScore >= 13) {
+            title = "The Balanced Achiever";
+            intro = "You have a healthy relationship with effort. you understand that 'grinding' is a tool to be used sparingly, not a lifestyle.";
+            drivers = "<b>Outcome Orientation:</b> You prioritize the result over the process.<br><b>Contextual Effort:</b> You know when to dig in and when to automate.";
+            risks = "<b>Comfort Zone Trap:</b> You might avoid necessary friction in areas that require deep, painful growth.";
+            plan = "<b>Identify 1 'Necessary Friction':</b> Find one area where you are playing it too safe and lean into the struggle.";
+        } else {
+            title = "The Essentialist (Flow State)";
+            intro = "You are naturally wired for efficiency. You have zero interest in suffering for the sake of it, focusing purely on the Path of Least Resistance.";
+            drivers = "<b>Radical Efficiency:</b> You naturally find shortcuts.<br><b>Ego-Less Work:</b> You don't need the work to be hard to feel proud.";
+            risks = "<b>Surface-Level Mastery:</b> You might skip the 'deep work' required for elite-level expertise because it feels too slow.";
+            plan = "<b>Embrace Deep Work:</b> Practice 90 minutes of focused, distraction-free work on a single hard problem once a week.";
+        }
+
         resultHTML = `
-            <div class="container" style="text-align:left; max-width:800px;">
-                <h1 class="text-gradient" style="font-size:3.5rem;">Result: ${cat}</h1>
-                <div class="card" style="margin-top:40px; text-align:left; border-left: 8px solid var(--brand-magenta);">
-                    <h3 style="color:var(--brand-purple)">Mindset Overview</h3>
-                    <p>Based on your Friction Score of ${totalScore}/30, you are currently operating in the ${cat} zone.</p>
-                </div>
-                <button class="btn-primary" style="margin-top:40px" onclick="showPage('home')">Return Home</button>
+            <div class="container" style="max-width:900px; padding-bottom:100px;">
+                <h1 class="text-gradient" style="font-size:3.5rem; margin-bottom:10px;">Detailed Report: ${title}</h1>
+                <div class="report-section"><h3>The Diagnosis</h3><p>${intro}</p></div>
+                <div class="report-section"><h3>Key Psychological Drivers</h3><p>${drivers}</p></div>
+                <div class="report-section"><h3>The Long-Term Risks</h3><p>${risks}</p></div>
+                <div class="report-section"><h3>Your 30-Day Re-Wiring Plan</h3><p>${plan}</p></div>
+                <button class="btn-primary" style="margin-top:50px" onclick="showPage('home')">Back to Home</button>
             </div>`;
-    } else {
-        resultHTML = `<div class="container"><h1>Report Sent</h1><p>Your results are being sent to ${email}.</p></div>`;
     }
+
+    // TRIGGER EMAILJS
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+        user_email: email,
+        test_name: testData[activeKey].title,
+        score: totalScore
+    }).then(() => {
+        alert("Success! Your detailed report has been sent to " + email);
+    });
 
     showPage('report');
     document.getElementById('report-wrapper').innerHTML = resultHTML;
