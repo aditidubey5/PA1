@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Behavioral Analytics</title>
+    <title>People Assets | Behavioral Excellence</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -31,9 +31,34 @@
 
     <section id="tests" class="page" style="display:none;">
         <div class="container">
-            <h2 class="section-title">Available Tests</h2>
-            <div class="test-grid" id="test-grid-ui">
+            <h2 class="section-title">Assessment Library</h2>
+            <div class="test-grid" id="test-grid-ui"></div>
+        </div>
+    </section>
+
+    <section id="coaching" class="page" style="display:none;">
+        <div class="container">
+            <div class="coaching-header">
+                <h2 class="section-title">Executive Coaching</h2>
+                <p>Strategic alignment sessions for high-performers and leadership teams.</p>
+            </div>
+            <div class="coaching-form-container">
+                <div class="input-stack">
+                    <label>Full Name</label>
+                    <input type="text" id="c-name" placeholder="e.g. Alex Rivera" class="main-input">
+                    
+                    <label>Email Address</label>
+                    <input type="email" id="c-email" placeholder="alex@company.com" class="main-input">
+                    
+                    <label>Phone Number</label>
+                    <input type="tel" id="c-phone" placeholder="+1 (555) 000-0000" class="main-input">
+                    
+                    <label>Focus Area</label>
+                    <textarea id="c-msg" placeholder="Briefly describe your current professional challenges..." class="main-input" rows="5"></textarea>
+                    
+                    <button class="btn-primary" style="width:100%; margin-top: 10px;" onclick="alert('Inquiry Sent. Our team will contact you within 24 hours.')">Request Consultation</button>
                 </div>
+            </div>
         </div>
     </section>
 
@@ -54,10 +79,9 @@
                 </div>
             </div>
             <div id="final-step" style="display:none;">
-                <div class="card result-card">
+                <div class="card">
                     <h3>Analysis Complete</h3>
-                    <p>Enter your email to view your detailed report.</p>
-                    <input type="email" id="u-email" placeholder="email@example.com">
+                    <input type="email" id="u-email" placeholder="Enter email for delivery" class="main-input">
                     <button class="btn-primary" style="width:100%" onclick="calculateReport()">Generate Report</button>
                 </div>
             </div>
@@ -66,20 +90,6 @@
 
     <section id="report" class="page" style="display:none;">
         <div id="report-wrapper"></div>
-    </section>
-
-    <section id="coaching" class="page" style="display:none;">
-        <div class="container">
-            <h2 class="section-title">Expert Coaching</h2>
-            <div class="coaching-form-container">
-                <div class="input-group">
-                    <input type="text" id="c-name" placeholder="Full Name">
-                    <input type="email" id="c-email" placeholder="Email Address">
-                    <textarea id="c-msg" placeholder="Tell us about your goals..."></textarea>
-                    <button class="btn-primary" style="width:100%" onclick="alert('Message Sent!')">Book Session</button>
-                </div>
-            </div>
-        </div>
     </section>
 
     <script src="app.js"></script>
