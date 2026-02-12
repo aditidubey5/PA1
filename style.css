@@ -2,49 +2,95 @@
     --brand-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
     --brand-purple: #8b5cf6;
     --brand-magenta: #d946ef;
-    --dark: #0f172a;
+    --bg-soft: #f5f3ff; /* Restored background color */
 }
 
-body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #fff; color: var(--dark); line-height: 1.6; }
-
-/* NAVBAR FIX */
-.navbar { background: white; border-bottom: 2px solid #f1f5f9; position: sticky; top: 0; z-index: 1000; padding: 15px 0; }
-.nav-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-.nav-logo { height: 45px; cursor: pointer; }
-.nav-links { display: flex; align-items: center; gap: 30px; }
-.nav-links span { font-weight: 700; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
-.nav-links span:hover { color: var(--brand-magenta); }
-.nav-btn { background: var(--dark); color: white; padding: 10px 22px; border-radius: 12px; }
-
-/* CENTERING LOGIC */
-.container-center { 
-    display: flex; flex-direction: column; align-items: center; 
-    justify-content: center; text-align: center; min-height: 80vh; padding: 40px 20px;
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    margin: 0; 
+    background: var(--bg-soft); 
+    color: #0f172a; 
+    overflow-x: hidden; 
 }
 
-/* HERO */
-.hero-box h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin: 20px 0; line-height: 1.1; }
-.hero-box p { font-size: 1.2rem; color: #64748b; max-width: 600px; margin-bottom: 40px; }
+/* NAVBAR - SLEEK & PROFESSIONAL */
+nav { 
+    padding: 1rem 8%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: white; 
+    border-bottom: 3px solid var(--brand-magenta); 
+    position: sticky; 
+    top: 0; 
+    z-index: 2000; 
+}
+.nav-logo { height: 50px; cursor: pointer; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links button { 
+    background: none; border: none; font-weight: 800; cursor: pointer; 
+    font-size: 1rem; color: #1e293b; transition: 0.3s;
+}
+.nav-links button:hover { color: var(--brand-magenta); }
 
-/* TEST GRID (3 per row) */
-.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%; max-width: 1000px; }
-.card { background: white; padding: 40px; border-radius: 25px; border: 2px solid #f1f5f9; transition: 0.3s; cursor: pointer; }
-.card:hover { border-color: var(--brand-magenta); transform: translateY(-5px); }
+/* HERO - CENTER ALIGNED */
+.hero { 
+    padding: 120px 20px; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+.hero h1 { font-size: 4.5rem; font-weight: 800; letter-spacing: -2px; margin: 20px 0; line-height: 1; }
+.hero p { font-size: 1.25rem; color: #64748b; max-width: 650px; margin-bottom: 40px; }
 
-/* PROGRESS FIX */
-.sticky-header { position: sticky; top: 77px; background: white; padding: 15px 0; z-index: 900; border-bottom: 1px solid #eee; }
-.progress-container { max-width: 600px; margin: 0 auto; }
-.progress-bar { height: 10px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-#progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.4s; }
+/* TEST GRID - RESTORED 3-COLUMN LAYOUT */
+.container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+.test-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 30px; 
+    padding: 40px 0; 
+}
 
-/* REPORT BLOCKS */
-.report-content { width: 100%; max-width: 800px; text-align: center; }
-.report-section { background: white; padding: 3rem; border-radius: 35px; border-top: 10px solid var(--brand-magenta); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-.report-section h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--brand-purple); }
+/* CARDS - RESTORED HOVER & DESIGN */
+.card { 
+    background: white; 
+    padding: 3.5rem 2rem; 
+    border-radius: 30px; 
+    border: 3px solid transparent; 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    text-align: center; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+}
+.card:hover { 
+    transform: translateY(-12px); 
+    border-color: var(--brand-magenta); 
+    box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15); 
+}
 
-/* UI ELEMENTS */
-.btn-primary { background: var(--brand-grad); color: white; border: none; padding: 16px 40px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-.btn-primary:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
-.main-input { padding: 15px; border-radius: 12px; border: 2px solid #f1f5f9; width: 100%; margin-bottom: 20px; box-sizing: border-box; font-family: inherit; }
+/* PROGRESS BAR FIX */
+.sticky-progress { 
+    position: sticky; top: 82px; background: white; 
+    padding: 20px 0; z-index: 1000; border-bottom: 1px solid #eee; text-align: center; 
+}
+.progress-bar { width: 80%; max-width: 700px; height: 12px; background: #e2e8f0; border-radius: 20px; margin: 0 auto; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--brand-grad); width: 0%; transition: 0.5s; }
+
+/* REPORT - CENTER ALIGNED & PROFESSIONAL */
+.report-wrapper { max-width: 850px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+.report-section { 
+    background: white; padding: 3.5rem; border-radius: 35px; 
+    margin-bottom: 30px; border-top: 10px solid var(--brand-magenta); 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05); 
+}
+
+/* BUTTONS */
+.btn-primary { 
+    background: var(--brand-grad); color: white; border: none; padding: 1.2rem 3rem; 
+    border-radius: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; 
+}
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+
 .text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.badge { background: #fdf2f8; color: var(--brand-magenta); padding: 8px 16px; border-radius: 50px; font-weight: 800; display: inline-block; }
+.badge { background: #fdf2f8; color: var(--brand-magenta); padding: 8px 20px; border-radius: 50px; font-weight: 800; display: inline-block; }
