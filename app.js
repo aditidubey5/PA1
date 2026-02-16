@@ -71,26 +71,43 @@ function loadTest(id) {
 
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
+    const totalQuestions = testData[activeKey].questions.length;
+    
+    // UI for the question
     document.getElementById('question-area').innerHTML = `
-        <div class="card" style="max-width:600px; margin: 40px auto; cursor: default;">
-            <p style="font-size:1.4rem; font-weight:800; margin-bottom:30px;">${qText}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">NEVER</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="userAnswers[${currentIdx}]=${v}" style="width:25px; height:25px; cursor:pointer;">`).join('')}
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">ALWAYS</span>
+        <div class="card" style="max-width:650px; margin: 40px auto; cursor: default;">
+            <p style="font-size:1.3rem; font-weight:800; margin-bottom:30px; line-height:1.4;">${qText}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; max-width:450px; margin:0 auto;">
+                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">DISAGREE</span>
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="saveAnswer(${v})" ${userAnswers[currentIdx] == v ? 'checked' : ''} style="width:25px; height:25px; accent-color: var(--brand-magenta);">`).join('')}
+                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">AGREE</span>
             </div>
         </div>`;
+
+    // Handle button visibility
+    const isLastQuestion = currentIdx === totalQuestions - 1;
+    document.getElementById('next-btn').style.display = isLastQuestion ? 'none' : 'inline-block';
+    document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
+    
+    // Show email field only on the last question
+    document.getElementById('final-step').style.display = isLastQuestion ? 'block' : 'none';
+}
+
+function saveAnswer(val) {
+    userAnswers[currentIdx] = val;
+    // Optional: Auto-trigger UI updates if needed
 }
 
 function changeQuestion(step) {
-    if (!userAnswers[currentIdx]) return alert("Please select an answer.");
+    // Validate that an answer was picked before moving forward
+    if (step === 1 && !userAnswers[currentIdx]) {
+        alert("Please select a rating to continue.");
+        return;
+    }
+    
     currentIdx += step;
-    if (currentIdx >= testData[activeKey].questions.length) {
-        document.getElementById('question-area').innerHTML = "";
-        document.getElementById('final-step').style.display = 'block';
-    } else { renderQuestion(); }
+    renderQuestion();
 }
-
 function calculateReport() {
     const email = document.getElementById('u-email').value;
     const score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
