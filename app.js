@@ -1,10 +1,14 @@
+/**
+ * PEOPLE ASSETS - MASTER JAVASCRIPT
+ * Combined: Full Question Set + Last Question UI Logic + EmailJS
+ */
+
 const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
 const SERVICE_ID = "service_u11zlzf";
 const TEMPLATE_ID = "template_zpcklyu";
 
+// Initialize EmailJS
 (function() { emailjs.init(PUBLIC_KEY); })();
-
-(function() { emailjs.init("zs8EuLqOZPjTVHF0M"); })();
 
 const testData = {
     'friction': {
@@ -42,6 +46,9 @@ const testData = {
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
 
+/**
+ * Page Routing Logic
+ */
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById(id).style.display = 'block';
@@ -49,6 +56,9 @@ function showPage(id) {
     window.scrollTo(0, 0);
 }
 
+/**
+ * Render Assessment Library
+ */
 function renderGrid() {
     const grid = document.getElementById('test-grid-ui');
     grid.innerHTML = "";
@@ -56,19 +66,26 @@ function renderGrid() {
         grid.innerHTML += `
             <div class="card" onclick="loadTest('${key}')">
                 <h3>${testData[key].title}</h3>
-                <p style="color:var(--brand-purple); font-weight:700; font-size:0.8rem;">START ANALYSIS →</p>
+                <p style="color:var(--brand-magenta); font-weight:800; font-size:0.75rem;">START ANALYSIS →</p>
             </div>`;
     }
 }
 
+/**
+ * Quiz Engine Initialization
+ */
 function loadTest(id) {
-    activeKey = id; currentIdx = 0; userAnswers = {};
+    activeKey = id; 
+    currentIdx = 0; 
+    userAnswers = {};
     showPage('engine');
     document.getElementById('test-title').innerText = testData[id].title;
-    document.getElementById('final-step').style.display = 'none';
     renderQuestion();
 }
 
+/**
+ * Render Question & Handle Dynamic UI Transitions
+ */
 function renderQuestion() {
     const qText = testData[activeKey].questions[currentIdx];
     const totalQuestions = testData[activeKey].questions.length;
@@ -78,28 +95,36 @@ function renderQuestion() {
         <div class="card" style="max-width:650px; margin: 40px auto; cursor: default;">
             <p style="font-size:1.3rem; font-weight:800; margin-bottom:30px; line-height:1.4;">${qText}</p>
             <div style="display:flex; justify-content:space-between; align-items:center; max-width:450px; margin:0 auto;">
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">DISAGREE</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="saveAnswer(${v})" ${userAnswers[currentIdx] == v ? 'checked' : ''} style="width:25px; height:25px; accent-color: var(--brand-magenta);">`).join('')}
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">AGREE</span>
+                <span style="font-weight:800; color:#94a3b8; font-size:0.65rem;">NEVER</span>
+                ${[1, 2, 3, 4, 5].map(v => `
+                    <input type="radio" name="q" value="${v}" 
+                    onchange="saveAnswer(${v})" 
+                    ${userAnswers[currentIdx] == v ? 'checked' : ''} 
+                    style="width:25px; height:25px; accent-color: var(--brand-magenta);">
+                `).join('')}
+                <span style="font-weight:800; color:#94a3b8; font-size:0.65rem;">ALWAYS</span>
             </div>
         </div>`;
 
-    // Handle button visibility
+    // 1. Identify if we've reached the final step
     const isLastQuestion = currentIdx === totalQuestions - 1;
+
+    // 2. Hide 'Next' button on last question to make room for Generate Results
     document.getElementById('next-btn').style.display = isLastQuestion ? 'none' : 'inline-block';
+    
+    // 3. Show 'Back' button only if we aren't at the start
     document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
     
-    // Show email field only on the last question
+    // 4. Reveal the Email input field only on the last question
     document.getElementById('final-step').style.display = isLastQuestion ? 'block' : 'none';
 }
 
 function saveAnswer(val) {
     userAnswers[currentIdx] = val;
-    // Optional: Auto-trigger UI updates if needed
 }
 
 function changeQuestion(step) {
-    // Validate that an answer was picked before moving forward
+    // Prevent moving forward without an answer
     if (step === 1 && !userAnswers[currentIdx]) {
         alert("Please select a rating to continue.");
         return;
@@ -108,16 +133,35 @@ function changeQuestion(step) {
     currentIdx += step;
     renderQuestion();
 }
+
+/**
+ * Calculate Results and Dispatch via EmailJS
+ */
 function calculateReport() {
     const email = document.getElementById('u-email').value;
+    
+    if(!email || !email.includes('@')) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
     const score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
     
-    emailjs.send("service_u11zlzf", "template_zpcklyu", { user_email: email, score: score });
+    // Send data to EmailJS
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, { 
+        user_email: email, 
+        test_name: testData[activeKey].title,
+        score: score 
+    });
 
+    // Render results view
     document.getElementById('report-page-content').innerHTML = `
         <div class="card" style="text-align:center;">
             <h1 class="text-gradient">Analysis Complete</h1>
-            <p>Your score of ${score} has been analyzed. Check your inbox at ${email}.</p>
+            <p style="margin: 20px 0; line-height: 1.6;">
+                Your professional profile for the <strong>${testData[activeKey].title}</strong> has been generated.<br>
+                Your score of <strong>${score}</strong> has been analyzed. Check your inbox at <strong>${email}</strong>.
+            </p>
             <button class="btn-primary" onclick="showPage('home')">Return Home</button>
         </div>`;
     showPage('report');
