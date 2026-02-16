@@ -131,19 +131,66 @@ function calculateReport() {
     }
 
     const score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
+    const totalQuestions = testData[activeKey].questions.length;
+    const maxScore = totalQuestions * 5;
     
+    // 1. TRIGGER EMAIL (EmailJS)
     emailjs.send(SERVICE_ID, TEMPLATE_ID, { 
         user_email: email, 
         test_name: testData[activeKey].title,
         score: score 
     });
 
+    // 2. GENERATE THE DYNAMIC REPORT CONTENT
+    let reportTitle = "";
+    let reportDescription = "";
+    let traits = [];
+
+    // Scoring Logic for Friction vs Flow
+    if (score >= 22) {
+        reportTitle = "The High Friction Seeker";
+        reportDescription = "You perceive value through the lens of effort. While this makes you incredibly disciplined, you may be 'over-engineering' your path to success by ignoring efficient shortcuts.";
+        traits = ["High Resilience", "Perfectionist Tendencies", "Skepticism of AI/Automation", "Process-Oriented"];
+    } else if (score >= 15) {
+        reportTitle = "The Balanced Optimizer";
+        reportDescription = "You have a healthy relationship with effort. You aren't afraid of hard work, but you are constantly looking for the most effective way to produce results.";
+        traits = ["Strategic Effort", "Pragmatic Learner", "Adaptive", "Result-Focused"];
+    } else {
+        reportTitle = "The Flow Specialist";
+        reportDescription = "You are a master of leverage. You naturally gravitate toward systems and tools that maximize output with minimum friction.";
+        traits = ["High Efficiency", "Early Adopter", "Outcome-Oriented", "Systemic Thinker"];
+    }
+
+    // 3. RENDER THE REPORT PAGE
     document.getElementById('report-page-content').innerHTML = `
-        <div class="card" style="text-align:center;">
-            <h1 class="text-gradient">Analysis Complete</h1>
-            <p>Your results for <strong>${testData[activeKey].title}</strong> have been sent to <strong>${email}</strong>.</p>
-            <button class="btn-primary" style="margin-top:20px;" onclick="showPage('home')">Return Home</button>
-        </div>`;
+        <div class="card" style="text-align:left; max-width:800px; margin: 0 auto; padding: 40px;">
+            <div style="background: #f0fdf4; color: #166534; padding: 15px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #bbf7d0; font-size: 0.9rem; text-align: center;">
+                <strong>✓ Success!</strong> Your detailed PDF report has been dispatched to <strong>${email}</strong>.
+            </div>
+
+            <h4 style="color: var(--brand-magenta); font-weight: 800; margin-bottom: 5px; font-size: 0.8rem; letter-spacing: 1px;">DIAGNOSTIC RESULT</h4>
+            <h1 class="text-gradient" style="font-size: 2.5rem; margin-top: 0;">${reportTitle}</h1>
+            
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #334155; margin-bottom: 30px;">
+                ${reportDescription}
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+                ${traits.map(trait => `
+                    <div style="background: var(--bg-lavender); padding: 15px; border-radius: 12px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--brand-magenta);">✦</span> ${trait}
+                    </div>
+                `).join('')}
+            </div>
+
+            <div style="border-top: 2px solid #f1f5f9; padding-top: 30px; text-align: center;">
+                <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">Want to discuss these results with a professional coach?</p>
+                <button class="btn-primary" onclick="showPage('coaching')">Book Coaching Session</button>
+                <button class="btn-primary" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; margin-left: 10px;" onclick="showPage('home')">Back to Home</button>
+            </div>
+        </div>
+    `;
+
     showPage('report');
 }
 
