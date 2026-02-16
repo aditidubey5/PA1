@@ -15,20 +15,61 @@ body {
 }
 
 /* NAVIGATION */
+/* --- NAVIGATION & LINKS --- */
 nav { 
-    padding: 1rem 8%; 
+    padding: 0.8rem 5%; 
+    background: white; 
+    border-bottom: 3px solid var(--brand-magenta); 
+    position: sticky; 
+    top: 0; 
+    z-index: 2000; 
+}
+
+.nav-container { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    background: white; 
-    border-bottom: 3px solid var(--brand-magenta); 
-    position: sticky; top: 0; z-index: 2000; 
+    max-width: 1400px; 
+    margin: 0 auto; 
 }
-.nav-logo { height: 45px; cursor: pointer; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links span { 
-    font-weight: 700; cursor: pointer; font-size: 0.9rem; /* Reduced font */
-    color: #1e293b; transition: 0.3s; 
+
+.nav-links { 
+    display: flex; 
+    gap: 40px; 
+}
+
+/* Base style for the words Home, Tests, Coaching */
+.nav-links span {
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #1e293b; /* Dark slate by default */
+    transition: 0.3s ease;
+    position: relative;
+}
+
+/* Hover & Active: Turns the text into the Purple-Ombre Gradient */
+.nav-links span:hover, 
+.nav-links span.active {
+    background: var(--brand-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Optional: Small gradient underline that appears on hover */
+.nav-links span::after {
+    content: '';
+    position: absolute;
+    width: 0; 
+    height: 2px;
+    bottom: -4px; 
+    left: 0;
+    background: var(--brand-grad);
+    transition: 0.3s;
+}
+
+.nav-links span:hover::after { 
+    width: 100%; 
 }
 
 /* HERO SECTION */
