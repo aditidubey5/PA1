@@ -1,141 +1,151 @@
-/** * PEOPLE ASSETS - MASTER JS 
- * Includes: Coaching Form, Nav Highlights, and Dynamic Report
- */
-
 const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
 const SERVICE_ID = "service_u11zlzf";
 const TEMPLATE_ID = "template_zpcklyu";
 
 (function() { emailjs.init(PUBLIC_KEY); })();
 
-// ... (keep your testData the same as before) ...
+const testData = {
+    'friction': {
+        title: "Friction vs. Flow Quiz",
+        questions: [
+            "If I achieve a goal quickly and easily, I often feel like I haven't 'really' earned the result.",
+            "When learning something new, I feel a sense of guilt if I don't read the entire material from start to finish.",
+            "I find myself preferring to work on complex, difficult problems, even if they are less profitable than simpler ones.",
+            "I would rather wait until I can do a 'perfect' one-hour session than settle for a productive 10-minute window.",
+            "I feel significantly more productive and virtuous on days when I am physically or mentally exhausted by the end.",
+            "I am naturally skeptical of new tools, AI, or shortcuts that promise to make my professional work 10x faster."
+        ]
+    },
+    'odat': {
+        title: "Open DISC Assessment",
+        questions: [
+            "I tend to be assertive and direct when dealing with others.",
+            "I find great enjoyment in influencing others.",
+            "I prioritize a steady, predictable environment.",
+            "I pay close attention to accuracy and high standards.",
+            "I prioritize objective results over personal relationships."
+        ]
+    },
+    'bigfive': {
+        title: "Big Five Personality Inventory",
+        questions: [
+            "I am the life of the party and feel energized by social gatherings.",
+            "I have a soft heart and am concerned about others' feelings.",
+            "I am always prepared and highly organized.",
+            "I get upset or anxious easily.",
+            "I have a vivid imagination and love new ideas."
+        ]
+    }
+};
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
 
-/**
- * PAGE ROUTING WITH NAV HIGHLIGHTS
- */
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById(id).style.display = 'block';
-    
-    // Update Nav UI
-    document.querySelectorAll('.nav-links span').forEach(span => {
-        span.classList.remove('active');
-        if(span.innerText.toLowerCase() === id) span.classList.add('active');
-    });
+
+    // Update Nav Highlights
+    document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
+    const activeNav = document.getElementById('nav-' + id);
+    if(activeNav) activeNav.classList.add('active');
 
     if(id === 'tests') renderGrid();
     if(id === 'coaching') renderCoachingPage();
     window.scrollTo(0, 0);
 }
 
-/**
- * RENDER COACHING PAGE CONTENT
- */
+function renderGrid() {
+    const grid = document.getElementById('test-grid-ui');
+    grid.innerHTML = "";
+    for (let key in testData) {
+        grid.innerHTML += `
+            <div class="card" onclick="loadTest('${key}')">
+                <h3 style="margin-bottom:20px;">${testData[key].title}</h3>
+                <button class="btn-primary" style="padding:10px 20px;">START →</button>
+            </div>`;
+    }
+}
+
+function loadTest(id) {
+    activeKey = id; currentIdx = 0; userAnswers = {};
+    showPage('engine');
+    document.getElementById('test-title').innerText = testData[id].title;
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const questions = testData[activeKey].questions;
+    const isLast = currentIdx === questions.length - 1;
+    
+    document.getElementById('question-area').innerHTML = `
+        <div class="card" style="max-width:650px; margin: 40px auto; cursor: default;">
+            <p style="font-size:1.3rem; font-weight:800; margin-bottom:30px;">${questions[currentIdx]}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; max-width:450px; margin:0 auto;">
+                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">DISAGREE</span>
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="userAnswers[${currentIdx}]=${v}" ${userAnswers[currentIdx]==v?'checked':''} style="width:25px; height:25px;">`).join('')}
+                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">AGREE</span>
+            </div>
+            ${isLast ? `
+                <div style="margin-top:40px; border-top:1px solid #eee; padding-top:20px;">
+                    <input type="email" id="u-email" placeholder="Enter email for report" class="main-input">
+                    <button class="btn-primary" style="width:100%;" onclick="calculateReport()">Generate Results</button>
+                </div>` : ''}
+        </div>`;
+
+    document.getElementById('next-btn').style.display = isLast ? 'none' : 'inline-block';
+    document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
+}
+
+function changeQuestion(step) {
+    if (step === 1 && !userAnswers[currentIdx]) return alert("Please select an answer.");
+    currentIdx += step;
+    renderQuestion();
+}
+
 function renderCoachingPage() {
-    const container = document.getElementById('coaching');
-    container.innerHTML = `
-        <div class="container" style="text-align:center; padding-top: 60px;">
-            <h4 style="color:var(--brand-magenta); font-weight:800; letter-spacing:1px;">EXECUTIVE STRATEGY</h4>
-            <h1 class="text-gradient" style="font-size:3rem; margin-top:0;">Elite Coaching</h1>
-            <p style="margin-bottom:40px; color:#64748b;">Strategic alignment for high-performers. Request a consultation below.</p>
-            
-            <div class="card" style="max-width:500px; margin: 0 auto; text-align:left;">
-                <label style="font-weight:800; font-size:0.75rem; color:#94a3b8;">FULL NAME</label>
-                <input type="text" id="c-name" placeholder="John Doe" class="main-input">
-                
-                <label style="font-weight:800; font-size:0.75rem; color:#94a3b8;">EMAIL ADDRESS</label>
-                <input type="email" id="c-email" placeholder="john@company.com" class="main-input">
-                
-                <label style="font-weight:800; font-size:0.75rem; color:#94a3b8;">PHONE NUMBER</label>
-                <input type="tel" id="c-phone" placeholder="+1 (555) 000-0000" class="main-input">
-                
-                <label style="font-weight:800; font-size:0.75rem; color:#94a3b8;">FOCUS AREA</label>
-                <textarea id="c-focus" placeholder="What are your professional goals?" class="main-input" style="height:100px; font-family:inherit;"></textarea>
-                
-                <button class="btn-primary" style="width:100%; margin-top:10px;" onclick="sendCoachingRequest()">Request Consultation</button>
+    document.getElementById('coaching').innerHTML = `
+        <div class="container" style="text-align:center;">
+            <h1 class="text-gradient">Executive Coaching</h1>
+            <p>Request a consultation to align your behavioral profile with your goals.</p>
+            <div class="card" style="max-width:500px; margin: 30px auto; text-align:left;">
+                <input type="text" id="c-name" placeholder="Full Name" class="main-input">
+                <input type="email" id="c-email" placeholder="Email Address" class="main-input">
+                <input type="tel" id="c-phone" placeholder="Phone Number" class="main-input">
+                <textarea id="c-focus" placeholder="Focus Area" class="main-input" style="height:100px;"></textarea>
+                <button class="btn-primary" style="width:100%;" onclick="sendCoachingRequest()">Submit Request</button>
             </div>
         </div>`;
 }
 
-/**
- * SEND COACHING DATA TO EMAILJS
- */
 function sendCoachingRequest() {
-    const data = {
-        from_name: document.getElementById('c-name').value,
+    const data = { 
+        from_name: document.getElementById('c-name').value, 
         user_email: document.getElementById('c-email').value,
         phone: document.getElementById('c-phone').value,
-        message: document.getElementById('c-focus').value,
-        subject: "New Coaching Consultation Request"
+        message: document.getElementById('c-focus').value
     };
-
-    if(!data.user_email || !data.from_name) {
-        alert("Please fill in your name and email.");
-        return;
-    }
-
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
-        .then(() => {
-            alert("Thank you! Your request has been sent. We will contact you shortly.");
-            showPage('home');
-        });
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, data).then(() => {
+        alert("Request Sent! We will reach out shortly.");
+        showPage('home');
+    });
 }
 
-/**
- * DYNAMIC REPORT GENERATION (FRICTION VS FLOW)
- */
 function calculateReport() {
     const email = document.getElementById('u-email').value;
-    if(!email || !email.includes('@')) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-
     const score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
     
-    // Send Email
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, { 
-        user_email: email, 
-        test_name: testData[activeKey].title,
-        score: score 
-    });
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, { user_email: email, test_name: testData[activeKey].title, score: score });
 
-    // Scoring Logic
-    let reportTitle, reportDescription, traits;
-    if (score >= 22) {
-        reportTitle = "The High Friction Seeker";
-        reportDescription = "You perceive value through effort. You may be over-engineering your path to success.";
-        traits = ["High Resilience", "Perfectionist", "Process-Oriented", "Disciplined"];
-    } else if (score >= 15) {
-        reportTitle = "The Balanced Optimizer";
-        reportDescription = "You have a healthy relationship with effort, balancing hard work with effective systems.";
-        traits = ["Strategic Effort", "Pragmatic", "Adaptive", "Result-Focused"];
-    } else {
-        reportTitle = "The Flow Specialist";
-        reportDescription = "You are a master of leverage, maximizing output while minimizing unnecessary friction.";
-        traits = ["High Efficiency", "Systemic Thinker", "Outcome-Oriented", "Leverage Expert"];
-    }
-
-    //     document.getElementById('report-page-content').innerHTML = `
-        <div class="card" style="text-align:left; max-width:800px; margin: 0 auto; padding: 40px;">
-            <div style="background: #f0fdf4; color: #166534; padding: 15px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #bbf7d0; font-size: 0.9rem; text-align: center;">
-                <strong>✓ Success!</strong> Your detailed analysis has been dispatched to <strong>${email}</strong>.
-            </div>
-            <h4 style="color: var(--brand-magenta); font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">DIAGNOSTIC RESULT</h4>
-            <h1 class="text-gradient" style="font-size: 2.5rem; margin-top: 0;">${reportTitle}</h1>
-            <p style="font-size: 1.1rem; line-height: 1.6; color: #334155; margin-bottom: 30px;">${reportDescription}</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
-                ${traits.map(t => `<div style="background:var(--bg-lavender); padding:15px; border-radius:12px; font-weight:700;">✦ ${t}</div>`).join('')}
-            </div>
-            <div style="border-top: 2px solid #f1f5f9; padding-top: 30px; text-align:center;">
-                <button class="btn-primary" onclick="showPage('coaching')">Book Coaching Session</button>
-            </div>
-        </div>`;
+    let title = score >= 22 ? "High Friction Seeker" : (score >= 15 ? "Balanced Optimizer" : "Flow Specialist");
     
+    document.getElementById('report-page-content').innerHTML = `
+        <div class="card" style="text-align:center;">
+            <div style="background:#f0fdf4; color:#166534; padding:15px; border-radius:10px; margin-bottom:20px;">✓ Email Sent to ${email}</div>
+            <h1 class="text-gradient">${title}</h1>
+            <p>Score: ${score}. Your profile is ready. Check your inbox.</p>
+            <button class="btn-primary" onclick="showPage('coaching')">Book Coaching</button>
+        </div>`;
     showPage('report');
 }
 
-// Ensure first page loads correctly
 document.addEventListener('DOMContentLoaded', () => showPage('home'));
