@@ -10,11 +10,15 @@
 </head>
 <body>
     <nav>
-        <img src="logo.jpeg" class="nav-logo" onclick="showPage('home')">
-        <div class="nav-links">
-            <span onclick="showPage('home')">Home</span>
-            <span onclick="showPage('tests')">Tests</span>
-            <span onclick="showPage('coaching')">Coaching</span>
+        <div class="nav-container">
+            <div class="logo-wrapper">
+                <img src="People assets photo.jpeg" class="nav-logo" alt="Logo" onclick="showPage('home')">
+            </div>
+            <div class="nav-links">
+                <span id="nav-home" onclick="showPage('home')">Home</span>
+                <span id="nav-tests" onclick="showPage('tests')">Tests</span>
+                <span id="nav-coaching" onclick="showPage('coaching')">Coaching</span>
+            </div>
         </div>
     </nav>
 
@@ -37,17 +41,14 @@
         <div class="container" style="text-align:center;">
             <h2 id="test-title" class="text-gradient"></h2>
             <div id="question-area"></div>
-            <div style="margin-top:20px;">
-                <button class="btn-primary" onclick="changeQuestion(1)">Next Question</button>
-            </div>
-            <div id="final-step" style="display:none; margin-top:30px;">
-                <input type="email" id="u-email" placeholder="Enter your email" class="main-input" style="max-width:400px;">
-                <button class="btn-primary" onclick="calculateReport()">Generate Results</button>
+            <div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">
+                <button id="back-btn" class="btn-primary" style="background:#64748b;" onclick="changeQuestion(-1)">Back</button>
+                <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next Question</button>
             </div>
         </div>
     </section>
 
-   <section id="report" class="page" style="display:none;">
+    <section id="report" class="page" style="display:none;">
         <div id="report-page-content" class="container"></div>
     </section>
 
@@ -57,4 +58,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
