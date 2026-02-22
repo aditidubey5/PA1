@@ -1,8 +1,4 @@
-const PUBLIC_KEY = "zs8EuLqOZPjTVHF0M";
-const SERVICE_ID = "service_u11zlzf";
-const TEMPLATE_ID = "template_zpcklyu";
 
-(function() { emailjs.init(PUBLIC_KEY); })();
 
 const testData = {
     'friction': {
