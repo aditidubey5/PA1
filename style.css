@@ -9,6 +9,7 @@ body {
     margin: 0; 
     background-color: var(--bg-lavender); 
     color: #0f172a; 
+    overflow-x: hidden;
 }
 
 /* NAVIGATION LAYOUT */
@@ -52,11 +53,28 @@ nav {
 .hero h1 { font-size: 3.5rem; font-weight: 800; }
 .text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+/* --- THE 3-COLUMN GRID FIX --- */
+.test-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* This creates the 3 columns */
+    gap: 25px; 
+    margin-top: 40px;
+}
+
+/* This makes sure it still looks good on phones */
+@media (max-width: 900px) {
+    .test-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .test-grid { grid-template-columns: 1fr; }
+}
 
 .card { 
     background: white; padding: 2.5rem; border-radius: 25px; 
     transition: 0.3s; text-align: center; border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .card:hover { border-color: var(--brand-magenta); transform: translateY(-5px); background: #fdf2f8; }
 
@@ -68,4 +86,5 @@ nav {
 .main-input { 
     width: 100%; padding: 12px; border-radius: 10px; 
     border: 2px solid #e2e8f0; margin-bottom: 15px; font-family: inherit;
+    box-sizing: border-box; /* Fixes input stretching */
 }
