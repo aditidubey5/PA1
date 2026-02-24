@@ -10,25 +10,21 @@
 </head>
 <body>
    <nav style="background: white; border-bottom: 1px solid #f1f5f9; position: sticky; top: 0; z-index: 1000;">
-    <div class="nav-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+    <div class="nav-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px;">
         
-        <div class="nav-logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center; gap: 15px; border: 1px solid #D946EF; border-radius: 50px; padding: 8px 24px; background: #fff;">
-            
-            <div style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.2rem; line-height: 1; display: flex; flex-direction: column; letter-spacing: -0.5px;">
-                <span style="color: #D946EF; text-transform: uppercase;">People</span>
-                <span style="color: #4A27B0; text-transform: uppercase;">Assets</span>
+        <div class="nav-logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center;">
+            <div style="border: 1px solid #D946EF; border-radius: 50px; padding: 8px 28px; background: #fff;">
+                <div style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.3rem; line-height: 0.95; display: flex; flex-direction: column; letter-spacing: -0.5px; text-align: left;">
+                    <span style="color: #D946EF;">PEOPLE</span>
+                    <span style="color: #4A27B0;">ASSETS</span>
+                </div>
             </div>
-            
-            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 75H35L55 25M80 50C80 35 70 25 55 25M55 25L45 50M45 50H75M45 50L60 75" 
-                      stroke="#D946EF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
         </div>
 
-        <div class="nav-links" style="display: flex; gap: 25px; font-family: 'Inter', sans-serif; font-weight: 600; color: #4A27B0;">
-            <span id="nav-home" onclick="showPage('home')" style="cursor: pointer;">Home</span>
-            <span id="nav-tests" onclick="showPage('tests')" style="cursor: pointer;">Assessments</span>
-            <span id="nav-coaching" onclick="showPage('coaching')" style="cursor: pointer;">Coaching</span>
+        <div class="nav-links" style="display: flex; gap: 30px; font-family: 'Inter', sans-serif; font-weight: 600; color: #4A27B0;">
+            <span id="nav-home" onclick="showPage('home')" style="cursor: pointer; transition: 0.2s;">Home</span>
+            <span id="nav-tests" onclick="showPage('tests')" style="cursor: pointer; transition: 0.2s;">Assessments</span>
+            <span id="nav-coaching" onclick="showPage('coaching')" style="cursor: pointer; transition: 0.2s;">Coaching</span>
         </div>
     </div>
 </nav>
