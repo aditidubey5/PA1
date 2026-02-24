@@ -46,6 +46,36 @@ const testData = {
             "My work feels like a hamster wheel of the same tasks."
         ]
     },
+    'validation': {
+        title: "Internal vs. External Validation",
+        questions: [
+            "I feel successful only when others praise my work.",
+            "I would still do my current job if no one ever knew my title.",
+            "I often check social media/metrics to feel good about my progress.",
+            "My self-worth is tied to my latest professional 'win'.",
+            "I find it hard to enjoy work if I don't receive feedback.",
+            "I have internal benchmarks for quality that I follow strictly.",
+            "I care more about 'the craft' than 'the credit'.",
+            "I feel anxious if I am not being 'seen' as successful.",
+            "I make career moves based on what looks good on a resume.",
+            "I find deep satisfaction in tasks that no one will ever see."
+        ]
+    },
+    'scarcity': {
+        title: "Scarcity vs. Abundance",
+        questions: [
+            "I focus more on 'not losing' than on 'winning'.",
+            "I believe there is a limited amount of opportunity in my field.",
+            "I am hesitant to share my best ideas for fear of theft.",
+            "I view my competitors' success as my personal loss.",
+            "I am comfortable investing money to save time.",
+            "I believe that for me to win, someone else must lose.",
+            "I see mistakes as catastrophic failures rather than data.",
+            "I tend to hoard resources (money/info) 'just in case'.",
+            "I am excited by others' success in my industry.",
+            "I focus on expanding the pie rather than fighting for a slice."
+        ]
+    },
     'odat': {
         title: "Open DISC Assessment",
         questions: [
@@ -65,7 +95,7 @@ const testData = {
         questions: [
             "I am the life of the party.", "I am concerned about others' feelings.", "I am always prepared.", 
             "I get upset easily.", "I have a vivid imagination.", "I talk to a lot of different people.",
-            "I sympathize with others' feelings.", "I leave my belongings around.",
+            "I sympathise with others' feelings.", "I leave my belongings around.",
             "I am relaxed most of the time.", "I have difficulty understanding abstract ideas.",
             "I keep in the background.", "I am not interested in other people's problems.",
             "I follow a schedule.", "I have frequent mood swings.", "I am full of ideas.",
@@ -145,7 +175,21 @@ function calculateReport() {
 
     let r = { title: "", tagline: "", summary: "", analysis: "", traits: [], blindspots: [], roadmap: "" };
 
-    if (activeKey === 'friction') {
+    if (activeKey === 'validation') {
+        if (pct >= 60) {
+            r.title = "The Prestige Chaser"; r.summary = "You are fueled by external benchmarks and social proof.";
+            r.analysis = "Prestige Chasers are high achievers but are prone to 'Arrival Fallacy'—the belief that once you hit a certain title or goal, you will finally be happy. This leads to burnout and a sense of hollow victory.";
+            r.traits = [{n:"Metrics Focused", d:"Highly sensitive to data and public feedback."}, {n:"Approval Driven", d:"Decisions are often filtered through 'how this looks'."}];
+            r.blindspots = ["Fragile self-worth", "Burnout risk", "Losing touch with personal values"];
+            r.roadmap = "Identify one 'Invisible Project'—a task done purely for the joy of the craft that you will never post about.";
+        } else {
+            r.title = "The Autotelic Elite"; r.summary = "You are driven by the internal mastery of your craft.";
+            r.analysis = "Autotelic individuals find the reward in the activity itself. This makes you extremely resilient to market fluctuations or lack of external praise. You are a marathon runner in a world of sprinters.";
+            r.traits = [{n:"Internal Benchmarking", d:"Strict adherence to personal quality standards."}, {n:"Flow Mastery", d:"Ease of entering deep focus without external prompts."}];
+            r.blindspots = ["Isolation from market reality", "Potential for perfectionism", "Difficulty with self-promotion"];
+            r.roadmap = "Connect your internal standards to a public-facing 'Signal' once a month to ensure your work is being valued.";
+        }
+    } else if (activeKey === 'friction') {
         if (pct >= 75) {
             r.title = "The Martyr"; r.tagline = "High Friction / Low Leverage";
             r.summary = "You equate professional value with total exhaustion.";
@@ -155,7 +199,7 @@ function calculateReport() {
             r.roadmap = "Automate one recurring 2-hour task this week. No exceptions.";
         } else {
             r.title = "The Architect"; r.tagline = "Low Friction / High Leverage";
-            r.summary = "You view effort as a cost to be minimized.";
+            r.summary = "You view effort as a cost to be minimised.";
             r.analysis = "Architects focus on the system, not the labor. You naturally find the 20% of actions that drive 80% of results.";
             r.traits = [{n:"Systemic Thinking", d:"Viewing every task as a potential workflow."}, {n:"Strategic Laziness", d:"Refusing manual labor if a tool can do it."}];
             r.blindspots = ["Detachment from team struggles", "Over-automation"];
@@ -182,7 +226,7 @@ function calculateReport() {
         r.summary = "Your results show a high-functioning professional baseline.";
         r.analysis = "You possess a balanced profile suited for strategic execution. Your data indicates a strong alignment between your intentions and actions.";
         r.traits = [{n:"Analytical Depth", d:"Processing variables logically."}, {n:"Strategic Alignment", d:"Connecting daily tasks to long-term goals."}];
-        r.blindspots = ["Perfectionism paralysis", "Analysis over-load"];
+        r.blindspots = ["Perfectionism paralysis", "Analysis overload"];
         r.roadmap = "Practice 'Agile Execution'—move at 70% confidence rather than waiting for 100%.";
     }
     if (activeKey === 'leverage') {
@@ -200,6 +244,20 @@ function calculateReport() {
             r.traits = [{n:"Systemic Oversight", d:"Thinking in workflows, not tasks."}, {n:"Leverage Focus", d:"Always asking 'How does this scale?'"}];
             r.blindspots = ["Detachment from frontline reality", "Over-engineering simple fixes"];
             r.roadmap = "Audit your current systems to ensure they aren't becoming 'bottlenecks' for your team.";
+        }
+    } else if (activeKey === 'scarcity') {
+        if (pct >= 55) {
+            r.title = "The Guardian"; r.summary = "You operate from a 'Protect the Assets' mindset.";
+            r.analysis = "The Guardian plays to 'not lose'. While this makes you excellent at risk management, it can prevent you from capturing exponential growth opportunities. You see a finite world where others' wins feel like your losses.";
+            r.traits = [{n:"Risk Aversion", d:"Prioritising security over potential upside."}, {n:"Resource Hoarding", d:"Keeping info or assets close to the vest."}];
+            r.blindspots = ["Missing 'Black Swan' upsides", "Static growth", "Creating high-friction environments"];
+            r.roadmap = "Set aside a 'Experimentation Fund'—time or money that you are 100% comfortable 'losing' on a new idea.";
+        } else {
+            r.title = "The Venture Architect"; r.summary = "You operate from an 'Expand the Pie' mindset.";
+            r.analysis = "Venture Architects see the world as a series of compounding opportunities. You understand that the best way to win is to create a bigger game for everyone. You focus on ROI over cost.";
+            r.traits = [{n:"Growth Orientation", d:"Focusing on potential gain rather than potential loss."}, {n:"Collaborative Drive", d:"Viewing competitors as potential partners or data points."}];
+            r.blindspots = ["Over-extension of resources", "Underestimating downside risk", "Impatience with slow-growth phases"];
+            r.roadmap = "Implement a 'Guardian' check-and-balance system to ensure your growth doesn't outpace your infrastructure.";
         }
     } else {
         // Fallback for Friction/Signal/DISC (Similar to previous logic)
