@@ -31,6 +31,21 @@ const testData = {
             "I am afraid that if I don't stay connected 24/7, I will miss something vital."
         ]
     },
+    'leverage': {
+        title: "Architect vs. Firefighter",
+        questions: [
+            "I spend most of my day responding to 'urgent' requests.",
+            "I have a written system (SOP) for my recurring tasks.",
+            "I feel like I'm constantly putting out fires.",
+            "I prioritise building tools that save me time next month.",
+            "Most of my work is 'reactive' rather than 'proactive'.",
+            "I delegate tasks that are below my pay grade.",
+            "I focus on the 20% of work that yields 80% of results.",
+            "I feel anxious when I don't have a crisis to solve.",
+            "I spend time training others to do what I do.",
+            "My work feels like a hamster wheel of the same tasks."
+        ]
+    },
     'odat': {
         title: "Open DISC Assessment",
         questions: [
@@ -169,6 +184,31 @@ function calculateReport() {
         r.traits = [{n:"Analytical Depth", d:"Processing variables logically."}, {n:"Strategic Alignment", d:"Connecting daily tasks to long-term goals."}];
         r.blindspots = ["Perfectionism paralysis", "Analysis over-load"];
         r.roadmap = "Practice 'Agile Execution'—move at 70% confidence rather than waiting for 100%.";
+    }
+    if (activeKey === 'leverage') {
+        if (pct >= 65) {
+            r.title = "The Firefighter";
+            r.summary = "You are addicted to urgency and reactive work.";
+            r.analysis = "The Firefighter derives their worth from 'saving the day.' While you are excellent under pressure, you are stuck in a loop of low-leverage work. You are so busy putting out fires that you haven't built a sprinkler system.";
+            r.traits = [{n:"High Adrenaline", d:"Thrives in chaos but struggles with routine."}, {n:"Reactive Execution", d:"Wait for problems to occur before solving them."}];
+            r.blindspots = ["Scaling limitations", "Chronically high cortisol", "Neglecting system-building"];
+            r.roadmap = "Spend the first hour of every day building one SOP (Standard Operating Procedure).";
+        } else {
+            r.title = "The Architect";
+            r.summary = "You build machines that produce results while you sleep.";
+            r.analysis = "The Architect focuses on proactivity. You view recurring problems as failures of the system, not failures of effort. You prioritize leverage over labor.";
+            r.traits = [{n:"Systemic Oversight", d:"Thinking in workflows, not tasks."}, {n:"Leverage Focus", d:"Always asking 'How does this scale?'"}];
+            r.blindspots = ["Detachment from frontline reality", "Over-engineering simple fixes"];
+            r.roadmap = "Audit your current systems to ensure they aren't becoming 'bottlenecks' for your team.";
+        }
+    } else {
+        // Fallback for Friction/Signal/DISC (Similar to previous logic)
+        r.title = "Analysis Complete";
+        r.summary = "Your results indicate a high-functioning profile.";
+        r.analysis = "Based on your data, you demonstrate a balanced approach to professional challenges.";
+        r.traits = [{n:"Strategic Mindset", d:"The ability to align actions with goals."}];
+        r.blindspots = ["Standard professional risks"];
+        r.roadmap = "Continue optimizing your current workflows.";
     }
 
     
