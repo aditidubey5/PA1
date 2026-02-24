@@ -13,20 +13,24 @@
     <div class="nav-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px;">
         
         <div class="nav-logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center;">
-            <div style="border: 1.5px solid #d946ef; border-radius: 50px; padding: 6px 20px; display: flex; align-items: center; gap: 12px; background: #fff;">
-                <span style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; text-transform: uppercase;">
-                    <span style="color: #4b2aad;">PEOPLE</span> <span style="color: #d946ef;">ASSETS</span>
-                </span>
+            <div style="border: 1px solid #d946ef; border-radius: 50px; padding: 8px 24px; display: flex; align-items: center; gap: 15px; background: #fff;">
                 
-                <svg width="32" height="24" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 5px;">
-                    <path d="M28.5 2L42.5 16L28.5 30" stroke="#d946ef" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2.5 16H36.5" stroke="#d946ef" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12.5 16L2.5 28" stroke="#d946ef" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <div style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; display: flex; flex-direction: column; line-height: 1;">
+                    <span style="color: #6342ff;">PEOPLE</span>
+                    <span style="color: #4b2aad;">ASSETS</span>
+                </div>
+                
+                <svg width="45" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 5H38C41.5 5 43 7.5 43 11C43 14.5 41.5 17 38 17H25" stroke="#d946ef" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M25 5V30" stroke="#d946ef" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M25 17L38 30" stroke="#d946ef" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M15 17H30" stroke="#d946ef" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M15 5V17" stroke="#d946ef" stroke-width="5" stroke-linecap="round"/>
                 </svg>
             </div>
         </div>
 
-        <div class="nav-links" style="display: flex; gap: 25px; font-family: 'Inter', sans-serif; font-weight: 600; color: #64748b;">
+        <div class="nav-links" style="display: flex; gap: 30px; font-family: 'Inter', sans-serif; font-weight: 600; color: #4b2aad;">
             <span id="nav-home" onclick="showPage('home')" style="cursor: pointer;">Home</span>
             <span id="nav-tests" onclick="showPage('tests')" style="cursor: pointer;">Assessments</span>
             <span id="nav-coaching" onclick="showPage('coaching')" style="cursor: pointer;">Coaching</span>
