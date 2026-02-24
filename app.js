@@ -106,6 +106,37 @@ const testData = {
 };
 
 let activeKey = null, currentIdx = 0, userAnswers = {};
+// --- SESSION RECOVERY LOGIC ---
+function saveSession() {
+    const session = { activeKey, currentIdx, userAnswers };
+    localStorage.setItem('performance_ai_session', JSON.stringify(session));
+}
+
+function clearSession() {
+    localStorage.removeItem('performance_ai_session');
+}
+
+function checkSavedSession() {
+    const saved = localStorage.getItem('performance_ai_session');
+    if (saved) {
+        const { activeKey: sKey, currentIdx: sIdx, userAnswers: sAnswers } = JSON.parse(saved);
+        if (sKey && testData[sKey]) {
+            const resumePrompt = confirm(`Resume your saved "${testData[sKey].title}" assessment?`);
+            if (resumePrompt) {
+                activeKey = sKey;
+                currentIdx = sIdx;
+                userAnswers = sAnswers;
+                showPage('engine');
+                document.getElementById('test-title').innerText = testData[activeKey].title;
+                renderQuestion();
+                return true;
+            } else {
+                clearSession();
+            }
+        }
+    }
+    return false;
+}
 
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -168,7 +199,10 @@ function renderQuestion() {
     document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
 }
 
-function saveAnswer(v) { userAnswers[currentIdx] = v; }
+function selectAnswer(v) {
+    userAnswers[currentIdx] = v;
+    saveSession();
+}
 
 function changeQuestion(step) {
     if (step === 1 && !userAnswers[currentIdx]) return alert("Select a rating.");
