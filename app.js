@@ -116,6 +116,15 @@ function showPage(id) {
     if(id === 'coaching') renderCoachingPage();
     window.scrollTo(0,0);
 }
+// RETURNING USER LOGIC (Engagement)
+function checkReturningUser() {
+    const lastResult = localStorage.getItem('last_roadmap');
+    if (lastResult) {
+        const data = JSON.parse(lastResult);
+        const homeHeader = document.querySelector('#home h1');
+        homeHeader.innerHTML = `Welcome back. <br><span style="font-size:1.2rem; color:var(--brand-magenta);">Reminder: Your next step is to ${data.roadmap}</span>`;
+    }
+}
 
 function renderGrid() {
     const grid = document.getElementById('test-grid-ui');
