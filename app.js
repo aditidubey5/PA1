@@ -200,15 +200,27 @@ function renderQuestion() {
 }
 
 function selectAnswer(v) {
+    // Explicitly link the answer to the current index
     userAnswers[currentIdx] = v;
     saveSession();
+    
+    // Optional: console.log to verify in your browser inspect tool
+    console.log(`Saved answer ${v} for question ${currentIdx}`);
 }
 
 function changeQuestion(step) {
-    if (step === 1 && !userAnswers[currentIdx]) return alert("Select a rating.");
+    // We check specifically if the current index has a value
+    // userAnswers[currentIdx] is 0-indexed, so we ensure it's not undefined
+    if (step === 1 && (userAnswers[currentIdx] === undefined || userAnswers[currentIdx] === null)) {
+        return alert("Please select a rating.");
+    }
+    
     currentIdx += step;
+    saveSession();
     renderQuestion();
 }
+
+
 
 function calculateReport() {
     const email = document.getElementById('u-email').value;
