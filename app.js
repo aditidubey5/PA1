@@ -186,7 +186,7 @@ function renderQuestion() {
             <p style="font-size:1.3rem; font-weight:800; margin-top:10px; margin-bottom:30px; line-height:1.4;">${questions[currentIdx]}</p>
             <div style="display:flex; justify-content:space-between; align-items:center; max-width:450px; margin:0 auto;">
                 <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">DISAGREE</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="saveAnswer(${v})" ${userAnswers[currentIdx]==v?'checked':''} style="width:25px; height:25px; accent-color:var(--brand-magenta);">`).join('')}
+                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="selectAnswer(${v})" ${userAnswers[currentIdx]==v?'checked':''} style="width:25px; height:25px; accent-color:var(--brand-magenta);">`).join('')}
                 <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">AGREE</span>
             </div>
             ${isLast ? `
@@ -198,7 +198,6 @@ function renderQuestion() {
     document.getElementById('next-btn').style.display = isLast ? 'none' : 'inline-block';
     document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
 }
-
 function selectAnswer(v) {
     // Explicitly link the answer to the current index
     userAnswers[currentIdx] = v;
