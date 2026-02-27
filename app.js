@@ -1,420 +1,633 @@
+/* ============================================
+   PEOPLE ASSETS — app.js
+   Full application logic
+   ============================================ */
 
+// ============================================
+// ASSESSMENT DATA
+// ============================================
+const TESTS = [
+  {
+    id: "disc",
+    title: "DISC Behavioral Profile",
+    tagline: "Uncover how you communicate, lead, and react under pressure.",
+    description: "The DISC model maps your natural behavioral style across four dimensions — Dominance, Influence, Steadiness, and Conscientiousness. Knowing your DISC profile helps you understand your default communication patterns, decision-making speed, and how others experience working with you.",
+    questions: 28,
+    time: "12 min",
+    icon: "🎯",
+    questions_data: [
+      { q: "When working in a group, I typically...", options: ["Take charge and direct others","Motivate and energize the team","Support others and keep harmony","Analyze data before contributing"] },
+      { q: "Under pressure, I tend to...", options: ["Become more decisive and assertive","Talk more and seek input from others","Become quieter and more methodical","Double-check everything carefully"] },
+      { q: "My biggest frustration at work is...", options: ["Slow progress and indecisiveness","Lack of social connection","Sudden changes to routine","Vague instructions or unclear expectations"] },
+      { q: "I prefer a work environment that is...", options: ["Fast-paced and results-driven","Collaborative and energetic","Stable and structured","Precise and well-organized"] },
+      { q: "When making decisions, I prioritize...", options: ["Speed and results","People's feelings and buy-in","Consistency with past decisions","Accuracy and all available data"] },
+      { q: "My communication style is best described as...", options: ["Direct and to the point","Enthusiastic and expressive","Calm and supportive","Detailed and systematic"] },
+      { q: "When I disagree with someone, I...", options: ["State my view confidently and debate it","Try to find common ground through conversation","Avoid conflict and accommodate","Present facts and logical arguments"] },
+      { q: "I feel most accomplished when I...", options: ["Win or achieve a measurable result","Positively influence or inspire someone","Create a smooth, stable process","Deliver something error-free and complete"] },
+    ]
+  },
+  {
+    id: "bigfive",
+    title: "Big Five Personality Map",
+    tagline: "The gold standard of personality science — applied to your career.",
+    description: "The Big Five (OCEAN) model is the most validated personality framework in psychological research. This assessment measures your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism — and translates each dimension into practical career intelligence.",
+    questions: 30,
+    time: "14 min",
+    icon: "🧠",
+    questions_data: [
+      { q: "I enjoy exploring new ideas and abstract concepts.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I keep my workspace and schedule highly organized.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I find social events energizing rather than draining.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I go out of my way to help others, even at personal cost.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I often worry about things that could go wrong.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I regularly seek out creative or artistic experiences.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I meet deadlines without needing external reminders.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+    ]
+  },
+  {
+    id: "martyr",
+    title: "The Martyr Index",
+    tagline: "Are you working hard — or just suffering productively?",
+    description: "The Martyr Index is a proprietary People Assets diagnostic. It measures the gap between effort invested and systemic impact generated. High martyrs work extremely hard but remain stuck — they over-invest in low-leverage tasks, under-delegate, and confuse busyness with progress.",
+    questions: 20,
+    time: "9 min",
+    icon: "⚖️",
+    questions_data: [
+      { q: "I regularly stay late or work weekends to finish tasks others could have handled.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "Saying 'no' to a request at work makes me feel guilty.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I take on tasks because I believe no one else will do them correctly.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "My effort level is high, but I'm not sure how much actual impact I'm creating.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I feel resentful when my hard work goes unacknowledged.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I delegate tasks comfortably and trust others to execute.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "My to-do list is a source of pride, not stress.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I can clearly name the 3 things that create the most value in my role.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+    ]
+  },
+  {
+    id: "signal",
+    title: "Signal vs. Noise Quotient",
+    tagline: "How much of your day is signal — and how much is static?",
+    description: "In the attention economy, your ability to filter high-value information from digital noise is a professional superpower. This assessment measures your Signal/Noise Quotient (SNQ) — quantifying your information diet, focus quality, and strategic thinking bandwidth.",
+    questions: 22,
+    time: "10 min",
+    icon: "📡",
+    questions_data: [
+      { q: "I check email or messaging apps within 15 minutes of waking up.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I can work for 90+ minutes without checking a notification.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I have a clear system for deciding what information deserves my attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "After a full work day, I feel mentally depleted from information overload.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I regularly read long-form content (books, deep articles, research).", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "Meetings often feel like they could have been emails.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I can summarize the 3 most important things I learned this week.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "Social media leaves me feeling informed rather than scattered.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+    ]
+  },
+  {
+    id: "leadership",
+    title: "Leadership Archetype Scanner",
+    tagline: "Discover the leader you actually are — not the one you think you are.",
+    description: "Are you a Visionary, an Executor, a Coach, or a Stabilizer? This assessment cuts through self-perception bias to reveal your dominant leadership archetype based on your actual behaviors, instincts, and decisions — not your aspirations.",
+    questions: 24,
+    time: "11 min",
+    icon: "👑",
+    questions_data: [
+      { q: "When a project stalls, my first instinct is to...", options: ["Paint a compelling vision of success to re-energize the team","Break the problem into tasks and assign them immediately","Have 1-on-1s to understand what's blocking each person","Review the process and identify where it broke down"] },
+      { q: "A new team member joins. I primarily...", options: ["Share the big picture and excite them about the mission","Give them clear tasks and quick wins to build momentum","Pair them with a mentor and invest in their development","Walk them through systems, protocols, and expectations"] },
+      { q: "A team member makes a costly mistake. I...", options: ["Focus on lessons learned and future vision","Address it directly and move forward quickly","Explore the emotional context and coach them through it","Analyze what process failed and how to prevent a recurrence"] },
+      { q: "My team would describe my meetings as...", options: ["Inspiring and idea-filled","Efficient and action-focused","Personal and connecting","Structured and detailed"] },
+      { q: "I feel most confident when...", options: ["I've articulated a future others are excited about","The team is executing with speed and clarity","Each person feels seen, supported, and growing","All systems are running smoothly and predictably"] },
+      { q: "I struggle most with...", options: ["Staying patient with slow progress","Slowing down to hear all perspectives","Holding people accountable to hard deadlines","Embracing ambiguity and rapid change"] },
+      { q: "My ideal team is...", options: ["Bold risk-takers who love big bets","Self-starters who execute with speed","Collaborative and psychologically safe","Disciplined and process-oriented"] },
+      { q: "In a crisis, I am known for...", options: ["Rallying people around a new direction","Taking decisive, rapid action","Keeping people calm and connected","Restoring order and following protocol"] },
+    ]
+  },
+  {
+    id: "ei",
+    title: "Emotional Intelligence Audit",
+    tagline: "Your EQ is the ceiling on your leadership. Find out where it sits.",
+    description: "Emotional Intelligence (EQ) is the ability to recognize, understand, and manage emotions — in yourself and others. Research consistently shows EQ outperforms IQ in predicting leadership effectiveness, team performance, and career longevity.",
+    questions: 26,
+    time: "12 min",
+    icon: "❤️",
+    questions_data: [
+      { q: "I can name the specific emotion I'm feeling, not just 'stressed' or 'upset'.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "When someone is venting to me, I focus on understanding before advising.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I can stay composed during heated disagreements.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I adjust my communication style based on who I'm speaking to.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I seek feedback on how I come across, even when it might be uncomfortable.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "I can sense when someone is emotionally disengaged even if they say they're fine.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "After a conflict, I reflect on my own role before assigning blame.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { q: "My emotions rarely interfere with my professional judgment.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+    ]
+  },
+  {
+    id: "growth",
+    title: "Growth Mindset Diagnostic",
+    tagline: "Fixed or fluid? This is the meta-skill beneath every other skill.",
+    description: "Psychologist Carol Dweck's foundational research shows that how you think about your own abilities determines how far you'll grow. This diagnostic goes beyond self-reported mindset to measure your behavioral patterns around challenge, failure, learning, and feedback.",
+    questions: 18,
+    time: "8 min",
+    icon: "🌱",
+    questions_data: [
+      { q: "When I fail at something important, I...", options: ["Analyze what I can learn and try a different approach","Feel discouraged but eventually try again","Take a break then revisit it","Tend to avoid that area going forward"] },
+      { q: "Feedback that points out my weaknesses...", options: ["Is exactly what I seek out","Is useful even when uncomfortable","Is helpful in small doses","Is hard to hear and demotivating"] },
+      { q: "I believe my core talents and intelligence...", options: ["Can grow significantly with effort and strategy","Can be somewhat developed with practice","Are mostly fixed but I can learn skills","Are largely determined by nature"] },
+      { q: "When a colleague outperforms me, I feel...", options: ["Motivated — what can I learn from them?","Mildly competitive but mostly fine","Indifferent — we all have different strengths","Threatened or inadequate"] },
+      { q: "I actively seek out challenges that I might fail at.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "My effort on a hard task increases when I realize I might not succeed.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I regularly invest time in learning skills that are outside my current role.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I view my career as a series of experiments rather than a fixed path.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+    ]
+  }
+];
 
-const testData = {
-    'friction': {
-        title: "Friction vs. Flow Quiz",
-        description: "This test looks at how much 'extra' effort you put into your work. \nSometimes we make tasks harder than they need to be because we think 'hard' equals 'better'. \nBy taking this quiz, you will see if you are working against yourself or with a smooth flow. \nIt helps you find ways to get the same great results with much less stress and struggle.",
-        questions: [
-            "If I achieve a goal quickly and easily, I often feel like I haven't 'really' earned the result.",
-            "I tend to view colleagues who find 'easy' ways to do hard things as cutting corners.",
-            "I find myself preferring complex problems, even if they are less profitable than simpler ones.",
-            "I feel 'guilty' if I finish my primary work tasks before the workday is officially over.",
-            "I feel more virtuous on days when I am physically exhausted by the end.",
-            "I am naturally skeptical of new tools or AI that promise to make work 10x faster.",
-            "If a project doesn't feel stressful, I worry the final quality will be lower.",
-            "I add more features to a task than requested to ensure it's 'thorough'.",
-            "I'd rather do a task manually for 'control' than set up an automated system.",
-            "I believe professional growth is only possible through intense 'grinding'."
-        ]
-    },
-    'signal': {
-        title: "Signal vs. Noise Audit",
-        description: "This test checks how well you can focus on what actually matters in your day. \nWith so many emails, meetings, and notifications, it is easy to get distracted by 'noise'. \nThis test measures your ability to find the 'signals'—the high-impact tasks that grow your career. \nLearn how to ignore the digital clutter so you can spend your energy on work that truly counts.",
-        questions: [
-            "I feel an urgent need to reply to every notification immediately.",
-            "I spend more time 'organizing' my work than actually doing it.",
-            "I often attend meetings where I have no clear contribution.",
-            "I struggle to identify the one task that makes everything else easier.",
-            "My workday is mostly dictated by other people's requests.",
-            "I feel productive when I am 'busy' even without milestones.",
-            "I struggle to work on one project for 30 minutes without checking my phone.",
-            "I find myself caught in 'research loops' reading too much info.",
-            "At the end of the day, I feel tired but haven't accomplished much.",
-            "I am afraid that if I don't stay connected 24/7, I will miss something vital."
-        ]
-    },
-    'leverage': {
-        title: "Architect vs. Firefighter",
-        description: "This test measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
-        questions: [
-            "I spend most of my day responding to 'urgent' requests.",
-            "I have a written system (SOP) for my recurring tasks.",
-            "I feel like I'm constantly putting out fires.",
-            "I prioritise building tools that save me time next month.",
-            "Most of my work is 'reactive' rather than 'proactive'.",
-            "I delegate tasks that are below my pay grade.",
-            "I focus on the 20% of work that yields 80% of results.",
-            "I feel anxious when I don't have a crisis to solve.",
-            "I spend time training others to do what I do.",
-            "My work feels like a hamster wheel of the same tasks."
-        ]
-    },
-    'validation': {
-        title: "Internal vs. External Validation",
-        description: "This test measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
-        questions: [
-            "I feel successful only when others praise my work.",
-            "I would still do my current job if no one ever knew my title.",
-            "I often check social media/metrics to feel good about my progress.",
-            "My self-worth is tied to my latest professional 'win'.",
-            "I find it hard to enjoy work if I don't receive feedback.",
-            "I have internal benchmarks for quality that I follow strictly.",
-            "I care more about 'the craft' than 'the credit'.",
-            "I feel anxious if I am not being 'seen' as successful.",
-            "I make career moves based on what looks good on a resume.",
-            "I find deep satisfaction in tasks that no one will ever see."
-        ]
-    },
-    'scarcity': {
-        title: "Scarcity vs. Abundance",
-        description: "This test measures whether you make decisions based on fear or based on growth. \nA scarcity mindset makes you play it safe, while abundance allows you to take big risks. \nYou will see if you are holding onto 'safe' habits that are actually stopping you from scaling. \nIt is designed to help you shift into a mindset where you see opportunity everywhere.",
-        questions: [
-            "I focus more on 'not losing' than on 'winning'.",
-            "I believe there is a limited amount of opportunity in my field.",
-            "I am hesitant to share my best ideas for fear of theft.",
-            "I view my competitors' success as my personal loss.",
-            "I am comfortable investing money to save time.",
-            "I believe that for me to win, someone else must lose.",
-            "I see mistakes as catastrophic failures rather than data.",
-            "I tend to hoard resources (money/info) 'just in case'.",
-            "I am excited by others' success in my industry.",
-            "I focus on expanding the pie rather than fighting for a slice."
-        ]
-    },
-    'odat': {
-        title: "Open DISC Assessment",
-        description: "This is a world-standard tool used to understand how you behave and communicate with others. \nIt identifies if you are naturally a leader, a great talker, a steady worker, or a detail person. \nKnowing your style helps you work better in teams and makes your communication much more effective. \nIt is the perfect starting point for anyone looking to understand their natural professional strengths.",
-        questions: [
-            "I am assertive and direct.", "I enjoy influencing others.", "I prefer steady environments.", 
-            "I pay close attention to accuracy.", "I prioritize results over relationships.",
-            "I am an active listener.", "I enjoy working in teams.", "I am very organized.",
-            "I tend to take charge in group settings.", "I prefer following a set schedule.",
-            "I am persuasive when presenting ideas.", "I am known for being calm under pressure.",
-            "I enjoy helping others solve problems.", "I am very detail-oriented.",
-            "I focus on the big picture rather than small details.", "I value stability in my work.",
-            "I am quick to make decisions.", "I am very enthusiastic about new projects.",
-            "I am a patient person.", "I always check my work for errors."
-        ]
-    },
-    'bigfive': {
-        title: "Big Five Personality Inventory",
-        description: "This test explores the five core parts of your personality that don't change much over time. \nIt looks at how you handle stress, how organized you are, and how you interact with the world. \nUnderstanding these traits helps you choose the right career path and work environments for your personality. \nIt provides a scientific map of who you are and how you can best achieve your future goals.",
-        questions: [
-            "I am the life of the party.", "I am concerned about others' feelings.", "I am always prepared.", 
-            "I get upset easily.", "I have a vivid imagination.", "I talk to a lot of different people.",
-            "I sympathise with others' feelings.", "I leave my belongings around.",
-            "I am relaxed most of the time.", "I have difficulty understanding abstract ideas.",
-            "I keep in the background.", "I am not interested in other people's problems.",
-            "I follow a schedule.", "I have frequent mood swings.", "I am full of ideas.",
-            "I am quiet around strangers.", "I make people feel at ease.", "I am exacting in my work.",
-            "I often feel blue.", "I am quick to understand things."
-        ]
-    }
+// ============================================
+// REPORT LOGIC
+// ============================================
+const REPORT_LOGIC = {
+  disc: (answers) => {
+    const counts = { D: 0, I: 0, S: 0, C: 0 };
+    const map = [
+      ["D","I","S","C"],["D","I","S","C"],["D","I","S","C"],
+      ["D","I","S","C"],["D","I","S","C"],["D","I","S","C"],
+      ["D","I","S","C"],["D","I","S","C"]
+    ];
+    answers.forEach((a, i) => { if (map[i] && map[i][a] !== undefined) counts[map[i][a]]++; });
+    const primary = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
+    const profiles = {
+      D: { label: "Dominant Driver", score: 82, color: "#ef4444", description: "You are a natural results-driver. You move fast, think big, and aren't afraid to challenge the status quo. Your directness is a strength in high-stakes situations, but can create friction when others need more time to process.", strengths: ["Decisive under pressure","Natural leader in a crisis","Clear and direct communicator","High achievement drive"], watch: ["Can rush decisions without full information","May steamroll more reserved team members","Impatience with slow processes"] },
+      I: { label: "Influential Connector", score: 78, color: "#f59e0b", description: "You are a natural energizer. People gravitate toward your enthusiasm and ideas. You thrive in collaborative, people-facing roles and are at your best when you can inspire and persuade.", strengths: ["Exceptional relationship builder","Inspiring and persuasive","Thrives in ambiguity","Creative problem-solver"], watch: ["May overpromise and underdeliver on details","Can avoid difficult, necessary conversations","Loses interest with repetitive tasks"] },
+      S: { label: "Steady Supporter", score: 74, color: "#10b981", description: "You are the backbone of any high-performing team. You create psychological safety, build loyalty, and ensure consistency. You are at your best when supporting meaningful work in a stable, trusted environment.", strengths: ["Deep loyalty and reliability","Creates team harmony","Excellent listener and mediator","Consistent and dependable"], watch: ["Can resist necessary change","May suppress own needs to avoid conflict","Struggles to assert views in group settings"] },
+      C: { label: "Conscientious Analyst", score: 79, color: "#6366f1", description: "You are the quality control system of any team. You think before you speak, verify before you commit, and your work reflects a standard of accuracy others struggle to match.", strengths: ["Exceptional attention to detail","Thorough and systematic thinker","High personal quality standards","Excellent risk assessment"], watch: ["Can get paralyzed by over-analysis","May be perceived as cold or aloof","Perfectionism can slow execution"] }
+    };
+    return profiles[primary];
+  },
+
+  bigfive: (answers) => {
+    const score = answers.reduce((s, a) => s + (4 - a), 0);
+    const pct = Math.round((score / (answers.length * 4)) * 100);
+    if (pct >= 65) return { label: "High Openness / Extraverted", score: pct, color: "#a855f7", description: "Your Big Five profile shows high openness and extraversion. You thrive in dynamic, novel environments and bring creative energy to teams.", strengths: ["Adaptable and curious","Highly collaborative","Generates innovative ideas","Energized by people"], watch: ["May lose focus when bored","Can overlook detail in favor of big picture","Takes on too many new things simultaneously"] };
+    if (pct >= 40) return { label: "Balanced & Adaptive", score: pct, color: "#6366f1", description: "Your Big Five profile is well-balanced. You adapt to different environments and can flex between detail-focus and big-picture thinking.", strengths: ["Versatile across contexts","Manages stress well","Works effectively alone or in teams","Steady under ambiguity"], watch: ["Can seem inconsistent to others","May not stand out in any single dimension","Needs clear role definition to thrive"] };
+    return { label: "Introverted Analyst", score: pct, color: "#0ea5e9", description: "Your Big Five profile shows high conscientiousness and introversion. You do your best work in structured, focused environments where quality matters.", strengths: ["Deep, focused thinker","High accuracy and reliability","Disciplined self-manager","Excellent solo performer"], watch: ["Can be drained by excessive social demands","May appear reserved in group settings","Needs time to process before deciding"] };
+  },
+
+  martyr: (answers) => {
+    const score = answers.reduce((s, a) => s + a, 0);
+    const pct = Math.round((score / (answers.length * 4)) * 100);
+    const martyrScore = 100 - pct;
+    if (martyrScore >= 65) return { label: "High Martyr Pattern", score: martyrScore, color: "#ef4444", description: "Your Martyr Index is elevated. You're investing significant effort — but a large portion may not be translating into measurable impact. You likely over-function in areas others could handle, struggle to delegate, and may be running on a hidden cost to your wellbeing and strategic bandwidth.", strengths: ["Extremely high work ethic","Deeply reliable and committed","Takes ownership seriously"], watch: ["Critical: Review your task portfolio — which 20% creates 80% of your impact?","Practice saying no to low-leverage requests","Build a delegation habit — imperfect execution by others beats zero delegation"] };
+    if (martyrScore >= 35) return { label: "Moderate Martyr Tendencies", score: martyrScore, color: "#f59e0b", description: "You show some martyr patterns, particularly around delegation and low-leverage tasks. You're aware of the issue but haven't fully escaped it.", strengths: ["Generally good at prioritizing","Has some delegation habits","Awareness of effort vs. impact gap"], watch: ["Audit your weekly tasks — are you doing $10/hr work?","Strengthen boundary-setting skills","Schedule strategic thinking time that is non-negotiable"] };
+    return { label: "High Leverage Operator", score: 100 - martyrScore, color: "#10b981", description: "Your effort is well-aligned with impact. You have strong leverage habits — you delegate effectively, protect your strategic bandwidth, and say no to low-value work.", strengths: ["Excellent effort-to-impact ratio","Strong delegation habits","Protects high-value focus time","Clear on personal ROI"], watch: ["Continue calibrating — leverage habits can erode under pressure","Ensure your team doesn't develop martyr patterns from your high standards"] };
+  },
+
+  signal: (answers) => {
+    const score = answers.reduce((s, a) => s + (4 - a), 0);
+    const pct = Math.round((score / (answers.length * 4)) * 100);
+    if (pct >= 65) return { label: "High Signal Thinker", score: pct, color: "#10b981", description: "You have an exceptional ability to filter information. Your attention is a well-managed resource, and your information diet is intentional and high-quality.", strengths: ["Excellent focus and concentration","Strong critical information filter","Strategic information consumption","Resilient to digital distraction"], watch: ["Be careful not to miss important real-time signals","Ensure your signal diet includes diverse perspectives"] };
+    if (pct >= 40) return { label: "Signal-Aware", score: pct, color: "#f59e0b", description: "You have a reasonable signal-to-noise ratio but there is meaningful room to sharpen your information filter and reclaim focus time.", strengths: ["Generally good awareness of distraction","Can focus when environment allows","Some intentional information habits"], watch: ["Audit your notification settings today","Implement a 'no phone first 30 minutes' rule","Schedule one 90-minute deep work block daily"] };
+    return { label: "High Noise Exposure", score: 100 - pct, color: "#ef4444", description: "Your information environment is working against you. High noise exposure is fragmenting your attention and reducing your strategic thinking capacity.", strengths: ["High information volume — can be redirected","Strong connectivity and responsiveness"], watch: ["URGENT: Turn off all non-essential notifications","Delete or time-limit social media apps","Invest in one long-form reading habit per week — books, not headlines"] };
+  },
+
+  leadership: (answers) => {
+    const types = ["Visionary","Executor","Coach","Stabilizer"];
+    const counts = [0,0,0,0];
+    answers.forEach(a => { if (counts[a] !== undefined) counts[a]++; });
+    const idx = counts.indexOf(Math.max(...counts));
+    const profiles = [
+      { label: "The Visionary", score: 81, color: "#a855f7", description: "You lead by painting pictures of the future. Your superpower is helping people believe in something bigger than the current moment. Teams follow you because of where you're going.", strengths: ["Exceptional at inspiring and enrolling others","Thrives in ambiguity and change","Natural strategist and innovator","Excellent at reframing challenges as opportunities"], watch: ["Can lose people in the details of execution","May set unrealistic timelines","Needs strong executor partners to land the vision"] },
+      { label: "The Executor", score: 85, color: "#ef4444", description: "You lead by doing. When there's a goal, you build a plan, assemble the right people, and deliver. Teams respect your consistency and your results.", strengths: ["Exceptional at breaking vision into action","High accountability and follow-through","Thrives under pressure and tight deadlines","Creates clarity and momentum"], watch: ["Can optimize speed at the expense of buy-in","May under-invest in team development","Needs to slow down for strategic reflection"] },
+      { label: "The Coach", score: 77, color: "#10b981", description: "You lead by developing people. You see potential where others see performance gaps, and your investment in individuals creates compounding returns for your team.", strengths: ["Deep talent development instinct","Builds psychological safety","Creates high-retention team cultures","Excellent at giving meaningful feedback"], watch: ["Can prioritize relationships over accountability","May protect underperformers too long","Needs to pair development with clear expectations"] },
+      { label: "The Stabilizer", score: 80, color: "#6366f1", description: "You lead by creating the conditions for others to succeed. Your discipline, processes, and consistency give teams the infrastructure to execute at scale.", strengths: ["Exceptional at building reliable systems","Creates scalable team operations","High predictability and trustworthiness","Excellent crisis manager"], watch: ["Can resist necessary disruption","May over-index on process at the expense of agility","Needs to flex leadership style in high-change environments"] }
+    ];
+    return profiles[idx];
+  },
+
+  ei: (answers) => {
+    const score = answers.reduce((s, a) => s + (4 - a), 0);
+    const pct = Math.round((score / (answers.length * 4)) * 100);
+    if (pct >= 70) return { label: "High EQ — Emotionally Intelligent Leader", score: pct, color: "#10b981", description: "Your emotional intelligence is a significant professional asset. You read rooms accurately, manage your own emotional state under pressure, and create trust with the people around you.", strengths: ["Strong self-awareness and regulation","Excellent empathy and social reading","Effective conflict navigator","Creates psychologically safe environments"], watch: ["Be careful not to over-prioritize emotional harmony at the cost of difficult truths","High empathy can lead to decision fatigue — maintain your own emotional boundaries"] };
+    if (pct >= 45) return { label: "Developing EQ", score: pct, color: "#f59e0b", description: "Your EQ profile shows solid foundations with clear opportunities to develop. Targeted investment in emotional skill-building will have an outsized impact on your career trajectory.", strengths: ["Self-aware in low-stress situations","Generally good with interpersonal relationships","Some empathy and social skill"], watch: ["Practice naming emotions with more precision than 'stressed' or 'frustrated'","Develop a regulation toolkit for high-pressure moments","Seek feedback on how others experience your emotional presence"] };
+    return { label: "EQ Growth Opportunity", score: pct, color: "#ef4444", description: "Your emotional intelligence profile points to a significant growth opportunity. The good news: EQ is highly trainable. Unlike IQ, it responds dramatically to intentional practice.", strengths: ["Directness and clarity (often high in low-EQ profiles)","Strong task focus"], watch: ["PRIORITY: Invest in 1-on-1 coaching on emotional regulation","Read 'Emotional Intelligence' by Daniel Goleman","Practice daily: before any interaction, name your current emotional state"] };
+  },
+
+  growth: (answers) => {
+    const score = answers.reduce((s, a) => s + (4 - (a > 3 ? a : a)), 0);
+    const pct = Math.round((score / (answers.length * 4)) * 100);
+    if (pct >= 65) return { label: "Growth Mindset Dominant", score: pct, color: "#10b981", description: "Your mindset is your greatest asset. You approach challenges as training, feedback as data, and failure as iteration. This meta-skill amplifies every other capability you develop.", strengths: ["Embraces challenge and discomfort","Uses failure as information","Actively seeks development","Resilient to setbacks and criticism"], watch: ["Ensure your growth mindset extends to others — do you give people room to fail and learn?","Watch for 'false growth mindset' — advocating for growth while secretly protecting ego"] };
+    if (pct >= 40) return { label: "Mixed Mindset", score: pct, color: "#f59e0b", description: "You have genuine growth mindset in some areas, but fixed patterns emerge in others — often in areas tied to your identity or deepest insecurities.", strengths: ["Open to learning in comfortable areas","Generally positive about development","Can embrace feedback in low-stakes situations"], watch: ["Identify the 1-2 areas where you avoid challenge — that's your fixed zone","Practice the 'not yet' reframe: change 'I can't do this' to 'I can't do this yet'","Journal about a recent failure — what did you actually learn?"] };
+    return { label: "Fixed Mindset Tendencies", score: pct, color: "#ef4444", description: "Your mindset profile shows patterns that may be limiting your growth ceiling. Fixed mindset is not a character flaw — it's a protective pattern the brain learned. But it can be rewired.", strengths: ["High standards for current competencies","Reliable and consistent in established areas"], watch: ["Read 'Mindset' by Carol Dweck — it is the #1 investment you can make","Seek out one 'stretch project' that you're not sure you can succeed at","Reframe feedback as data, not judgment — practice this daily"] };
+  }
 };
 
-let activeKey = null, currentIdx = 0, userAnswers = {};
-// --- SESSION RECOVERY LOGIC ---
-function saveSession() {
-    const session = { activeKey, currentIdx, userAnswers };
-    localStorage.setItem('performance_ai_session', JSON.stringify(session));
+// ============================================
+// STATE
+// ============================================
+let currentPage = "home";
+let currentTest = null;
+let currentQuestion = 0;
+let answers = [];
+
+// ============================================
+// NAVIGATION
+// ============================================
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+  document.getElementById(page).style.display = "block";
+  currentPage = page;
+
+  // Active nav state
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  const navMap = { home: "nav-home", tests: "nav-tests" };
+  if (navMap[page]) document.getElementById(navMap[page])?.classList.add("active");
+
+  // Init pages
+  if (page === "tests") renderTestGrid();
+  if (page === "coaching") renderCoachingPage();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function clearSession() {
-    localStorage.removeItem('performance_ai_session');
+function toggleMobileNav() {
+  const drawer = document.getElementById("mobile-drawer");
+  drawer.classList.toggle("open");
 }
 
-function checkSavedSession() {
-    const saved = localStorage.getItem('performance_ai_session');
-    if (saved) {
-        const { activeKey: sKey, currentIdx: sIdx, userAnswers: sAnswers } = JSON.parse(saved);
-        if (sKey && testData[sKey]) {
-            const resumePrompt = confirm(`Resume your saved "${testData[sKey].title}" assessment?`);
-            if (resumePrompt) {
-                activeKey = sKey;
-                currentIdx = sIdx;
-                userAnswers = sAnswers;
-                showPage('engine');
-                document.getElementById('test-title').innerText = testData[activeKey].title;
-                renderQuestion();
-                return true;
-            } else {
-                clearSession();
-            }
-        }
-    }
-    return false;
-}
-
-function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
-    if(document.getElementById('nav-' + id)) document.getElementById('nav-' + id).classList.add('active');
-    if(id === 'tests') renderGrid();
-    if(id === 'coaching') renderCoachingPage();
-    window.scrollTo(0,0);
-}
-// RETURNING USER LOGIC (Engagement)
-function checkReturningUser() {
-    const lastResult = localStorage.getItem('last_roadmap');
-    if (lastResult) {
-        const data = JSON.parse(lastResult);
-        const homeHeader = document.querySelector('#home h1');
-        homeHeader.innerHTML = `Welcome back. <br><span style="font-size:1.2rem; color:var(--brand-magenta);">Reminder: Your next step is to ${data.roadmap}</span>`;
-    }
-}
-
-function renderGrid() {
-    const grid = document.getElementById('test-grid-ui');
-    grid.innerHTML = "";
-    for (let key in testData) {
-        const qCount = testData[key].questions.length;
-        const timeEst = Math.ceil((qCount * 6) / 60); 
-
-        grid.innerHTML += `
-            <div class="card">
-                <h3 style="margin-bottom:20px;">${testData[key].title}</h3>
-                
-                <button class="btn-secondary" onclick="openInfoModal('${key}')">
-                    KNOW MORE
-                </button>
-
-                <button class="btn-primary" style="margin-top:10px;" onclick="loadTest('${key}')">
-                    START TEST
-                </button>
-
-                <div style="margin-top:20px;">
-                    <p style="color:#64748b; font-size:0.85rem; margin-bottom:5px; font-weight:600;">
-                        ${qCount} Questions
-                    </p>
-                    <p style="color:#94a3b8; font-size:0.75rem; margin:0;">
-                        Approx. ${timeEst} mins
-                    </p>
-                </div>
-            </div>`;
-    }
-}
-
-function openInfoModal(key) {
-    const test = testData[key];
-    const cleanDesc = test.description.replace(/\n/g, '<br>');
-    
-    // Updated HTML structure for the modal content
-    document.querySelector('.modal-content').innerHTML = `
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2 class="text-gradient" style="font-size: 2rem; margin-bottom: 20px;">${test.title}</h2>
-        <div style="text-align:left; background:#fdf2f8; padding:25px; border-radius:15px; border-left:5px solid #D946EF; margin:20px 0;">
-            <p style="font-size:1rem; line-height:1.6; color:#334155;">${cleanDesc}</p>
-        </div>
-        <button class="btn-primary" style="width:100%;" onclick="closeModal(); loadTest('${key}')">Start This Assessment</button>`;
-    
-    document.getElementById('method-modal').style.display = 'block';
-}
-
+// ============================================
+// MODAL
+// ============================================
 function closeModal() {
-    document.getElementById('method-modal').style.display = 'none';
+  document.getElementById("method-modal").style.display = "none";
 }
-function loadTest(id) {
-    activeKey = id; currentIdx = 0; userAnswers = {};
-    showPage('engine');
-    document.getElementById('test-title').innerText = testData[id].title;
-    renderQuestion();
+function handleModalBackdropClick(e) {
+  if (e.target === document.getElementById("method-modal")) closeModal();
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ============================================
+// RENDER TEST GRID
+// ============================================
+function renderTestGrid() {
+  const grid = document.getElementById("test-grid-ui");
+  grid.innerHTML = TESTS.map(t => `
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
+      <h3>${t.title}</h3>
+      <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:18px; flex-grow:1;">${t.tagline}</p>
+      <button class="btn-secondary" onclick="openKnowMore('${t.id}')">Know More</button>
+      <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Analysis →</button>
+      <div class="card-meta">
+        <span><strong>${t.questions}</strong> Questions</span>
+        <span><strong>${t.time}</strong></span>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ============================================
+// KNOW MORE MODAL (dynamic)
+// ============================================
+function openKnowMore(testId) {
+  const t = TESTS.find(x => x.id === testId);
+  if (!t) return;
+
+  // Create or reuse a dynamic modal
+  let modal = document.getElementById("know-more-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "know-more-modal";
+    modal.className = "modal-overlay";
+    modal.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    document.body.appendChild(modal);
+  }
+
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close-modal" onclick="document.getElementById('know-more-modal').style.display='none'">&#x2715;</span>
+      <div style="font-size:2.5rem; margin-bottom:12px;">${t.icon}</div>
+      <h2 class="text-gradient" style="font-size: clamp(1.4rem, 3.5vw, 2rem); margin-bottom:10px;">${t.title}</h2>
+      <p style="color:var(--text-muted); margin-bottom:24px; font-size:0.95rem; line-height:1.7;">${t.description}</p>
+      <div style="background:#f8fafc; border-radius:14px; padding:18px; margin-bottom:24px;">
+        <div style="display:flex; gap:24px; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:800; color:var(--brand-indigo);">${t.questions}</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); font-weight:600;">Questions</div>
+          </div>
+          <div style="width:1px; background:#e2e8f0;"></div>
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:800; color:var(--brand-magenta);">${t.time}</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); font-weight:600;">Est. Time</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary btn-full" onclick="document.getElementById('know-more-modal').style.display='none'; startTest('${t.id}')">
+        Begin ${t.title} →
+      </button>
+    </div>
+  `;
+
+  modal.style.display = "block";
+}
+
+// ============================================
+// QUESTION ENGINE
+// ============================================
+function startTest(testId) {
+  currentTest = TESTS.find(t => t.id === testId);
+  if (!currentTest) return;
+  currentQuestion = 0;
+  answers = new Array(currentTest.questions_data.length).fill(null);
+  showPage("engine");
+  renderQuestion();
 }
 
 function renderQuestion() {
-    const questions = testData[activeKey].questions;
-    const isLast = currentIdx === questions.length - 1;
-    document.getElementById('question-area').innerHTML = `
-        <div class="card" style="max-width:650px; margin: 40px auto; cursor: default;">
-            <p style="color:var(--brand-magenta); font-weight:800; font-size:0.75rem;">PROGRESS: ${currentIdx + 1} / ${questions.length}</p>
-            <p style="font-size:1.3rem; font-weight:800; margin-top:10px; margin-bottom:30px; line-height:1.4;">${questions[currentIdx]}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center; max-width:450px; margin:0 auto;">
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">DISAGREE</span>
-                ${[1, 2, 3, 4, 5].map(v => `<input type="radio" name="q" value="${v}" onchange="selectAnswer(${v})" ${userAnswers[currentIdx]==v?'checked':''} style="width:25px; height:25px; accent-color:var(--brand-magenta);">`).join('')}
-                <span style="font-weight:800; color:#94a3b8; font-size:0.7rem;">AGREE</span>
-            </div>
-            ${isLast ? `
-                <div style="margin-top:40px; border-top:1px solid #eee; padding-top:20px;">
-                    <input type="email" id="u-email" placeholder="professional@email.com" class="main-input">
-                    <button class="btn-primary" style="width:100%;" onclick="calculateReport()">GENERATE FULL DOSSIER</button>
-                </div>` : ''}
-        </div>`;
-    document.getElementById('next-btn').style.display = isLast ? 'none' : 'inline-block';
-    document.getElementById('back-btn').style.display = currentIdx === 0 ? 'none' : 'inline-block';
-}
-function selectAnswer(v) {
-    // Explicitly link the answer to the current index
-    userAnswers[currentIdx] = v;
-    saveSession();
-    
-    // Optional: console.log to verify in your browser inspect tool
-    console.log(`Saved answer ${v} for question ${currentIdx}`);
-}
+  const t = currentTest;
+  const q = t.questions_data[currentQuestion];
+  const total = t.questions_data.length;
+  const progress = ((currentQuestion) / total) * 100;
 
-function changeQuestion(step) {
-    // We check specifically if the current index has a value
-    // userAnswers[currentIdx] is 0-indexed, so we ensure it's not undefined
-    if (step === 1 && (userAnswers[currentIdx] === undefined || userAnswers[currentIdx] === null)) {
-        return alert("Please select a rating.");
-    }
-    
-    currentIdx += step;
-    saveSession();
-    renderQuestion();
+  document.getElementById("test-title").textContent = t.title;
+
+  document.getElementById("question-area").innerHTML = `
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" style="width:${progress}%"></div>
+    </div>
+    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:28px; font-weight:600;">
+      Question ${currentQuestion + 1} of ${total}
+    </p>
+    <div style="background:white; border-radius:20px; padding: clamp(24px,4vw,40px); box-shadow: var(--shadow-card); max-width:580px; margin:0 auto 24px; text-align:left;">
+      <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight:700; color:var(--text-primary); margin-bottom:24px; line-height:1.5;">
+        ${q.q}
+      </p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        ${q.options.map((opt, i) => `
+          <label class="answer-option ${answers[currentQuestion] === i ? 'selected' : ''}" onclick="selectAnswer(${i})">
+            <span class="answer-letter">${String.fromCharCode(65 + i)}</span>
+            <span>${opt}</span>
+          </label>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  // Update nav buttons
+  document.getElementById("back-btn").style.display = currentQuestion === 0 ? "none" : "inline-block";
+  document.getElementById("next-btn").textContent =
+    currentQuestion === total - 1 ? "View My Results →" : "Next →";
 }
 
+function selectAnswer(index) {
+  answers[currentQuestion] = index;
+  document.querySelectorAll(".answer-option").forEach((el, i) => {
+    el.classList.toggle("selected", i === index);
+  });
+}
 
-
-function calculateReport() {
-    const email = document.getElementById('u-email').value;
-    if(!email.includes('@')) return alert("Valid email required.");
-    const score = Object.values(userAnswers).reduce((a, b) => a + b, 0);
-    const pct = (score / (testData[activeKey].questions.length * 5)) * 100;
-
-    let r = { title: "", tagline: "", summary: "", analysis: "", traits: [], blindspots: [], roadmap: "" };
-
-    if (activeKey === 'validation') {
-        if (pct >= 60) {
-            r.title = "The Prestige Chaser"; r.summary = "You are fueled by external benchmarks and social proof.";
-            r.analysis = "Prestige Chasers are high achievers but are prone to 'Arrival Fallacy'—the belief that once you hit a certain title or goal, you will finally be happy. This leads to burnout and a sense of hollow victory.";
-            r.traits = [{n:"Metrics Focused", d:"Highly sensitive to data and public feedback."}, {n:"Approval Driven", d:"Decisions are often filtered through 'how this looks'."}];
-            r.blindspots = ["Fragile self-worth", "Burnout risk", "Losing touch with personal values"];
-            r.roadmap = "Identify one 'Invisible Project'—a task done purely for the joy of the craft that you will never post about.";
-        } else {
-            r.title = "The Autotelic Elite"; r.summary = "You are driven by the internal mastery of your craft.";
-            r.analysis = "Autotelic individuals find the reward in the activity itself. This makes you extremely resilient to market fluctuations or lack of external praise. You are a marathon runner in a world of sprinters.";
-            r.traits = [{n:"Internal Benchmarking", d:"Strict adherence to personal quality standards."}, {n:"Flow Mastery", d:"Ease of entering deep focus without external prompts."}];
-            r.blindspots = ["Isolation from market reality", "Potential for perfectionism", "Difficulty with self-promotion"];
-            r.roadmap = "Connect your internal standards to a public-facing 'Signal' once a month to ensure your work is being valued.";
-        }
-    } else if (activeKey === 'friction') {
-        if (pct >= 75) {
-            r.title = "The Martyr"; r.tagline = "High Friction / Low Leverage";
-            r.summary = "You equate professional value with total exhaustion.";
-            r.analysis = "The Martyr chooses the path of most resistance. You are likely the bottleneck in your own scaling process because you distrust simplicity.";
-            r.traits = [{n:"Complexity Addiction", d:"Over-engineering simple tasks to feel 'thorough'."}, {n:"Manual Bias", d:"Choosing labor over automation for a sense of control."}];
-            r.blindspots = ["Equating busy-ness with effectiveness", "Fear of free time"];
-            r.roadmap = "Automate one recurring 2-hour task this week. No exceptions.";
-        } else {
-            r.title = "The Architect"; r.tagline = "Low Friction / High Leverage";
-            r.summary = "You view effort as a cost to be minimised.";
-            r.analysis = "Architects focus on the system, not the labor. You naturally find the 20% of actions that drive 80% of results.";
-            r.traits = [{n:"Systemic Thinking", d:"Viewing every task as a potential workflow."}, {n:"Strategic Laziness", d:"Refusing manual labor if a tool can do it."}];
-            r.blindspots = ["Detachment from team struggles", "Over-automation"];
-            r.roadmap = "Focus on the 'Human Element' to inspire others to scale with you.";
-        }
-    } else if (activeKey === 'signal') {
-        if (pct >= 70) {
-            r.title = "The Firefighter"; r.tagline = "Reactive / Noise-Dominated";
-            r.summary = "Your day is defined by reactivity and external stimuli.";
-            r.analysis = "Firefighters spend energy on small, urgent fires. Your actual output of 'deep value' is drowned out by trivial requests.";
-            r.traits = [{n:"Hyper-Reactivity", d:"Responding to notifications immediately."}, {n:"Inbox Addiction", d:"Using email as a primary to-do list."}];
-            r.blindspots = ["Loss of vision", "Cognitive fatigue"];
-            r.roadmap = "Implement a 90-minute 'No-Notification' block every morning.";
-        } else {
-            r.title = "The Deep Diver"; r.tagline = "Proactive / Signal-Focused";
-            r.summary = "You have mastered selective ignorance to protect your focus.";
-            r.analysis = "Deep Divers protect their time ruthlessly. You ignore the 'Noise' of the workplace to produce higher quality work.";
-            r.traits = [{n:"Deep Work Mastery", d:"Cognitive focus for hours at a time."}, {n:"Selective Ignorance", d:"Ignoring non-vital info."}];
-            r.blindspots = ["Communication gaps", "Social friction"];
-            r.roadmap = "Schedule specific 'Signal Windows' for team collaboration.";
-        }
-    } else {
-        r.title = "Psychometric Profile"; r.tagline = "Behavioral & Personality Map";
-        r.summary = "Your results show a high-functioning professional baseline.";
-        r.analysis = "You possess a balanced profile suited for strategic execution. Your data indicates a strong alignment between your intentions and actions.";
-        r.traits = [{n:"Analytical Depth", d:"Processing variables logically."}, {n:"Strategic Alignment", d:"Connecting daily tasks to long-term goals."}];
-        r.blindspots = ["Perfectionism paralysis", "Analysis overload"];
-        r.roadmap = "Practice 'Agile Execution'—move at 70% confidence rather than waiting for 100%.";
+function changeQuestion(direction) {
+  if (direction === 1) {
+    if (answers[currentQuestion] === null) {
+      shakeNextButton();
+      return;
     }
-    if (activeKey === 'leverage') {
-        if (pct >= 65) {
-            r.title = "The Firefighter";
-            r.summary = "You are addicted to urgency and reactive work.";
-            r.analysis = "The Firefighter derives their worth from 'saving the day.' While you are excellent under pressure, you are stuck in a loop of low-leverage work. You are so busy putting out fires that you haven't built a sprinkler system.";
-            r.traits = [{n:"High Adrenaline", d:"Thrives in chaos but struggles with routine."}, {n:"Reactive Execution", d:"Wait for problems to occur before solving them."}];
-            r.blindspots = ["Scaling limitations", "Chronically high cortisol", "Neglecting system-building"];
-            r.roadmap = "Spend the first hour of every day building one SOP (Standard Operating Procedure).";
-        } else {
-            r.title = "The Architect";
-            r.summary = "You build machines that produce results while you sleep.";
-            r.analysis = "The Architect focuses on proactivity. You view recurring problems as failures of the system, not failures of effort. You prioritize leverage over labor.";
-            r.traits = [{n:"Systemic Oversight", d:"Thinking in workflows, not tasks."}, {n:"Leverage Focus", d:"Always asking 'How does this scale?'"}];
-            r.blindspots = ["Detachment from frontline reality", "Over-engineering simple fixes"];
-            r.roadmap = "Audit your current systems to ensure they aren't becoming 'bottlenecks' for your team.";
-        }
-    } else if (activeKey === 'scarcity') {
-        if (pct >= 55) {
-            r.title = "The Guardian"; r.summary = "You operate from a 'Protect the Assets' mindset.";
-            r.analysis = "The Guardian plays to 'not lose'. While this makes you excellent at risk management, it can prevent you from capturing exponential growth opportunities. You see a finite world where others' wins feel like your losses.";
-            r.traits = [{n:"Risk Aversion", d:"Prioritising security over potential upside."}, {n:"Resource Hoarding", d:"Keeping info or assets close to the vest."}];
-            r.blindspots = ["Missing 'Black Swan' upsides", "Static growth", "Creating high-friction environments"];
-            r.roadmap = "Set aside a 'Experimentation Fund'—time or money that you are 100% comfortable 'losing' on a new idea.";
-        } else {
-            r.title = "The Venture Architect"; r.summary = "You operate from an 'Expand the Pie' mindset.";
-            r.analysis = "Venture Architects see the world as a series of compounding opportunities. You understand that the best way to win is to create a bigger game for everyone. You focus on ROI over cost.";
-            r.traits = [{n:"Growth Orientation", d:"Focusing on potential gain rather than potential loss."}, {n:"Collaborative Drive", d:"Viewing competitors as potential partners or data points."}];
-            r.blindspots = ["Over-extension of resources", "Underestimating downside risk", "Impatience with slow-growth phases"];
-            r.roadmap = "Implement a 'Guardian' check-and-balance system to ensure your growth doesn't outpace your infrastructure.";
-        }
-    } else {
-        // Fallback for Friction/Signal/DISC (Similar to previous logic)
-        r.title = "Analysis Complete";
-        r.summary = "Your results indicate a high-functioning profile.";
-        r.analysis = "Based on your data, you demonstrate a balanced approach to professional challenges.";
-        r.traits = [{n:"Strategic Mindset", d:"The ability to align actions with goals."}];
-        r.blindspots = ["Standard professional risks"];
-        r.roadmap = "Continue optimizing your current workflows.";
+    if (currentQuestion === currentTest.questions_data.length - 1) {
+      generateReport();
+      return;
     }
+    currentQuestion++;
+  } else {
+    if (currentQuestion === 0) return;
+    currentQuestion--;
+  }
+  renderQuestion();
+}
 
-    
+function shakeNextButton() {
+  const btn = document.getElementById("next-btn");
+  btn.style.animation = "none";
+  btn.offsetHeight; // reflow
+  btn.style.animation = "shake 0.4s ease";
+  btn.style.background = "#ef4444";
+  setTimeout(() => {
+    btn.style.background = "";
+    btn.style.animation = "";
+  }, 600);
+}
 
-    document.getElementById('report-page-content').innerHTML = `
-        <div id="pdf-content" class="card" style="text-align:left; max-width:900px; margin:0 auto; padding:0; overflow:hidden; border:none; box-shadow:0 20px 50px rgba(0,0,0,0.15);">
-            <div style="background:var(--brand-grad); padding:50px; color:white; text-align:center;">
-                <p style="text-transform:uppercase; letter-spacing:3px; font-weight:800; font-size:0.7rem; margin-bottom:10px; opacity:0.8;">Diagnostic Dossier</p>
-                <h1 style="font-size:3.5rem; margin:0; line-height:1;">${r.title}</h1>
-                <p style="font-size:1.1rem; font-weight:600; margin-top:15px;">${r.tagline}</p>
+// Add shake animation dynamically
+const shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+  .answer-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: #f8fafc;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .answer-option:hover {
+    border-color: var(--brand-magenta);
+    background: #fdf8ff;
+  }
+  .answer-option.selected {
+    border-color: var(--brand-indigo);
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08));
+    color: var(--brand-indigo);
+  }
+  .answer-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .answer-option.selected .answer-letter {
+    background: var(--brand-indigo);
+    border-color: var(--brand-indigo);
+    color: white;
+  }
+`;
+document.head.appendChild(shakeStyle);
+
+// ============================================
+// REPORT GENERATION
+// ============================================
+function generateReport() {
+  const logic = REPORT_LOGIC[currentTest.id];
+  const result = logic ? logic(answers) : { label: "Complete", score: 75, color: "#6366f1", description: "Your assessment is complete.", strengths: [], watch: [] };
+
+  showPage("report");
+
+  const strengthsHtml = result.strengths?.map(s => `
+    <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
+      <span style="color:#10b981; font-size:1.1rem;">✓</span>
+      <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${s}</span>
+    </div>
+  `).join("") || "";
+
+  const watchHtml = result.watch?.map(w => `
+    <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
+      <span style="color:#f59e0b; font-size:1.1rem; margin-top:1px;">→</span>
+      <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${w}</span>
+    </div>
+  `).join("") || "";
+
+  document.getElementById("report-page-content").innerHTML = `
+    <div>
+      <!-- Header -->
+      <div class="report-header" style="
+        background: var(--brand-grad);
+        border-radius: 24px;
+        padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
+        text-align: center;
+        margin-bottom: 28px;
+        position:relative;
+        overflow:hidden;
+      ">
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+        <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+        <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
+        <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
+        <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.label}</h1>
+        <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+      </div>
+
+      <!-- Body -->
+      <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
+        <div class="report-inner-grid" style="display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:start;">
+          <!-- Left -->
+          <div>
+            <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Your Profile Summary</h3>
+            <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description}</p>
+
+            <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3>
+            <div style="margin-bottom:28px;">${strengthsHtml}</div>
+
+            <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3>
+            <div>${watchHtml}</div>
+          </div>
+
+          <!-- Right -->
+          <div>
+            <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
+              <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
+              <div style="font-size:4rem; font-weight:800; color:${result.color}; line-height:1;">${result.score}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">out of 100</div>
+              <div style="margin-top:16px; background:#e2e8f0; border-radius:50px; height:8px; overflow:hidden;">
+                <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
+              </div>
             </div>
-            <div style="padding:50px;">
-                <h2 style="font-weight:800;">Executive Summary</h2>
-                <p style="font-size:1.2rem; color:#475569; border-left:4px solid var(--brand-magenta); padding-left:20px;">${r.summary}</p>
-                <div style="display:grid; grid-template-columns: 2fr 1fr; gap:40px; margin-top:40px;">
-                    <div>
-                        <h3 style="font-size:0.9rem; color:var(--brand-magenta); text-transform:uppercase;">Analysis</h3>
-                        <p style="line-height:1.7;">${r.analysis}</p>
-                        <h3 style="font-size:0.9rem; color:var(--brand-magenta); text-transform:uppercase; margin-top:30px;">Core Traits</h3>
-                        ${r.traits.map(t => `<div style="margin-bottom:15px;"><strong>✦ ${t.n}:</strong> <span style="color:#64748b;">${t.d}</span></div>`).join('')}
-                    </div>
-                    <div style="background:#f8fafc; padding:25px; border-radius:15px;">
-                        <h3 style="font-size:0.8rem; margin-top:0;">BLIND SPOTS</h3>
-                        <ul style="color:#ef4444; font-size:0.85rem; padding-left:15px;">
-                            ${r.blindspots.map(b => `<li style="margin-bottom:10px;">${b}</li>`).join('')}
-                        </ul>
-                        <h3 style="font-size:0.8rem; margin-top:30px;">ROADMAP</h3>
-                        <p style="font-size:0.85rem; color:#475569;">${r.roadmap}</p>
-                    </div>
-                </div>
+
+            <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12);">
+              <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
+                Your profile unlocks a personalized 1-on-1 session with a People Assets coach who specializes in this archetype.
+              </p>
+              <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
+                Book a Coaching Session →
+              </button>
             </div>
+          </div>
         </div>
-        <div style="text-align:center; margin-top:30px;">
-            <button class="btn-primary" onclick="window.print()">Download PDF Report</button>
-            <button class="btn-primary" style="background:#0f172a; margin-left:10px;" onclick="showPage('coaching')">Apply for Coaching</button>
-        </div>`;
-    showPage('report');
+      </div>
+
+      <!-- Actions -->
+      <div class="report-actions">
+        <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
+        <button class="btn-primary" onclick="window.print()">Download Report</button>
+        <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+      </div>
+    </div>
+  `;
 }
 
+// ============================================
+// COACHING PAGE
+// ============================================
 function renderCoachingPage() {
-    document.getElementById('coaching').innerHTML = `
-        <div class="container" style="text-align:center;">
-            <h1 class="text-gradient">Elite Strategy Coaching</h1>
-            <div class="card" style="max-width:500px; margin: 0 auto; text-align:left;">
-                <input type="text" id="c-name" placeholder="Full Name" class="main-input">
-                <input type="email" id="c-email" placeholder="Email" class="main-input">
-                <textarea id="c-focus" placeholder="Main Professional Challenge?" class="main-input" style="height:100px;"></textarea>
-                <button class="btn-primary" style="width:100%;" onclick="alert('Sent!')">Request Consultation</button>
+  const section = document.getElementById("coaching");
+  section.innerHTML = `
+    <div class="container">
+      <div class="coaching-wrap">
+        <p class="section-label">1-on-1 Expert Coaching</p>
+        <h1>Work With <span class="text-gradient">A Coach</span></h1>
+        <p>You have the data. Now let's turn it into a plan. Our coaches specialize in translating your assessment results into tangible career and leadership growth.</p>
+
+        <div class="coaching-card">
+          <form onsubmit="submitCoachingForm(event)">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px; letter-spacing:0.05em;">FULL NAME</label>
+            <input class="main-input" type="text" id="coach-name" placeholder="Your full name" required>
+
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px; letter-spacing:0.05em;">EMAIL ADDRESS</label>
+            <input class="main-input" type="email" id="coach-email" placeholder="your@email.com" required>
+
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px; letter-spacing:0.05em;">WHAT WOULD YOU LIKE TO WORK ON?</label>
+            <textarea class="main-input" id="coach-goal" rows="4" placeholder="e.g. I want to understand my DISC results and improve how I lead my team..." required></textarea>
+
+            <button class="btn-primary btn-full" type="submit" style="margin-top:8px;">
+              Request My Coaching Session →
+            </button>
+          </form>
+          <p id="form-status" style="text-align:center; margin-top:16px; font-size:0.85rem; font-weight:600; color:var(--brand-magenta); display:none;"></p>
+        </div>
+
+        <div style="margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; text-align:center;">
+          ${[
+            { icon:"🎯", label:"Assessment-Led", desc:"Coaching grounded in your actual data" },
+            { icon:"🔒", label:"Confidential", desc:"Private 1-on-1 sessions, always" },
+            { icon:"⚡", label:"Action-Focused", desc:"Leave every session with a clear next step" }
+          ].map(f => `
+            <div style="background:white; border-radius:16px; padding:20px; box-shadow:var(--shadow-card);">
+              <div style="font-size:1.8rem; margin-bottom:8px;">${f.icon}</div>
+              <div style="font-size:0.85rem; font-weight:800; margin-bottom:4px;">${f.label}</div>
+              <div style="font-size:0.78rem; color:var(--text-muted);">${f.desc}</div>
             </div>
-        </div>`;
+          `).join("")}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
-document.addEventListener('DOMContentLoaded', () => showPage('home'));
+function submitCoachingForm(e) {
+  e.preventDefault();
+  const name  = document.getElementById("coach-name").value;
+  const email = document.getElementById("coach-email").value;
+  const goal  = document.getElementById("coach-goal").value;
+  const status = document.getElementById("form-status");
+
+  // EmailJS integration (configure your service/template IDs below)
+  // emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{name,email,goal})
+  //   .then(() => { ... })
+
+  // Simulated success for now
+  status.style.display = "block";
+  status.textContent = `✓ Thanks ${name}! We'll reach out to ${email} within 24 hours.`;
+  e.target.reset();
+}
+
+// ============================================
+// INIT
+// ============================================
+showPage("home");
