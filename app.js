@@ -180,24 +180,22 @@ function renderGrid() {
 
 function openInfoModal(key) {
     const test = testData[key];
+    const cleanDesc = test.description.replace(/\n/g, '<br>');
     
-    // We replace the newlines (\n) with HTML line breaks (<br>) for the layout
-    const cleanDescription = test.description.replace(/\n/g, '<br>');
-
-    const modalContent = `
+    // Updated HTML structure for the modal content
+    document.querySelector('.modal-content').innerHTML = `
         <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2 class="text-gradient" style="margin-bottom:15px;">${test.title}</h2>
-        <div style="text-align:left; background:#f8fafc; padding:25px; border-radius:15px; border-left:5px solid var(--brand-magenta);">
-            <p style="font-size:1rem; line-height:1.6; color:#334155; margin:0;">
-                ${cleanDescription}
-            </p>
+        <h2 class="text-gradient" style="font-size: 2rem; margin-bottom: 20px;">${test.title}</h2>
+        <div style="text-align:left; background:#fdf2f8; padding:25px; border-radius:15px; border-left:5px solid #D946EF; margin:20px 0;">
+            <p style="font-size:1rem; line-height:1.6; color:#334155;">${cleanDesc}</p>
         </div>
-        <button class="btn-primary" style="width:100%; margin-top:25px; font-size:1.1rem;" 
-                onclick="closeModal(); loadTest('${key}')">Start This Assessment</button>
-    `;
+        <button class="btn-primary" style="width:100%;" onclick="closeModal(); loadTest('${key}')">Start This Assessment</button>`;
     
-    document.querySelector('.modal-content').innerHTML = modalContent;
     document.getElementById('method-modal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('method-modal').style.display = 'none';
 }
 function loadTest(id) {
     activeKey = id; currentIdx = 0; userAnswers = {};
