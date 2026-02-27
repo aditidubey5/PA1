@@ -89,18 +89,17 @@ nav {
     box-sizing: border-box; /* Fixes input stretching */
 }
 /* --- KNOW MORE BUTTON --- */
-.btn-secondary {
-    background: transparent;
-    color: var(--brand-magenta);
-    border: 2px solid var(--brand-magenta);
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-left: 10px;
+/* Ensure the Know More button inside cards looks sleek */
+.card .btn-secondary {
+    margin-left: 0; /* Remove the margin we used on the home page */
+    font-size: 0.8rem;
+    padding: 10px;
+    border: 1px solid var(--brand-magenta); /* Thinner border for card buttons */
 }
-.btn-secondary:hover { background: #fdf2f8; transform: scale(1.02); }
+
+.card .btn-secondary:hover {
+    background: #fdf2f8;
+}
 
 /* --- MODAL STYLES --- */
 .modal-overlay {
