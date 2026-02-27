@@ -88,3 +88,59 @@ nav {
     border: 2px solid #e2e8f0; margin-bottom: 15px; font-family: inherit;
     box-sizing: border-box; /* Fixes input stretching */
 }
+/* --- KNOW MORE BUTTON --- */
+.btn-secondary {
+    background: transparent;
+    color: var(--brand-magenta);
+    border: 2px solid var(--brand-magenta);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+.btn-secondary:hover { background: #fdf2f8; transform: scale(1.02); }
+
+/* --- MODAL STYLES --- */
+.modal-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.8); /* Dark Slate with transparency */
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+}
+
+.modal-content {
+    background: white;
+    max-width: 700px;
+    margin: 5% auto;
+    padding: 50px;
+    border-radius: 30px;
+    position: relative;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    top: 25px; right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #94a3b8;
+}
+
+.method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
+}
+
+.method-item h4 { color: var(--brand-magenta); margin-bottom: 5px; }
+.method-item p { font-size: 0.9rem; color: #64748b; line-height: 1.4; }
