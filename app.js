@@ -168,12 +168,27 @@ function renderGrid() {
     const grid = document.getElementById('test-grid-ui');
     grid.innerHTML = "";
     for (let key in testData) {
+        const qCount = testData[key].questions.length;
+        // Estimate 6 seconds per question, rounded to nearest minute
+        const timeEst = Math.ceil((qCount * 6) / 60); 
+
         grid.innerHTML += `
-            <div class="card" style="text-align:center;">
+            <div class="card">
                 <h3 style="margin-bottom:10px;">${testData[key].title}</h3>
-                <p style="color:#64748b; font-size:0.8rem; margin-bottom:20px;">${testData[key].questions.length} Diagnostic Points</p>
-                <button class="btn-secondary" style="width:100%; margin-bottom:10px;" onclick="openInfoModal('${key}')">KNOW MORE</button>
-                <button class="btn-primary" style="width:100%;" onclick="loadTest('${key}')">START ANALYSIS</button>
+                
+                <p style="color:#64748b; font-size:0.85rem; margin-bottom:5px; font-weight:600;">
+                    ${qCount} Questions
+                </p>
+                <p style="color:#94a3b8; font-size:0.75rem; margin-bottom:20px;">
+                    Approx. ${timeEst} min read
+                </p>
+
+                <button class="btn-primary" style="width:100%; margin-bottom:10px;" onclick="loadTest('${key}')">
+                    START ANALYSIS
+                </button>
+                <button class="btn-secondary" style="width:100%;" onclick="openInfoModal('${key}')">
+                    KNOW MORE
+                </button>
             </div>`;
     }
 }
