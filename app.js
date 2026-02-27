@@ -19,7 +19,7 @@ const testData = {
     },
     'signal': {
         title: "Signal vs. Noise Audit",
-        description: "This audit checks how well you can focus on what actually matters in your day. \nWith so many emails, meetings, and notifications, it is easy to get distracted by 'noise'. \nThis test measures your ability to find the 'signals'—the high-impact tasks that grow your career. \nLearn how to ignore the digital clutter so you can spend your energy on work that truly counts.",
+        description: "This test checks how well you can focus on what actually matters in your day. \nWith so many emails, meetings, and notifications, it is easy to get distracted by 'noise'. \nThis test measures your ability to find the 'signals'—the high-impact tasks that grow your career. \nLearn how to ignore the digital clutter so you can spend your energy on work that truly counts.",
         questions: [
             "I feel an urgent need to reply to every notification immediately.",
             "I spend more time 'organizing' my work than actually doing it.",
@@ -35,7 +35,7 @@ const testData = {
     },
     'leverage': {
         title: "Architect vs. Firefighter",
-        description: "This audit measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
+        description: "This test measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
         questions: [
             "I spend most of my day responding to 'urgent' requests.",
             "I have a written system (SOP) for my recurring tasks.",
@@ -51,7 +51,7 @@ const testData = {
     },
     'validation': {
         title: "Internal vs. External Validation",
-        description: "This audit measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
+        description: "This test measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
         questions: [
             "I feel successful only when others praise my work.",
             "I would still do my current job if no one ever knew my title.",
