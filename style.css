@@ -13,11 +13,16 @@ body {
 }
 
 /* NAVIGATION */
+/* Update your Navigation Layout section */
 nav { 
     padding: 1rem 5%; 
     background: white; 
     border-bottom: 3px solid var(--brand-magenta); 
-    position: sticky; top: 0; z-index: 2000; 
+    position: sticky; 
+    top: 0; 
+    z-index: 2000;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't push it off-screen */
 }
 
 .nav-container { 
@@ -25,7 +30,22 @@ nav {
     justify-content: space-between; 
     align-items: center; 
     max-width: 1400px; 
-    margin: 0 auto; 
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Mobile specific nav fix */
+@media (max-width: 600px) {
+    .nav-container {
+        flex-direction: row; /* Keep logo and links on one line */
+        justify-content: space-between;
+    }
+    .nav-links {
+        gap: 15px; /* Shrink gap so they fit */
+    }
+    .nav-logo {
+        height: 35px; /* Slightly smaller logo for mobile */
+    }
 }
 
 .nav-logo { height: 50px; cursor: pointer; }
@@ -39,14 +59,25 @@ nav {
 
 /* HERO SECTION - Centering Fix */
 .hero { 
-    padding: 80px 20px; 
+    padding: 60px 20px; 
     text-align: center; 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centers the content blocks */
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+.hero h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.hero p {
+    text-align: center;
+    margin: 0 auto 30px auto;
+}
 
 /* Restores the View Assessments button size */
 .hero .btn-primary {
@@ -64,25 +95,25 @@ nav {
     grid-template-columns: repeat(3, 1fr); 
     gap: 25px; 
     margin-top: 40px;
+    justify-items: center; /* Centers cards within the grid */
 }
 
 @media (max-width: 900px) { .test-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .test-grid { grid-template-columns: 1fr; } }
 
 /* CARDS */
-.card { 
-    background: white; 
-    padding: 2.5rem; 
-    border-radius: 25px; 
-    transition: 0.3s; 
-    text-align: center; 
-    border: 3px solid transparent;
+.card {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Centers buttons and text inside cards */
+    text-align: center;
+    margin: 0 auto; /* Centers the card itself in the grid column */
+    width: 100%;
 }
 
 .card:hover { border-color: var(--brand-magenta); transform: translateY(-5px); background: #fdf2f8; }
 .card h3 { margin-bottom: 20px; font-size: 1.4rem; }
+
 
 /* BUTTONS */
 .btn-primary { 
