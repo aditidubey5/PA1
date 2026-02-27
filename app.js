@@ -169,10 +169,11 @@ function renderGrid() {
     grid.innerHTML = "";
     for (let key in testData) {
         grid.innerHTML += `
-            <div class="card" onclick="loadTest('${key}')">
+            <div class="card" style="text-align:center;">
                 <h3 style="margin-bottom:10px;">${testData[key].title}</h3>
                 <p style="color:#64748b; font-size:0.8rem; margin-bottom:20px;">${testData[key].questions.length} Diagnostic Points</p>
-                <button class="btn-primary" style="width:100%;">START ANALYSIS</button>
+                <button class="btn-secondary" style="width:100%; margin-bottom:10px;" onclick="openInfoModal('${key}')">KNOW MORE</button>
+                <button class="btn-primary" style="width:100%;" onclick="loadTest('${key}')">START ANALYSIS</button>
             </div>`;
     }
 }
