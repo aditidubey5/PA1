@@ -180,7 +180,7 @@ function renderGrid() {
                 </button>
 
                 <button class="btn-primary" style="margin-top:10px;" onclick="loadTest('${key}')">
-                    START ANALYSIS
+                    START TEST
                 </button>
 
                 <div style="margin-top:20px;">
@@ -188,7 +188,7 @@ function renderGrid() {
                         ${qCount} Questions
                     </p>
                     <p style="color:#94a3b8; font-size:0.75rem; margin:0;">
-                        Approx. ${timeEst} min read
+                        Approx. ${timeEst} mins
                     </p>
                 </div>
             </div>`;
