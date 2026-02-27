@@ -3,6 +3,7 @@
 const testData = {
     'friction': {
         title: "Friction vs. Flow Quiz",
+        description: "This test looks at how much 'extra' effort you put into your work. \nSometimes we make tasks harder than they need to be because we think 'hard' equals 'better'. \nBy taking this quiz, you will see if you are working against yourself or with a smooth flow. \nIt helps you find ways to get the same great results with much less stress and struggle.",
         questions: [
             "If I achieve a goal quickly and easily, I often feel like I haven't 'really' earned the result.",
             "I tend to view colleagues who find 'easy' ways to do hard things as cutting corners.",
@@ -18,6 +19,7 @@ const testData = {
     },
     'signal': {
         title: "Signal vs. Noise Audit",
+        description: "This audit checks how well you can focus on what actually matters in your day. \nWith so many emails, meetings, and notifications, it is easy to get distracted by 'noise'. \nThis test measures your ability to find the 'signals'—the high-impact tasks that grow your career. \nLearn how to ignore the digital clutter so you can spend your energy on work that truly counts.",
         questions: [
             "I feel an urgent need to reply to every notification immediately.",
             "I spend more time 'organizing' my work than actually doing it.",
@@ -33,6 +35,7 @@ const testData = {
     },
     'leverage': {
         title: "Architect vs. Firefighter",
+        description: "This audit measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
         questions: [
             "I spend most of my day responding to 'urgent' requests.",
             "I have a written system (SOP) for my recurring tasks.",
@@ -48,6 +51,7 @@ const testData = {
     },
     'validation': {
         title: "Internal vs. External Validation",
+        description: "This audit measures how much impact you get from every hour you spend working. \nIt helps you find tasks where one small action leads to a very large and lasting result. \nMost people spend time on 'low-leverage' work that needs to be repeated every single day. \nBy finishing this test, you will learn how to focus on building assets that work for you.",
         questions: [
             "I feel successful only when others praise my work.",
             "I would still do my current job if no one ever knew my title.",
@@ -63,6 +67,7 @@ const testData = {
     },
     'scarcity': {
         title: "Scarcity vs. Abundance",
+        description: "This test measures whether you make decisions based on fear or based on growth. \nA scarcity mindset makes you play it safe, while abundance allows you to take big risks. \nYou will see if you are holding onto 'safe' habits that are actually stopping you from scaling. \nIt is designed to help you shift into a mindset where you see opportunity everywhere.",
         questions: [
             "I focus more on 'not losing' than on 'winning'.",
             "I believe there is a limited amount of opportunity in my field.",
@@ -78,6 +83,7 @@ const testData = {
     },
     'odat': {
         title: "Open DISC Assessment",
+        description: "This is a world-standard tool used to understand how you behave and communicate with others. \nIt identifies if you are naturally a leader, a great talker, a steady worker, or a detail person. \nKnowing your style helps you work better in teams and makes your communication much more effective. \nIt is the perfect starting point for anyone looking to understand their natural professional strengths.",
         questions: [
             "I am assertive and direct.", "I enjoy influencing others.", "I prefer steady environments.", 
             "I pay close attention to accuracy.", "I prioritize results over relationships.",
@@ -92,6 +98,7 @@ const testData = {
     },
     'bigfive': {
         title: "Big Five Personality Inventory",
+        description: "This test explores the five core parts of your personality that don't change much over time. \nIt looks at how you handle stress, how organized you are, and how you interact with the world. \nUnderstanding these traits helps you choose the right career path and work environments for your personality. \nIt provides a scientific map of who you are and how you can best achieve your future goals.",
         questions: [
             "I am the life of the party.", "I am concerned about others' feelings.", "I am always prepared.", 
             "I get upset easily.", "I have a vivid imagination.", "I talk to a lot of different people.",
@@ -170,6 +177,27 @@ function renderGrid() {
     }
 }
 
+function openInfoModal(key) {
+    const test = testData[key];
+    
+    // We replace the newlines (\n) with HTML line breaks (<br>) for the layout
+    const cleanDescription = test.description.replace(/\n/g, '<br>');
+
+    const modalContent = `
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 class="text-gradient" style="margin-bottom:15px;">${test.title}</h2>
+        <div style="text-align:left; background:#f8fafc; padding:25px; border-radius:15px; border-left:5px solid var(--brand-magenta);">
+            <p style="font-size:1rem; line-height:1.6; color:#334155; margin:0;">
+                ${cleanDescription}
+            </p>
+        </div>
+        <button class="btn-primary" style="width:100%; margin-top:25px; font-size:1.1rem;" 
+                onclick="closeModal(); loadTest('${key}')">Start This Assessment</button>
+    `;
+    
+    document.querySelector('.modal-content').innerHTML = modalContent;
+    document.getElementById('method-modal').style.display = 'block';
+}
 function loadTest(id) {
     activeKey = id; currentIdx = 0; userAnswers = {};
     showPage('engine');
@@ -372,20 +400,5 @@ function renderCoachingPage() {
             </div>
         </div>`;
 }
-// --- MODAL CONTROLS ---
-function openModal() {
-    document.getElementById('method-modal').style.display = 'block';
-}
 
-function closeModal() {
-    document.getElementById('method-modal').style.display = 'none';
-}
-
-// Close modal if user clicks outside of the box
-window.onclick = function(event) {
-    let modal = document.getElementById('method-modal');
-    if (event.target == modal) {
-        closeModal();
-    }
-}
 document.addEventListener('DOMContentLoaded', () => showPage('home'));
