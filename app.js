@@ -372,5 +372,20 @@ function renderCoachingPage() {
             </div>
         </div>`;
 }
+// --- MODAL CONTROLS ---
+function openModal() {
+    document.getElementById('method-modal').style.display = 'block';
+}
 
+function closeModal() {
+    document.getElementById('method-modal').style.display = 'none';
+}
+
+// Close modal if user clicks outside of the box
+window.onclick = function(event) {
+    let modal = document.getElementById('method-modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
 document.addEventListener('DOMContentLoaded', () => showPage('home'));
