@@ -167,5 +167,58 @@ nav {
     color: #D946EF;
 }
 
+/* --- FINAL BUTTON & MODAL OVERRIDES --- */
+
+/* Re-ordering the card layout */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* The Primary Start Button */
+.btn-primary {
+    margin-bottom: 10px; /* Space above the Know More button */
+    width: 100%;
+}
+
+/* The Shaded Magenta Know More Button */
+.btn-secondary {
+    background: #fdf2f8 !important; 
+    color: #D946EF !important;
+    border: 2px solid #D946EF !important;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: block;
+}
+
+.btn-secondary:hover {
+    background: #fae8ff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 70, 239, 0.15);
+}
+
+/* Fix for the Modal Close Button */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #94a3b8;
+    z-index: 9999; /* Ensures it sits on top of the modal content */
+    padding: 10px;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #D946EF;
+}
 .method-item h4 { color: var(--brand-magenta); margin-bottom: 5px; }
 .method-item p { font-size: 0.9rem; color: #64748b; line-height: 1.4; }
