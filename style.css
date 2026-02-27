@@ -101,6 +101,7 @@ nav {
     background: #fdf2f8;
 }
 
+
 /* --- MODAL STYLES --- */
 .modal-overlay {
     display: none; 
@@ -139,6 +140,43 @@ nav {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     text-align: left;
+}
+/* THE SHADED MAGENTA BUTTON */
+.btn-secondary {
+    background: #fdf2f8; /* Soft magenta shade */
+    color: #D946EF;
+    border: 2px solid #D946EF;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    background: #fae8ff; /* Slightly darker shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 70, 239, 0.1);
+}
+
+/* Ensure the X button in the modal is clickable and large */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #94a3b8;
+    z-index: 10;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #D946EF;
 }
 
 .method-item h4 { color: var(--brand-magenta); margin-bottom: 5px; }
