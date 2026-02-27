@@ -12,14 +12,12 @@ body {
     overflow-x: hidden;
 }
 
-/* NAVIGATION - Fixed for Mobile Full-Width */
+/* NAVIGATION */
 nav { 
     padding: 1rem 5%; 
     background: white; 
     border-bottom: 3px solid var(--brand-magenta); 
-    position: sticky; top: 0; z-index: 2000;
-    width: 100%;
-    box-sizing: border-box;
+    position: sticky; top: 0; z-index: 2000; 
 }
 
 .nav-container { 
@@ -33,50 +31,58 @@ nav {
 .nav-logo { height: 50px; cursor: pointer; }
 .nav-links { display: flex; gap: 40px; }
 .nav-links span { font-weight: 700; cursor: pointer; font-size: 0.9rem; color: #1e293b; transition: 0.3s; }
+.nav-links span:hover, .nav-links span.active {
+    background: var(--brand-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-/* HERO SECTION - Large & Centered */
+/* HERO SECTION - Centering Fix */
 .hero { 
-    padding: 100px 20px; 
+    padding: 80px 20px; 
     text-align: center; 
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
-.text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
 
-.hero p { font-size: 1.2rem; max-width: 700px; line-height: 1.6; color: #334155; }
-
-/* VIEW ASSESSMENTS BUTTON (Centered) */
+/* Restores the View Assessments button size */
 .hero .btn-primary {
     width: auto !important;
-    min-width: 280px;
-    padding: 1.2rem 3rem;
-    font-size: 1.1rem;
-    margin-top: 40px;
+    min-width: 250px;
+    margin-top: 30px;
 }
 
-/* CARDS & GRID */
-.container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+.text-gradient { background: var(--brand-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* GRID SYSTEM */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 .test-grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 30px; 
-    margin-top: 50px;
+    gap: 25px; 
+    margin-top: 40px;
 }
 
+@media (max-width: 900px) { .test-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .test-grid { grid-template-columns: 1fr; } }
+
+/* CARDS */
 .card { 
     background: white; 
-    padding: 3rem; 
-    border-radius: 30px; 
+    padding: 2.5rem; 
+    border-radius: 25px; 
+    transition: 0.3s; 
     text-align: center; 
+    border: 3px solid transparent;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.card h3 { font-size: 1.8rem; margin-bottom: 25px; }
+.card:hover { border-color: var(--brand-magenta); transform: translateY(-5px); background: #fdf2f8; }
+.card h3 { margin-bottom: 20px; font-size: 1.4rem; }
 
 /* BUTTONS */
 .btn-primary { 
@@ -84,40 +90,71 @@ nav {
     color: white; 
     border: none; 
     padding: 1rem 2rem; 
-    border-radius: 15px; 
+    border-radius: 12px; 
     font-weight: 700; 
     cursor: pointer;
+    transition: 0.3s;
 }
 
-/* The Shaded Magenta Know More Button */
+/* Shaded Magenta Button (Know More) */
 .btn-secondary {
     background: #fdf2f8 !important; 
     color: #D946EF !important;
     border: 2px solid #D946EF !important;
-    padding: 14px 24px;
-    border-radius: 15px;
+    padding: 12px 24px;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.85rem;
     cursor: pointer;
+    transition: all 0.3s ease;
     width: 100%;
-    margin-bottom: 12px;
+    display: block;
+    margin-bottom: 10px;
 }
 
-/* MOBILE FIXES - Centering Everything */
-@media (max-width: 768px) {
-    .hero h1 { font-size: 2.8rem; }
-    .test-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 15px; }
-    .nav-logo { height: 35px; }
-    .hero, .card { align-items: center; text-align: center; }
+.btn-secondary:hover {
+    background: #fae8ff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 70, 239, 0.15);
 }
 
-/* MODAL CLOSE BUTTON */
+/* MODAL STYLES */
+.modal-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.8); 
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+}
+
+.modal-content {
+    background: white;
+    max-width: 700px;
+    margin: 5% auto;
+    padding: 50px;
+    border-radius: 30px;
+    position: relative;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 .close-modal {
     position: absolute;
-    top: 20px; right: 25px;
-    font-size: 3rem;
+    top: 15px; right: 20px;
+    font-size: 2.5rem;
     cursor: pointer;
     color: #94a3b8;
     z-index: 9999;
+    padding: 10px;
+    line-height: 1;
 }
+
+.close-modal:hover { color: var(--brand-magenta); }
+
+.method-item h4 { color: var(--brand-magenta); margin-bottom: 5px; }
+.method-item p { font-size: 0.9rem; color: #64748b; line-height: 1.4; }
