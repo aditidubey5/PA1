@@ -1,77 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People Assets | Professional</title>
+    <title>People Assets | Meet The Real You</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-   
 </head>
 <body>
-  <nav style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(74, 39, 176, 0.1); position: sticky; top: 0; z-index: 1000; transition: all 0.3s ease;">
-    <div class="nav-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 14px 24px;">
-        
-        <div class="nav-logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="border: 2px solid #D946EF; border-radius: 50px; padding: 8px 24px; background: white; box-shadow: 0 4px 15px rgba(217, 70, 239, 0.1); display: flex; align-items: center;">
-                <div style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: -0.03em; white-space: nowrap;">
-                    <span style="color: #4A27B0; margin-right: 6px;">PEOPLE</span>
-                    <span style="color: #D946EF;">ASSETS</span>
+
+<!-- ============ NAVIGATION ============ -->
+<nav>
+    <div class="nav-container">
+        <div class="nav-logo" onclick="showPage('home')">
+            <div class="nav-logo-pill">
+                <div class="nav-logo-text">
+                    <span class="word-people">PEOPLE</span><span class="word-assets">ASSETS</span>
                 </div>
             </div>
         </div>
 
-        <div class="nav-links" style="display: flex; gap: 32px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem; color: #4A27B0;">
-            <span id="nav-home" onclick="showPage('home')" style="cursor: pointer; position: relative; padding: 5px 0;" class="nav-item">Home</span>
-            <span id="nav-tests" onclick="showPage('tests')" style="cursor: pointer; position: relative; padding: 5px 0;" class="nav-item">Assessments</span>
-            <span id="nav-coaching" onclick="showPage('coaching')" style="cursor: pointer; background: linear-gradient(135deg, #4A27B0, #D946EF); color: white; padding: 8px 20px; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(74, 39, 176, 0.2);">Coaching</span>
+        <!-- Desktop links -->
+        <div class="nav-links">
+            <span id="nav-home"     class="nav-item" onclick="showPage('home')">Home</span>
+            <span id="nav-tests"    class="nav-item" onclick="showPage('tests')">Assessments</span>
+            <span id="nav-coaching" class="nav-cta"  onclick="showPage('coaching')">Coaching</span>
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
         </div>
     </div>
+
+    <!-- Mobile drawer -->
+    <div class="nav-mobile-drawer" id="mobile-drawer">
+        <span class="nav-item" onclick="showPage('home');   toggleMobileNav()">Home</span>
+        <span class="nav-item" onclick="showPage('tests');  toggleMobileNav()">Assessments</span>
+        <span class="nav-cta"  onclick="showPage('coaching');toggleMobileNav()">Coaching</span>
+    </div>
 </nav>
-    <section id="home" class="page">
-        <div class="hero">
-            <h1>Meet The <span class="text-gradient">Real You</span></h1>
-            <p>Stop guessing and start <span class="text-gradient">discovering.</span>
-<br>Simple tests to find your path.</p>
+
+<!-- ============ HOME PAGE ============ -->
+<section id="home" class="page">
+    <div class="hero">
+        <span class="hero-eyebrow">Behavioral Intelligence Platform</span>
+        <h1>Meet The <span class="text-gradient">Real You</span></h1>
+        <p>Stop guessing and start <strong>discovering.</strong><br>
+           Science-backed assessments to find your professional edge.</p>
+        <div class="hero-cta-group">
             <button class="btn-primary" onclick="showPage('tests')">View Assessments</button>
-            </div>
-    </section>
-
-    <section id="tests" class="page" style="display:none;">
-        <div class="container">
-            <h2 style="text-align:center; margin-bottom: 40px; font-weight: 800;">Assessment Library</h2>
-            <div class="test-grid" id="test-grid-ui"></div>
+            <span class="hero-sub-link" onclick="document.getElementById('method-modal').style.display='block'">
+                How our framework works →
+            </span>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="engine" class="page" style="display:none;">
-        <div class="container" style="text-align:center;">
-            <h2 id="test-title" class="text-gradient"></h2>
-            <div id="question-area"></div>
-            <div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">
-                <button id="back-btn" class="btn-primary" style="background:#64748b;" onclick="changeQuestion(-1)">Back</button>
-                <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next Question</button>
-            </div>
+<!-- ============ ASSESSMENTS PAGE ============ -->
+<section id="tests" class="page" style="display:none;">
+    <div class="container">
+        <div class="page-header">
+            <p class="section-label">Assessment Library</p>
+            <h2>Find Your <span class="text-gradient">Edge</span></h2>
+            <p>Seven diagnostics. Honest insights. No fluff.</p>
         </div>
-    </section>
+        <div class="test-grid" id="test-grid-ui"></div>
+    </div>
+</section>
 
-    <section id="report" class="page" style="display:none;">
-        <div id="report-page-content" class="container"></div>
-    </section>
+<!-- ============ QUESTION ENGINE ============ -->
+<section id="engine" class="page" style="display:none;">
+    <div class="container" style="text-align:center;">
+        <h2 id="test-title" class="text-gradient" style="font-size: clamp(1.4rem, 4vw, 2rem); font-weight:800; margin-bottom: 8px;"></h2>
+        <div id="question-area"></div>
+        <div class="engine-nav">
+            <button id="back-btn" class="btn-primary" style="background:#64748b;" onclick="changeQuestion(-1)">← Back</button>
+            <button id="next-btn" class="btn-primary" onclick="changeQuestion(1)">Next →</button>
+        </div>
+    </div>
+</section>
 
-    <section id="coaching" class="page" style="display:none;">
-        </section>
+<!-- ============ REPORT PAGE ============ -->
+<section id="report" class="page" style="display:none;">
+    <div id="report-page-content" class="container"></div>
+</section>
 
-    <script src="app.js"></script>
-    <div id="method-modal" class="modal-overlay">
+<!-- ============ COACHING PAGE ============ -->
+<section id="coaching" class="page" style="display:none;"></section>
+
+<!-- ============ METHOD MODAL ============ -->
+<div id="method-modal" class="modal-overlay" onclick="handleModalBackdropClick(event)">
     <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2 class="text-gradient" style="font-size: 2.5rem;">The Performance Architecture</h2>
-        <p style="font-size: 1.1rem; color: #475569; margin-bottom: 30px;">
-            Our assessments are built on the <strong>Systemic Leverage Framework</strong>. We don't just measure personality; we measure the friction between your effort and your outcomes.
+        <span class="close-modal" onclick="closeModal()">&#x2715;</span>
+        <h2 class="text-gradient" style="font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 12px;">The Performance Architecture</h2>
+        <p style="font-size: 1rem; color: #475569; margin-bottom: 4px;">
+            Our assessments are built on the <strong>Systemic Leverage Framework</strong>. We don't just measure personality — we measure the friction between your effort and your outcomes.
         </p>
-        
         <div class="method-grid">
             <div class="method-item">
                 <h4>01. Friction Analysis</h4>
@@ -86,9 +112,10 @@
                 <p>Mapping your DISC and Big Five traits specifically to professional ROI.</p>
             </div>
         </div>
-        
-        <button class="btn-primary" style="width: 100%; margin-top: 30px;" onclick="closeModal(); showPage('tests');">View All Assessments</button>
+        <button class="btn-primary btn-full" onclick="closeModal(); showPage('tests');">View All Assessments</button>
     </div>
 </div>
+
+<script src="app.js"></script>
 </body>
 </html>
