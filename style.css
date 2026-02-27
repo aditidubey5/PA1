@@ -88,18 +88,6 @@ nav {
     border: 2px solid #e2e8f0; margin-bottom: 15px; font-family: inherit;
     box-sizing: border-box; /* Fixes input stretching */
 }
-/* --- KNOW MORE BUTTON --- */
-/* Ensure the Know More button inside cards looks sleek */
-.card .btn-secondary {
-    margin-left: 0; /* Remove the margin we used on the home page */
-    font-size: 0.8rem;
-    padding: 10px;
-    border: 1px solid var(--brand-magenta); /* Thinner border for card buttons */
-}
-
-.card .btn-secondary:hover {
-    background: #fdf2f8;
-}
 
 
 /* --- MODAL STYLES --- */
