@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>People Assets | Professional</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+   
 </head>
 <body>
   <nav style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(74, 39, 176, 0.1); position: sticky; top: 0; z-index: 1000; transition: all 0.3s ease;">
@@ -33,6 +34,7 @@
             <h1>Unlock Your <span class="text-gradient">Core Potential</span></h1>
             <p>Scientific behavioral analysis designed to map human potential and professional trajectory.</p>
             <button class="btn-primary" onclick="showPage('tests')">View Assessments</button>
+            <button class="btn-secondary" onclick="openModal()">Know More</button>
         </div>
     </section>
 
@@ -62,5 +64,31 @@
         </section>
 
     <script src="app.js"></script>
+    <div id="method-modal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 class="text-gradient" style="font-size: 2.5rem;">The Performance Architecture</h2>
+        <p style="font-size: 1.1rem; color: #475569; margin-bottom: 30px;">
+            Our assessments are built on the <strong>Systemic Leverage Framework</strong>. We don't just measure personality; we measure the friction between your effort and your outcomes.
+        </p>
+        
+        <div class="method-grid">
+            <div class="method-item">
+                <h4>01. Friction Analysis</h4>
+                <p>Identifying "The Martyr" patterns where effort is high but systemic growth is stagnant.</p>
+            </div>
+            <div class="method-item">
+                <h4>02. Signal Detection</h4>
+                <p>Quantifying your ability to filter high-impact 'Signals' from digital 'Noise'.</p>
+            </div>
+            <div class="method-item">
+                <h4>03. Behavioral Archetyping</h4>
+                <p>Mapping your DISC and Big Five traits specifically to professional ROI.</p>
+            </div>
+        </div>
+        
+        <button class="btn-primary" style="width: 100%; margin-top: 30px;" onclick="closeModal(); showPage('tests');">View All Assessments</button>
+    </div>
+</div>
 </body>
 </html>
