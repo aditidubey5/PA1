@@ -23,7 +23,7 @@ const TESTS = [
       { q: "When making decisions, I prioritize...", options: ["Speed and results","People's feelings and buy-in","Consistency with past decisions","Accuracy and all available data"] },
       { q: "My communication style is best described as...", options: ["Direct and to the point","Enthusiastic and expressive","Calm and supportive","Detailed and systematic"] },
       { q: "When I disagree with someone, I...", options: ["State my view confidently and debate it","Try to find common ground through conversation","Avoid conflict and accommodate","Present facts and logical arguments"] },
-      { q: "I feel most accomplished when I...", options: ["Win or achieve a measurable result","Positively influence or inspire someone","Create a smooth, stable process","Deliver something error-free and complete"] },
+      { q: "I feel most accomplished when I...", options: ["Win or achieve a measurable result","Positively influence or inspire someone","Create a smooth, stable process","Deliver something error-free and complete"] }
     ]
   },
   {
@@ -42,146 +42,9 @@ const TESTS = [
       { q: "I often worry about things that could go wrong.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
       { q: "I regularly seek out creative or artistic experiences.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
       { q: "I meet deadlines without needing external reminders.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
-   {
-  id: "hardworking",
-  title: "Hardworking Index",
-  tagline: "Are you truly putting in the work — or just feeling busy?",
-  description: "The Hardworking Index measures the depth and quality of your work across five dimensions: effort, consistency, focus, resilience, and self-motivation. It goes beyond surface-level busyness to reveal whether your energy is being channelled into meaningful, sustained output.",
-  questions: 22,
-  time: "10 min",
-  icon: "🔨",
-  sections: [
-    { name: "Work Ethic", start: 0, end: 4 },
-    { name: "Consistency", start: 5, end: 9 },
-    { name: "Focus", start: 10, end: 14 },
-    { name: "Resilience", start: 15, end: 18 },
-    { name: "Motivation", start: 19, end: 21 }
-  ],
-  questions_data: [
-    // --- SECTION 1: Work Ethic & Effort (Q1–5) ---
-    {
-      section: "Work Ethic & Effort",
-      q: "When I take on a task, I commit to seeing it through even when it becomes difficult or tedious.",
-      options: ["Almost never — I tend to abandon tasks when they get hard", "Rarely — I sometimes push through but usually look for an easier path", "Sometimes — it depends on how important the task feels to me", "Often — I usually stick with it even when it gets uncomfortable", "Almost always — I see every commitment through to completion"]
-    },
-    {
-      section: "Work Ethic & Effort",
-      q: "How would your closest colleagues honestly describe the quality of effort you bring to your work?",
-      options: ["They'd say I do the minimum required to get by", "They'd say my effort is inconsistent — great sometimes, absent other times", "They'd say I'm solid but rarely go above and beyond", "They'd say I consistently bring strong effort to most things", "They'd say I'm one of the hardest working people they know"]
-    },
-    {
-      section: "Work Ethic & Effort",
-      q: "When I'm given a deadline, I typically...",
-      options: ["Struggle to meet it and often need extensions", "Meet it but only after a last-minute panic", "Meet it with just enough time to spare", "Meet it comfortably with time to review my work", "Finish ahead of time and use the extra time to improve quality"]
-    },
-    {
-      section: "Work Ethic & Effort",
-      q: "I put in extra effort on tasks even when no one is watching or measuring my output.",
-      options: ["Rarely — my effort is largely driven by external accountability", "Sometimes — I try harder when I know people will notice", "It varies — depends on the task and my energy levels that day", "Often — I have personal standards that exist regardless of who's watching", "Always — my work ethic is internal and doesn't depend on external eyes"]
-    },
-    {
-      section: "Work Ethic & Effort",
-      q: "How often do you voluntarily take on responsibilities beyond what's explicitly required of you?",
-      options: ["Almost never — I focus on what's asked of me", "Occasionally — only when it directly benefits me", "Sometimes — when I have the bandwidth and it seems useful", "Often — I regularly look for ways to contribute beyond my job description", "Almost always — I proactively expand my contribution wherever I can"]
-    },
-
-    // --- SECTION 2: Consistency & Discipline (Q6–10) ---
-    {
-      section: "Consistency & Discipline",
-      q: "My productivity levels across a typical workweek are...",
-      options: ["Very uneven — I have one or two productive days and the rest are wasted", "Somewhat uneven — I struggle to maintain output mid-week", "Moderate — I'm reasonably consistent but have noticeable dips", "Fairly consistent — I maintain good output across most days", "Very consistent — I sustain strong performance across the full week"]
-    },
-    {
-      section: "Consistency & Discipline",
-      q: "When I set a personal goal related to my work or development, I follow through on it...",
-      options: ["Rarely — I set goals but seldom act on them for long", "Sometimes — I start well but usually lose momentum within weeks", "About half the time — I complete some goals but not others", "Most of the time — I follow through on the majority of my goals", "Almost always — I have a strong track record of completing what I commit to"]
-    },
-    {
-      section: "Consistency & Discipline",
-      q: "How do you behave on days when your motivation is low or you simply don't feel like working?",
-      options: ["I give myself the day off mentally and do very little", "I go through the motions but produce little of real value", "I manage to get some things done but far less than usual", "I push through and still complete most of my key tasks", "I rely on discipline over motivation and maintain my usual output"]
-    },
-    {
-      section: "Consistency & Discipline",
-      q: "I have structured routines or systems that help me stay productive day to day.",
-      options: ["Strongly Disagree — I operate mostly reactively with no real structure", "Disagree — I have loose intentions but few real systems in place", "Neutral — I have some routines but they're fragile and easily disrupted", "Agree — I have functional systems that generally keep me on track", "Strongly Agree — I have well-designed routines that anchor my daily performance"]
-    },
-    {
-      section: "Consistency & Discipline",
-      q: "When an unexpected disruption breaks my workflow (illness, crisis, travel), I...",
-      options: ["Take a long time to get back on track — sometimes weeks", "Struggle significantly but recover eventually", "Get somewhat back on track within a few days", "Recover quickly and resume my rhythm within a day or two", "Adapt immediately and maintain my output through the disruption"]
-    },
-
-    // --- SECTION 3: Focus & Prioritisation (Q11–15) ---
-    {
-      section: "Focus & Prioritisation",
-      q: "On a typical workday, how much of my time is spent on tasks that genuinely move the needle?",
-      options: ["Very little — most of my day is reactive or low-value work", "Less than half — I often get caught in busywork", "About half — I split my time between high and low value tasks", "More than half — I generally protect time for my most important work", "The majority — I'm disciplined about focusing on what truly matters"]
-    },
-    {
-      section: "Focus & Prioritisation",
-      q: "I can sustain deep, uninterrupted focus on a single task for extended periods.",
-      options: ["Rarely — I find it very hard to focus for more than 15–20 minutes", "Sometimes — I can focus in short bursts but get distracted easily", "Moderately — I can sustain focus for 30–45 minutes with effort", "Often — I can enter deep focus for an hour or more regularly", "Almost always — sustained deep work is a natural part of how I operate"]
-    },
-    {
-      section: "Focus & Prioritisation",
-      q: "When I have a long to-do list, I...",
-      options: ["Feel overwhelmed and often don't know where to start", "Tackle the easiest items first to feel a sense of progress", "Work through items somewhat randomly depending on my mood", "Prioritise consciously but don't always stick to the plan", "Clearly identify the highest-impact tasks and attack those first"]
-    },
-    {
-      section: "Focus & Prioritisation",
-      q: "How effectively do you protect your most productive hours from interruptions and low-value demands?",
-      options: ["Not at all — I'm available and reactive to everyone at all times", "Poorly — I intend to protect focus time but rarely enforce it", "Somewhat — I have some boundaries but they're frequently broken", "Well — I generally guard my prime hours and communicate boundaries", "Very well — I have clear systems to protect my deep work time consistently"]
-    },
-    {
-      section: "Focus & Prioritisation",
-      q: "I regularly review my workload to eliminate or delegate tasks that don't deserve my time.",
-      options: ["Strongly Disagree — I rarely audit what I'm working on", "Disagree — I hold on to tasks even when I shouldn't", "Neutral — I occasionally think about this but rarely act on it", "Agree — I periodically clean up my task list and offload where I can", "Strongly Agree — I actively and regularly audit my commitments to protect focus"]
-    },
-
-    // --- SECTION 4: Resilience & Persistence (Q16–19) ---
-    {
-      section: "Resilience & Persistence",
-      q: "When I encounter a significant obstacle in my work, my typical response is to...",
-      options: ["Step back and often not return to the task with full effort", "Feel discouraged for a long time before trying again", "Take a break and revisit it, though momentum is often lost", "Work through the frustration and find a way to keep going", "Treat it as a problem to solve and come back with more energy"]
-    },
-    {
-      section: "Resilience & Persistence",
-      q: "I have pushed through exhaustion, discomfort, or boredom to complete something that mattered to me.",
-      options: ["Rarely — I tend to stop when things become physically or mentally draining", "Occasionally — only under extreme external pressure", "Sometimes — when the stakes feel high enough", "Often — I regularly push past comfort to finish what I start", "Almost always — I have a strong internal drive that overrides discomfort"]
-    },
-    {
-      section: "Resilience & Persistence",
-      q: "How do you respond when a project or task takes significantly longer than expected?",
-      options: ["I often abandon it or dramatically reduce the scope", "I get frustrated and my quality drops noticeably", "I adjust my expectations but lose some motivation", "I recalibrate my timeline and keep working at a reasonable pace", "I stay fully committed and adjust my approach without losing quality"]
-    },
-    {
-      section: "Resilience & Persistence",
-      q: "After receiving critical feedback or experiencing a setback at work, I typically...",
-      options: ["Feel demotivated for an extended period and struggle to re-engage", "Take it personally and need a lot of time to process it", "Feel stung but eventually use it to adjust my approach", "Process it constructively and return to work relatively quickly", "Treat it as data and immediately channel it into improvement"]
-    },
-
-    // --- SECTION 5: Purpose & Self-Motivation (Q20–22) ---
-    {
-      section: "Purpose & Self-Motivation",
-      q: "I have a clear sense of why the work I do matters, which fuels my effort even on hard days.",
-      options: ["Strongly Disagree — I often feel disconnected from any deeper purpose in my work", "Disagree — I understand my tasks but rarely feel driven by a deeper why", "Neutral — I have some sense of purpose but it doesn't consistently motivate me", "Agree — I have a clear enough sense of purpose that it sustains me through difficulty", "Strongly Agree — my work is deeply connected to my values and this drives consistent effort"]
-    },
-    {
-      section: "Purpose & Self-Motivation",
-      q: "My drive to work hard comes primarily from within, rather than from external rewards or pressure.",
-      options: ["Strongly Disagree — I need external pressure or incentives to work hard", "Disagree — I'm mostly motivated by outcomes like salary, recognition, or approval", "Neutral — it's a mix of internal and external drivers, roughly equal", "Agree — my motivation is mostly internal, though external factors still play a role", "Strongly Agree — I am fundamentally self-driven and don't rely on external motivation"]
-    },
-    {
-      section: "Purpose & Self-Motivation",
-      q: "Looking back over the past three months, how satisfied are you with the quality and consistency of effort you brought to your work?",
-      options: ["Very unsatisfied — I know I significantly underperformed relative to my potential", "Unsatisfied — I had stretches of good work but too many gaps in effort", "Neutral — I showed up and did the work but didn't push myself enough", "Satisfied — I worked hard and consistently with only occasional dips", "Very satisfied — I brought my best effort consistently and have little to regret"]
-    }
-  ]
-}
   {
     id: "martyr",
     title: "The Martyr Index",
@@ -198,7 +61,7 @@ const TESTS = [
       { q: "I feel resentful when my hard work goes unacknowledged.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "I delegate tasks comfortably and trust others to execute.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "My to-do list is a source of pride, not stress.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I can clearly name the 3 things that create the most value in my role.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I can clearly name the 3 things that create the most value in my role.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
   {
@@ -217,7 +80,7 @@ const TESTS = [
       { q: "I regularly read long-form content (books, deep articles, research).", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "Meetings often feel like they could have been emails.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "I can summarize the 3 most important things I learned this week.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "Social media leaves me feeling informed rather than scattered.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "Social media leaves me feeling informed rather than scattered.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
   {
@@ -236,7 +99,7 @@ const TESTS = [
       { q: "I feel most confident when...", options: ["I've articulated a future others are excited about","The team is executing with speed and clarity","Each person feels seen, supported, and growing","All systems are running smoothly and predictably"] },
       { q: "I struggle most with...", options: ["Staying patient with slow progress","Slowing down to hear all perspectives","Holding people accountable to hard deadlines","Embracing ambiguity and rapid change"] },
       { q: "My ideal team is...", options: ["Bold risk-takers who love big bets","Self-starters who execute with speed","Collaborative and psychologically safe","Disciplined and process-oriented"] },
-      { q: "In a crisis, I am known for...", options: ["Rallying people around a new direction","Taking decisive, rapid action","Keeping people calm and connected","Restoring order and following protocol"] },
+      { q: "In a crisis, I am known for...", options: ["Rallying people around a new direction","Taking decisive, rapid action","Keeping people calm and connected","Restoring order and following protocol"] }
     ]
   },
   {
@@ -255,7 +118,7 @@ const TESTS = [
       { q: "I seek feedback on how I come across, even when it might be uncomfortable.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "I can sense when someone is emotionally disengaged even if they say they're fine.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { q: "After a conflict, I reflect on my own role before assigning blame.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { q: "My emotions rarely interfere with my professional judgment.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "My emotions rarely interfere with my professional judgment.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
   {
@@ -274,7 +137,135 @@ const TESTS = [
       { q: "I actively seek out challenges that I might fail at.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
       { q: "My effort on a hard task increases when I realize I might not succeed.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
       { q: "I regularly invest time in learning skills that are outside my current role.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I view my career as a series of experiments rather than a fixed path.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I view my career as a series of experiments rather than a fixed path.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
+    ]
+  },
+  {
+    id: "hardworking",
+    title: "Hardworking Index",
+    tagline: "Are you truly putting in the work — or just feeling busy?",
+    description: "The Hardworking Index measures the depth and quality of your work across five dimensions: effort, consistency, focus, resilience, and self-motivation. It goes beyond surface-level busyness to reveal whether your energy is being channelled into meaningful, sustained output.",
+    questions: 22,
+    time: "10 min",
+    icon: "🔨",
+    sections: [
+      { name: "Work Ethic", start: 0, end: 4 },
+      { name: "Consistency", start: 5, end: 9 },
+      { name: "Focus", start: 10, end: 14 },
+      { name: "Resilience", start: 15, end: 18 },
+      { name: "Motivation", start: 19, end: 21 }
+    ],
+    questions_data: [
+      {
+        section: "Work Ethic & Effort",
+        q: "When I take on a task, I commit to seeing it through even when it becomes difficult or tedious.",
+        options: ["Almost never — I tend to abandon tasks when they get hard","Rarely — I sometimes push through but usually look for an easier path","Sometimes — it depends on how important the task feels to me","Often — I usually stick with it even when it gets uncomfortable","Almost always — I see every commitment through to completion"]
+      },
+      {
+        section: "Work Ethic & Effort",
+        q: "How would your closest colleagues honestly describe the quality of effort you bring to your work?",
+        options: ["They'd say I do the minimum required to get by","They'd say my effort is inconsistent — great sometimes, absent other times","They'd say I'm solid but rarely go above and beyond","They'd say I consistently bring strong effort to most things","They'd say I'm one of the hardest working people they know"]
+      },
+      {
+        section: "Work Ethic & Effort",
+        q: "When I'm given a deadline, I typically...",
+        options: ["Struggle to meet it and often need extensions","Meet it but only after a last-minute panic","Meet it with just enough time to spare","Meet it comfortably with time to review my work","Finish ahead of time and use the extra time to improve quality"]
+      },
+      {
+        section: "Work Ethic & Effort",
+        q: "I put in extra effort on tasks even when no one is watching or measuring my output.",
+        options: ["Rarely — my effort is largely driven by external accountability","Sometimes — I try harder when I know people will notice","It varies — depends on the task and my energy levels that day","Often — I have personal standards that exist regardless of who's watching","Always — my work ethic is internal and doesn't depend on external eyes"]
+      },
+      {
+        section: "Work Ethic & Effort",
+        q: "How often do you voluntarily take on responsibilities beyond what's explicitly required of you?",
+        options: ["Almost never — I focus on what's asked of me","Occasionally — only when it directly benefits me","Sometimes — when I have the bandwidth and it seems useful","Often — I regularly look for ways to contribute beyond my job description","Almost always — I proactively expand my contribution wherever I can"]
+      },
+      {
+        section: "Consistency & Discipline",
+        q: "My productivity levels across a typical workweek are...",
+        options: ["Very uneven — I have one or two productive days and the rest are wasted","Somewhat uneven — I struggle to maintain output mid-week","Moderate — I'm reasonably consistent but have noticeable dips","Fairly consistent — I maintain good output across most days","Very consistent — I sustain strong performance across the full week"]
+      },
+      {
+        section: "Consistency & Discipline",
+        q: "When I set a personal goal related to my work or development, I follow through on it...",
+        options: ["Rarely — I set goals but seldom act on them for long","Sometimes — I start well but usually lose momentum within weeks","About half the time — I complete some goals but not others","Most of the time — I follow through on the majority of my goals","Almost always — I have a strong track record of completing what I commit to"]
+      },
+      {
+        section: "Consistency & Discipline",
+        q: "How do you behave on days when your motivation is low or you simply don't feel like working?",
+        options: ["I give myself the day off mentally and do very little","I go through the motions but produce little of real value","I manage to get some things done but far less than usual","I push through and still complete most of my key tasks","I rely on discipline over motivation and maintain my usual output"]
+      },
+      {
+        section: "Consistency & Discipline",
+        q: "I have structured routines or systems that help me stay productive day to day.",
+        options: ["Strongly Disagree — I operate mostly reactively with no real structure","Disagree — I have loose intentions but few real systems in place","Neutral — I have some routines but they're fragile and easily disrupted","Agree — I have functional systems that generally keep me on track","Strongly Agree — I have well-designed routines that anchor my daily performance"]
+      },
+      {
+        section: "Consistency & Discipline",
+        q: "When an unexpected disruption breaks my workflow (illness, crisis, travel), I...",
+        options: ["Take a long time to get back on track — sometimes weeks","Struggle significantly but recover eventually","Get somewhat back on track within a few days","Recover quickly and resume my rhythm within a day or two","Adapt immediately and maintain my output through the disruption"]
+      },
+      {
+        section: "Focus & Prioritisation",
+        q: "On a typical workday, how much of my time is spent on tasks that genuinely move the needle?",
+        options: ["Very little — most of my day is reactive or low-value work","Less than half — I often get caught in busywork","About half — I split my time between high and low value tasks","More than half — I generally protect time for my most important work","The majority — I'm disciplined about focusing on what truly matters"]
+      },
+      {
+        section: "Focus & Prioritisation",
+        q: "I can sustain deep, uninterrupted focus on a single task for extended periods.",
+        options: ["Rarely — I find it very hard to focus for more than 15–20 minutes","Sometimes — I can focus in short bursts but get distracted easily","Moderately — I can sustain focus for 30–45 minutes with effort","Often — I can enter deep focus for an hour or more regularly","Almost always — sustained deep work is a natural part of how I operate"]
+      },
+      {
+        section: "Focus & Prioritisation",
+        q: "When I have a long to-do list, I...",
+        options: ["Feel overwhelmed and often don't know where to start","Tackle the easiest items first to feel a sense of progress","Work through items somewhat randomly depending on my mood","Prioritise consciously but don't always stick to the plan","Clearly identify the highest-impact tasks and attack those first"]
+      },
+      {
+        section: "Focus & Prioritisation",
+        q: "How effectively do you protect your most productive hours from interruptions and low-value demands?",
+        options: ["Not at all — I'm available and reactive to everyone at all times","Poorly — I intend to protect focus time but rarely enforce it","Somewhat — I have some boundaries but they're frequently broken","Well — I generally guard my prime hours and communicate boundaries","Very well — I have clear systems to protect my deep work time consistently"]
+      },
+      {
+        section: "Focus & Prioritisation",
+        q: "I regularly review my workload to eliminate or delegate tasks that don't deserve my time.",
+        options: ["Strongly Disagree — I rarely audit what I'm working on","Disagree — I hold on to tasks even when I shouldn't","Neutral — I occasionally think about this but rarely act on it","Agree — I periodically clean up my task list and offload where I can","Strongly Agree — I actively and regularly audit my commitments to protect focus"]
+      },
+      {
+        section: "Resilience & Persistence",
+        q: "When I encounter a significant obstacle in my work, my typical response is to...",
+        options: ["Step back and often not return to the task with full effort","Feel discouraged for a long time before trying again","Take a break and revisit it, though momentum is often lost","Work through the frustration and find a way to keep going","Treat it as a problem to solve and come back with more energy"]
+      },
+      {
+        section: "Resilience & Persistence",
+        q: "I have pushed through exhaustion, discomfort, or boredom to complete something that mattered to me.",
+        options: ["Rarely — I tend to stop when things become physically or mentally draining","Occasionally — only under extreme external pressure","Sometimes — when the stakes feel high enough","Often — I regularly push past comfort to finish what I start","Almost always — I have a strong internal drive that overrides discomfort"]
+      },
+      {
+        section: "Resilience & Persistence",
+        q: "How do you respond when a project or task takes significantly longer than expected?",
+        options: ["I often abandon it or dramatically reduce the scope","I get frustrated and my quality drops noticeably","I adjust my expectations but lose some motivation","I recalibrate my timeline and keep working at a reasonable pace","I stay fully committed and adjust my approach without losing quality"]
+      },
+      {
+        section: "Resilience & Persistence",
+        q: "After receiving critical feedback or experiencing a setback at work, I typically...",
+        options: ["Feel demotivated for an extended period and struggle to re-engage","Take it personally and need a lot of time to process it","Feel stung but eventually use it to adjust my approach","Process it constructively and return to work relatively quickly","Treat it as data and immediately channel it into improvement"]
+      },
+      {
+        section: "Purpose & Self-Motivation",
+        q: "I have a clear sense of why the work I do matters, which fuels my effort even on hard days.",
+        options: ["Strongly Disagree — I often feel disconnected from any deeper purpose in my work","Disagree — I understand my tasks but rarely feel driven by a deeper why","Neutral — I have some sense of purpose but it doesn't consistently motivate me","Agree — I have a clear enough sense of purpose that it sustains me through difficulty","Strongly Agree — my work is deeply connected to my values and this drives consistent effort"]
+      },
+      {
+        section: "Purpose & Self-Motivation",
+        q: "My drive to work hard comes primarily from within, rather than from external rewards or pressure.",
+        options: ["Strongly Disagree — I need external pressure or incentives to work hard","Disagree — I'm mostly motivated by outcomes like salary, recognition, or approval","Neutral — it's a mix of internal and external drivers, roughly equal","Agree — my motivation is mostly internal, though external factors still play a role","Strongly Agree — I am fundamentally self-driven and don't rely on external motivation"]
+      },
+      {
+        section: "Purpose & Self-Motivation",
+        q: "Looking back over the past three months, how satisfied are you with the quality and consistency of effort you brought to your work?",
+        options: ["Very unsatisfied — I know I significantly underperformed relative to my potential","Unsatisfied — I had stretches of good work but too many gaps in effort","Neutral — I showed up and did the work but didn't push myself enough","Satisfied — I worked hard and consistently with only occasional dips","Very satisfied — I brought my best effort consistently and have little to regret"]
+      }
     ]
   }
 ];
@@ -300,107 +291,6 @@ const REPORT_LOGIC = {
     };
     return profiles[primary];
   },
-   hardworking: (answers) => {
-  const sections = [
-    {
-      name: "Work Ethic & Effort",
-      range: [0, 4],
-      descriptions: {
-        high: "Your work ethic is a genuine asset. You bring consistent, high-quality effort to your commitments and hold yourself to internal standards regardless of external accountability.",
-        mid: "You have solid work ethic foundations but your effort can be inconsistent. There are moments of strong output, but they're not yet dependable across all contexts.",
-        low: "Your effort levels are largely reactive and externally driven. Building intrinsic work standards will be the key shift that unlocks your next level of performance."
-      },
-      watchHigh: ["Watch for over-investing in low-leverage tasks — effort without direction is still waste", "Ensure your high standards don't create unrealistic expectations of others"],
-      watchMid: ["Identify what conditions bring out your best effort and engineer more of them", "Build one non-negotiable daily work standard to anchor consistency"],
-      watchLow: ["Start with one commitment per day that you see through regardless of difficulty", "Examine what's driving the gap between your intentions and your follow-through"]
-    },
-    {
-      name: "Consistency & Discipline",
-      range: [5, 9],
-      descriptions: {
-        high: "Your discipline is a competitive advantage. You show up with reliable output regardless of motivation levels, and your routines create a stable foundation for sustained performance.",
-        mid: "You're capable of consistency but haven't yet built the systems to make it automatic. Your output peaks and dips with your mood and circumstances.",
-        low: "Consistency is your biggest growth opportunity. Without reliable systems, your performance is unpredictable — which limits both your output and how others perceive you."
-      },
-      watchHigh: ["Audit your routines occasionally — discipline can calcify into rigidity", "Make space for rest; sustained output requires intentional recovery"],
-      watchMid: ["Choose one keystone habit and protect it for 30 days — consistency compounds", "Track your productive and unproductive days to identify patterns"],
-      watchLow: ["Focus on showing up, not performing — consistency starts before quality", "Remove friction from the start of your workday to lower the barrier to beginning"]
-    },
-    {
-      name: "Focus & Prioritisation",
-      range: [10, 14],
-      descriptions: {
-        high: "You have strong focus discipline. You consistently direct your energy toward high-value work and protect your most productive hours from noise and distraction.",
-        mid: "You understand the importance of prioritisation but execution is mixed. You spend too much time on work that feels productive but doesn't move the needle.",
-        low: "Your attention is fragmented across too many inputs. Without a stronger focus architecture, even high effort will produce mediocre results."
-      },
-      watchHigh: ["Don't mistake depth for avoidance — ensure you're also responsive when it matters", "Review your priorities regularly; deep focus on the wrong thing is still a cost"],
-      watchMid: ["Implement a 'top 3 tasks' rule each morning before opening any inbox or app", "Block one 90-minute deep work session daily and treat it as non-negotiable"],
-      watchLow: ["Start by turning off all non-essential notifications for your first hour of work", "Ask yourself daily: 'What one thing, if done today, would make everything else easier?'"]
-    },
-    {
-      name: "Resilience & Persistence",
-      range: [15, 18],
-      descriptions: {
-        high: "You have exceptional persistence. Setbacks and obstacles don't derail you — they redirect you. Your ability to stay in motion through difficulty is a rare and powerful trait.",
-        mid: "You have resilience in moderate doses. You recover from setbacks but the process is slow and your momentum often suffers. Strengthening your rebound speed will unlock more.",
-        low: "Obstacles significantly disrupt your work output and motivation. Building a stronger relationship with difficulty is essential for sustained performance at any level."
-      },
-      watchHigh: ["Persistence without reflection can become stubbornness — know when to pivot", "Ensure you're recovering, not just enduring — resilience needs replenishment"],
-      watchMid: ["Develop a personal protocol for setbacks: a specific ritual for how you re-engage", "Practice separating emotional reaction from professional response in the moment"],
-      watchLow: ["Reframe obstacles as expected features of meaningful work, not exceptions", "Build a track record of small comebacks — resilience is built through repetition"]
-    },
-    {
-      name: "Purpose & Self-Motivation",
-      range: [19, 21],
-      descriptions: {
-        high: "Your work is anchored in genuine internal motivation. You don't need external pressure to bring effort — your why fuels your how, and this creates sustainable high performance.",
-        mid: "You have some internal motivation but it's not yet consistent enough to carry you through hard stretches. Your drive is partly borrowed from external sources.",
-        low: "Your motivation is largely externally dependent. Without a clearer sense of personal purpose, your effort will remain reactive and vulnerable to fluctuation."
-      },
-      watchHigh: ["Ensure your internal drive accounts for rest — intrinsic motivation can mask burnout", "Revisit your purpose regularly; what drives you can shift as your life evolves"],
-      watchMid: ["Spend 20 minutes writing why this work matters to you beyond salary and status", "Connect daily tasks to a longer-term vision to fuel short-term discipline"],
-      watchLow: ["Explore what work has felt most meaningful in your life and look for the pattern", "External rewards are a starting point, not a destination — invest in finding your intrinsic why"]
-    }
-  ];
-
-  // Calculate section scores
-  const sectionScores = sections.map(sec => {
-    const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-    const maxScore = sectionAnswers.length * 4;
-    const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-    return Math.round((raw / maxScore) * 100);
-  });
-
-  const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-
-  // Overall label
-  let overallLabel, overallColor, overallDescription;
-  if (overall >= 75) {
-    overallLabel = "High-Output Operator";
-    overallColor = "#10b981";
-    overallDescription = "You demonstrate strong, consistent hardworking behaviours across all five dimensions. Your effort is deliberate, disciplined, and internally driven. You're not just busy — you're productive in ways that compound over time. The opportunity now is to sustain this without burning out, and to ensure your effort is always pointed at the highest-leverage work.";
-  } else if (overall >= 50) {
-    overallLabel = "Capable but Inconsistent";
-    overallColor = "#f59e0b";
-    overallDescription = "You have the raw ingredients of a hard worker — drive, standards, and resilience — but they don't yet fire reliably. Your output peaks when conditions are right and dips when they're not. The work ahead is about building systems that make your best self the default, not the exception.";
-  } else {
-    overallLabel = "Effort Gap Identified";
-    overallColor = "#ef4444";
-    overallDescription = "Your results point to a meaningful gap between your potential and your current work output. This isn't about intelligence or ability — it's about the habits, systems, and internal drive that convert potential into performance. The good news: hardworking is a behaviour, not a personality trait, and behaviours can be trained.";
-  }
-
-  // Section result cards
-  const sectionResults = sections.map((sec, i) => {
-    const score = sectionScores[i];
-    const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-    const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-    const watch = sec[`watch${tier.charAt(0).toUpperCase() + tier.slice(1)}`];
-    return { name: sec.name, score, color, description: sec.descriptions[tier], watch };
-  });
-
-  return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-}
 
   bigfive: (answers) => {
     const score = answers.reduce((s, a) => s + (4 - a), 0);
@@ -455,6 +345,105 @@ const REPORT_LOGIC = {
     if (pct >= 65) return { label: "Growth Mindset Dominant", score: pct, color: "#10b981", description: "Your mindset is your greatest asset. You approach challenges as training, feedback as data, and failure as iteration. This meta-skill amplifies every other capability you develop.", strengths: ["Embraces challenge and discomfort","Uses failure as information","Actively seeks development","Resilient to setbacks and criticism"], watch: ["Ensure your growth mindset extends to others — do you give people room to fail and learn?","Watch for 'false growth mindset' — advocating for growth while secretly protecting ego"] };
     if (pct >= 40) return { label: "Mixed Mindset", score: pct, color: "#f59e0b", description: "You have genuine growth mindset in some areas, but fixed patterns emerge in others — often in areas tied to your identity or deepest insecurities.", strengths: ["Open to learning in comfortable areas","Generally positive about development","Can embrace feedback in low-stakes situations"], watch: ["Identify the 1-2 areas where you avoid challenge — that's your fixed zone","Practice the 'not yet' reframe: change 'I can't do this' to 'I can't do this yet'","Journal about a recent failure — what did you actually learn?"] };
     return { label: "Fixed Mindset Tendencies", score: pct, color: "#ef4444", description: "Your mindset profile shows patterns that may be limiting your growth ceiling. Fixed mindset is not a character flaw — it's a protective pattern the brain learned. But it can be rewired.", strengths: ["High standards for current competencies","Reliable and consistent in established areas"], watch: ["Read 'Mindset' by Carol Dweck — it is the #1 investment you can make","Seek out one 'stretch project' that you're not sure you can succeed at","Reframe feedback as data, not judgment — practice this daily"] };
+  },
+
+  hardworking: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Work Ethic & Effort",
+        range: [0, 4],
+        descriptions: {
+          high: "Your work ethic is a genuine asset. You bring consistent, high-quality effort to your commitments and hold yourself to internal standards regardless of external accountability.",
+          mid: "You have solid work ethic foundations but your effort can be inconsistent. There are moments of strong output, but they're not yet dependable across all contexts.",
+          low: "Your effort levels are largely reactive and externally driven. Building intrinsic work standards will be the key shift that unlocks your next level of performance."
+        },
+        watchHigh: ["Watch for over-investing in low-leverage tasks — effort without direction is still waste", "Ensure your high standards don't create unrealistic expectations of others"],
+        watchMid: ["Identify what conditions bring out your best effort and engineer more of them", "Build one non-negotiable daily work standard to anchor consistency"],
+        watchLow: ["Start with one commitment per day that you see through regardless of difficulty", "Examine what's driving the gap between your intentions and your follow-through"]
+      },
+      {
+        name: "Consistency & Discipline",
+        range: [5, 9],
+        descriptions: {
+          high: "Your discipline is a competitive advantage. You show up with reliable output regardless of motivation levels, and your routines create a stable foundation for sustained performance.",
+          mid: "You're capable of consistency but haven't yet built the systems to make it automatic. Your output peaks and dips with your mood and circumstances.",
+          low: "Consistency is your biggest growth opportunity. Without reliable systems, your performance is unpredictable — which limits both your output and how others perceive you."
+        },
+        watchHigh: ["Audit your routines occasionally — discipline can calcify into rigidity", "Make space for rest; sustained output requires intentional recovery"],
+        watchMid: ["Choose one keystone habit and protect it for 30 days — consistency compounds", "Track your productive and unproductive days to identify patterns"],
+        watchLow: ["Focus on showing up, not performing — consistency starts before quality", "Remove friction from the start of your workday to lower the barrier to beginning"]
+      },
+      {
+        name: "Focus & Prioritisation",
+        range: [10, 14],
+        descriptions: {
+          high: "You have strong focus discipline. You consistently direct your energy toward high-value work and protect your most productive hours from noise and distraction.",
+          mid: "You understand the importance of prioritisation but execution is mixed. You spend too much time on work that feels productive but doesn't move the needle.",
+          low: "Your attention is fragmented across too many inputs. Without a stronger focus architecture, even high effort will produce mediocre results."
+        },
+        watchHigh: ["Don't mistake depth for avoidance — ensure you're also responsive when it matters", "Review your priorities regularly; deep focus on the wrong thing is still a cost"],
+        watchMid: ["Implement a 'top 3 tasks' rule each morning before opening any inbox or app", "Block one 90-minute deep work session daily and treat it as non-negotiable"],
+        watchLow: ["Start by turning off all non-essential notifications for your first hour of work", "Ask yourself daily: 'What one thing, if done today, would make everything else easier?'"]
+      },
+      {
+        name: "Resilience & Persistence",
+        range: [15, 18],
+        descriptions: {
+          high: "You have exceptional persistence. Setbacks and obstacles don't derail you — they redirect you. Your ability to stay in motion through difficulty is a rare and powerful trait.",
+          mid: "You have resilience in moderate doses. You recover from setbacks but the process is slow and your momentum often suffers. Strengthening your rebound speed will unlock more.",
+          low: "Obstacles significantly disrupt your work output and motivation. Building a stronger relationship with difficulty is essential for sustained performance at any level."
+        },
+        watchHigh: ["Persistence without reflection can become stubbornness — know when to pivot", "Ensure you're recovering, not just enduring — resilience needs replenishment"],
+        watchMid: ["Develop a personal protocol for setbacks: a specific ritual for how you re-engage", "Practice separating emotional reaction from professional response in the moment"],
+        watchLow: ["Reframe obstacles as expected features of meaningful work, not exceptions", "Build a track record of small comebacks — resilience is built through repetition"]
+      },
+      {
+        name: "Purpose & Self-Motivation",
+        range: [19, 21],
+        descriptions: {
+          high: "Your work is anchored in genuine internal motivation. You don't need external pressure to bring effort — your why fuels your how, and this creates sustainable high performance.",
+          mid: "You have some internal motivation but it's not yet consistent enough to carry you through hard stretches. Your drive is partly borrowed from external sources.",
+          low: "Your motivation is largely externally dependent. Without a clearer sense of personal purpose, your effort will remain reactive and vulnerable to fluctuation."
+        },
+        watchHigh: ["Ensure your internal drive accounts for rest — intrinsic motivation can mask burnout", "Revisit your purpose regularly; what drives you can shift as your life evolves"],
+        watchMid: ["Spend 20 minutes writing why this work matters to you beyond salary and status", "Connect daily tasks to a longer-term vision to fuel short-term discipline"],
+        watchLow: ["Explore what work has felt most meaningful in your life and look for the pattern", "External rewards are a starting point, not a destination — invest in finding your intrinsic why"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const maxScore = sectionAnswers.length * 4;
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / maxScore) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+
+    let overallLabel, overallColor, overallDescription;
+    if (overall >= 75) {
+      overallLabel = "High-Output Operator";
+      overallColor = "#10b981";
+      overallDescription = "You demonstrate strong, consistent hardworking behaviours across all five dimensions. Your effort is deliberate, disciplined, and internally driven. You're not just busy — you're productive in ways that compound over time. The opportunity now is to sustain this without burning out, and to ensure your effort is always pointed at the highest-leverage work.";
+    } else if (overall >= 50) {
+      overallLabel = "Capable but Inconsistent";
+      overallColor = "#f59e0b";
+      overallDescription = "You have the raw ingredients of a hard worker — drive, standards, and resilience — but they don't yet fire reliably. Your output peaks when conditions are right and dips when they're not. The work ahead is about building systems that make your best self the default, not the exception.";
+    } else {
+      overallLabel = "Effort Gap Identified";
+      overallColor = "#ef4444";
+      overallDescription = "Your results point to a meaningful gap between your potential and your current work output. This isn't about intelligence or ability — it's about the habits, systems, and internal drive that convert potential into performance. The good news: hardworking is a behaviour, not a personality trait, and behaviours can be trained.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   }
 };
 
@@ -474,12 +463,10 @@ function showPage(page) {
   document.getElementById(page).style.display = "block";
   currentPage = page;
 
-  // Active nav state
   document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
   const navMap = { home: "nav-home", tests: "nav-tests" };
   if (navMap[page]) document.getElementById(navMap[page])?.classList.add("active");
 
-  // Init pages
   if (page === "tests") renderTestGrid();
   if (page === "coaching") renderCoachingPage();
 
@@ -523,13 +510,12 @@ function renderTestGrid() {
 }
 
 // ============================================
-// KNOW MORE MODAL (dynamic)
+// KNOW MORE MODAL
 // ============================================
 function openKnowMore(testId) {
   const t = TESTS.find(x => x.id === testId);
   if (!t) return;
 
-  // Create or reuse a dynamic modal
   let modal = document.getElementById("know-more-modal");
   if (!modal) {
     modal = document.createElement("div");
@@ -583,25 +569,21 @@ function renderQuestion() {
   const t = currentTest;
   const q = t.questions_data[currentQuestion];
   const total = t.questions_data.length;
-  const progress = ((currentQuestion) / total) * 100;
 
   document.getElementById("test-title").textContent = t.title;
 
-  // Build section progress bar if test has sections
+  // Build progress bar
   let progressBarHtml = "";
   if (t.sections && t.sections.length) {
-    const segmentWidth = 100 / t.sections.length;
     const sectionsHtml = t.sections.map((sec, i) => {
-      const secStart = sec.start;
-      const secEnd = sec.end;
-      const isActive = currentQuestion >= secStart && currentQuestion <= secEnd;
-      const isComplete = currentQuestion > secEnd;
+      const isActive = currentQuestion >= sec.start && currentQuestion <= sec.end;
+      const isComplete = currentQuestion > sec.end;
       const segProgress = isComplete ? 100 :
-        isActive ? Math.round(((currentQuestion - secStart) / (secEnd - secStart + 1)) * 100) : 0;
+        isActive ? Math.round(((currentQuestion - sec.start) / (sec.end - sec.start + 1)) * 100) : 0;
 
       return `
         <div style="flex:1; padding: 0 3px;">
-          <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+          <div style="font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em;
             color:${isActive ? "var(--brand-indigo)" : isComplete ? "#10b981" : "var(--text-light)"};
             margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
             ${isComplete ? "✓ " : ""}${sec.name}
@@ -621,6 +603,7 @@ function renderQuestion() {
       </div>
     `;
   } else {
+    const progress = (currentQuestion / total) * 100;
     progressBarHtml = `
       <div class="progress-bar-wrap" style="max-width:520px; margin:0 auto 8px;">
         <div class="progress-bar-fill" style="width:${progress}%"></div>
@@ -632,7 +615,7 @@ function renderQuestion() {
     ${progressBarHtml}
     <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:28px; font-weight:600;">
       Question ${currentQuestion + 1} of ${total}
-      ${t.sections ? `· <span style="color:var(--brand-indigo);">${q.section}</span>` : ""}
+      ${t.sections && q.section ? `&nbsp;·&nbsp;<span style="color:var(--brand-indigo);">${q.section}</span>` : ""}
     </p>
     <div style="background:white; border-radius:20px; padding: clamp(24px,4vw,40px); box-shadow: var(--shadow-card); max-width:580px; margin:0 auto 24px; text-align:left;">
       <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight:700; color:var(--text-primary); margin-bottom:24px; line-height:1.5;">
@@ -653,8 +636,6 @@ function renderQuestion() {
   document.getElementById("next-btn").textContent =
     currentQuestion === total - 1 ? "View My Results →" : "Next →";
 }
-
- 
 
 function selectAnswer(index) {
   answers[currentQuestion] = index;
@@ -684,7 +665,7 @@ function changeQuestion(direction) {
 function shakeNextButton() {
   const btn = document.getElementById("next-btn");
   btn.style.animation = "none";
-  btn.offsetHeight; // reflow
+  btn.offsetHeight;
   btn.style.animation = "shake 0.4s ease";
   btn.style.background = "#ef4444";
   setTimeout(() => {
@@ -693,7 +674,6 @@ function shakeNextButton() {
   }, 600);
 }
 
-// Add shake animation dynamically
 const shakeStyle = document.createElement("style");
 shakeStyle.textContent = `
   @keyframes shake {
@@ -758,15 +738,14 @@ function generateReport() {
   const result = logic(answers);
   showPage("report");
 
-  // Check if this is a sectioned report (has sectionResults)
+  // SECTIONED REPORT (tests with sectionResults e.g. Hardworking Index)
   if (result.sectionResults) {
-    // ---- SECTIONED REPORT (e.g. Hardworking Index) ----
     const sectionCardsHtml = result.sectionResults.map(sec => `
       <div style="background:#f8fafc; border-radius:16px; padding:20px 24px; margin-bottom:16px; border-left:4px solid ${sec.color};">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
           <h4 style="font-size:0.95rem; font-weight:800; color:var(--text-primary);">${sec.name}</h4>
           <div style="display:flex; align-items:center; gap:10px;">
-            <div style="background:#e2e8f0; border-radius:50px; height:6px; width:100px; overflow:hidden;">
+            <div style="background:#e2e8f0; border-radius:50px; height:6px; width:80px; overflow:hidden;">
               <div style="height:100%; width:${sec.score}%; background:${sec.color}; border-radius:50px;"></div>
             </div>
             <span style="font-size:0.9rem; font-weight:800; color:${sec.color};">${sec.score}/100</span>
@@ -776,7 +755,7 @@ function generateReport() {
         <div>
           ${sec.watch.map(w => `
             <div style="display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-top:1px solid #e2e8f0;">
-              <span style="color:#f59e0b; margin-top:1px;">→</span>
+              <span style="color:#f59e0b; margin-top:1px; flex-shrink:0;">→</span>
               <span style="font-size:0.82rem; color:var(--text-primary); font-weight:500;">${w}</span>
             </div>
           `).join("")}
@@ -786,7 +765,6 @@ function generateReport() {
 
     document.getElementById("report-page-content").innerHTML = `
       <div>
-        <!-- Header -->
         <div style="
           background: var(--brand-grad);
           border-radius: 24px;
@@ -804,12 +782,10 @@ function generateReport() {
           <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
         </div>
 
-        <!-- Body -->
         <div style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card); margin-bottom:28px;">
-          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px;">Overall Summary</h3>
+          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Overall Summary</h3>
           <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:32px;">${result.overallDescription}</p>
 
-          <!-- Overall score bar -->
           <div style="background:#f8fafc; border-radius:14px; padding:20px; margin-bottom:32px; text-align:center;">
             <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">Overall Score</div>
             <div style="background:#e2e8f0; border-radius:50px; height:10px; overflow:hidden; margin-bottom:8px;">
@@ -818,11 +794,10 @@ function generateReport() {
             <div style="font-size:2rem; font-weight:800; color:${result.overallColor};">${result.overall}/100</div>
           </div>
 
-          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px;">Section Breakdown</h3>
+          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px; color:var(--text-primary);">Section Breakdown</h3>
           ${sectionCardsHtml}
         </div>
 
-        <!-- Coaching CTA -->
         <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12); margin-bottom:28px;">
           <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
           <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
@@ -833,7 +808,6 @@ function generateReport() {
           </button>
         </div>
 
-        <!-- Actions -->
         <div class="report-actions">
           <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
           <button class="btn-primary" onclick="window.print()">Download Report</button>
@@ -843,7 +817,7 @@ function generateReport() {
     `;
 
   } else {
-    // ---- EXISTING FLAT REPORT (all other tests) ----
+    // FLAT REPORT (all original tests)
     const strengthsHtml = result.strengths?.map(s => `
       <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
         <span style="color:#10b981; font-size:1.1rem;">✓</span>
@@ -974,11 +948,6 @@ function submitCoachingForm(e) {
   const goal  = document.getElementById("coach-goal").value;
   const status = document.getElementById("form-status");
 
-  // EmailJS integration (configure your service/template IDs below)
-  // emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{name,email,goal})
-  //   .then(() => { ... })
-
-  // Simulated success for now
   status.style.display = "block";
   status.textContent = `✓ Thanks ${name}! We'll reach out to ${email} within 24 hours.`;
   e.target.reset();
