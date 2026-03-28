@@ -2541,7 +2541,7 @@ function submitCoachingForm(e) {
   btn.textContent = "Sending...";
   status.style.display  = "none";
 
-  emailjs.send(service_u11zlzf, template_zpcklyu, {
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
     to_email:            email,
     test_name:           "Coaching Request",
     overall_score:       "N/A",
