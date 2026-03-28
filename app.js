@@ -267,6 +267,526 @@ const TESTS = [
         options: ["Very unsatisfied — I know I significantly underperformed relative to my potential","Unsatisfied — I had stretches of good work but too many gaps in effort","Neutral — I showed up and did the work but didn't push myself enough","Satisfied — I worked hard and consistently with only occasional dips","Very satisfied — I brought my best effort consistently and have little to regret"]
       }
     ]
+  },
+
+  // ── AMBITION ──────────────────────────────
+  {
+    id: "ambition",
+    title: "Ambition Spectrum",
+    tagline: "How high are you really aiming — and what's driving it?",
+    description: "Ambition is more than wanting success — it's the quality of your goals, the clarity of your direction, and the actions you actually take toward them. The Ambition Spectrum measures your goal orientation, drive for growth, risk appetite, long-term thinking, and the psychological fuel behind your aspirations.",
+    questions: 22,
+    time: "10 min",
+    icon: "🚀",
+    sections: [
+      { name: "Goal Clarity", start: 0, end: 4 },
+      { name: "Drive & Initiative", start: 5, end: 9 },
+      { name: "Risk & Growth", start: 10, end: 13 },
+      { name: "Long-Term Vision", start: 14, end: 17 },
+      { name: "Inner Fuel", start: 18, end: 21 }
+    ],
+    questions_data: [
+      {
+        section: "Goal Clarity",
+        q: "Right now, I have a specific, concrete goal I am actively working toward — not a vague wish, but a real target with a timeline.",
+        options: ["No — I have no clear goal I'm working toward","I have a vague idea of what I want but nothing defined","I have goals but they shift frequently and lack real specificity","I have a reasonably clear goal with some structure around it","Yes — I have a specific, time-bound goal I am actively pursuing"]
+      },
+      {
+        section: "Goal Clarity",
+        q: "When I set a goal for myself, how specific and measurable is it?",
+        options: ["Very vague — more of a direction than a destination","Somewhat defined but I rarely track progress against it","Moderately specific — I know roughly what success looks like","Specific enough that I can tell when I'm on or off track","Very specific — I define success clearly and measure my progress regularly"]
+      },
+      {
+        section: "Goal Clarity",
+        q: "How often do you revisit and refine your goals to make sure they still reflect what you truly want?",
+        options: ["Rarely — I don't have a habit of reviewing my goals","Occasionally — maybe once a year if that","Sometimes — when life forces me to reassess","Regularly — I check in on my goals every few months","Consistently — I have a deliberate review practice and update them as I grow"]
+      },
+      {
+        section: "Goal Clarity",
+        q: "If someone asked you today where you want to be in five years, you could answer...",
+        options: ["Not at all — I genuinely have no idea","Very vaguely — something like 'successful' or 'happy'","With a general direction but no real specifics","With a reasonably clear picture of what I'm working toward","Confidently and in detail — I have a vivid vision I'm actively building toward"]
+      },
+      {
+        section: "Goal Clarity",
+        q: "My goals are aligned with my deepest values — not just what I think I should want.",
+        options: ["Strongly Disagree — I'm chasing goals that feel externally imposed","Disagree — my goals are mostly about status or what looks good to others","Neutral — some goals feel mine, others feel inherited from expectations","Agree — my goals are mostly aligned with what genuinely matters to me","Strongly Agree — my goals are deeply personal and reflect my true values"]
+      },
+      {
+        section: "Drive & Initiative",
+        q: "When an opportunity arises that could accelerate my growth, I typically...",
+        options: ["Hesitate and usually let it pass","Consider it but rarely take action","Evaluate it carefully and occasionally pursue it","Act on it quickly if it aligns with my goals","Move decisively — I seek out opportunities rather than waiting for them"]
+      },
+      {
+        section: "Drive & Initiative",
+        q: "How often do you proactively create opportunities for yourself rather than waiting for them to appear?",
+        options: ["Almost never — I tend to wait for things to come to me","Rarely — I act when pushed, not by choice","Sometimes — when the timing feels right","Often — I regularly look for ways to create my own momentum","Almost always — I believe opportunities are built, not found, and I act accordingly"]
+      },
+      {
+        section: "Drive & Initiative",
+        q: "I invest time outside of work hours in activities that directly develop my skills or advance my goals.",
+        options: ["Rarely — my personal time is strictly for rest and leisure","Occasionally — I do something developmental once in a while","Sometimes — I go through phases of active self-development","Often — I regularly invest personal time in growth-related activities","Almost always — self-development is a non-negotiable part of my weekly rhythm"]
+      },
+      {
+        section: "Drive & Initiative",
+        q: "When I compare where I am now to where I was two years ago, I feel...",
+        options: ["Like very little has changed — I've been largely standing still","Like I've moved slightly but not meaningfully","Mixed — I've grown in some areas but stagnated in others","Satisfied — I've made real progress and I can see the growth clearly","Proud — the distance I've covered is significant and I'm building momentum"]
+      },
+      {
+        section: "Drive & Initiative",
+        q: "When things are going well and I've achieved a goal, my instinct is to...",
+        options: ["Relax and stay where I am — I've earned it","Enjoy the moment for a long time before thinking about what's next","Gradually start thinking about new goals","Fairly quickly set a new, bigger target","Immediately raise the bar — achievement fuels my hunger for the next challenge"]
+      },
+      {
+        section: "Risk & Growth",
+        q: "I am willing to leave behind comfort, certainty, or security in pursuit of something I genuinely want.",
+        options: ["Rarely — security is my priority and I protect it strongly","Only under significant external pressure","Sometimes — if the potential upside is large enough","Often — I regularly choose growth over comfort when it matters","Almost always — I see discomfort as the price of meaningful ambition"]
+      },
+      {
+        section: "Risk & Growth",
+        q: "How do you respond when a bold move could advance your goals but carries real risk of failure?",
+        options: ["I avoid it — the fear of failure outweighs the potential gain","I think about it a lot but usually don't follow through","I take it if someone else validates or encourages me to","I weigh it carefully and take it if the reasoning is sound","I lean into it — I know that bold goals require bold moves"]
+      },
+      {
+        section: "Risk & Growth",
+        q: "I actively put myself in situations where I might fail, because I know that's where the real growth is.",
+        options: ["Strongly Disagree — I avoid situations where failure is likely","Disagree — I prefer to operate in areas where I know I can succeed","Neutral — I'll stretch occasionally but don't seek it out deliberately","Agree — I regularly take on challenges that are at the edge of my current ability","Strongly Agree — I deliberately seek out environments where failure is a real possibility"]
+      },
+      {
+        section: "Risk & Growth",
+        q: "Looking at the past year, how much have you stretched beyond your existing comfort zone in pursuit of your goals?",
+        options: ["Not at all — I've stayed firmly within what's familiar","Very little — one or two small stretches at most","Moderately — I've pushed myself in a few meaningful ways","Significantly — I've taken real steps that required genuine courage","Substantially — I've consistently pushed beyond comfort in multiple dimensions"]
+      },
+      {
+        section: "Long-Term Vision",
+        q: "I am willing to make short-term sacrifices today for goals that will only pay off years from now.",
+        options: ["Rarely — I prioritise immediate comfort and rewards","Sometimes — only if the sacrifice is small","Moderately — I can delay gratification when I must but it's a struggle","Often — I regularly invest in long-term outcomes over short-term ease","Almost always — my decisions are shaped by where I want to be, not where I am"]
+      },
+      {
+        section: "Long-Term Vision",
+        q: "My day-to-day decisions and habits are meaningfully connected to my longer-term ambitions.",
+        options: ["Strongly Disagree — my daily life is largely disconnected from any bigger vision","Disagree — I have a vision but my daily habits don't really reflect it","Neutral — there's some connection but it's inconsistent","Agree — most of my key daily choices are guided by my longer-term goals","Strongly Agree — my habits are deliberately designed to compound toward my future"]
+      },
+      {
+        section: "Long-Term Vision",
+        q: "How far ahead do you naturally think when making important decisions about your career or life?",
+        options: ["Days or weeks — I focus on what's immediately in front of me","A few months — I think short-term and react to what comes up","One to two years ahead — I have a medium-term orientation","Three to five years ahead — I regularly think about where I'm heading","A decade or more — I think in long arcs and build toward a distant horizon"]
+      },
+      {
+        section: "Long-Term Vision",
+        q: "I am building something — a career, a body of work, a life — that I am genuinely proud to be constructing.",
+        options: ["Strongly Disagree — I don't feel like I'm building toward anything meaningful","Disagree — I'm going through the motions without a real sense of direction","Neutral — I have some sense of building something but it's not vivid or compelling","Agree — I have a real sense that my work and choices are accumulating into something","Strongly Agree — I feel a strong sense of purpose and momentum behind what I'm creating"]
+      },
+      {
+        section: "Inner Fuel",
+        q: "My ambition is driven primarily by an internal desire to grow and create, rather than by the need for approval or status.",
+        options: ["Strongly Disagree — I'm largely motivated by how others perceive me","Disagree — recognition and status are significant drivers for me","Neutral — it's genuinely a mix of internal and external motivation","Agree — I'm mostly internally driven, though external factors still play a role","Strongly Agree — my ambition comes from a deep internal source, not from external validation"]
+      },
+      {
+        section: "Inner Fuel",
+        q: "When I imagine reaching my biggest goals, the feeling that excites me most is...",
+        options: ["The admiration or respect I'd receive from others","The financial or material rewards it would bring","A mix — both the external rewards and the personal satisfaction","Primarily the personal satisfaction of knowing I did it","The sense of having fully expressed my potential and contributed something meaningful"]
+      },
+      {
+        section: "Inner Fuel",
+        q: "How does fear of failure affect your ambition?",
+        options: ["It stops me completely — I don't pursue goals where failure is visible","It significantly shrinks what I'm willing to aim for","It makes me cautious and I sometimes play smaller than I should","I feel it but it doesn't stop me — I act in spite of it","It rarely holds me back — I've made peace with failure as part of the process"]
+      },
+      {
+        section: "Inner Fuel",
+        q: "On reflection, how ambitious do you honestly consider yourself to be — not compared to others, but relative to your own potential?",
+        options: ["Not ambitious at all — I'm content where I am and not pushing further","Mildly ambitious — I want more but I rarely act on it","Moderately ambitious — I push myself but not consistently or boldly","Quite ambitious — I regularly push toward bigger goals and take action","Highly ambitious — I am consistently working at or near the edge of my potential"]
+      }
+    ]
+  },
+
+  // ── LONELINESS ────────────────────────────
+  {
+    id: "loneliness",
+    title: "Loneliness & Connection Index",
+    tagline: "Are you truly connected — or just surrounded?",
+    description: "Loneliness isn't simply about being alone. It's about the perceived quality of your connections, your sense of belonging, and how well your emotional needs for intimacy and understanding are being met. This assessment explores the depth of your social connections, emotional intimacy, self-relationship, and how loneliness — if present — is shaping your daily life.",
+    questions: 20,
+    time: "9 min",
+    icon: "🫂",
+    sections: [
+      { name: "Social Connection", start: 0, end: 4 },
+      { name: "Emotional Intimacy", start: 5, end: 8 },
+      { name: "Sense of Belonging", start: 9, end: 12 },
+      { name: "Relationship with Self", start: 13, end: 16 },
+      { name: "Loneliness Impact", start: 17, end: 19 }
+    ],
+    questions_data: [
+      {
+        section: "Social Connection",
+        q: "In my daily life, I have people I can genuinely talk to — not just exchange pleasantries with.",
+        options: ["Almost never — most of my interactions are surface-level","Rarely — I have very few people I can be honest with","Sometimes — I have one or two people but access to them is limited","Often — I have a handful of people I can have real conversations with","Almost always — I have a rich network of people I can be genuinely myself with"]
+      },
+      {
+        section: "Social Connection",
+        q: "How often do you spend quality time with people who genuinely know and understand you?",
+        options: ["Rarely or never","Once a month or less","A few times a month","At least once a week","Multiple times a week — connection is a regular part of my life"]
+      },
+      {
+        section: "Social Connection",
+        q: "When I reach out to connect with others, I typically feel...",
+        options: ["Like a burden — I worry I'm bothering people","Uncertain — I'm not sure if people actually want to hear from me","Neutral — connection feels okay but not particularly warm or easy","Welcome — I generally feel received positively by the people in my life","Genuinely wanted — the people in my life make me feel valued and missed"]
+      },
+      {
+        section: "Social Connection",
+        q: "I have at least one person in my life I could call right now if I were in genuine distress.",
+        options: ["No — I genuinely cannot think of anyone","I'm not sure — I have people but I'd hesitate to call","Maybe — there might be someone but I'm not confident they'd show up","Yes — I have one person I'm fairly confident would be there","Yes, definitely — I have multiple people I could call without hesitation"]
+      },
+      {
+        section: "Social Connection",
+        q: "How satisfied are you with the number and quality of meaningful relationships in your life right now?",
+        options: ["Very unsatisfied — I feel acutely isolated","Unsatisfied — my social life feels thin and unfulfilling","Neutral — I have some connections but they don't feel like enough","Satisfied — my relationships aren't perfect but they meet my needs reasonably well","Very satisfied — I feel genuinely well-connected and my relationships nourish me"]
+      },
+      {
+        section: "Emotional Intimacy",
+        q: "There is at least one person in my life who truly knows me — including my fears, struggles, and the parts I don't share publicly.",
+        options: ["No — I don't feel truly known by anyone","I'm not sure — I keep a lot hidden even from those closest to me","Partly — someone knows some of the real me but not all of it","Mostly — there's one person who understands me at a meaningful depth","Yes — I feel genuinely and deeply known by at least one person in my life"]
+      },
+      {
+        section: "Emotional Intimacy",
+        q: "When I'm going through something emotionally difficult, my instinct is to...",
+        options: ["Deal with it entirely alone — sharing feels impossible or unsafe","Distract myself rather than talk to anyone about it","Talk to someone eventually but only after I've processed most of it alone","Reach out to a trusted person relatively soon after I realise I'm struggling","Seek connection quickly — I know that sharing lightens the load and I do it naturally"]
+      },
+      {
+        section: "Emotional Intimacy",
+        q: "How comfortable are you being emotionally vulnerable with the people closest to you?",
+        options: ["Very uncomfortable — I keep my emotional world almost entirely private","Uncomfortable — I share occasionally but it always feels risky","Somewhat comfortable — I can be vulnerable in small doses with very safe people","Fairly comfortable — I can open up meaningfully with the right person","Very comfortable — vulnerability feels natural and I lean into it in close relationships"]
+      },
+      {
+        section: "Emotional Intimacy",
+        q: "I feel genuinely understood — not just heard, but truly seen — by the people in my life.",
+        options: ["Almost never — I usually feel misunderstood or unseen","Rarely — I have moments of connection but feeling truly understood is uncommon","Sometimes — certain people get me in certain ways but not fully","Often — most of the important people in my life have a genuine sense of who I am","Almost always — I feel deeply understood by the key people in my world"]
+      },
+      {
+        section: "Sense of Belonging",
+        q: "I have a community, group, or circle where I feel I genuinely belong — not just participate.",
+        options: ["No — I don't feel I belong anywhere in particular","I participate in groups but rarely feel a deep sense of belonging","I have one context where I feel somewhat at home","I have one or two communities where I feel a real sense of belonging","I have multiple contexts where I feel genuinely accepted and at home"]
+      },
+      {
+        section: "Sense of Belonging",
+        q: "When I'm with the people in my social world, I feel free to be myself rather than performing a version of who I think they want me to be.",
+        options: ["Rarely — I almost always feel like I'm managing how I come across","Sometimes — I can be myself with a very small number of people","With most of them, though I still edit myself a bit","Almost always — I feel genuinely safe to be myself with the people I choose to spend time with","Always — I've built a social world where authenticity is the norm"]
+      },
+      {
+        section: "Sense of Belonging",
+        q: "How often do you feel like an outsider — even in social situations or groups you're part of?",
+        options: ["Very often — feeling like an outsider is a persistent experience for me","Often — I regularly feel disconnected or different from those around me","Sometimes — I feel it in certain contexts but not others","Rarely — I occasionally feel it but it's not a pattern","Almost never — I generally feel like I belong in the spaces I inhabit"]
+      },
+      {
+        section: "Sense of Belonging",
+        q: "The people in my life would notice and genuinely care if I went quiet or withdrew for a while.",
+        options: ["I don't think anyone would notice","One or two people might notice eventually","A few people would probably notice fairly quickly","Most of the people close to me would notice and reach out","My absence would be felt clearly and people would actively check in on me"]
+      },
+      {
+        section: "Relationship with Self",
+        q: "I genuinely enjoy spending time alone — not as an escape from others, but as something I value in itself.",
+        options: ["No — being alone feels uncomfortable or distressing for me","I tolerate it but it rarely feels good","It's okay in small doses but I don't particularly value it","I enjoy it — solitude is something I consciously protect and appreciate","I deeply value solitude — time alone is nourishing and I seek it out intentionally"]
+      },
+      {
+        section: "Relationship with Self",
+        q: "When I am alone with my thoughts, I feel...",
+        options: ["Overwhelmed or anxious — my inner world is not a comfortable place to be","Somewhat restless — I tend to seek distraction rather than sit with myself","Mixed — sometimes peaceful, sometimes uncomfortable","Generally at ease — I'm reasonably comfortable with my own company","At home — I have a rich and settled inner life and I enjoy my own presence"]
+      },
+      {
+        section: "Relationship with Self",
+        q: "I rely on other people's presence or validation to feel okay about myself.",
+        options: ["Almost always — I struggle significantly when alone or not receiving validation","Often — my mood and self-worth are heavily tied to social input","Sometimes — I notice dependency but I have some internal stability too","Rarely — I have a reasonably secure sense of self that doesn't depend on others","Almost never — my sense of self is largely independent of external validation"]
+      },
+      {
+        section: "Relationship with Self",
+        q: "How would you describe your overall relationship with yourself at this point in your life?",
+        options: ["Difficult and often painful — I am frequently my own harshest critic","Strained — there's a lot of self-doubt and inner conflict","Functional but not warm — I get by but don't feel deeply at peace with myself","Generally positive — I treat myself with a fair degree of kindness and acceptance","Genuinely healthy — I have a warm, honest, and compassionate relationship with myself"]
+      },
+      {
+        section: "Loneliness Impact",
+        q: "How often do you feel lonely — a sense that your need for meaningful connection is not being met?",
+        options: ["Almost every day — loneliness is a constant presence in my life","Often — I feel it several times a week","Sometimes — it comes and goes, often triggered by specific situations","Rarely — it surfaces occasionally but it's not a significant issue","Almost never — I feel consistently connected and my social needs are well met"]
+      },
+      {
+        section: "Loneliness Impact",
+        q: "When loneliness arises, how does it affect your functioning, mood, or wellbeing?",
+        options: ["Very significantly — it heavily impacts my energy, mood, and ability to function","Significantly — it darkens my mood and makes daily life harder","Moderately — it affects me but I manage to function through it","Mildly — I notice it but it doesn't derail me","Minimally — I can acknowledge the feeling and it passes without major disruption"]
+      },
+      {
+        section: "Loneliness Impact",
+        q: "Looking honestly at your life right now, how much does the quality of your connections reflect what you truly need and deserve?",
+        options: ["Not at all — my social life is a source of real pain and unmet need","Not much — there's a significant gap between what I have and what I need","Partially — some needs are met but important ones aren't","Mostly — my connections are genuinely good even if they're not perfect","Fully — the connections I have reflect the warmth, depth, and belonging I need"]
+      }
+    ]
+  },
+
+  // ── LISTENING SKILLS ─────────────────────
+  {
+    id: "listening",
+    title: "Listening Intelligence Profile",
+    tagline: "Are you truly listening — or just waiting to speak?",
+    description: "Listening is the most underrated communication skill. Most people hear words — very few actually listen. The Listening Intelligence Profile measures your presence, comprehension, emotional attunement, response quality, and listening under pressure across 21 questions to reveal where your listening is an asset and where it's costing you.",
+    questions: 21,
+    time: "10 min",
+    icon: "👂",
+    sections: [
+      { name: "Presence & Attention", start: 0, end: 4 },
+      { name: "Comprehension", start: 5, end: 8 },
+      { name: "Emotional Attunement", start: 9, end: 12 },
+      { name: "Response Quality", start: 13, end: 16 },
+      { name: "Listening Under Pressure", start: 17, end: 20 }
+    ],
+    questions_data: [
+      {
+        section: "Presence & Attention",
+        q: "When someone is speaking to me, I am fully present — not thinking about what I'll say next, planning my response, or mentally elsewhere.",
+        options: ["Rarely — my mind wanders or I'm preparing my response most of the time","Sometimes — I catch myself drifting fairly often","About half the time — I'm present in some conversations but not others","Often — I'm genuinely present most of the time when someone is speaking","Almost always — full presence during conversation is something I actively practice and maintain"]
+      },
+      {
+        section: "Presence & Attention",
+        q: "When I'm in a conversation, my phone or other distractions compete meaningfully for my attention.",
+        options: ["Almost always — I regularly check my phone or let my mind wander to other things","Often — distractions pull me away fairly regularly","Sometimes — I get distracted occasionally but can refocus","Rarely — I'm generally able to stay present despite distractions","Almost never — when I'm in a conversation, I'm in it fully and distractions don't win"]
+      },
+      {
+        section: "Presence & Attention",
+        q: "I notice non-verbal signals — tone of voice, facial expressions, body language — as naturally as I notice the words being spoken.",
+        options: ["Rarely — I'm mostly focused on the content and miss non-verbal cues","Sometimes — I notice them occasionally but it's not a consistent habit","Moderately — I pick up on obvious cues but miss subtler ones","Often — I'm fairly attuned to non-verbal communication alongside the words","Almost always — non-verbal signals are a natural and integral part of how I listen"]
+      },
+      {
+        section: "Presence & Attention",
+        q: "When someone is sharing something important with me, I make them feel that they have my full attention.",
+        options: ["Rarely — people often have to repeat themselves or ask if I'm listening","Sometimes — some people feel heard by me but others don't","About half the time — it depends on the conversation and my state of mind","Often — most people feel genuinely attended to when they're speaking with me","Almost always — people consistently tell me or show me that they feel heard and seen"]
+      },
+      {
+        section: "Presence & Attention",
+        q: "How often do you find yourself finishing other people's sentences or jumping in before they've completed their thought?",
+        options: ["Very often — I frequently complete sentences or cut in early","Often — I do this regularly, especially when I think I know what they're going to say","Sometimes — it slips out occasionally, particularly in fast-paced conversations","Rarely — I'm generally patient and let people finish their thought","Almost never — I consistently wait until someone has fully expressed themselves before responding"]
+      },
+      {
+        section: "Comprehension",
+        q: "After a conversation, I can accurately recall the key points the other person made — not just the general topic.",
+        options: ["Rarely — I often realise I've retained very little of what was said","Sometimes — I get the gist but miss a lot of the specifics","About half the time — my retention varies a lot depending on the topic","Often — I generally walk away with a good grasp of the substance of what was shared","Almost always — I have strong recall of what was said and can reflect it back accurately"]
+      },
+      {
+        section: "Comprehension",
+        q: "When something isn't clear to me during a conversation, I ask a clarifying question rather than assuming I've understood.",
+        options: ["Rarely — I usually assume I've got it and move on","Sometimes — I ask only when I'm very confused","About half the time — I sometimes ask, sometimes assume","Often — I regularly check my understanding rather than guessing","Almost always — clarifying is a natural part of how I engage in conversation"]
+      },
+      {
+        section: "Comprehension",
+        q: "I listen for what is not being said — the meaning beneath the words, the hesitation, the thing someone is circling around.",
+        options: ["Rarely — I take what people say at face value","Sometimes — I occasionally sense there's more but don't always explore it","Moderately — I notice subtext in conversations where I know the person well","Often — I regularly pick up on the deeper layer of what someone is communicating","Almost always — reading between the lines is a natural part of how I listen and understand people"]
+      },
+      {
+        section: "Comprehension",
+        q: "When I paraphrase or summarise what someone has said back to them, they typically confirm that I've understood them accurately.",
+        options: ["Rarely — I often get told I've missed the point","Sometimes — I get it right occasionally but miss important nuance","About half the time — my summaries are partially accurate","Often — people generally confirm that I've captured what they meant","Almost always — when I reflect back what I've heard, people feel accurately and completely understood"]
+      },
+      {
+        section: "Emotional Attunement",
+        q: "When someone shares something emotionally difficult with me, my first instinct is to listen deeply before offering any advice or perspective.",
+        options: ["Rarely — I tend to jump into problem-solving or advice almost immediately","Sometimes — I try to listen but advice comes out quickly","About half the time — it depends on the person and the situation","Often — I generally create space to listen before I respond with anything","Almost always — I know that emotional presence before advice is what people most need, and I practise this"]
+      },
+      {
+        section: "Emotional Attunement",
+        q: "I can sense when someone's emotional state doesn't match what they're saying — when they say they're fine but clearly aren't.",
+        options: ["Rarely — I tend to take people's words at face value","Sometimes — I notice obvious discrepancies but miss subtler ones","Moderately — I pick this up in close relationships but not always with others","Often — I'm fairly attuned to emotional undercurrents in most of my conversations","Almost always — I have a strong sense for the emotional reality beneath what people express"]
+      },
+      {
+        section: "Emotional Attunement",
+        q: "People feel emotionally safe sharing difficult or vulnerable things with me.",
+        options: ["Rarely — I'm often told I come across as dismissive or distracted","Sometimes — a few people feel safe with me but most don't open up deeply","About half the time — some people feel safe, others don't","Often — most people who know me feel comfortable opening up","Almost always — I've built a reputation as someone people trust with their real feelings"]
+      },
+      {
+        section: "Emotional Attunement",
+        q: "When I'm listening to someone who is upset or frustrated, I can stay calm and present rather than becoming defensive or reactive.",
+        options: ["Rarely — I tend to get defensive or emotionally triggered fairly easily","Sometimes — I stay calm unless the conversation touches something personal","About half the time — my ability to stay regulated depends heavily on the topic","Often — I can generally hold space for someone else's emotions without being derailed","Almost always — I have strong emotional regulation in conversations and rarely make it about me"]
+      },
+      {
+        section: "Response Quality",
+        q: "My responses in conversation make the other person feel understood before I introduce my own perspective.",
+        options: ["Rarely — I usually respond with my view before acknowledging what they've said","Sometimes — I occasionally acknowledge but quickly pivot to my point","About half the time — I do it in some conversations but not consistently","Often — I generally make people feel heard before I introduce a different angle","Almost always — acknowledgement before perspective is something I do naturally and consistently"]
+      },
+      {
+        section: "Response Quality",
+        q: "The questions I ask in conversation are thoughtful and deepen the discussion, rather than redirecting it to my own experience.",
+        options: ["Rarely — my questions often steer the conversation toward my own stories or points","Sometimes — I ask good questions occasionally but often make it about me","About half the time — mixed depending on how engaged I am","Often — the questions I ask are genuinely curious and advance the other person's thinking","Almost always — people feel that my questions open things up and make them think more deeply"]
+      },
+      {
+        section: "Response Quality",
+        q: "After conversations where I've listened to someone work through a problem, they often say they feel clearer or more settled — even if I haven't given them a solution.",
+        options: ["Rarely — people usually want advice from me and I tend to give it","Sometimes — occasionally people feel better after talking to me but it's not consistent","About half the time — it depends on the person and situation","Often — people regularly walk away from conversations with me feeling lighter","Almost always — I'm known as someone people feel genuinely better after talking to, regardless of outcome"]
+      },
+      {
+        section: "Response Quality",
+        q: "I resist the urge to relate everything back to my own experience when someone is sharing something personal.",
+        options: ["Rarely — I find myself saying 'that happened to me too' almost reflexively","Often — I notice the urge but frequently act on it anyway","Sometimes — I do it occasionally but I'm aware of it","Rarely — I consciously hold back my own stories to keep the focus on the other person","Almost never — I'm disciplined about keeping the conversation focused on the person speaking"]
+      },
+      {
+        section: "Listening Under Pressure",
+        q: "When I strongly disagree with what someone is saying, I can continue listening openly without shutting down or planning my rebuttal.",
+        options: ["Rarely — disagreement immediately triggers me to stop listening and start countering","Sometimes — I can hold it briefly but my internal rebuttal builds quickly","About half the time — I manage it in some conversations but not when the stakes are high","Often — I can generally stay open and curious even when I disagree","Almost always — I've learned to listen through disagreement before forming or sharing my response"]
+      },
+      {
+        section: "Listening Under Pressure",
+        q: "Under time pressure or in fast-moving conversations, I still listen carefully rather than rushing to respond.",
+        options: ["Rarely — speed makes me much less careful as a listener","Sometimes — I try to keep up but my listening quality drops significantly","About half the time — it depends on the stakes and my state of mind","Often — I generally maintain reasonable listening quality even in faster conversations","Almost always — I've developed the ability to listen well even when the pace is quick"]
+      },
+      {
+        section: "Listening Under Pressure",
+        q: "When I receive feedback or criticism directed at me, I listen to understand it before I respond or defend myself.",
+        options: ["Rarely — I become defensive almost immediately when criticised","Sometimes — I try to listen but my defensiveness usually takes over","About half the time — I manage it when the feedback feels fair","Often — I generally manage to stay open to feedback even when it stings","Almost always — I've developed the ability to receive criticism with genuine curiosity rather than defensiveness"]
+      },
+      {
+        section: "Listening Under Pressure",
+        q: "Reflecting honestly — how would the people who know you best rate you as a listener?",
+        options: ["Poor — they'd say I frequently make them feel unheard or dismissed","Below average — they'd say I'm inconsistent and often distracted","Average — they'd say I'm okay but not someone they'd go to for a deep conversation","Good — they'd say I'm a genuinely attentive and caring listener","Excellent — they'd say I'm one of the best listeners they know and they feel truly heard by me"]
+      }
+    ]
+  },
+
+  // ── ATTACHMENT ────────────────────────────
+  {
+    id: "attachment",
+    title: "Attachment Style Indicator",
+    tagline: "How you love, connect, and pull away — and why.",
+    description: "Your attachment style is the unconscious blueprint that shapes how you behave in close relationships. Developed in early life and reinforced over time, it drives how you handle intimacy, conflict, distance, and emotional need. This assessment maps your patterns across five dimensions to reveal whether you lean secure, anxious, avoidant, or a combination — and what that means for your relationships.",
+    questions: 25,
+    time: "12 min",
+    icon: "💞",
+    sections: [
+      { name: "Intimacy & Closeness", start: 0, end: 4 },
+      { name: "Anxiety & Fear", start: 5, end: 9 },
+      { name: "Avoidance & Distance", start: 10, end: 14 },
+      { name: "Conflict & Repair", start: 15, end: 19 },
+      { name: "Security & Trust", start: 20, end: 24 }
+    ],
+    questions_data: [
+      {
+        section: "Intimacy & Closeness",
+        q: "I find it relatively easy to let people close to me — emotionally, not just physically.",
+        options: ["Strongly Disagree — letting people close feels very uncomfortable or unsafe","Disagree — I allow closeness occasionally but it requires a lot of trust to develop","Neutral — I'm somewhat open to closeness but it depends heavily on the person","Agree — I can generally open up to people I care about without too much difficulty","Strongly Agree — emotional closeness feels natural and I welcome it in my relationships"]
+      },
+      {
+        section: "Intimacy & Closeness",
+        q: "When someone I care about becomes more emotionally close or dependent on me, I typically feel...",
+        options: ["Overwhelmed or suffocated — too much closeness makes me want to create distance","Somewhat uncomfortable — I value connection but too much feels like pressure","Mixed — it depends on the person and where I'm at emotionally","Generally comfortable — closeness feels good even if I sometimes need space","Warm and secure — deepening intimacy is something I welcome and enjoy"]
+      },
+      {
+        section: "Intimacy & Closeness",
+        q: "I am able to share my inner world — fears, insecurities, deep feelings — with the people I'm closest to.",
+        options: ["Rarely — keeping my inner world private is something I do almost automatically","Sometimes — I share in small doses but rarely go very deep","Moderately — I can share meaningfully with people I deeply trust","Often — emotional openness comes fairly naturally with the right people","Almost always — I'm comfortable with deep self-disclosure in close relationships"]
+      },
+      {
+        section: "Intimacy & Closeness",
+        q: "I feel comfortable depending on others and letting others depend on me.",
+        options: ["Rarely — dependency in either direction makes me uncomfortable","Sometimes — I can accept it in small amounts but it feels risky","Moderately — it's okay in certain relationships under the right conditions","Often — mutual dependence feels natural and healthy to me","Almost always — I embrace healthy interdependence as a natural part of close relationships"]
+      },
+      {
+        section: "Intimacy & Closeness",
+        q: "In my closest relationships, I feel genuinely loved and valued for who I am — not just what I do or provide.",
+        options: ["Rarely — I often feel like I have to earn love through performance or behaviour","Sometimes — I have moments of feeling loved but they're not consistent","About half the time — some relationships feel genuinely loving, others feel conditional","Often — I generally feel loved and valued in my close relationships","Almost always — I have a deep and stable sense of being loved for who I am, not what I do"]
+      },
+      {
+        section: "Anxiety & Fear",
+        q: "I worry that the people I care about don't value me as much as I value them.",
+        options: ["Almost never — I feel secure in the mutual value of my close relationships","Rarely — I occasionally wonder but it doesn't persist","Sometimes — this worry comes up but doesn't dominate","Often — this is a recurring concern in many of my close relationships","Almost always — I regularly feel like I care more than others do and it causes me real distress"]
+      },
+      {
+        section: "Anxiety & Fear",
+        q: "When someone important to me becomes distant or less available, I feel...",
+        options: ["Fine — space and distance don't particularly worry me","Mildly curious but not anxious — I might check in but I don't spiral","Somewhat unsettled — I notice it and it sits with me a little","Anxious — I find myself preoccupied with what it means and whether something is wrong","Very anxious — distance from important people triggers significant worry and a strong urge to reconnect immediately"]
+      },
+      {
+        section: "Anxiety & Fear",
+        q: "I find myself replaying interactions with people I care about — wondering if I said something wrong or if they're upset with me.",
+        options: ["Almost never — I don't tend to ruminate about what others think","Rarely — only when something clearly went wrong","Sometimes — occasionally, especially after more intense conversations","Often — I regularly replay conversations looking for signs that something is off","Almost always — post-conversation rumination is a significant pattern for me"]
+      },
+      {
+        section: "Anxiety & Fear",
+        q: "The fear of being rejected or abandoned by someone I love affects my behaviour in relationships.",
+        options: ["Almost never — rejection fear doesn't significantly shape how I show up","Rarely — I feel it mildly but it doesn't change my behaviour much","Sometimes — it surfaces in certain situations and influences how I act","Often — fear of rejection regularly shapes how I communicate, what I say, and how much I share","Almost always — fear of abandonment is a dominant force in my close relationships"]
+      },
+      {
+        section: "Anxiety & Fear",
+        q: "In relationships, I sometimes find myself seeking reassurance or confirmation that the other person still cares — even when there's no clear reason to doubt it.",
+        options: ["Almost never — I feel secure without needing regular reassurance","Rarely — occasionally but it doesn't feel like a pattern","Sometimes — I notice the need for reassurance in certain periods or situations","Often — I regularly seek reassurance from the people I'm close to","Almost always — the need for reassurance is a consistent and prominent pattern in my relationships"]
+      },
+      {
+        section: "Avoidance & Distance",
+        q: "When a relationship gets very emotionally intense or close, I notice an impulse to withdraw or create distance.",
+        options: ["Almost never — emotional intensity doesn't trigger a pull to withdraw","Rarely — I might need brief space but it's not a pattern","Sometimes — this happens in certain relationships or periods","Often — emotional intensity fairly regularly activates a desire to pull back","Almost always — withdrawal is my default response when closeness becomes too intense"]
+      },
+      {
+        section: "Avoidance & Distance",
+        q: "I am more comfortable in relationships that maintain a degree of emotional distance than in deeply enmeshed, intense ones.",
+        options: ["Strongly Disagree — I want and thrive in deeply close, emotionally rich relationships","Disagree — I prefer closeness even if some distance is inevitable","Neutral — I'm comfortable with varying levels of intensity","Agree — I generally feel more at ease when relationships maintain some emotional space","Strongly Agree — depth and intensity in relationships makes me uncomfortable and I function better with distance"]
+      },
+      {
+        section: "Avoidance & Distance",
+        q: "When I'm struggling emotionally, I prefer to deal with it alone rather than turning to someone close to me.",
+        options: ["Strongly Disagree — reaching out when I struggle is something I do naturally","Disagree — I prefer connection but can manage alone","Neutral — it depends on what I'm dealing with","Agree — I tend to handle difficult emotions privately rather than bringing them to others","Strongly Agree — dealing with emotional difficulty alone is my strong default — sharing feels uncomfortable or unnecessary"]
+      },
+      {
+        section: "Avoidance & Distance",
+        q: "I value my independence and self-sufficiency so highly that I sometimes keep relationships at arm's length to protect them.",
+        options: ["Strongly Disagree — independence doesn't get in the way of my close relationships","Disagree — I value independence but not at the cost of closeness","Neutral — there's some tension between the two but I manage it","Agree — my strong need for independence does sometimes limit how close I allow relationships to get","Strongly Agree — self-sufficiency is a core identity and relationships that demand too much of my autonomy feel threatening"]
+      },
+      {
+        section: "Avoidance & Distance",
+        q: "I find it difficult to articulate or express what I need emotionally in a relationship.",
+        options: ["Almost never — I'm comfortable identifying and expressing my emotional needs","Rarely — I can do it, though it sometimes takes effort","Sometimes — it depends on the relationship and the depth of the need","Often — expressing emotional needs feels hard and I often don't do it","Almost always — identifying and voicing emotional needs is a consistent challenge for me"]
+      },
+      {
+        section: "Conflict & Repair",
+        q: "When there's tension or conflict in a close relationship, I move toward the other person to resolve it rather than away from them.",
+        options: ["Rarely — conflict makes me pull back or go cold","Sometimes — I can approach but only once I've had a long time to process","About half the time — I approach in some conflicts but avoid in others","Often — I generally lean toward resolution even when it's uncomfortable","Almost always — I believe in facing conflict directly and I move toward it in close relationships"]
+      },
+      {
+        section: "Conflict & Repair",
+        q: "After a conflict with someone I care about, I am able to repair the relationship without prolonged withdrawal, punishment, or resentment.",
+        options: ["Rarely — I tend to shut down, go cold, or hold onto hurt for a long time","Sometimes — I can repair but it takes me a very long time to open back up","About half the time — some conflicts I repair well, others I struggle with","Often — I'm generally able to re-engage and repair without excessive delay","Almost always — I prioritise repair and can move back toward closeness relatively quickly after conflict"]
+      },
+      {
+        section: "Conflict & Repair",
+        q: "I can express hurt, disappointment, or anger to someone I care about without either exploding or completely shutting down.",
+        options: ["Rarely — conflict emotions either come out explosively or I go completely quiet","Sometimes — I manage it occasionally but often go to one extreme or the other","About half the time — my regulation in conflict varies a lot","Often — I can generally express difficult emotions in a measured way","Almost always — I have good emotional regulation in conflict and can express my feelings clearly without losing control"]
+      },
+      {
+        section: "Conflict & Repair",
+        q: "When I've hurt someone I care about, I find it relatively easy to offer a genuine, non-defensive apology.",
+        options: ["Rarely — apologising feels threatening or shameful and I struggle to do it genuinely","Sometimes — I can apologise but it's often qualified or partially defensive","About half the time — I can do it when the hurt is clear but struggle in ambiguous situations","Often — I can generally take responsibility and apologise sincerely","Almost always — genuine apology comes naturally and I don't need to defend myself in order to acknowledge impact"]
+      },
+      {
+        section: "Conflict & Repair",
+        q: "I believe that conflict in close relationships can be resolved without permanently damaging the connection.",
+        options: ["Strongly Disagree — conflict feels very threatening to me and I worry it will end things","Disagree — I believe conflict leaves lasting damage even when it's repaired","Neutral — I believe it sometimes, but conflict still feels risky","Agree — I generally believe conflict can be worked through without lasting harm","Strongly Agree — I see conflict as a normal and even strengthening part of close relationships when handled well"]
+      },
+      {
+        section: "Security & Trust",
+        q: "I trust that the people I love will be there for me when I genuinely need them.",
+        options: ["Rarely — I have a deep belief that people will ultimately let me down","Sometimes — I hope they will but I'm not fully confident","About half the time — I trust some people but not most","Often — I generally believe in the reliability of the people I'm close to","Almost always — I have a stable trust that the people I love will show up when it truly matters"]
+      },
+      {
+        section: "Security & Trust",
+        q: "I feel secure in my closest relationships — I don't constantly worry about losing them or them changing.",
+        options: ["Rarely — insecurity about my most important relationships is a persistent feeling","Sometimes — I feel secure in good periods but anxiety returns when things feel off","About half the time — it varies quite a bit depending on external signals","Often — I generally feel stable and secure in my close relationships","Almost always — I carry a deep and settled sense of security in the people I love most"]
+      },
+      {
+        section: "Security & Trust",
+        q: "My past experiences of hurt or betrayal in relationships significantly affect how I show up in new ones.",
+        options: ["Almost always — past pain shapes nearly everything about how I approach new relationships","Often — it takes me a long time to trust and past wounds are present a lot","Sometimes — I carry some patterns but I'm able to give new relationships a fair chance","Rarely — I've mostly worked through past hurts and they don't dominate my present relationships","Almost never — I'm able to approach new relationships without significant baggage from the past"]
+      },
+      {
+        section: "Security & Trust",
+        q: "I have a stable and positive sense of my own worthiness of love — I don't feel I need to earn it.",
+        options: ["Rarely — I deeply struggle with feeling inherently worthy of love","Sometimes — I have good days but often doubt whether I'm truly lovable","About half the time — I'm working on it but it's inconsistent","Often — I generally feel worthy of love even when relationships are hard","Almost always — I have a solid and stable belief that I am worthy of love simply as I am"]
+      },
+      {
+        section: "Security & Trust",
+        q: "Overall, how would you describe your experience of close relationships throughout your life?",
+        options: ["Mostly painful — relationships have been a consistent source of hurt, loss, or disappointment","Difficult — I've had meaningful connections but they've often been complicated or short-lived","Mixed — a balance of nourishing and difficult, with no strong pattern either way","Mostly positive — I've experienced real love and connection, with the usual difficulties","Deeply nourishing — close relationships have been a consistent source of security, joy, and growth in my life"]
+      }
+    ]
   }
 ];
 
@@ -441,6 +961,425 @@ const REPORT_LOGIC = {
       const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
       const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  },
+
+  // ── AMBITION REPORT ───────────────────────
+  ambition: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Goal Clarity",
+        range: [0, 4],
+        descriptions: {
+          high: "You have exceptional clarity about what you want. Your goals are specific, values-aligned, and live at the center of your decision-making. This clarity is the foundation everything else is built on.",
+          mid: "You have a sense of direction but your goals lack the precision needed to drive consistent action. Vague aspirations produce vague results — sharpening your targets will sharpen your progress.",
+          low: "Goal clarity is your most urgent development area. Without knowing specifically where you're going, effort becomes scattered and motivation is hard to sustain. The first act of ambition is deciding what you actually want."
+        },
+        watchHigh: ["Revisit goals regularly — clarity can become rigidity if you stop questioning what you want", "Ensure your goals are truly yours and not a performance of what success should look like"],
+        watchMid: ["Write one specific goal with a deadline this week — vague goals produce vague effort", "Ask yourself: if nothing about my circumstances changed, would I still want this?"],
+        watchLow: ["Start by writing down 3 things you genuinely want — not what you should want", "A journal practice of 10 minutes a week on 'what do I actually want?' will create more clarity than any book"]
+      },
+      {
+        name: "Drive & Initiative",
+        range: [5, 9],
+        descriptions: {
+          high: "You are a natural initiator. You don't wait for permission or perfect conditions — you create momentum. This proactive energy is one of the most reliable predictors of long-term achievement.",
+          mid: "You have drive in bursts but haven't yet made initiative a consistent habit. The gap between knowing what you want and acting on it is where ambition lives or dies.",
+          low: "Your drive is largely reactive — it activates when pushed but not consistently from within. Building a bias toward action is the single most impactful shift you can make right now."
+        },
+        watchHigh: ["High initiative without reflection can lead to busyness without direction — ensure action is pointed at the right things", "Protect your energy — constant action without recovery erodes the drive that fuels it"],
+        watchMid: ["Commit to one proactive action per week that you take without being prompted or pushed", "Ask yourself: what am I waiting for? The answer often reveals a fear to address, not a condition to meet"],
+        watchLow: ["Start with the smallest possible action toward a goal today — momentum begins with one step", "Identify one area where you've been waiting for the 'right time' and take a single step this week"]
+      },
+      {
+        name: "Risk & Growth",
+        range: [10, 13],
+        descriptions: {
+          high: "You have a healthy relationship with risk and discomfort. You understand that meaningful ambition requires accepting the possibility of failure, and you lean into it rather than away from it.",
+          mid: "You're willing to stretch sometimes but your risk tolerance is inconsistent. You tend to grow in areas that feel manageable and avoid the deeper discomforts where the real breakthroughs often live.",
+          low: "Fear of failure or discomfort is significantly limiting the ceiling of your ambition. The goals you're pursuing may be calibrated to feel safe rather than to reflect what you truly want."
+        },
+        watchHigh: ["Calculated risk and recklessness are different things — ensure your boldness is informed by honest self-assessment", "Share your bolder moves with someone who will give you honest feedback, not just encouragement"],
+        watchMid: ["Name one thing you've been avoiding because you might fail at it — that's likely your growth edge", "Reframe risk: the real risk is arriving at the end of your life having played safe with your potential"],
+        watchLow: ["Start with micro-risks — small acts of courage that build your tolerance for uncertainty", "Explore what failure actually means to you — often the imagined consequences are far worse than the real ones"]
+      },
+      {
+        name: "Long-Term Vision",
+        range: [14, 17],
+        descriptions: {
+          high: "You think and build in long arcs. Your daily choices are informed by a distant horizon, and you're willing to sacrifice short-term comfort for long-term significance. This orientation is rare and powerful.",
+          mid: "You have some long-term thinking but your daily habits and decisions aren't yet well-aligned with your future vision. The connection between today and tomorrow needs to be made more deliberate.",
+          low: "Your orientation is predominantly short-term. Without a compelling vision of the future, it's hard to make the sacrifices today that tomorrow requires. Building a longer time horizon is foundational."
+        },
+        watchHigh: ["Long-term thinking can become an excuse to defer present joy — ensure your vision includes richness now, not just later", "Revisit your vision regularly to check it still reflects what you want, not just what you once decided"],
+        watchMid: ["Write a one-paragraph description of where you want to be in 5 years and read it weekly", "For each major daily habit, ask: does this compound toward or against where I want to be?"],
+        watchLow: ["Spend 30 minutes writing your ideal life at age 65 — work backward from there", "Small daily rituals that compound over years are more powerful than any single dramatic act — identify one to start today"]
+      },
+      {
+        name: "Inner Fuel",
+        range: [18, 21],
+        descriptions: {
+          high: "Your ambition is internally driven. It doesn't depend on external validation, status, or comparison. This intrinsic fuel burns cleaner and longer than any external motivator — it's what sustains people through genuine difficulty.",
+          mid: "Your ambition is powered by a mix of internal and external fuel. This isn't inherently wrong, but it means your motivation will fluctuate based on recognition, comparison, and reward. Deepening the internal source builds resilience.",
+          low: "Your ambition is largely externally dependent — driven by what others think, what you should want, or what rewards you'll receive. Ambition fuelled this way is fragile. It peaks when conditions are favourable and collapses when they're not."
+        },
+        watchHigh: ["Internally driven people can push too hard without external feedback — build in honest mirrors and accountability", "Intrinsic motivation doesn't mean ignoring external reality — stay connected to feedback from the world around you"],
+        watchMid: ["Journal on this question: what would I still pursue if no one would ever know about it?", "Notice when you're seeking validation and ask: what does that tell me about my underlying insecurities?"],
+        watchLow: ["Spend time identifying what work or pursuit has made you lose track of time — that's your intrinsic signal", "Consider that chasing external approval is a treadmill — the goalposts move every time you reach them"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const maxScore = sectionAnswers.length * 4;
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / maxScore) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+
+    let overallLabel, overallColor, overallDescription;
+    if (overall >= 75) {
+      overallLabel = "Purposefully Ambitious";
+      overallColor = "#6366f1";
+      overallDescription = "Your ambition is high, clear, and internally driven. You set bold goals, take initiative, embrace risk as part of growth, and think in long arcs. You're not chasing what's expected of you — you're building what genuinely matters to you. The work now is to stay honest about whether your goals continue to reflect your true values as you evolve, and to ensure your ambition includes space for rest and presence, not just pursuit.";
+    } else if (overall >= 50) {
+      overallLabel = "Emerging Ambition";
+      overallColor = "#f59e0b";
+      overallDescription = "You have real ambition — the ingredients are present. But they're not yet firing consistently. Your goals may lack specificity, your actions may not match your aspirations, or your fuel may be partly borrowed from external sources. The gap between where you are and where you could be is not a talent gap — it's a systems and clarity gap. Close it deliberately.";
+    } else {
+      overallLabel = "Dormant Potential";
+      overallColor = "#a855f7";
+      overallDescription = "Your ambition is quieter than your potential suggests it should be. This may reflect a season of life, a lack of clarity about what you want, fear that keeps goals small and safe, or simply not having given yourself permission to want more. Dormant potential isn't fixed potential — it's waiting for the right question, the right environment, or the right moment of honesty with yourself.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  },
+
+  // ── LONELINESS REPORT ─────────────────────
+  loneliness: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Social Connection",
+        range: [0, 4],
+        descriptions: {
+          high: "Your social connections are a genuine source of support and nourishment. You have people in your life you can reach, and they reach back. This is a real asset for your wellbeing.",
+          mid: "Your social connections exist but have gaps in depth, availability, or reliability. You have some support but not enough to feel consistently held.",
+          low: "Social connection is a significant area of unmet need for you. The absence of reliable, reciprocal relationships is one of the most painful human experiences — and it's worth taking seriously."
+        },
+        watchHigh: ["Connection quality can decline if you stop investing in it — relationships need regular tending", "Ensure you're not confusing quantity of connections with depth — a few deep ones matter more than many shallow ones"],
+        watchMid: ["Identify one relationship worth deepening and invest in it deliberately over the next month", "Consider whether busyness, technology, or fear is creating distance in existing relationships"],
+        watchLow: ["Start small — one genuine conversation per week with someone you care about", "Consider whether a therapist, support group, or community activity could provide initial connection scaffolding"]
+      },
+      {
+        name: "Emotional Intimacy",
+        range: [5, 8],
+        descriptions: {
+          high: "You experience genuine emotional intimacy — the kind where you are known, not just liked. This depth of connection is rare and profoundly protective of your wellbeing.",
+          mid: "You have some emotional intimacy but remain partly hidden even in your closest relationships. Full connection requires being known — not just present.",
+          low: "Emotional intimacy is largely absent from your relational world. Being unseen at depth is a specific and painful kind of loneliness — different from being alone, and often harder to name."
+        },
+        watchHigh: ["Intimacy requires vulnerability on both sides — ensure your close relationships have reciprocal depth", "Check in periodically: are you still allowing yourself to be known as you change and grow?"],
+        watchMid: ["Choose one trusted person and share something you haven't told anyone — small acts of vulnerability compound", "Ask yourself: what am I afraid would happen if people really knew me?"],
+        watchLow: ["The barrier to intimacy is almost always fear of rejection or judgment — naming this is the first step", "Therapy can be a safe space to practice being known before bringing it to personal relationships"]
+      },
+      {
+        name: "Sense of Belonging",
+        range: [9, 12],
+        descriptions: {
+          high: "You have a genuine sense of belonging in your world. You feel accepted, seen, and at home in the communities and relationships you inhabit. This is a profound wellbeing asset.",
+          mid: "You participate in communities but true belonging — the feeling of being fully accepted as you are — is only partially present. You may be performing rather than inhabiting your social spaces.",
+          low: "A persistent sense of being an outsider is one of the deepest forms of loneliness. It can exist even in crowded rooms. Building belonging begins with finding spaces where you don't have to edit yourself."
+        },
+        watchHigh: ["Belonging can become a comfort zone — ensure it's not preventing you from expanding your world", "Examine whether your belonging comes at the cost of authenticity — real belonging accepts all of you"],
+        watchMid: ["Belonging is built through repeated genuine interaction — identify one community where you can show up consistently and authentically", "Consider whether you're presenting a curated version of yourself that makes belonging feel hollow"],
+        watchLow: ["Find one community built around something you genuinely care about — shared purpose creates belonging faster than shared proximity", "The feeling of being an outsider is often a story, not a fact — challenge it by showing up consistently"]
+      },
+      {
+        name: "Relationship with Self",
+        range: [13, 16],
+        descriptions: {
+          high: "You have a healthy, warm relationship with yourself. You enjoy your own company, have a settled inner life, and don't depend on external validation for your sense of self. This is the foundation of all other connection.",
+          mid: "Your relationship with yourself is functional but not deeply nourishing. There's some dependency on external input for self-worth, and solitude is okay rather than genuinely valued.",
+          low: "A strained relationship with yourself makes loneliness significantly harder to bear — and also harder to escape. When being alone feels threatening, it often drives unhealthy relationship patterns."
+        },
+        watchHigh: ["A rich inner life is an asset — ensure it doesn't become isolation disguised as self-sufficiency", "Loving yourself well includes knowing when you need others — don't let self-reliance become a wall"],
+        watchMid: ["Develop a solo practice you genuinely love — running, journaling, walking — that makes time with yourself feel good", "Notice when you reach for your phone or distraction to escape being with yourself — sit with it instead"],
+        watchLow: ["Therapy or self-inquiry work is particularly valuable here — the relationship with yourself is the root of everything", "Try 10 minutes of intentional solitude daily — not productivity, just being — and notice what arises"]
+      },
+      {
+        name: "Loneliness Impact",
+        range: [17, 19],
+        descriptions: {
+          high: "Loneliness is currently having a significant impact on your daily experience. This is important information, not a permanent condition. Chronic loneliness affects both mental and physical health and deserves direct, compassionate attention.",
+          mid: "Loneliness is present in your life and affects your mood and functioning at times, but it's not yet chronic or overwhelming. There's a window here to address the gaps before they deepen.",
+          low: "Loneliness is not a significant issue for you right now. Your connection needs are largely being met and the impact of any loneliness you experience is manageable."
+        },
+        watchHigh: ["Please consider speaking to a mental health professional — loneliness at this level is a health issue, not just an emotional one", "Small consistent actions matter more than big ones — reach out to one person today, even briefly"],
+        watchMid: ["Don't wait for loneliness to worsen before acting — use this as a prompt to invest in one relationship or community", "Name what kind of connection you're most missing and take one step toward it this week"],
+        watchLow: ["Maintain your connection habits — wellbeing in this area is something to actively protect, not take for granted", "Consider whether there are people in your life who might be struggling and could benefit from your outreach"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const maxScore = sectionAnswers.length * 4;
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / maxScore) * 100);
+    });
+
+    // For loneliness, high score = more connected/less lonely
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+
+    let overallLabel, overallColor, overallDescription;
+    if (overall >= 70) {
+      overallLabel = "Well-Connected";
+      overallColor = "#10b981";
+      overallDescription = "Your results suggest you have a rich and nourishing social world. You feel known, you belong, and your relationship with yourself is healthy. This doesn't mean life is without difficulty, but your connection needs are largely being met and loneliness is not a significant force in your daily experience. The opportunity is to continue investing in the depth of what you have.";
+    } else if (overall >= 45) {
+      overallLabel = "Partially Connected";
+      overallColor = "#f59e0b";
+      overallDescription = "Your connections have real value but meaningful gaps remain. You may have quantity without depth, presence without belonging, or social contact without emotional intimacy. This middle ground is where a lot of people live — not acutely lonely but not fully nourished either. The work is specific: identify the gaps and invest in closing them.";
+    } else {
+      overallLabel = "Significant Loneliness Present";
+      overallColor = "#ef4444";
+      overallDescription = "Your results indicate that loneliness is a meaningful and likely painful part of your current experience. This is one of the most honest things you can acknowledge about yourself — and one of the most important. Loneliness is not a character flaw. It's a signal that real human needs are going unmet. You deserve connection, and with the right steps, it is genuinely buildable.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  },
+
+  // ── LISTENING REPORT ──────────────────────
+  listening: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Presence & Attention",
+        range: [0, 4],
+        descriptions: {
+          high: "Your presence in conversation is a genuine gift to the people around you. You're fully there — not performing listening, but actually listening. This is rarer than most people realise.",
+          mid: "Your attention is good in some conversations but fragmented in others. Distraction, internal commentary, and anticipation of your own response are still pulling you out of the present moment.",
+          low: "Your ability to be fully present in conversation is your most important development area as a listener. Without genuine attention, nothing else in the listening skill set can function well."
+        },
+        watchHigh: ["Presence doesn't mean passivity — ensure your attentiveness also includes appropriate engagement and response", "Check that 'full presence' isn't being used to avoid contributing your own perspective when it's needed"],
+        watchMid: ["Before important conversations, take two slow breaths and consciously set an intention to listen", "Put your phone face-down and out of reach — physical removal of distraction is more effective than willpower"],
+        watchLow: ["Practice one conversation per day where you commit to zero internal agenda — just receive what's being said", "Notice when your mind is composing your response mid-sentence and gently return your focus to the speaker"]
+      },
+      {
+        name: "Comprehension",
+        range: [5, 8],
+        descriptions: {
+          high: "You are an active and accurate comprehender. You not only hear what's said but understand what's meant — including the layers beneath the words. People feel genuinely understood by you.",
+          mid: "Your comprehension is reasonable but you miss nuance, subtext, and sometimes the core point. You work from partial understanding more than you realise.",
+          low: "Your comprehension gaps are likely creating real misunderstandings in your relationships and work. The good news is that this is highly trainable with deliberate practice."
+        },
+        watchHigh: ["Strong comprehension can create overconfidence — always check your understanding rather than assuming you've got it", "Listen for what's changing in someone's thinking over time, not just what they're saying in this conversation"],
+        watchMid: ["After important conversations, write down the three key things the other person communicated — this builds comprehension muscle", "Ask one clarifying question per conversation as a practice — 'just to make sure I understand, are you saying...'"],
+        watchLow: ["Practice reflecting back what you've heard before responding: 'What I'm hearing is...' — it slows you down helpfully", "Read about active listening — even one resource deeply absorbed will create meaningful change"]
+      },
+      {
+        name: "Emotional Attunement",
+        range: [9, 12],
+        descriptions: {
+          high: "You have exceptional emotional attunement. You read the room, sense the feeling beneath the words, and respond to the human in front of you — not just the content they're delivering. People feel emotionally safe with you.",
+          mid: "Your emotional attunement is present but inconsistent. You pick up on feelings in some situations but miss them in others — particularly under stress or when you disagree with the speaker.",
+          low: "Emotional attunement is significantly underdeveloped. You tend to respond to what people say rather than how they feel, which means people often feel heard but not understood."
+        },
+        watchHigh: ["High attunement can mean you absorb others' emotions — develop boundaries that allow empathy without overwhelm", "Ensure you're responding to the person's actual emotional state and not projecting what you'd feel in their situation"],
+        watchMid: ["Ask 'how are you feeling about this?' more often than 'what do you think about this?' — it shifts the register", "Practice naming the emotion you sense someone is carrying: 'It sounds like you're frustrated' — even if quietly, to yourself"],
+        watchLow: ["Emotional attunement starts with curiosity — try to make it your practice to wonder how someone feels, not just what they mean", "Read 'I Hear You' by Michael Sorensen — it's a practical and accessible introduction to empathic listening"]
+      },
+      {
+        name: "Response Quality",
+        range: [13, 16],
+        descriptions: {
+          high: "Your responses are the hallmark of a truly skilled listener. You acknowledge before you advise, ask questions that open rather than redirect, and hold space without making the conversation about you.",
+          mid: "Your responses are good in low-stakes conversations but drift toward self-reference, premature advice, or agenda in more loaded ones. The quality of your response often determines whether someone felt heard.",
+          low: "Your responses frequently undercut the listening you've done. Jumping to advice, relating back to yourself, or redirecting to your own agenda signals to people that you weren't fully there for them."
+        },
+        watchHigh: ["Excellent responses can set a high bar that others feel they can't match — be mindful of the dynamic your skill creates", "Don't let skill become performance — the goal is connection, not demonstrating listening technique"],
+        watchMid: ["Before responding, ask yourself: 'Does this response serve them or me?'", "Practise the pause — a two-second pause before speaking forces you to ensure your response comes from what you heard, not what you planned"],
+        watchLow: ["Replace 'That happened to me too...' with 'Tell me more about that' — this one habit shift will transform how people experience you", "Ask one question after someone finishes speaking, before offering any perspective — make it about them, not about you"]
+      },
+      {
+        name: "Listening Under Pressure",
+        range: [17, 20],
+        descriptions: {
+          high: "Your listening holds up under pressure — disagreement, criticism, speed, and emotional intensity don't collapse your ability to hear. This is the hallmark of listening mastery and an enormous professional and personal asset.",
+          mid: "Your listening degrades meaningfully under pressure. You're good when conversations are easy and stakes are low, but disagreement or criticism tends to activate defensiveness that closes your ears.",
+          low: "Pressure is the consistent enemy of your listening. Under stress, disagreement, or criticism, your ability to take in what's being said collapses almost entirely. This is where the most important development lies."
+        },
+        watchHigh: ["Listening under pressure is a skill that requires maintenance — notice if certain topics or people still trigger a closure response", "Use your strong listening to model the behaviour for others in high-stakes conversations"],
+        watchMid: ["Before difficult conversations, set an explicit intention: 'I will listen to understand, not to respond'", "When you feel defensiveness rise, name it internally: 'I'm getting defensive' — this small act creates just enough space to keep listening"],
+        watchLow: ["Develop a physical anchor for calm in tense conversations — a slow breath, feet on the floor, hands relaxed", "Practice receiving feedback by asking for it from someone you trust and listening without any verbal response — just nod, absorb, and thank them"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const maxScore = sectionAnswers.length * 4;
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / maxScore) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+
+    let overallLabel, overallColor, overallDescription;
+    if (overall >= 75) {
+      overallLabel = "Masterful Listener";
+      overallColor = "#10b981";
+      overallDescription = "You are a genuinely rare kind of communicator. Your listening is present, accurate, emotionally attuned, and holds up even when conversations are hard. People feel truly heard by you — not just processed. This is one of the highest-value interpersonal skills a person can possess, and yours is highly developed. The opportunity is to continue refining the edges and to model this skill for others.";
+    } else if (overall >= 50) {
+      overallLabel = "Capable Listener";
+      overallColor = "#f59e0b";
+      overallDescription = "You are a solid listener who genuinely cares about understanding others. But your listening is uneven — excellent in comfortable conversations and degraded in difficult ones. The gap between your best and average listening is where your development lives. The habits that would close that gap are specific, learnable, and worth the investment.";
+    } else {
+      overallLabel = "Developing Listener";
+      overallColor = "#6366f1";
+      overallDescription = "Your listening has meaningful room to grow. The patterns showing up in your results — distraction, premature response, self-referencing, or defensiveness — are common and fully correctable. Listening well is not a personality trait; it's a set of learnable behaviours. The people in your life will feel the difference, and so will you.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  },
+
+  // ── ATTACHMENT REPORT ─────────────────────
+  attachment: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Intimacy & Closeness",
+        range: [0, 4],
+        descriptions: {
+          high: "You are comfortable with closeness. You allow people in, share your inner world, and feel worthy of the love and care offered to you. This openness is the hallmark of a secure attachment orientation toward intimacy.",
+          mid: "You experience intimacy in partial doses — you can let people close in some ways but keep walls up in others. Real intimacy requires being fully known, not just partially present.",
+          low: "Closeness and intimacy are sources of significant discomfort or anxiety for you. This likely reflects early experiences that made vulnerability feel unsafe. Understanding this pattern is the first step to changing it."
+        },
+        watchHigh: ["Comfort with closeness is an asset — ensure you're also allowing your partners and loved ones the space they need", "Reflect on whether you're equally comfortable with both giving and receiving emotional closeness"],
+        watchMid: ["Identify one specific way you keep people at a distance and experiment with removing that barrier in one relationship", "Consider what you're afraid of losing by being fully known — the answer often illuminates the work"],
+        watchLow: ["Therapy, particularly attachment-focused work, can be profoundly helpful here — this pattern has roots worth exploring", "Start with the smallest act of self-disclosure to someone you trust — vulnerability is built gradually, not all at once"]
+      },
+      {
+        name: "Anxiety & Fear",
+        range: [5, 9],
+        descriptions: {
+          high: "Anxiety and fear are prominent features of your relational experience. You likely worry about abandonment, question others' feelings for you, and feel hypervigilant to signs of distance or rejection. This is painful — and it's workable.",
+          mid: "Some relational anxiety is present. You feel insecurity in certain relationships or periods, and the fear of rejection influences your behaviour more than you'd like. There's meaningful room to build security here.",
+          low: "Relational anxiety is minimal. You carry a relatively settled sense of security in your relationships and don't tend to be preoccupied by fears of abandonment or rejection. This is a real strength."
+        },
+        watchHigh: ["Anxious attachment is one of the most researched and treatable relational patterns — please consider working with a therapist", "Notice when you're seeking reassurance and try pausing before acting on the urge — the anxiety doesn't mean the fear is accurate"],
+        watchMid: ["Build your internal reassurance capacity — when anxiety spikes, ask: 'Is there actual evidence for this fear, or am I interpreting neutral information through an anxious lens?'", "Communicate your needs directly to people you trust rather than testing relationships indirectly"],
+        watchLow: ["Your security is an asset — use it to create safety for people in your life who carry more relational anxiety", "Notice if there are specific people or situations that do trigger more anxiety and explore why"]
+      },
+      {
+        name: "Avoidance & Distance",
+        range: [10, 14],
+        descriptions: {
+          high: "Avoidance is a significant feature of your relational style. You create distance when closeness grows, handle difficulty alone, and may have built an identity around self-sufficiency that makes dependency feel threatening. This protects you — and also isolates you.",
+          mid: "Some avoidant patterns are present. You value independence, sometimes at the cost of closeness, and may struggle to express or even identify your emotional needs. There's room to let more in.",
+          low: "Avoidance is not a significant pattern for you. You're generally comfortable with closeness and don't tend to create distance as a protective mechanism. This reflects a relatively secure relational orientation."
+        },
+        watchHigh: ["Avoidant patterns often feel like strength (self-sufficiency, independence) but are often a protective response to early pain — exploring this with a therapist is valuable", "Practice identifying one emotional need per week and expressing it to someone safe — it gets easier with repetition"],
+        watchMid: ["Notice when you're pulling back and ask: 'Am I creating space because I need it, or because closeness is feeling threatening?'", "Practise staying emotionally present in conversations that make you want to withdraw"],
+        watchLow: ["Your openness to closeness is healthy — ensure you're also honouring your legitimate need for personal space and autonomy", "Being available for connection doesn't mean having no boundaries — reflect on whether yours are clear and communicated"]
+      },
+      {
+        name: "Conflict & Repair",
+        range: [15, 19],
+        descriptions: {
+          high: "Your conflict and repair patterns are healthy. You move toward resolution rather than away from it, can regulate your emotions during disagreement, and prioritise the relationship over winning. This makes you a safe partner and friend.",
+          mid: "You handle some conflicts well but others poorly. Your response to conflict varies based on who it's with, what it's about, and your emotional state at the time. Building more consistency here will deepen all your relationships.",
+          low: "Conflict is a significantly difficult area for you. Whether you tend to explode, shut down, or withdraw, the pattern is getting in the way of genuine repair and sustained closeness. This is one of the most impactful areas to develop."
+        },
+        watchHigh: ["Your willingness to engage in conflict can sometimes feel overwhelming to more avoidant partners — calibrate your approach to their pace", "Ensure that 'moving toward conflict' doesn't become forcing resolution before the other person is ready"],
+        watchMid: ["Identify your default conflict pattern (pursue, withdraw, explode, shut down) and work on the specific behaviour that follows from it", "The repair bid — a small gesture of reconnection after conflict — is one of the most powerful skills in relationship research. Practice it."],
+        watchLow: ["Consider couples therapy or individual therapy focused on conflict patterns — this is highly learnable with the right support", "Start small: practice staying in one uncomfortable conversation for two minutes longer than you normally would before withdrawing"]
+      },
+      {
+        name: "Security & Trust",
+        range: [20, 24],
+        descriptions: {
+          high: "You carry a deep and stable sense of relational security. You trust in the people who love you, believe in your own worthiness of love, and approach relationships from a place of openness rather than self-protection. This is the foundation of secure attachment.",
+          mid: "You have a working sense of security in relationships but it's not yet stable and consistent. Past hurts still surface, trust takes time, and your sense of being lovable fluctuates. There's meaningful work to do here — and it pays enormous dividends.",
+          low: "Relational security is a significant challenge for you. You may doubt your worthiness of love, struggle to trust, and carry the weight of past hurt into new relationships. This is understandable — and it's also changeable with the right support."
+        },
+        watchHigh: ["Secure attachment is hard-won — continue the practices that built it and don't take it for granted", "Use your security to be a source of stability and safety for people in your life who carry more fear"],
+        watchMid: ["Explore the specific narrative you carry about being lovable — often it's a story inherited from early experience, not an accurate reflection of reality", "Identify one person in your life who has shown up consistently for you and let that evidence counter the story that trust is unsafe"],
+        watchLow: ["Attachment-focused therapy (EFT, schema therapy, or relational therapy) is specifically designed for this work — it's worth the investment", "Begin practicing self-compassion — the relationship you have with yourself is the template for all other relationships"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const maxScore = sectionAnswers.length * 4;
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / maxScore) * 100);
+    });
+
+    // Attachment: high score = more secure; low anxiety/avoidance sections scored inversely
+    // Anxiety (range 5-9) and Avoidance (range 10-14): higher answer = more anxious/avoidant
+    // We invert those two sections for the overall
+    const adjustedScores = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      if (sec.name === "Anxiety & Fear" || sec.name === "Avoidance & Distance") {
+        return 100 - score;
+      }
+      return score;
+    });
+
+    const overall = Math.round(adjustedScores.reduce((s, v) => s + v, 0) / adjustedScores.length);
+
+    let overallLabel, overallColor, overallDescription;
+    if (overall >= 72) {
+      overallLabel = "Securely Attached";
+      overallColor = "#10b981";
+      overallDescription = "Your attachment profile leans securely. You're comfortable with closeness, trust in the reliability of the people you love, handle conflict constructively, and carry a stable sense of your own worthiness. This doesn't mean relationships are effortless — it means you have the internal resources to navigate difficulty without it threatening the connection. This is a profound asset in all close relationships.";
+    } else if (overall >= 50) {
+      overallLabel = "Anxious-Leaning";
+      overallColor = "#f59e0b";
+      overallDescription = "Your attachment style shows anxious tendencies — a heightened need for reassurance, sensitivity to distance or withdrawal, and a fear of abandonment that can shape your relational behaviour. This doesn't make you broken; it makes you human. Anxious attachment is the most common insecure style, and with self-awareness and the right support, it can shift meaningfully toward security.";
+    } else if (overall >= 30) {
+      overallLabel = "Avoidant-Leaning";
+      overallColor = "#6366f1";
+      overallDescription = "Your attachment style shows avoidant tendencies — a pull toward self-sufficiency, discomfort with dependency, and a habit of creating distance when closeness intensifies. This style often feels like strength from the inside but loneliness from the outside. Understanding why distance feels safer than closeness is the most important question you can sit with.";
+    } else {
+      overallLabel = "Disorganised Attachment";
+      overallColor = "#ef4444";
+      overallDescription = "Your results suggest a complex attachment pattern — one that may involve elements of both anxiety and avoidance, often described as fearful or disorganised attachment. This typically develops from early experiences where the source of comfort was also a source of fear or unpredictability. This is the most challenging style to navigate alone, and working with a therapist who specialises in attachment would be a genuinely valuable investment in your relational world.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const raw = sectionScores[i];
+      // For anxiety and avoidance, display inverted (lower raw = higher security)
+      const displayScore = (sec.name === "Anxiety & Fear" || sec.name === "Avoidance & Distance")
+        ? 100 - raw : raw;
+      const tier = displayScore >= 70 ? "high" : displayScore >= 40 ? "mid" : "low";
+      const color = displayScore >= 70 ? "#10b981" : displayScore >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score: displayScore, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
