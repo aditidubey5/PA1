@@ -45,6 +45,143 @@ const TESTS = [
       { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
     ]
   },
+   {
+  id: "hardworking",
+  title: "Hardworking Index",
+  tagline: "Are you truly putting in the work — or just feeling busy?",
+  description: "The Hardworking Index measures the depth and quality of your work across five dimensions: effort, consistency, focus, resilience, and self-motivation. It goes beyond surface-level busyness to reveal whether your energy is being channelled into meaningful, sustained output.",
+  questions: 22,
+  time: "10 min",
+  icon: "🔨",
+  sections: [
+    { name: "Work Ethic", start: 0, end: 4 },
+    { name: "Consistency", start: 5, end: 9 },
+    { name: "Focus", start: 10, end: 14 },
+    { name: "Resilience", start: 15, end: 18 },
+    { name: "Motivation", start: 19, end: 21 }
+  ],
+  questions_data: [
+    // --- SECTION 1: Work Ethic & Effort (Q1–5) ---
+    {
+      section: "Work Ethic & Effort",
+      q: "When I take on a task, I commit to seeing it through even when it becomes difficult or tedious.",
+      options: ["Almost never — I tend to abandon tasks when they get hard", "Rarely — I sometimes push through but usually look for an easier path", "Sometimes — it depends on how important the task feels to me", "Often — I usually stick with it even when it gets uncomfortable", "Almost always — I see every commitment through to completion"]
+    },
+    {
+      section: "Work Ethic & Effort",
+      q: "How would your closest colleagues honestly describe the quality of effort you bring to your work?",
+      options: ["They'd say I do the minimum required to get by", "They'd say my effort is inconsistent — great sometimes, absent other times", "They'd say I'm solid but rarely go above and beyond", "They'd say I consistently bring strong effort to most things", "They'd say I'm one of the hardest working people they know"]
+    },
+    {
+      section: "Work Ethic & Effort",
+      q: "When I'm given a deadline, I typically...",
+      options: ["Struggle to meet it and often need extensions", "Meet it but only after a last-minute panic", "Meet it with just enough time to spare", "Meet it comfortably with time to review my work", "Finish ahead of time and use the extra time to improve quality"]
+    },
+    {
+      section: "Work Ethic & Effort",
+      q: "I put in extra effort on tasks even when no one is watching or measuring my output.",
+      options: ["Rarely — my effort is largely driven by external accountability", "Sometimes — I try harder when I know people will notice", "It varies — depends on the task and my energy levels that day", "Often — I have personal standards that exist regardless of who's watching", "Always — my work ethic is internal and doesn't depend on external eyes"]
+    },
+    {
+      section: "Work Ethic & Effort",
+      q: "How often do you voluntarily take on responsibilities beyond what's explicitly required of you?",
+      options: ["Almost never — I focus on what's asked of me", "Occasionally — only when it directly benefits me", "Sometimes — when I have the bandwidth and it seems useful", "Often — I regularly look for ways to contribute beyond my job description", "Almost always — I proactively expand my contribution wherever I can"]
+    },
+
+    // --- SECTION 2: Consistency & Discipline (Q6–10) ---
+    {
+      section: "Consistency & Discipline",
+      q: "My productivity levels across a typical workweek are...",
+      options: ["Very uneven — I have one or two productive days and the rest are wasted", "Somewhat uneven — I struggle to maintain output mid-week", "Moderate — I'm reasonably consistent but have noticeable dips", "Fairly consistent — I maintain good output across most days", "Very consistent — I sustain strong performance across the full week"]
+    },
+    {
+      section: "Consistency & Discipline",
+      q: "When I set a personal goal related to my work or development, I follow through on it...",
+      options: ["Rarely — I set goals but seldom act on them for long", "Sometimes — I start well but usually lose momentum within weeks", "About half the time — I complete some goals but not others", "Most of the time — I follow through on the majority of my goals", "Almost always — I have a strong track record of completing what I commit to"]
+    },
+    {
+      section: "Consistency & Discipline",
+      q: "How do you behave on days when your motivation is low or you simply don't feel like working?",
+      options: ["I give myself the day off mentally and do very little", "I go through the motions but produce little of real value", "I manage to get some things done but far less than usual", "I push through and still complete most of my key tasks", "I rely on discipline over motivation and maintain my usual output"]
+    },
+    {
+      section: "Consistency & Discipline",
+      q: "I have structured routines or systems that help me stay productive day to day.",
+      options: ["Strongly Disagree — I operate mostly reactively with no real structure", "Disagree — I have loose intentions but few real systems in place", "Neutral — I have some routines but they're fragile and easily disrupted", "Agree — I have functional systems that generally keep me on track", "Strongly Agree — I have well-designed routines that anchor my daily performance"]
+    },
+    {
+      section: "Consistency & Discipline",
+      q: "When an unexpected disruption breaks my workflow (illness, crisis, travel), I...",
+      options: ["Take a long time to get back on track — sometimes weeks", "Struggle significantly but recover eventually", "Get somewhat back on track within a few days", "Recover quickly and resume my rhythm within a day or two", "Adapt immediately and maintain my output through the disruption"]
+    },
+
+    // --- SECTION 3: Focus & Prioritisation (Q11–15) ---
+    {
+      section: "Focus & Prioritisation",
+      q: "On a typical workday, how much of my time is spent on tasks that genuinely move the needle?",
+      options: ["Very little — most of my day is reactive or low-value work", "Less than half — I often get caught in busywork", "About half — I split my time between high and low value tasks", "More than half — I generally protect time for my most important work", "The majority — I'm disciplined about focusing on what truly matters"]
+    },
+    {
+      section: "Focus & Prioritisation",
+      q: "I can sustain deep, uninterrupted focus on a single task for extended periods.",
+      options: ["Rarely — I find it very hard to focus for more than 15–20 minutes", "Sometimes — I can focus in short bursts but get distracted easily", "Moderately — I can sustain focus for 30–45 minutes with effort", "Often — I can enter deep focus for an hour or more regularly", "Almost always — sustained deep work is a natural part of how I operate"]
+    },
+    {
+      section: "Focus & Prioritisation",
+      q: "When I have a long to-do list, I...",
+      options: ["Feel overwhelmed and often don't know where to start", "Tackle the easiest items first to feel a sense of progress", "Work through items somewhat randomly depending on my mood", "Prioritise consciously but don't always stick to the plan", "Clearly identify the highest-impact tasks and attack those first"]
+    },
+    {
+      section: "Focus & Prioritisation",
+      q: "How effectively do you protect your most productive hours from interruptions and low-value demands?",
+      options: ["Not at all — I'm available and reactive to everyone at all times", "Poorly — I intend to protect focus time but rarely enforce it", "Somewhat — I have some boundaries but they're frequently broken", "Well — I generally guard my prime hours and communicate boundaries", "Very well — I have clear systems to protect my deep work time consistently"]
+    },
+    {
+      section: "Focus & Prioritisation",
+      q: "I regularly review my workload to eliminate or delegate tasks that don't deserve my time.",
+      options: ["Strongly Disagree — I rarely audit what I'm working on", "Disagree — I hold on to tasks even when I shouldn't", "Neutral — I occasionally think about this but rarely act on it", "Agree — I periodically clean up my task list and offload where I can", "Strongly Agree — I actively and regularly audit my commitments to protect focus"]
+    },
+
+    // --- SECTION 4: Resilience & Persistence (Q16–19) ---
+    {
+      section: "Resilience & Persistence",
+      q: "When I encounter a significant obstacle in my work, my typical response is to...",
+      options: ["Step back and often not return to the task with full effort", "Feel discouraged for a long time before trying again", "Take a break and revisit it, though momentum is often lost", "Work through the frustration and find a way to keep going", "Treat it as a problem to solve and come back with more energy"]
+    },
+    {
+      section: "Resilience & Persistence",
+      q: "I have pushed through exhaustion, discomfort, or boredom to complete something that mattered to me.",
+      options: ["Rarely — I tend to stop when things become physically or mentally draining", "Occasionally — only under extreme external pressure", "Sometimes — when the stakes feel high enough", "Often — I regularly push past comfort to finish what I start", "Almost always — I have a strong internal drive that overrides discomfort"]
+    },
+    {
+      section: "Resilience & Persistence",
+      q: "How do you respond when a project or task takes significantly longer than expected?",
+      options: ["I often abandon it or dramatically reduce the scope", "I get frustrated and my quality drops noticeably", "I adjust my expectations but lose some motivation", "I recalibrate my timeline and keep working at a reasonable pace", "I stay fully committed and adjust my approach without losing quality"]
+    },
+    {
+      section: "Resilience & Persistence",
+      q: "After receiving critical feedback or experiencing a setback at work, I typically...",
+      options: ["Feel demotivated for an extended period and struggle to re-engage", "Take it personally and need a lot of time to process it", "Feel stung but eventually use it to adjust my approach", "Process it constructively and return to work relatively quickly", "Treat it as data and immediately channel it into improvement"]
+    },
+
+    // --- SECTION 5: Purpose & Self-Motivation (Q20–22) ---
+    {
+      section: "Purpose & Self-Motivation",
+      q: "I have a clear sense of why the work I do matters, which fuels my effort even on hard days.",
+      options: ["Strongly Disagree — I often feel disconnected from any deeper purpose in my work", "Disagree — I understand my tasks but rarely feel driven by a deeper why", "Neutral — I have some sense of purpose but it doesn't consistently motivate me", "Agree — I have a clear enough sense of purpose that it sustains me through difficulty", "Strongly Agree — my work is deeply connected to my values and this drives consistent effort"]
+    },
+    {
+      section: "Purpose & Self-Motivation",
+      q: "My drive to work hard comes primarily from within, rather than from external rewards or pressure.",
+      options: ["Strongly Disagree — I need external pressure or incentives to work hard", "Disagree — I'm mostly motivated by outcomes like salary, recognition, or approval", "Neutral — it's a mix of internal and external drivers, roughly equal", "Agree — my motivation is mostly internal, though external factors still play a role", "Strongly Agree — I am fundamentally self-driven and don't rely on external motivation"]
+    },
+    {
+      section: "Purpose & Self-Motivation",
+      q: "Looking back over the past three months, how satisfied are you with the quality and consistency of effort you brought to your work?",
+      options: ["Very unsatisfied — I know I significantly underperformed relative to my potential", "Unsatisfied — I had stretches of good work but too many gaps in effort", "Neutral — I showed up and did the work but didn't push myself enough", "Satisfied — I worked hard and consistently with only occasional dips", "Very satisfied — I brought my best effort consistently and have little to regret"]
+    }
+  ]
+}
   {
     id: "martyr",
     title: "The Martyr Index",
@@ -163,6 +300,107 @@ const REPORT_LOGIC = {
     };
     return profiles[primary];
   },
+   hardworking: (answers) => {
+  const sections = [
+    {
+      name: "Work Ethic & Effort",
+      range: [0, 4],
+      descriptions: {
+        high: "Your work ethic is a genuine asset. You bring consistent, high-quality effort to your commitments and hold yourself to internal standards regardless of external accountability.",
+        mid: "You have solid work ethic foundations but your effort can be inconsistent. There are moments of strong output, but they're not yet dependable across all contexts.",
+        low: "Your effort levels are largely reactive and externally driven. Building intrinsic work standards will be the key shift that unlocks your next level of performance."
+      },
+      watchHigh: ["Watch for over-investing in low-leverage tasks — effort without direction is still waste", "Ensure your high standards don't create unrealistic expectations of others"],
+      watchMid: ["Identify what conditions bring out your best effort and engineer more of them", "Build one non-negotiable daily work standard to anchor consistency"],
+      watchLow: ["Start with one commitment per day that you see through regardless of difficulty", "Examine what's driving the gap between your intentions and your follow-through"]
+    },
+    {
+      name: "Consistency & Discipline",
+      range: [5, 9],
+      descriptions: {
+        high: "Your discipline is a competitive advantage. You show up with reliable output regardless of motivation levels, and your routines create a stable foundation for sustained performance.",
+        mid: "You're capable of consistency but haven't yet built the systems to make it automatic. Your output peaks and dips with your mood and circumstances.",
+        low: "Consistency is your biggest growth opportunity. Without reliable systems, your performance is unpredictable — which limits both your output and how others perceive you."
+      },
+      watchHigh: ["Audit your routines occasionally — discipline can calcify into rigidity", "Make space for rest; sustained output requires intentional recovery"],
+      watchMid: ["Choose one keystone habit and protect it for 30 days — consistency compounds", "Track your productive and unproductive days to identify patterns"],
+      watchLow: ["Focus on showing up, not performing — consistency starts before quality", "Remove friction from the start of your workday to lower the barrier to beginning"]
+    },
+    {
+      name: "Focus & Prioritisation",
+      range: [10, 14],
+      descriptions: {
+        high: "You have strong focus discipline. You consistently direct your energy toward high-value work and protect your most productive hours from noise and distraction.",
+        mid: "You understand the importance of prioritisation but execution is mixed. You spend too much time on work that feels productive but doesn't move the needle.",
+        low: "Your attention is fragmented across too many inputs. Without a stronger focus architecture, even high effort will produce mediocre results."
+      },
+      watchHigh: ["Don't mistake depth for avoidance — ensure you're also responsive when it matters", "Review your priorities regularly; deep focus on the wrong thing is still a cost"],
+      watchMid: ["Implement a 'top 3 tasks' rule each morning before opening any inbox or app", "Block one 90-minute deep work session daily and treat it as non-negotiable"],
+      watchLow: ["Start by turning off all non-essential notifications for your first hour of work", "Ask yourself daily: 'What one thing, if done today, would make everything else easier?'"]
+    },
+    {
+      name: "Resilience & Persistence",
+      range: [15, 18],
+      descriptions: {
+        high: "You have exceptional persistence. Setbacks and obstacles don't derail you — they redirect you. Your ability to stay in motion through difficulty is a rare and powerful trait.",
+        mid: "You have resilience in moderate doses. You recover from setbacks but the process is slow and your momentum often suffers. Strengthening your rebound speed will unlock more.",
+        low: "Obstacles significantly disrupt your work output and motivation. Building a stronger relationship with difficulty is essential for sustained performance at any level."
+      },
+      watchHigh: ["Persistence without reflection can become stubbornness — know when to pivot", "Ensure you're recovering, not just enduring — resilience needs replenishment"],
+      watchMid: ["Develop a personal protocol for setbacks: a specific ritual for how you re-engage", "Practice separating emotional reaction from professional response in the moment"],
+      watchLow: ["Reframe obstacles as expected features of meaningful work, not exceptions", "Build a track record of small comebacks — resilience is built through repetition"]
+    },
+    {
+      name: "Purpose & Self-Motivation",
+      range: [19, 21],
+      descriptions: {
+        high: "Your work is anchored in genuine internal motivation. You don't need external pressure to bring effort — your why fuels your how, and this creates sustainable high performance.",
+        mid: "You have some internal motivation but it's not yet consistent enough to carry you through hard stretches. Your drive is partly borrowed from external sources.",
+        low: "Your motivation is largely externally dependent. Without a clearer sense of personal purpose, your effort will remain reactive and vulnerable to fluctuation."
+      },
+      watchHigh: ["Ensure your internal drive accounts for rest — intrinsic motivation can mask burnout", "Revisit your purpose regularly; what drives you can shift as your life evolves"],
+      watchMid: ["Spend 20 minutes writing why this work matters to you beyond salary and status", "Connect daily tasks to a longer-term vision to fuel short-term discipline"],
+      watchLow: ["Explore what work has felt most meaningful in your life and look for the pattern", "External rewards are a starting point, not a destination — invest in finding your intrinsic why"]
+    }
+  ];
+
+  // Calculate section scores
+  const sectionScores = sections.map(sec => {
+    const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+    const maxScore = sectionAnswers.length * 4;
+    const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+    return Math.round((raw / maxScore) * 100);
+  });
+
+  const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+
+  // Overall label
+  let overallLabel, overallColor, overallDescription;
+  if (overall >= 75) {
+    overallLabel = "High-Output Operator";
+    overallColor = "#10b981";
+    overallDescription = "You demonstrate strong, consistent hardworking behaviours across all five dimensions. Your effort is deliberate, disciplined, and internally driven. You're not just busy — you're productive in ways that compound over time. The opportunity now is to sustain this without burning out, and to ensure your effort is always pointed at the highest-leverage work.";
+  } else if (overall >= 50) {
+    overallLabel = "Capable but Inconsistent";
+    overallColor = "#f59e0b";
+    overallDescription = "You have the raw ingredients of a hard worker — drive, standards, and resilience — but they don't yet fire reliably. Your output peaks when conditions are right and dips when they're not. The work ahead is about building systems that make your best self the default, not the exception.";
+  } else {
+    overallLabel = "Effort Gap Identified";
+    overallColor = "#ef4444";
+    overallDescription = "Your results point to a meaningful gap between your potential and your current work output. This isn't about intelligence or ability — it's about the habits, systems, and internal drive that convert potential into performance. The good news: hardworking is a behaviour, not a personality trait, and behaviours can be trained.";
+  }
+
+  // Section result cards
+  const sectionResults = sections.map((sec, i) => {
+    const score = sectionScores[i];
+    const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+    const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+    const watch = sec[`watch${tier.charAt(0).toUpperCase() + tier.slice(1)}`];
+    return { name: sec.name, score, color, description: sec.descriptions[tier], watch };
+  });
+
+  return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+}
 
   bigfive: (answers) => {
     const score = answers.reduce((s, a) => s + (4 - a), 0);
@@ -349,12 +587,52 @@ function renderQuestion() {
 
   document.getElementById("test-title").textContent = t.title;
 
+  // Build section progress bar if test has sections
+  let progressBarHtml = "";
+  if (t.sections && t.sections.length) {
+    const segmentWidth = 100 / t.sections.length;
+    const sectionsHtml = t.sections.map((sec, i) => {
+      const secStart = sec.start;
+      const secEnd = sec.end;
+      const isActive = currentQuestion >= secStart && currentQuestion <= secEnd;
+      const isComplete = currentQuestion > secEnd;
+      const segProgress = isComplete ? 100 :
+        isActive ? Math.round(((currentQuestion - secStart) / (secEnd - secStart + 1)) * 100) : 0;
+
+      return `
+        <div style="flex:1; padding: 0 3px;">
+          <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+            color:${isActive ? "var(--brand-indigo)" : isComplete ? "#10b981" : "var(--text-light)"};
+            margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            ${isComplete ? "✓ " : ""}${sec.name}
+          </div>
+          <div style="background:#e2e8f0; border-radius:50px; height:5px; overflow:hidden;">
+            <div style="height:100%; width:${segProgress}%;
+              background:${isComplete ? "#10b981" : "var(--brand-grad)"};
+              border-radius:50px; transition:width 0.4s ease;"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    progressBarHtml = `
+      <div style="display:flex; gap:0; width:100%; max-width:580px; margin:0 auto 20px;">
+        ${sectionsHtml}
+      </div>
+    `;
+  } else {
+    progressBarHtml = `
+      <div class="progress-bar-wrap" style="max-width:520px; margin:0 auto 8px;">
+        <div class="progress-bar-fill" style="width:${progress}%"></div>
+      </div>
+    `;
+  }
+
   document.getElementById("question-area").innerHTML = `
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" style="width:${progress}%"></div>
-    </div>
+    ${progressBarHtml}
     <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:28px; font-weight:600;">
       Question ${currentQuestion + 1} of ${total}
+      ${t.sections ? `· <span style="color:var(--brand-indigo);">${q.section}</span>` : ""}
     </p>
     <div style="background:white; border-radius:20px; padding: clamp(24px,4vw,40px); box-shadow: var(--shadow-card); max-width:580px; margin:0 auto 24px; text-align:left;">
       <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight:700; color:var(--text-primary); margin-bottom:24px; line-height:1.5;">
@@ -371,11 +649,12 @@ function renderQuestion() {
     </div>
   `;
 
-  // Update nav buttons
   document.getElementById("back-btn").style.display = currentQuestion === 0 ? "none" : "inline-block";
   document.getElementById("next-btn").textContent =
     currentQuestion === total - 1 ? "View My Results →" : "Next →";
 }
+
+ 
 
 function selectAnswer(index) {
   answers[currentQuestion] = index;
@@ -475,104 +754,169 @@ document.head.appendChild(shakeStyle);
 // ============================================
 function generateReport() {
   const logic = REPORT_LOGIC[currentTest.id];
-  const result = logic ? logic(answers) : { label: "Complete", score: 75, color: "#6366f1", description: "Your assessment is complete.", strengths: [], watch: [] };
-
+  if (!logic) return;
+  const result = logic(answers);
   showPage("report");
 
-  const strengthsHtml = result.strengths?.map(s => `
-    <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
-      <span style="color:#10b981; font-size:1.1rem;">✓</span>
-      <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${s}</span>
-    </div>
-  `).join("") || "";
-
-  const watchHtml = result.watch?.map(w => `
-    <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
-      <span style="color:#f59e0b; font-size:1.1rem; margin-top:1px;">→</span>
-      <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${w}</span>
-    </div>
-  `).join("") || "";
-
-  document.getElementById("report-page-content").innerHTML = `
-    <div>
-      <!-- Header -->
-      <div class="report-header" style="
-        background: var(--brand-grad);
-        border-radius: 24px;
-        padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
-        text-align: center;
-        margin-bottom: 28px;
-        position:relative;
-        overflow:hidden;
-      ">
-        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
-        <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
-        <div style="margin-bottom:20px; display:inline-block;">
-          <div style="
-            background-image: url(\'data:image/jpeg;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//Z\');
-            background-size: auto 290%;
-            background-position: center -46px;
-            background-repeat: no-repeat;
-            width: 175px;
-            height: 52px;
-            border-radius: 10px;
-            background-color: white;
-            padding: 4px 8px;
-          "></div>
+  // Check if this is a sectioned report (has sectionResults)
+  if (result.sectionResults) {
+    // ---- SECTIONED REPORT (e.g. Hardworking Index) ----
+    const sectionCardsHtml = result.sectionResults.map(sec => `
+      <div style="background:#f8fafc; border-radius:16px; padding:20px 24px; margin-bottom:16px; border-left:4px solid ${sec.color};">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-size:0.95rem; font-weight:800; color:var(--text-primary);">${sec.name}</h4>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="background:#e2e8f0; border-radius:50px; height:6px; width:100px; overflow:hidden;">
+              <div style="height:100%; width:${sec.score}%; background:${sec.color}; border-radius:50px;"></div>
+            </div>
+            <span style="font-size:0.9rem; font-weight:800; color:${sec.color};">${sec.score}/100</span>
+          </div>
         </div>
-        <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
-        <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
-        <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.label}</h1>
-        <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">${sec.description}</p>
+        <div>
+          ${sec.watch.map(w => `
+            <div style="display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-top:1px solid #e2e8f0;">
+              <span style="color:#f59e0b; margin-top:1px;">→</span>
+              <span style="font-size:0.82rem; color:var(--text-primary); font-weight:500;">${w}</span>
+            </div>
+          `).join("")}
+        </div>
       </div>
+    `).join("");
 
-      <!-- Body -->
-      <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
-        <div class="report-inner-grid" style="display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:start;">
-          <!-- Left -->
-          <div>
-            <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Your Profile Summary</h3>
-            <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description}</p>
+    document.getElementById("report-page-content").innerHTML = `
+      <div>
+        <!-- Header -->
+        <div style="
+          background: var(--brand-grad);
+          border-radius: 24px;
+          padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
+          text-align: center;
+          margin-bottom: 28px;
+          position:relative;
+          overflow:hidden;
+        ">
+          <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
+          <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.overall}<span style="font-size:1.5rem;">/100</span></div>
+          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.overallLabel}</h1>
+          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+        </div>
 
-            <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3>
-            <div style="margin-bottom:28px;">${strengthsHtml}</div>
+        <!-- Body -->
+        <div style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card); margin-bottom:28px;">
+          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px;">Overall Summary</h3>
+          <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:32px;">${result.overallDescription}</p>
 
-            <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3>
-            <div>${watchHtml}</div>
+          <!-- Overall score bar -->
+          <div style="background:#f8fafc; border-radius:14px; padding:20px; margin-bottom:32px; text-align:center;">
+            <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">Overall Score</div>
+            <div style="background:#e2e8f0; border-radius:50px; height:10px; overflow:hidden; margin-bottom:8px;">
+              <div style="height:100%; width:${result.overall}%; background:${result.overallColor}; border-radius:50px; transition:width 1s ease;"></div>
+            </div>
+            <div style="font-size:2rem; font-weight:800; color:${result.overallColor};">${result.overall}/100</div>
           </div>
 
-          <!-- Right -->
-          <div>
-            <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
-              <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
-              <div style="font-size:4rem; font-weight:800; color:${result.color}; line-height:1;">${result.score}</div>
-              <div style="font-size:0.8rem; color:var(--text-muted);">out of 100</div>
-              <div style="margin-top:16px; background:#e2e8f0; border-radius:50px; height:8px; overflow:hidden;">
-                <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
+          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px;">Section Breakdown</h3>
+          ${sectionCardsHtml}
+        </div>
+
+        <!-- Coaching CTA -->
+        <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12); margin-bottom:28px;">
+          <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
+            Your profile unlocks a personalised 1-on-1 session with a People Assets coach who specialises in performance and work habits.
+          </p>
+          <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
+            Book a Coaching Session →
+          </button>
+        </div>
+
+        <!-- Actions -->
+        <div class="report-actions">
+          <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
+          <button class="btn-primary" onclick="window.print()">Download Report</button>
+          <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+        </div>
+      </div>
+    `;
+
+  } else {
+    // ---- EXISTING FLAT REPORT (all other tests) ----
+    const strengthsHtml = result.strengths?.map(s => `
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
+        <span style="color:#10b981; font-size:1.1rem;">✓</span>
+        <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${s}</span>
+      </div>
+    `).join("") || "";
+
+    const watchHtml = result.watch?.map(w => `
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
+        <span style="color:#f59e0b; font-size:1.1rem; margin-top:1px;">→</span>
+        <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${w}</span>
+      </div>
+    `).join("") || "";
+
+    document.getElementById("report-page-content").innerHTML = `
+      <div>
+        <div class="report-header" style="
+          background: var(--brand-grad);
+          border-radius: 24px;
+          padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
+          text-align: center;
+          margin-bottom: 28px;
+          position:relative;
+          overflow:hidden;
+        ">
+          <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
+          <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
+          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.label}</h1>
+          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+        </div>
+
+        <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
+          <div class="report-inner-grid" style="display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:start;">
+            <div>
+              <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Your Profile Summary</h3>
+              <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description}</p>
+              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3>
+              <div style="margin-bottom:28px;">${strengthsHtml}</div>
+              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3>
+              <div>${watchHtml}</div>
+            </div>
+            <div>
+              <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
+                <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
+                <div style="font-size:4rem; font-weight:800; color:${result.color}; line-height:1;">${result.score}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">out of 100</div>
+                <div style="margin-top:16px; background:#e2e8f0; border-radius:50px; height:8px; overflow:hidden;">
+                  <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
+                </div>
+              </div>
+              <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12);">
+                <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
+                <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
+                  Your profile unlocks a personalized 1-on-1 session with a People Assets coach who specializes in this archetype.
+                </p>
+                <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
+                  Book a Coaching Session →
+                </button>
               </div>
             </div>
-
-            <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12);">
-              <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
-              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
-                Your profile unlocks a personalized 1-on-1 session with a People Assets coach who specializes in this archetype.
-              </p>
-              <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
-                Book a Coaching Session →
-              </button>
-            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Actions -->
-      <div class="report-actions">
-        <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
-        <button class="btn-primary" onclick="window.print()">Download Report</button>
-        <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+        <div class="report-actions">
+          <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
+          <button class="btn-primary" onclick="window.print()">Download Report</button>
+          <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+  }
 }
 
 // ============================================
