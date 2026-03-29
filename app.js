@@ -2163,6 +2163,7 @@ function generateReport() {
   const logic = REPORT_LOGIC[currentTest.id];
   if (!logic) return;
   const result = logic(answers);
+  lastReportResult=result;
   showPage("report");
 
   // SECTIONED REPORT (tests with sectionResults e.g. Hardworking Index)
