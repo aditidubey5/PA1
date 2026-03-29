@@ -2418,6 +2418,8 @@ function sendReportEmail() {
   const sendBtn    = document.getElementById("send-report-btn");
   const email      = emailInput ? emailInput.value.trim() : "";
 
+  console.log("Sending to address:", email);
+
   if (!email || !email.includes("@")) {
     statusEl.style.display = "block";
     statusEl.style.color   = "#ef4444";
