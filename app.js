@@ -2412,13 +2412,14 @@ function buildEmailReportSection() {
 // ============================================
 // SEND REPORT EMAIL
 // ============================================
-function sendReportEmail() {
+async function sendReportEmail() {
   const emailInput = document.getElementById("report-email-input");
   const statusEl   = document.getElementById("email-report-status");
   const sendBtn    = document.getElementById("send-report-btn");
   const email      = emailInput ? emailInput.value.trim() : "";
-
-  console.log("Sending to address:", email);
+  
+  // The element containing the actual visual report you want to turn into a PDF
+  const reportElement = document.getElementById("report-page-content");
 
   if (!email || !email.includes("@")) {
     statusEl.style.display = "block";
@@ -2428,51 +2429,56 @@ function sendReportEmail() {
   }
 
   sendBtn.disabled     = true;
-  sendBtn.textContent  = "Sending...";
+  sendBtn.textContent  = "Generating PDF...";
   statusEl.style.display = "none";
 
-  const result = lastReportResult;
-  if (!result) return;
+  try {
+    // 1. PDF Generation Settings
+    const opt = {
+      margin:       10,
+      filename:     `${currentTest.id}_report.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-  // Build section breakdown text for email
-  let sectionBreakdown = "";
-  if (result.sectionResults) {
-    sectionBreakdown = result.sectionResults.map(sec =>
-      `${sec.name}: ${sec.score}/100\n${sec.description}\nGrowth tips:\n${sec.watch.map(w => "→ " + w).join("\n")}`
-    ).join("\n\n─────────────────────\n\n");
-  } else {
-    const strengths = result.strengths ? result.strengths.map(s => "✓ " + s).join("\n") : "";
-    const watch     = result.watch ? result.watch.map(w => "→ " + w).join("\n") : "";
-    sectionBreakdown = `Your Strengths:\n${strengths}\n\nWatch Points & Growth Areas:\n${watch}`;
-  }
+    // 2. Convert the report HTML into a Base64 Data URI string
+    // This creates the "file" content
+    const pdfBase64 = await html2pdf().from(reportElement).set(opt).outputPdf('datauristring');
 
-  const overallScore = result.sectionResults ? result.overall : result.score;
-  const overallLabel = result.sectionResults ? result.overallLabel : result.label;
-  const overallDesc  = result.sectionResults ? result.overallDescription : result.description;
+    // 3. Send via EmailJS
+    // We keep your existing logic for labels, but add the 'content' field
+    const result = lastReportResult;
+    const overallLabel = result.sectionResults ? result.overallLabel : result.label;
 
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    to_email:          email,
-    test_name:         currentTest.title,
-    overall_score:     overallScore,
-    overall_label:     overallLabel,
-    overall_description: overallDesc,
-    section_breakdown: sectionBreakdown
-  }).then(() => {
+    const templateParams = {
+      to_email: email,
+      test_name: currentTest.title,
+      overall_label: overallLabel,
+      content: pdfBase64 // This variable MUST match the attachment field in EmailJS
+    };
+
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+    // 4. Success UI
     statusEl.style.display = "block";
     statusEl.style.color   = "#10b981";
-    statusEl.textContent   = `✓ Report sent to ${email}! Check your inbox (and spam folder just in case).`;
+    statusEl.textContent   = `✓ PDF Report successfully sent to ${email}!`;
     sendBtn.textContent    = "Sent ✓";
     emailInput.value       = "";
-  }).catch((err) => {
-    console.error("EmailJS error:", err);
+    
+    // As requested: Success Popup
+    alert("Your " + currentTest.title + " report has been successfully sent to " + email + "!");
+
+  } catch (err) {
+    console.error("PDF/Email Error:", err);
     statusEl.style.display = "block";
     statusEl.style.color   = "#ef4444";
-    statusEl.textContent   = "⚠ Something went wrong. Please try again.";
+    statusEl.textContent   = "⚠ Error generating or sending PDF. Please try again.";
     sendBtn.disabled       = false;
     sendBtn.textContent    = "Email My Report →";
-  });
+  }
 }
-
 // ============================================
 // COACHING PAGE
 // ============================================
