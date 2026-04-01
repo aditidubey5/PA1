@@ -878,6 +878,158 @@ const TESTS = [
         options: ["Mostly painful — relationships have been a consistent source of hurt, loss, or disappointment","Difficult — I've had meaningful connections but they've often been complicated or short-lived","Mixed — a balance of nourishing and difficult, with no strong pattern either way","Mostly positive — I've experienced real love and connection, with the usual difficulties","Deeply nourishing — close relationships have been a consistent source of security, joy, and growth in my life"]
       }
     ]
+  },
+  {
+    id: "leadership_mindset",
+    title: "Leadership Mindset Scanner",
+    tagline: "The psychological blueprint of your authority.",
+    description: "Leadership starts between the ears. This assessment analyzes your internal philosophy regarding potential, risk, and trust.",
+    questions: 20,
+    time: "10 min",
+    icon: "🧠",
+    highlights: ["Potential Beliefs", "Risk Tolerance", "Trust Settings"],
+    sections: [
+      { name: "Growth Mindset", start: 0, end: 4 },
+      { name: "Risk Appetite", start: 5, end: 9 },
+      { name: "Trust & Default", start: 10, end: 14 },
+      { name: "Success View", start: 15, end: 19 }
+    ],
+    questions_data: [
+        { section: "Growth Mindset", q: "I believe talent is a fixed trait to be managed.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Growth Mindset", q: "My job is to find the best people and get out of their way.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Mindset", q: "Most people require pressure to reach potential.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Growth Mindset", q: "I view team mistakes as necessary tuition.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Mindset", q: "I focus more on potential than current output.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "Ambiguity feels like opportunity, not a threat.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "A 'safe' plan is the most dangerous one long-term.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I prefer proven paths over high-reward experiments.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Risk Appetite", q: "In crisis, I look for the lesson, not the culprit.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I can decide with only 60% of available data.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "Transparency can undermine a leader's authority.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Trust & Default", q: "I feel personal failure if a team member misses.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Trust & Default", q: "Trust should be given by default until broken.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "Best decisions are made through consensus.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "I feel most useful solving problems for my team.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Success View", q: "I value 'how' we won as much as the victory.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Success View", q: "Leadership is service, not a position of power.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Success View", q: "If the system is right, people needn't be extraordinary.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Success View", q: "satisfaction comes from growth, not just KPIs.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Success View", q: "Effective leaders are born, not made.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
+    ]
+  },
+  {
+    id: "leadership_orientation",
+    title: "Leadership Orientation Scanner",
+    tagline: "Pinpoint exactly where you direct your energy.",
+    description: "Tracks your outward behavioral focus: Execution, Strategy, Human Development, and Systems.",
+    questions: 20,
+    time: "10 min",
+    icon: "🧭",
+    highlights: ["Energy Mapping", "Task/People Balance", "Strategic Bandwidth"],
+    sections: [
+      { name: "Operational", start: 0, end: 4 },
+      { name: "Strategic", start: 5, end: 9 },
+      { name: "People", start: 10, end: 14 },
+      { name: "Structural", start: 15, end: 19 }
+    ],
+    questions_data: [
+        { section: "Operational", q: "I spend most of my time monitoring current progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "I feel productive crossing tasks off the team's list.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "Meetings focus on immediate roadblocks.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Operational", q: "I prioritize speed over absolute perfection.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "I am involved in 'doing' work with the team.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Strategic", q: "I spend more time looking at the market than reports.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "I prioritize long-term bets over short wins.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "My style is 'Big Picture' rather than detail.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "I frequently rethink our overall business model.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Strategic", q: "I get energized by a blank slate territory.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I spend 40%+ of time in one-on-one coaching.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "Highest priority is team psychological safety.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "Success is measured by those I've promoted.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I'd delay a project to prevent team burnout.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I align passions with organizational goals.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Structural", q: "I spend time building SOPs and workflows.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I prioritize accuracy over other metrics.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I look to automate my role so systems run without me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I prefer a slow steady pace over fast chaotic ones.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "Leader's job is protecting org from risk.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
+    ]
+  },
+  {
+    id: "ambition_mindset",
+    title: "Ambition Mindset Diagnostic",
+    tagline: "The internal fuel driving your pursuit.",
+    description: "Measures internal vs external fuel, failure resilience, and growth vision.",
+    questions: 20,
+    time: "9 min",
+    icon: "🔥",
+    highlights: ["Internal Fuel", "Stagnation Fear", "Success Identity"],
+    sections: [
+      { name: "Inner Drive", start: 0, end: 4 },
+      { name: "Resilience", start: 5, end: 9 },
+      { name: "Growth Vision", start: 10, end: 14 },
+      { name: "Identity", start: 15, end: 19 }
+    ],
+    questions_data: [
+        { section: "Inner Drive", q: "I'd pursue goals even if no one ever found out.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Inner Drive", q: "Ambition is driven by proving others wrong.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Inner Drive", q: "I feel a restless need to improve constantly.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Inner Drive", q: "Financial rewards are the only true metric.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Inner Drive", q: "I feel an internal 'pull' toward mastery.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "Setbacks make me more determined.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "I abandon goals if they become embarrassing.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Resilience", q: "I view 'stagnation' as greater risk than 'failure'.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "When I fail, I question my innate talent.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Resilience", q: "I can endure years of obscurity for long-term goals.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I imagine a version of life much larger than now.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "Potential is limitless with right effort.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I set goals based on what's exciting, not realistic.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I feel responsible for expressing latent talents.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "Thought of hitting a 'ceiling' is frightening.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "If I lost my career, I'd lose my identity.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Identity", q: "I find it hard to respect low-drive people.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "I feel most 'myself' in pursuit of targets.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "I judge day value by ambition progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "Ambition is an escape from other life areas.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
+    ]
+  },
+  {
+    id: "ambition_orientation",
+    title: "Ambition Orientation Scanner",
+    tagline: "The outward mechanics of your success.",
+    description: "Measures goal specificity, initiative, risk management, and network leverage.",
+    questions: 20,
+    time: "9 min",
+    icon: "🧭",
+    highlights: ["Tactical Execution", "Competitiveness", "Social Leverage"],
+    sections: [
+      { name: "Specificity", start: 0, end: 4 },
+      { name: "Initiative", start: 5, end: 9 },
+      { name: "Risk Management", start: 10, end: 14 },
+      { name: "Leverage", start: 15, end: 19 }
+    ],
+    questions_data: [
+        { section: "Specificity", q: "I have written down my top 3 goals.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Specificity", q: "I name the exact metric for success this quarter.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Specificity", q: "My goals shift depending on my mood.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Specificity", q: "I break big ambitions into daily checklists.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Specificity", q: "I track progress at least once a week.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "I'm usually the one taking the first step.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Initiative", q: "I spend more time planning than executing.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Initiative", q: "I actively seek competitive environments.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "I'm willing to outwork peers for an edge.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "I focus on high-leverage actions.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I'd bet 20% security for 200% growth.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I have a Plan B for all career bets.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I prefer certain gains over uncertain opportunities.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Risk Management", q: "I'm comfortable being the only one who believes.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I manage energy as carefully as time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I build relationships with those further ahead.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I use my personal network to accelerate goals.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Social Leverage", q: "I am comfortable asking for favors.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I believe 'Who you know' > 'What you know'.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I mentor others to build a legacy.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
+    ]
   }
 ];
 
@@ -1087,83 +1239,18 @@ const REPORT_LOGIC = {
   },
 
   // ── LEADERSHIP ARCHETYPE (DETAILED) ────────
-  leadership: (answers) => {
-    const sectionDefs = [
-      {
-        name: "Vision & Strategy",
-        range: [0, 4],
-        descriptions: {
-          high: "You are a natural 'Visionary.' You lead by painting a compelling future and enrolling others in the 'Why'.",
-          mid: "You understand the big picture, but you often get pulled back into the 'How' before the vision is fully articulated.",
-          low: "You are more focused on the present than the future. You may struggle to inspire others during times of major change."
-        },
-        watchHigh: ["Pair yourself with a strong 'Executor' who can handle the details you might overlook", "Ensure your vision is translated into concrete quarterly goals"],
-        watchMid: ["Practice your 'elevator pitch' for the company's 3-year goal", "Spend one hour a week just 'thinking'—no meetings, no emails"],
-        watchLow: ["Ask 'What if?' more often in meetings", "Read more about industry trends outside your direct silo"]
-      },
-      {
-        name: "Execution & Pace",
-        range: [5, 9],
-        descriptions: {
-          high: "You are a 'Driver.' You lead through action, speed, and high standards. You get projects across the finish line.",
-          mid: "You are reliable and productive, but your pace can fluctuate. You sometimes prioritize 'getting it done' over 'getting it right.'",
-          low: "You may struggle with momentum. Your leadership can sometimes stall during the final 10% of a project."
-        },
-        watchHigh: ["Watch for burnout in your team—not everyone can maintain your 'sprint' pace forever", "Celebrate wins before rushing into the next project"],
-        watchMid: ["Use a project management tool to track micro-milestones", "Identify your biggest 'blocker' every morning and move it first"],
-        watchLow: ["Focus on 'closing loops'—don't leave tasks 90% finished", "Set shorter, more aggressive deadlines for small tasks"]
-      },
-      {
-        name: "People & Coaching",
-        range: [10, 14],
-        descriptions: {
-          high: "You are a 'Coach.' You lead by developing others. You see people as your primary asset and invest deeply in their growth.",
-          mid: "You are a good teammate and listener, but you may avoid the 'hard' coaching conversations that lead to real growth.",
-          low: "You lead through tasks rather than people. You may see team development as a distraction from the 'real work.'"
-        },
-        watchHigh: ["Ensure your empathy doesn't prevent you from holding people accountable to high standards", "Make sure you are also developing your *own* skills, not just others'"],
-        watchMid: ["Practice 'Radical Candor'—give direct feedback paired with personal care", "Ask more 'What' and 'How' questions instead of giving answers"],
-        watchLow: ["Start doing weekly 1-on-1s if you aren't already", "Ask your team: 'What is one thing I could do to better support your growth?'"]
-      },
-      {
-        name: "Systems & Stability",
-        range: [15, 19],
-        descriptions: {
-          high: "You are a 'Stabilizer.' You lead by creating order, process, and scalability. You ensure the machine runs smoothly.",
-          mid: "You appreciate process, but your systems are often informal or 'in your head,' making them hard for others to follow.",
-          low: "You lead through chaos. You may find process 'stifling,' which leads to repeated mistakes and 'hero-culture' fixes."
-        },
-        watchHigh: ["Don't let process become 'red tape' that slows down innovation", "Be willing to 'break the system' when a rapid pivot is required"],
-        watchMid: ["Document your most important workflow this week", "Look for one repetitive task you can automate or eliminate"],
-        watchLow: ["Recognize that 'boring' processes are what allow for 'exciting' growth", "Start using a centralized knowledge base for team protocols"]
-      }
-    ];
 
-    const sectionScores = sectionDefs.map(sec => {
-      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
-    });
-
-    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    const primaryIdx = sectionScores.indexOf(Math.max(...sectionScores));
-    const archetypes = ["The Visionary", "The Driver", "The Coach", "The Stabilizer"];
-
-    const overallLabel = archetypes[primaryIdx];
-    const overallColor = "#6366f1";
-    const overallDescription = `Your dominant leadership archetype is ${overallLabel}. You lead primarily through the lens of ${sectionDefs[primaryIdx].name.toLowerCase()}. While this is a major strength, the highest-performing leaders are 'versatile'—they can flex into the other three dimensions when the situation demands it.`;
-
-    const sectionResults = sectionDefs.map((sec, i) => {
-      const score = sectionScores[i];
-      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#6366f1" : score >= 40 ? "#a855f7" : "#94a3b8";
-      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
-      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    });
-
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  hardworking: (ans) => {
+    const t = TESTS.find(x => x.id === "hardworking");
+    const s = calculateSectionScores(ans, t.sections);
+    const overall = Math.round(s.reduce((a,b)=>a+b,0)/s.length);
+    const results = t.sections.map((sec, i) => ({
+      name: sec.name, score: s[i], color: "#10b981",
+      description: "Productivity depth.",
+      watch: ["Maintain consistency."]
+    }));
+    return { overall, overallLabel: "High Output", overallColor: "#10b981", overallDescription: "Depth and quality of effort.", sectionResults: results };
   },
-
   // ── EMOTIONAL INTELLIGENCE (DETAILED) ────
   ei: (answers) => {
     const sectionDefs = [
@@ -1435,107 +1522,6 @@ const REPORT_LOGIC = {
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   },
-
-  // ── AMBITION REPORT ───────────────────────
-  ambition: (answers) => {
-    const sectionDefs = [
-      {
-        name: "Goal Clarity",
-        range: [0, 4],
-        descriptions: {
-          high: "You have exceptional clarity about what you want. Your goals are specific, values-aligned, and live at the center of your decision-making. This clarity is the foundation everything else is built on.",
-          mid: "You have a sense of direction but your goals lack the precision needed to drive consistent action. Vague aspirations produce vague results — sharpening your targets will sharpen your progress.",
-          low: "Goal clarity is your most urgent development area. Without knowing specifically where you're going, effort becomes scattered and motivation is hard to sustain. The first act of ambition is deciding what you actually want."
-        },
-        watchHigh: ["Revisit goals regularly — clarity can become rigidity if you stop questioning what you want", "Ensure your goals are truly yours and not a performance of what success should look like"],
-        watchMid: ["Write one specific goal with a deadline this week — vague goals produce vague effort", "Ask yourself: if nothing about my circumstances changed, would I still want this?"],
-        watchLow: ["Start by writing down 3 things you genuinely want — not what you should want", "A journal practice of 10 minutes a week on 'what do I actually want?' will create more clarity than any book"]
-      },
-      {
-        name: "Drive & Initiative",
-        range: [5, 9],
-        descriptions: {
-          high: "You are a natural initiator. You don't wait for permission or perfect conditions — you create momentum. This proactive energy is one of the most reliable predictors of long-term achievement.",
-          mid: "You have drive in bursts but haven't yet made initiative a consistent habit. The gap between knowing what you want and acting on it is where ambition lives or dies.",
-          low: "Your drive is largely reactive — it activates when pushed but not consistently from within. Building a bias toward action is the single most impactful shift you can make right now."
-        },
-        watchHigh: ["High initiative without reflection can lead to busyness without direction — ensure action is pointed at the right things", "Protect your energy — constant action without recovery erodes the drive that fuels it"],
-        watchMid: ["Commit to one proactive action per week that you take without being prompted or pushed", "Ask yourself: what am I waiting for? The answer often reveals a fear to address, not a condition to meet"],
-        watchLow: ["Start with the smallest possible action toward a goal today — momentum begins with one step", "Identify one area where you've been waiting for the 'right time' and take a single step this week"]
-      },
-      {
-        name: "Risk & Growth",
-        range: [10, 13],
-        descriptions: {
-          high: "You have a healthy relationship with risk and discomfort. You understand that meaningful ambition requires accepting the possibility of failure, and you lean into it rather than away from it.",
-          mid: "You're willing to stretch sometimes but your risk tolerance is inconsistent. You tend to grow in areas that feel manageable and avoid the deeper discomforts where the real breakthroughs often live.",
-          low: "Fear of failure or discomfort is significantly limiting the ceiling of your ambition. The goals you're pursuing may be calibrated to feel safe rather than to reflect what you truly want."
-        },
-        watchHigh: ["Calculated risk and recklessness are different things — ensure your boldness is informed by honest self-assessment", "Share your bolder moves with someone who will give you honest feedback, not just encouragement"],
-        watchMid: ["Name one thing you've been avoiding because you might fail at it — that's likely your growth edge", "Reframe risk: the real risk is arriving at the end of your life having played safe with your potential"],
-        watchLow: ["Start with micro-risks — small acts of courage that build your tolerance for uncertainty", "Explore what failure actually means to you — often the imagined consequences are far worse than the real ones"]
-      },
-      {
-        name: "Long-Term Vision",
-        range: [14, 17],
-        descriptions: {
-          high: "You think and build in long arcs. Your daily choices are informed by a distant horizon, and you're willing to sacrifice short-term comfort for long-term significance. This orientation is rare and powerful.",
-          mid: "You have some long-term thinking but your daily habits and decisions aren't yet well-aligned with your future vision. The connection between today and tomorrow needs to be made more deliberate.",
-          low: "Your orientation is predominantly short-term. Without a compelling vision of the future, it's hard to make the sacrifices today that tomorrow requires. Building a longer time horizon is foundational."
-        },
-        watchHigh: ["Long-term thinking can become an excuse to defer present joy — ensure your vision includes richness now, not just later", "Revisit your vision regularly to check it still reflects what you want, not just what you once decided"],
-        watchMid: ["Write a one-paragraph description of where you want to be in 5 years and read it weekly", "For each major daily habit, ask: does this compound toward or against where I want to be?"],
-        watchLow: ["Spend 30 minutes writing your ideal life at age 65 — work backward from there", "Small daily rituals that compound over years are more powerful than any single dramatic act — identify one to start today"]
-      },
-      {
-        name: "Inner Fuel",
-        range: [18, 21],
-        descriptions: {
-          high: "Your ambition is internally driven. It doesn't depend on external validation, status, or comparison. This intrinsic fuel burns cleaner and longer than any external motivator — it's what sustains people through genuine difficulty.",
-          mid: "Your ambition is powered by a mix of internal and external fuel. This isn't inherently wrong, but it means your motivation will fluctuate based on recognition, comparison, and reward. Deepening the internal source builds resilience.",
-          low: "Your ambition is largely externally dependent — driven by what others think, what you should want, or what rewards you'll receive. Ambition fuelled this way is fragile. It peaks when conditions are favourable and collapses when they're not."
-        },
-        watchHigh: ["Internally driven people can push too hard without external feedback — build in honest mirrors and accountability", "Intrinsic motivation doesn't mean ignoring external reality — stay connected to feedback from the world around you"],
-        watchMid: ["Journal on this question: what would I still pursue if no one would ever know about it?", "Notice when you're seeking validation and ask: what does that tell me about my underlying insecurities?"],
-        watchLow: ["Spend time identifying what work or pursuit has made you lose track of time — that's your intrinsic signal", "Consider that chasing external approval is a treadmill — the goalposts move every time you reach them"]
-      }
-    ];
-
-    const sectionScores = sectionDefs.map(sec => {
-      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const maxScore = sectionAnswers.length * 4;
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / maxScore) * 100);
-    });
-
-    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-
-    let overallLabel, overallColor, overallDescription;
-    if (overall >= 75) {
-      overallLabel = "Purposefully Ambitious";
-      overallColor = "#6366f1";
-      overallDescription = "Your ambition is high, clear, and internally driven. You set bold goals, take initiative, embrace risk as part of growth, and think in long arcs. You're not chasing what's expected of you — you're building what genuinely matters to you. The work now is to stay honest about whether your goals continue to reflect your true values as you evolve, and to ensure your ambition includes space for rest and presence, not just pursuit.";
-    } else if (overall >= 50) {
-      overallLabel = "Emerging Ambition";
-      overallColor = "#f59e0b";
-      overallDescription = "You have real ambition — the ingredients are present. But they're not yet firing consistently. Your goals may lack specificity, your actions may not match your aspirations, or your fuel may be partly borrowed from external sources. The gap between where you are and where you could be is not a talent gap — it's a systems and clarity gap. Close it deliberately.";
-    } else {
-      overallLabel = "Dormant Potential";
-      overallColor = "#a855f7";
-      overallDescription = "Your ambition is quieter than your potential suggests it should be. This may reflect a season of life, a lack of clarity about what you want, fear that keeps goals small and safe, or simply not having given yourself permission to want more. Dormant potential isn't fixed potential — it's waiting for the right question, the right environment, or the right moment of honesty with yourself.";
-    }
-
-    const sectionResults = sectionDefs.map((sec, i) => {
-      const score = sectionScores[i];
-      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
-      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    });
-
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  },
-
   // ── LONELINESS REPORT ─────────────────────
   loneliness: (answers) => {
     const sectionDefs = [
@@ -1853,7 +1839,299 @@ const REPORT_LOGIC = {
     });
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  }
+  },
+  // ── LEADERSHIP MINDSET REPORT ───────────────────
+  leadership_mindset: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Growth & Potential",
+        range: [0, 4],
+        descriptions: {
+          high: "You have a deep-seated belief in human evolution. You view team members as 'expanding assets' and naturally look for latent talent rather than just fixed competencies.",
+          mid: "You believe in development but often prioritize immediate results over long-term growth. You develop people when time permits, but tend to revert to 'managing' during stress.",
+          low: "You tend to have a static view of talent. You likely focus on 'hiring the solution' rather than building it, which can lead to team stagnation or high turnover."
+        },
+        watchHigh: ["Don't let optimism blind you to current performance gaps that need direct correction.", "Ensure you aren't over-investing in people who do not actually want to grow."],
+        watchMid: ["Try delegating 'stretch goals' that are 10% beyond a person's current ability.", "Practice seeing failure as a diagnostic data point rather than a performance failure."],
+        watchLow: ["Explore the 'Growth Mindset' framework for management.", "Shift your feedback from 'what you did wrong' to 'how you can evolve.'"]
+      },
+      {
+        name: "Risk Appetite",
+        range: [5, 9],
+        descriptions: {
+          high: "You are psychologically resilient to ambiguity. You thrive when the path isn't clear and view calculated risks as the only way to achieve outsized results.",
+          mid: "You are a pragmatist. You take risks when the data supports them, but you may stall or over-analyze when the stakes are high and the outcome is uncertain.",
+          low: "You have a strong need for certainty and control. While this protects the organization from loss, it often causes you to miss major market or innovation shifts."
+        },
+        watchHigh: ["Ensure your team feels safe following you into the unknown; not everyone shares your risk tolerance.", "Balance your gut instincts with at least two hard metrics."],
+        watchMid: ["Identify one 'Safe bet' you are holding onto and intentionally stress-test it.", "Practice making small, non-critical decisions faster to build your intuition."],
+        watchLow: ["Understand that 'no decision' is actually a high-risk decision.", "Build a 'Risk Budget'—a small area where the team is allowed to fail without penalty."]
+      },
+      {
+        name: "Trust & Default",
+        range: [10, 14],
+        descriptions: {
+          high: "Your leadership is rooted in trust. You empower others by default and view your role as a facilitator of talent rather than a checkpoint of authority.",
+          mid: "You trust your team but maintain a 'veto power' that can bottleneck progress. You delegate the tasks, but often find it hard to delegate the actual authority.",
+          low: "You lean toward a command-and-control mindset. You believe that direct oversight is the only way to ensure quality, which limits your ability to scale."
+        },
+        watchHigh: ["Make sure you aren't abdicating responsibility when things go wrong.", "Verify that your high-trust doesn't turn into a lack of accountability."],
+        watchMid: ["Identify one project this week to delegate 100%—including the final decision-making power.", "Ask more questions and give fewer answers in 1-on-1s."],
+        watchLow: ["Ask yourself: 'Am I scaling the business or just scaling my own workload?'", "Evaluate how your constant oversight affects your team's initiative and morale."]
+      },
+      {
+        name: "Success View",
+        range: [15, 19],
+        descriptions: {
+          high: "You define success through systemic health and team well-being. You lead with a service-oriented heart, believing that a healthy culture automatically produces results.",
+          mid: "Your definition of success is a mix of personal achievement and team contribution. You care about the people, but the KPI is usually the loudest voice in your head.",
+          low: "You view success through the narrow lens of ego or individual performance metrics. You may reach targets, but often at a high cost to team sustainability."
+        },
+        watchHigh: ["Don't sacrifice necessary results for the sake of harmony.", "Ensure your 'service' to the team doesn't lead to your own burnout."],
+        watchMid: ["Re-align your daily tasks with your deeper 'Why' once a month.", "Celebrate small team wins as intentionally as you celebrate the big quarterly targets."],
+        watchLow: ["Shift your internal narrative from 'I achieved' to 'We enabled'.", "Practice active listening to understand what success looks like for your team members."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    let overallLabel = overall >= 75 ? "Empathetic Growth Leader" : overall >= 50 ? "Balanced Pragmatist" : "Control-Oriented Traditionalist";
+    
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Analysis of your internal leadership blueprint.", sectionResults };
+  },
+
+  // ── LEADERSHIP ORIENTATION REPORT ────────────────
+  leadership_orientation: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Operational Execution",
+        range: [0, 4],
+        descriptions: {
+          high: "You are a 'Tactical Driver.' Your focus is on the 'Now'—ensuring that plans become reality with high speed and absolute precision.",
+          mid: "You are productive but can get caught in the 'messy middle' between doing the work and directing it. You ensure progress but may lack a high-speed edge.",
+          low: "You often lose sight of the tactical steps required to finish. You may have great ideas that fail to launch because the 'boring' work is ignored."
+        },
+        watchHigh: ["Watch for team burnout; not everyone can maintain your 'sprint' pace forever.", "Make sure you don't confuse being 'busy' with being 'effective'."],
+        watchMid: ["Use a more structured project management tool to visualize the finish line.", "Delegate one routine task today to reclaim one hour for strategic thinking."],
+        watchLow: ["Connect your big ideas to a specific 'Tuesday morning' to-do list.", "Focus on closing open loops before starting new ones."]
+      },
+      {
+        name: "Strategic Direction",
+        range: [5, 9],
+        descriptions: {
+          high: "You are a 'Visionary Architect.' You focus on the North Star and where the organization is heading 3 years from now.",
+          mid: "You have a vision but often struggle to communicate it in a way that feels actionable to the people responsible for doing it.",
+          low: "You are operating reactively. You spend your day responding to the fire of the hour rather than building the firebreak for the year."
+        },
+        watchHigh: ["Ensure your vision is grounded in current resource reality.", "Partner with a strong 'Operational' leader to land your big ideas."],
+        watchMid: ["Write down your 3-year plan and share it with a peer to check for clarity.", "Block out 2 hours of 'Strategy Only' time on your calendar weekly."],
+        watchLow: ["Read industry research for 30 minutes every morning before opening email.", "Ask: 'What will this decision look like in 12 months?' before acting."]
+      },
+      {
+        name: "Human Development",
+        range: [10, 14],
+        descriptions: {
+          high: "You are a 'People Coach.' You believe that scaling a business is impossible without scaling the human beings within it.",
+          mid: "You care about the team but often let 'the work' interrupt your investment in them. You are a supportive boss but an inconsistent mentor.",
+          low: "You see people as 'units of production.' You focus on the output, which build building a fragile, high-turnover culture."
+        },
+        watchHigh: ["Don't let your empathy prevent you from holding people to high standards.", "Set clear performance boundaries early to avoid 'empathy traps.'"],
+        watchMid: ["Schedule non-negotiable 1-on-1s that focus ONLY on growth, not project updates.", "Practice asking for feedback from your team as much as you give it."],
+        watchLow: ["Identify the career goals of your top 3 employees this week.", "Acknowledge great work publicly to build social capital."]
+      },
+      {
+        name: "Structural Integrity",
+        range: [15, 19],
+        descriptions: {
+          high: "You are a 'System Designer.' You build machines that run without you. You prioritize scalability and predictability.",
+          mid: "You appreciate process but your systems are often fragile or live 'in your head,' making it difficult for the team to operate autonomously.",
+          low: "You lead through chaos. You may find process 'stifling,' which leads to repeated mistakes and a culture of 'hero-fixes'."
+        },
+        watchHigh: ["Ensure your systems don't become red-tape that kills agility.", "Be willing to break a process if it's no longer serving the goal."],
+        watchMid: ["Document one key workflow this week that everyone uses.", "Look for one automation opportunity in your daily routine."],
+        watchLow: ["Recognize that 'boring' work (SOPs) is what allows for 'exciting' growth.", "Pick the most repetitive mistake in your team and build a checklist to stop it."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    const labels = ["Tactical Driver", "Strategic Visionary", "People Coach", "System Architect"];
+    const primaryIdx = sectionScores.indexOf(Math.max(...sectionScores));
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#6366f1" : score >= 40 ? "#a855f7" : "#94a3b8";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel: labels[primaryIdx], overallColor: "#6366f1", overallDescription: "Energy allocation analysis.", sectionResults };
+  },
+
+  // ── AMBITION MINDSET REPORT ─────────────────────
+  ambition_mindset: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Inner Drive",
+        range: [0, 4],
+        descriptions: {
+          high: "Your fuel is almost entirely intrinsic. You chase goals for the sake of mastery and alignment with your potential.",
+          mid: "Your drive is a hybrid. You are motivated by passion, but you require external validation or status to feel 'successful'.",
+          low: "Your ambition is externally dependent. You are likely chasing what you think you *should* want, making motivation fragile."
+        },
+        watchHigh: ["Watch for 'Ambition Blindness'—don't neglect your health or relationships.", "Stay connected to who you are today."],
+        watchMid: ["Identify which 20% of your goals are purely for 'status' and consider dropping them.", "Focus on the internal win."],
+        watchLow: ["Find one activity you would do even if you could never tell anyone about it.", "Explore your deeper 'Why'."]
+      },
+      {
+        name: "Failure Resilience",
+        range: [5, 9],
+        descriptions: {
+          high: "You view failure as premium data. Setbacks sharpen your focus rather than dulling your spirit.",
+          mid: "You recover eventually, but setbacks take a heavy emotional toll. You spend time in self-criticism first.",
+          low: "Failure feels like a judgment on your worth. You likely avoid 'Big Bets' to protect your ego."
+        },
+        watchHigh: ["Share your 'Failure Stories' with others to humanize your success.", "Don't stop doing thorough risk assessments."],
+        watchMid: ["Practice the '15-minute vent'—vent after a failure, then pivot immediately to 'Lesson Mode'.", "Keep a Success Journal."],
+        watchLow: ["Look at a failure from 2 years ago—what did it teach you?", "Separate your identity from your results."]
+      },
+      {
+        name: "Growth Vision",
+        range: [10, 14],
+        descriptions: {
+          high: "You see no ceiling. Your vision for your life is expansive, and you believe your greatest work is always ahead of you.",
+          mid: "You aim high but often tether your vision to what is 'realistic.' You stretch within seen boundaries.",
+          low: "Your vision is limited by your current context. You struggle to imagine a life much larger than today."
+        },
+        watchHigh: ["Balance your 'future' self with your 'present' self.", "Ensure your vision includes well-being."],
+        watchMid: ["Write a 'No-Limits' 5-year plan this week—ignore logic for 10 minutes.", "Question your definition of 'realistic.'"],
+        watchLow: ["Read biographies of people who started from zero.", "Spend 10 minutes a day visualizing success."]
+      },
+      {
+        name: "Work Identity",
+        range: [15, 19],
+        descriptions: {
+          high: "Ambition is your core identity. You define yourself through your impact, which provides massive focus.",
+          mid: "Your career is a major anchor, but you have other stable identities. You are balanced.",
+          low: "You separate your 'self' from your 'work.' This provides safety, but may lack the elite-level 'obsessive' edge."
+        },
+        watchHigh: ["Intentionally build an identity outside of work to prevent a crisis if work stalls.", "Mind your health."],
+        watchMid: ["Ensure your restful activities are actually restful.", "Review your values annually."],
+        watchLow: ["Connect your personal values to your professional output.", "Find a way to make work 'personal.'"]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    const overallLabel = overall >= 75 ? "Relentless Pursuer" : overall >= 45 ? "Pragmatic Achiever" : "Under-Fuelled Talent";
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor: "#f59e0b", overallDescription: "Psychological drive analysis.", sectionResults };
+  },
+
+  // ── AMBITION ORIENTATION REPORT ──────────────────
+  ambition_orientation: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Goal Specificity",
+        range: [0, 4],
+        descriptions: {
+          high: "You are tactically clear. You know exactly what success looks like and what the next three steps are.",
+          mid: "You have a general destination, but your milestones are often blurry, causing wasted energy on course correction.",
+          low: "You operate on 'vibes' rather than targets. You move in a general direction but lack concrete metrics."
+        },
+        watchHigh: ["Don't become so rigid with metrics that you miss unexpected opportunities.", "Ensure goals are values-aligned."],
+        watchMid: ["Apply the SMART framework to your single most important goal today.", "Track metrics once a week."],
+        watchLow: ["Write down one measurable goal for this month.", "Use a simple tracking app or a physical planner."]
+      },
+      {
+        name: "Tactical Initiative",
+        range: [5, 9],
+        descriptions: {
+          high: "You are a self-starter who creates momentum. You don't wait for permission or 'perfect conditions'.",
+          mid: "You take initiative when the path is clear, but you hesitate when the project is complex.",
+          low: "You are primarily reactive. You wait for external pressure to move, which means you are always 'following'."
+        },
+        watchHigh: ["Make sure you aren't running in the wrong direction just to stay busy.", "Pause for strategy daily."],
+        watchMid: ["Identify one thing you are 'waiting for permission' to do, and do it today.", "Analyze procrastination patterns."],
+        watchLow: ["Find a 'bias-toward-action' partner.", "Start with the '2-minute rule': if it takes < 2 mins, do it now."]
+      },
+      {
+        name: "Risk Management",
+        range: [10, 14],
+        descriptions: {
+          high: "You have a high appetite for calculated risk. You understand that growth lives in the unknown.",
+          mid: "You take risks when forced, but prefer the comfort of the known path. Growth is steady but rarely exponential.",
+          low: "You are risk-averse. While this protects your current state, it acts as a ceiling on long-term potential."
+        },
+        watchHigh: ["Ensure you always have a 'downside protection' strategy.", "Don't bet everything on a single outcome."],
+        watchMid: ["Identify one 'Safe bet' that is actually costing you opportunity.", "Calculate the 'Cost of Inaction'."],
+        watchLow: ["Take one tiny social risk this week.", "Acknowledge that staying still is also a high-risk decision."]
+      },
+      {
+        name: "Social Leverage",
+        range: [15, 19],
+        descriptions: {
+          high: "You understand success is a team sport. You leverage your network to accelerate results and open doors.",
+          mid: "You have a good network but you feel 'guilty' when using it to advance goals. You under-utilize capital.",
+          low: "You are a 'Lone Wolf.' You try to do everything through individual effort, ignoring multipliers."
+        },
+        watchHigh: ["Ensure you are giving as much value to your network as you take.", "Mentor someone junior."],
+        watchMid: ["Reach out to one person who is 5 years ahead of you.", "Practice 'The Ask'—be direct."],
+        watchLow: ["Join one professional community this month.", "Recognize that 'lone-wolfing' doesn't scale."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    const overallLabel = overall >= 75 ? "High-Impact Strategist" : overall >= 45 ? "Steady Progressor" : "Lone Workhorse";
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#6366f1" : score >= 40 ? "#a855f7" : "#94a3b8";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Pursuit mechanics analysis.", sectionResults };
+  },
 };
 
 // ============================================
