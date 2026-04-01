@@ -2658,8 +2658,6 @@ async function sendReportEmail() {
   const statusEl   = document.getElementById("email-report-status");
   const sendBtn    = document.getElementById("send-report-btn");
   const email      = emailInput ? emailInput.value.trim() : "";
-  
-  // The element containing the actual visual report you want to turn into a PDF
   const reportElement = document.getElementById("report-page-content");
 
   if (!email || !email.includes("@")) {
@@ -2674,52 +2672,51 @@ async function sendReportEmail() {
   statusEl.style.display = "none";
 
   try {
-    // 1. PDF Generation Settings
+    // 1. Generate the PDF as a Data URI String
     const opt = {
-      margin:       10,
-      filename:     `${currentTest.id}_report.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      margin: 10,
+      filename: `report.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // 2. Convert the report HTML into a Base64 Data URI string
-    // This creates the "file" content
     const pdfBase64 = await html2pdf().from(reportElement).set(opt).outputPdf('datauristring');
 
-    // 3. Send via EmailJS
-    // We keep your existing logic for labels, but add the 'content' field
-    const result = lastReportResult;
-    const overallLabel = result.sectionResults ? result.overallLabel : result.label;
+    // 2. Send to Google Apps Script instead of EmailJS
+    const scriptURL = "https://script.google.com/macros/s/AKfycbw7Hrj3uX5KGXooyGJzvKuMW8MMcBN3o0L1wcSczb_hQ7n9lw1D6gqqosP2kexrqTGC/exec";
 
-    const templateParams = {
-      to_email: email,
-      test_name: currentTest.title,
-      overall_label: overallLabel,
-      content: pdfBase64 // This variable MUST match the attachment field in EmailJS
-    };
+    sendBtn.textContent = "Sending Email...";
 
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+    await fetch(scriptURL, {
+      method: "POST",
+      mode: "no-cors", // Essential for free Google Scripts
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        pdf: pdfBase64,
+        test_name: currentTest.title
+      })
+    });
 
-    // 4. Success UI
+    // 3. Success UI
     statusEl.style.display = "block";
     statusEl.style.color   = "#10b981";
-    statusEl.textContent   = `✓ PDF Report successfully sent to ${email}!`;
+    statusEl.textContent   = `✓ Report sent to ${email}!`;
     sendBtn.textContent    = "Sent ✓";
-    emailInput.value       = "";
     
-    // As requested: Success Popup
     alert("Your " + currentTest.title + " report has been successfully sent to " + email + "!");
 
   } catch (err) {
-    console.error("PDF/Email Error:", err);
+    console.error("Error:", err);
     statusEl.style.display = "block";
     statusEl.style.color   = "#ef4444";
-    statusEl.textContent   = "⚠ Error generating or sending PDF. Please try again.";
+    statusEl.textContent   = "⚠ Connection error. Check console.";
     sendBtn.disabled       = false;
     sendBtn.textContent    = "Email My Report →";
   }
 }
+
 // ============================================
 // COACHING PAGE
 // ============================================
