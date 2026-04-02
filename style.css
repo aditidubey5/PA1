@@ -287,6 +287,18 @@ nav {
 .card-meta span { font-size: 0.78rem; color: var(--text-light); font-weight: 600; }
 .card-meta span strong { color: var(--text-muted); font-weight: 700; }
 
+@media print {
+  #report-page-content {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .report-actions, #email-report-box {
+    display: none !important; /* Hide buttons in the PDF */
+  }
+}
+
 /* ============================================ BUTTONS ============================================ */
 .btn-primary {
     background: var(--brand-grad);
