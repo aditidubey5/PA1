@@ -2660,43 +2660,56 @@ async function sendReportEmail() {
   const email      = emailInput ? emailInput.value.trim() : "";
 
   if (!email || !email.includes("@")) {
-    alert("Please enter a valid email.");
+    alert("Please enter a valid email address.");
     return;
   }
 
+  // Target the container that holds the visual report
+  const reportElement = document.getElementById("report-page-content");
+
   sendBtn.disabled = true;
-  sendBtn.textContent = "Processing...";
+  sendBtn.textContent = "Generating PDF...";
   statusEl.style.display = "none";
 
-  const SCRIPT_URL = "https://script.google.com/macros/library/d/1z4mqzdm-2xeie2oPxChAmmaDOSDaxu6usxAT68qa5_harSOVoRBf049g/6"; 
-
-  // We send the raw data, Google will format it into a PDF
-  const payload = {
-    to_email: email,
-    test_name: currentTest.title,
-    overall: lastReportResult.overall || lastReportResult.score,
-    label: lastReportResult.overallLabel || lastReportResult.label,
-    results: lastReportResult.sectionResults || []
-  };
-
   try {
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors", 
-      body: JSON.stringify(payload)
-    });
+    // 1. PDF Generation Settings
+    const opt = {
+      margin:       10,
+      filename:     'report.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
+    // 2. Generate the PDF as a Data URI (Base64 String)
+    // This is the "Local Generation" part of your request
+    const pdfDataUri = await html2pdf().from(reportElement).set(opt).outputPdf('datauristring');
+
+    sendBtn.textContent = "Sending Email...";
+
+    // 3. Send via EmailJS as a standard variable
+    const templateParams = {
+      to_email: email,
+      test_name: currentTest.title,
+      pdf_link: pdfDataUri // This passes the massive string to the {{pdf_link}} in your template
+    };
+
+    await emailjs.send("service_u11zlzf", "template_zpcklyu", templateParams);
+
+    // 4. Success UI
     statusEl.style.display = "block";
-    statusEl.style.color = "#10b981";
-    statusEl.textContent = "✓ PDF Report sent to " + email;
-    sendBtn.textContent = "Sent ✓";
+    statusEl.style.color   = "#10b981";
+    statusEl.textContent   = "✓ Report sent! Check your inbox to download the PDF.";
+    sendBtn.textContent    = "Sent ✓";
+    emailInput.value       = "";
     
-    alert("Report Sent! Check your email (and spam folder) in 1 minute.");
+    alert("Success! Your PDF report has been sent to " + email);
 
   } catch (error) {
-    console.error("Error:", error);
+    console.error("PDF/Email Error:", error);
     statusEl.style.display = "block";
-    statusEl.textContent = "⚠ Connection error. Please try again.";
+    statusEl.style.color   = "#ef4444";
+    statusEl.textContent   = "⚠ Error generating report. Please try again.";
     sendBtn.disabled = false;
     sendBtn.textContent = "Email My Report →";
   }
