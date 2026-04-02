@@ -69,6 +69,15 @@
             <p class="section-label">Assessment Library</p>
             <h2>Find Your <span class="text-gradient">Edge</span></h2>
             <p>Twelve diagnostics. Honest insights. No fluff.</p>
+            <div class="filter-bar">
+                <span class="filter-pill active" onclick="filterTests('all')">All</span>
+                <span class="filter-pill" onclick="filterTests('Personality')">Personality</span>
+                <span class="filter-pill" onclick="filterTests('Mindset')">Mindset</span>
+                <span class="filter-pill" onclick="filterTests('Orientation')">Orientation</span>
+            </div>
+            <div id="test-grid-ui">
+                
+            </div>
         </div>
         <div class="test-grid" id="test-grid-ui"></div>
     </div>

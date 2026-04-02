@@ -2029,31 +2029,21 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 function renderTestGrid() {
   const grid = document.getElementById("test-grid-ui");
   
-  // 1. Create the Filter Buttons HTML
+  // 1. Define Categories
   const categories = [
-    { id: "all", label: "All Assessments" },
+    { id: "all", label: "All" },
     { id: "mindset", label: "Mindset" },
     { id: "orientation", label: "Orientation" },
     { id: "personality", label: "Personality" }
   ];
 
+  // 2. Create the Filter Buttons HTML (Small & Pill-shaped)
   const filterHtml = `
-    <div class="filter-container" style="display:flex; justify-content:center; gap:10px; margin-bottom:40px; flex-wrap:wrap;">
+    <div class="filter-bar">
       ${categories.map(cat => `
         <button 
-          class="filter-btn ${activeCategory === cat.id ? 'active' : ''}" 
+          class="filter-pill ${activeCategory === cat.id ? 'active' : ''}" 
           onclick="filterTests('${cat.id}')"
-          style="
-            padding: 10px 22px; 
-            border-radius: 50px; 
-            border: 2px solid ${activeCategory === cat.id ? 'transparent' : '#e2e8f0'};
-            background: ${activeCategory === cat.id ? 'var(--brand-grad)' : 'white'};
-            color: ${activeCategory === cat.id ? 'white' : 'var(--text-muted)'};
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-          "
         >
           ${cat.label}
         </button>
@@ -2061,12 +2051,22 @@ function renderTestGrid() {
     </div>
   `;
 
-  // 2. Filter the tests based on selection
+  // 3. The Tagline
+  const taglineHtml = `
+    <div style="text-align:center; margin-bottom: 40px;">
+        <p class="section-label" style="margin-bottom: 10px;">Diagnostics</p>
+        <h2 style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; color: var(--text-primary);">
+            Twelve diagnostics. Honest insights. No fluff.
+        </h2>
+    </div>
+  `;
+
+  // 4. Filter the logic
   const filteredTests = activeCategory === "all" 
     ? TESTS 
     : TESTS.filter(t => t.category === activeCategory);
 
-  // 3. Generate the Cards
+  // 5. Generate Test Cards
   const cardsHtml = filteredTests.map(t => `
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
@@ -2082,14 +2082,12 @@ function renderTestGrid() {
     </div>
   `).join("");
 
-  // 4. Inject into the page
-  grid.innerHTML = filterHtml + `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">${cardsHtml}</div>`;
-}
-
-// 5. Add the click handler function
-function filterTests(catId) {
-  activeCategory = catId;
-  renderTestGrid();
+  // 6. Inject everything: Buttons -> Tagline -> Grid
+  grid.innerHTML = `
+    ${filterHtml}
+    ${taglineHtml}
+    <div class="test-grid-container">${cardsHtml}</div>
+  `;
 }
 // ============================================
 // KNOW MORE MODAL

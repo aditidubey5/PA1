@@ -501,3 +501,52 @@ nav {
     .nav-logo-img { height: 34px; }
     .hero h1 { font-size: 1.9rem; }
 }
+
+/* Container for the buttons */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto 30px auto;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* The actual small round/pill buttons */
+.filter-pill {
+  padding: 8px 20px;
+  border-radius: 50px; /* Makes them round/pill shaped */
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  height: auto; /* Fixes the stretching issue */
+  width: auto;  /* Fixes the stretching issue */
+}
+
+/* Hover state */
+.filter-pill:hover {
+  border-color: var(--brand-magenta);
+  color: var(--brand-indigo);
+  background: #fdf8ff;
+}
+
+/* Active state (when selected) */
+.filter-pill.active {
+  background: var(--brand-grad);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+/* Layout for the cards grid */
+.test-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
