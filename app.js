@@ -2658,7 +2658,6 @@ async function sendReportEmail() {
   const statusEl   = document.getElementById("email-report-status");
   const sendBtn    = document.getElementById("send-report-btn");
   const email      = emailInput ? emailInput.value.trim() : "";
-  const reportElement = document.getElementById("report-page-content");
 
   if (!email || !email.includes("@")) {
     statusEl.style.display = "block";
@@ -2667,56 +2666,64 @@ async function sendReportEmail() {
     return;
   }
 
-  sendBtn.disabled     = true;
-  sendBtn.textContent  = "Generating PDF...";
+  // Target the exact report container the user sees
+  const reportElement = document.getElementById("report-page-content");
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Capturing Report...";
   statusEl.style.display = "none";
 
+  const SCRIPT_URL = "YOUR_NEW_DEPLOYED_URL_HERE"; 
+
   try {
-    // 1. Generate the PDF as a Data URI String
+    // 1. Convert the visible HTML report into a PDF Base64 string
     const opt = {
-      margin: 10,
-      filename: `report.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      margin:       10,
+      filename:     'report.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
+    // This captures the visual report and converts to string
     const pdfBase64 = await html2pdf().from(reportElement).set(opt).outputPdf('datauristring');
-
-    // 2. Send to Google Apps Script instead of EmailJS
-    const scriptURL = "https://script.google.com/macros/s/AKfycbw7Hrj3uX5KGXooyGJzvKuMW8MMcBN3o0L1wcSczb_hQ7n9lw1D6gqqosP2kexrqTGC/exec";
 
     sendBtn.textContent = "Sending Email...";
 
-    await fetch(scriptURL, {
+    // 2. Prepare data for Google Script
+    const payload = {
+      to_email: email,
+      test_name: currentTest.title,
+      overall_score: lastReportResult.overall || lastReportResult.score,
+      overall_label: lastReportResult.overallLabel || lastReportResult.label,
+      pdf_base64: pdfBase64
+    };
+
+    // 3. Send to Google
+    await fetch(SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors", // Essential for free Google Scripts
+      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        pdf: pdfBase64,
-        test_name: currentTest.title
-      })
+      body: JSON.stringify(payload)
     });
 
-    // 3. Success UI
     statusEl.style.display = "block";
-    statusEl.style.color   = "#10b981";
-    statusEl.textContent   = `✓ Report sent to ${email}!`;
-    sendBtn.textContent    = "Sent ✓";
+    statusEl.style.color = "#10b981";
+    statusEl.textContent = "✓ Success! The exact report you see has been sent to your inbox.";
+    sendBtn.textContent = "Sent ✓";
+    emailInput.value = "";
     
-    alert("Your " + currentTest.title + " report has been successfully sent to " + email + "!");
+    alert("Sent! Check your email for the PDF version of this report.");
 
-  } catch (err) {
-    console.error("Error:", err);
+  } catch (error) {
+    console.error("PDF Error:", error);
     statusEl.style.display = "block";
-    statusEl.style.color   = "#ef4444";
-    statusEl.textContent   = "⚠ Connection error. Check console.";
-    sendBtn.disabled       = false;
-    sendBtn.textContent    = "Email My Report →";
+    statusEl.style.color = "#ef4444";
+    statusEl.textContent = "⚠ Something went wrong. Try again.";
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Email My Report →";
   }
 }
-
 // ============================================
 // COACHING PAGE
 // ============================================
