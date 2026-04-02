@@ -10,6 +10,7 @@
 const TESTS = [
   {
     id: "disc",
+    category: "Personality",
     title: "DISC Behavioral Profile",
     tagline: "Uncover how you communicate, lead, and react under pressure.",
     description: "The DISC model maps your natural behavioral style across four dimensions — Dominance, Influence, Steadiness, and Conscientiousness. Knowing your DISC profile helps you understand your default communication patterns, decision-making speed, and how others experience working with you.",
@@ -29,6 +30,7 @@ const TESTS = [
   },
   {
     id: "bigfive",
+    category: "Personality",
     title: "Big Five Personality Map",
     tagline: "The gold standard of personality science — applied to your career.",
     description: "The Big Five (OCEAN) model is the most validated personality framework in psychological research. This assessment measures your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism — and translates each dimension into practical career intelligence.",
@@ -48,6 +50,7 @@ const TESTS = [
   },
   {
     id: "martyr",
+    category:"Mindset",
     title: "The Martyr Index",
     tagline: "Are you working hard — or just suffering productively?",
     description: "The Martyr Index is a proprietary People Assets diagnostic. It measures the gap between effort invested and systemic impact generated. High martyrs work extremely hard but remain stuck — they over-invest in low-leverage tasks, under-delegate, and confuse busyness with progress.",
@@ -85,6 +88,7 @@ const TESTS = [
   },
   {
     id: "signal",
+    category:"Orientation",
     title: "Signal vs. Noise Quotient",
     tagline: "How much of your day is signal — and how much is static?",
     description: "In the attention economy, your ability to filter high-value information from digital noise is a professional superpower. This assessment measures your Signal/Noise Quotient (SNQ) — quantifying your information diet, focus quality, and strategic thinking bandwidth.",
@@ -122,6 +126,7 @@ const TESTS = [
   },
   {
     id: "ei",
+    category:"Personality",
     title: "Emotional Intelligence Audit",
     tagline: "Your EQ is the ceiling on your leadership. Find out where it sits.",
     description: "Emotional Intelligence (EQ) is the ability to recognize, understand, and manage emotions — in yourself and others. Research consistently shows EQ outperforms IQ in predicting leadership effectiveness, team performance, and career longevity.",
@@ -159,6 +164,7 @@ const TESTS = [
   },
   {
     id: "growth",
+    category:"Mindset",
     title: "Growth Mindset Diagnostic",
     tagline: "Fixed or fluid? This is the meta-skill beneath every other skill.",
     description: "Psychologist Carol Dweck's foundational research shows that how you think about your own abilities determines how far you'll grow. This diagnostic goes beyond self-reported mindset to measure your behavioral patterns around challenge, failure, learning, and feedback.",
@@ -196,6 +202,7 @@ const TESTS = [
   },
   {
     id: "hardworking",
+    category:"Orientation",
     title: "Hardworking Index",
     tagline: "Are you truly putting in the work — or just feeling busy?",
     description: "The Hardworking Index measures the depth and quality of your work across five dimensions: effort, consistency, focus, resilience, and self-motivation. It goes beyond surface-level busyness to reveal whether your energy is being channelled into meaningful, sustained output.",
@@ -323,139 +330,10 @@ const TESTS = [
     ]
   },
 
-  // ── AMBITION ──────────────────────────────
-  {
-    id: "ambition",
-    title: "Ambition Spectrum",
-    tagline: "How high are you really aiming — and what's driving it?",
-    description: "Ambition is more than wanting success — it's the quality of your goals, the clarity of your direction, and the actions you actually take toward them. The Ambition Spectrum measures your goal orientation, drive for growth, risk appetite, long-term thinking, and the psychological fuel behind your aspirations.",
-    questions: 22,
-    time: "10 min",
-    icon: "🚀",
-    sections: [
-      { name: "Goal Clarity", start: 0, end: 4 },
-      { name: "Drive & Initiative", start: 5, end: 9 },
-      { name: "Risk & Growth", start: 10, end: 13 },
-      { name: "Long-Term Vision", start: 14, end: 17 },
-      { name: "Inner Fuel", start: 18, end: 21 }
-    ],
-    questions_data: [
-      {
-        section: "Goal Clarity",
-        q: "Right now, I have a specific, concrete goal I am actively working toward — not a vague wish, but a real target with a timeline.",
-        options: ["No — I have no clear goal I'm working toward","I have a vague idea of what I want but nothing defined","I have goals but they shift frequently and lack real specificity","I have a reasonably clear goal with some structure around it","Yes — I have a specific, time-bound goal I am actively pursuing"]
-      },
-      {
-        section: "Goal Clarity",
-        q: "When I set a goal for myself, how specific and measurable is it?",
-        options: ["Very vague — more of a direction than a destination","Somewhat defined but I rarely track progress against it","Moderately specific — I know roughly what success looks like","Specific enough that I can tell when I'm on or off track","Very specific — I define success clearly and measure my progress regularly"]
-      },
-      {
-        section: "Goal Clarity",
-        q: "How often do you revisit and refine your goals to make sure they still reflect what you truly want?",
-        options: ["Rarely — I don't have a habit of reviewing my goals","Occasionally — maybe once a year if that","Sometimes — when life forces me to reassess","Regularly — I check in on my goals every few months","Consistently — I have a deliberate review practice and update them as I grow"]
-      },
-      {
-        section: "Goal Clarity",
-        q: "If someone asked you today where you want to be in five years, you could answer...",
-        options: ["Not at all — I genuinely have no idea","Very vaguely — something like 'successful' or 'happy'","With a general direction but no real specifics","With a reasonably clear picture of what I'm working toward","Confidently and in detail — I have a vivid vision I'm actively building toward"]
-      },
-      {
-        section: "Goal Clarity",
-        q: "My goals are aligned with my deepest values — not just what I think I should want.",
-        options: ["Strongly Disagree — I'm chasing goals that feel externally imposed","Disagree — my goals are mostly about status or what looks good to others","Neutral — some goals feel mine, others feel inherited from expectations","Agree — my goals are mostly aligned with what genuinely matters to me","Strongly Agree — my goals are deeply personal and reflect my true values"]
-      },
-      {
-        section: "Drive & Initiative",
-        q: "When an opportunity arises that could accelerate my growth, I typically...",
-        options: ["Hesitate and usually let it pass","Consider it but rarely take action","Evaluate it carefully and occasionally pursue it","Act on it quickly if it aligns with my goals","Move decisively — I seek out opportunities rather than waiting for them"]
-      },
-      {
-        section: "Drive & Initiative",
-        q: "How often do you proactively create opportunities for yourself rather than waiting for them to appear?",
-        options: ["Almost never — I tend to wait for things to come to me","Rarely — I act when pushed, not by choice","Sometimes — when the timing feels right","Often — I regularly look for ways to create my own momentum","Almost always — I believe opportunities are built, not found, and I act accordingly"]
-      },
-      {
-        section: "Drive & Initiative",
-        q: "I invest time outside of work hours in activities that directly develop my skills or advance my goals.",
-        options: ["Rarely — my personal time is strictly for rest and leisure","Occasionally — I do something developmental once in a while","Sometimes — I go through phases of active self-development","Often — I regularly invest personal time in growth-related activities","Almost always — self-development is a non-negotiable part of my weekly rhythm"]
-      },
-      {
-        section: "Drive & Initiative",
-        q: "When I compare where I am now to where I was two years ago, I feel...",
-        options: ["Like very little has changed — I've been largely standing still","Like I've moved slightly but not meaningfully","Mixed — I've grown in some areas but stagnated in others","Satisfied — I've made real progress and I can see the growth clearly","Proud — the distance I've covered is significant and I'm building momentum"]
-      },
-      {
-        section: "Drive & Initiative",
-        q: "When things are going well and I've achieved a goal, my instinct is to...",
-        options: ["Relax and stay where I am — I've earned it","Enjoy the moment for a long time before thinking about what's next","Gradually start thinking about new goals","Fairly quickly set a new, bigger target","Immediately raise the bar — achievement fuels my hunger for the next challenge"]
-      },
-      {
-        section: "Risk & Growth",
-        q: "I am willing to leave behind comfort, certainty, or security in pursuit of something I genuinely want.",
-        options: ["Rarely — security is my priority and I protect it strongly","Only under significant external pressure","Sometimes — if the potential upside is large enough","Often — I regularly choose growth over comfort when it matters","Almost always — I see discomfort as the price of meaningful ambition"]
-      },
-      {
-        section: "Risk & Growth",
-        q: "How do you respond when a bold move could advance your goals but carries real risk of failure?",
-        options: ["I avoid it — the fear of failure outweighs the potential gain","I think about it a lot but usually don't follow through","I take it if someone else validates or encourages me to","I weigh it carefully and take it if the reasoning is sound","I lean into it — I know that bold goals require bold moves"]
-      },
-      {
-        section: "Risk & Growth",
-        q: "I actively put myself in situations where I might fail, because I know that's where the real growth is.",
-        options: ["Strongly Disagree — I avoid situations where failure is likely","Disagree — I prefer to operate in areas where I know I can succeed","Neutral — I'll stretch occasionally but don't seek it out deliberately","Agree — I regularly take on challenges that are at the edge of my current ability","Strongly Agree — I deliberately seek out environments where failure is a real possibility"]
-      },
-      {
-        section: "Risk & Growth",
-        q: "Looking at the past year, how much have you stretched beyond your existing comfort zone in pursuit of your goals?",
-        options: ["Not at all — I've stayed firmly within what's familiar","Very little — one or two small stretches at most","Moderately — I've pushed myself in a few meaningful ways","Significantly — I've taken real steps that required genuine courage","Substantially — I've consistently pushed beyond comfort in multiple dimensions"]
-      },
-      {
-        section: "Long-Term Vision",
-        q: "I am willing to make short-term sacrifices today for goals that will only pay off years from now.",
-        options: ["Rarely — I prioritise immediate comfort and rewards","Sometimes — only if the sacrifice is small","Moderately — I can delay gratification when I must but it's a struggle","Often — I regularly invest in long-term outcomes over short-term ease","Almost always — my decisions are shaped by where I want to be, not where I am"]
-      },
-      {
-        section: "Long-Term Vision",
-        q: "My day-to-day decisions and habits are meaningfully connected to my longer-term ambitions.",
-        options: ["Strongly Disagree — my daily life is largely disconnected from any bigger vision","Disagree — I have a vision but my daily habits don't really reflect it","Neutral — there's some connection but it's inconsistent","Agree — most of my key daily choices are guided by my longer-term goals","Strongly Agree — my habits are deliberately designed to compound toward my future"]
-      },
-      {
-        section: "Long-Term Vision",
-        q: "How far ahead do you naturally think when making important decisions about your career or life?",
-        options: ["Days or weeks — I focus on what's immediately in front of me","A few months — I think short-term and react to what comes up","One to two years ahead — I have a medium-term orientation","Three to five years ahead — I regularly think about where I'm heading","A decade or more — I think in long arcs and build toward a distant horizon"]
-      },
-      {
-        section: "Long-Term Vision",
-        q: "I am building something — a career, a body of work, a life — that I am genuinely proud to be constructing.",
-        options: ["Strongly Disagree — I don't feel like I'm building toward anything meaningful","Disagree — I'm going through the motions without a real sense of direction","Neutral — I have some sense of building something but it's not vivid or compelling","Agree — I have a real sense that my work and choices are accumulating into something","Strongly Agree — I feel a strong sense of purpose and momentum behind what I'm creating"]
-      },
-      {
-        section: "Inner Fuel",
-        q: "My ambition is driven primarily by an internal desire to grow and create, rather than by the need for approval or status.",
-        options: ["Strongly Disagree — I'm largely motivated by how others perceive me","Disagree — recognition and status are significant drivers for me","Neutral — it's genuinely a mix of internal and external motivation","Agree — I'm mostly internally driven, though external factors still play a role","Strongly Agree — my ambition comes from a deep internal source, not from external validation"]
-      },
-      {
-        section: "Inner Fuel",
-        q: "When I imagine reaching my biggest goals, the feeling that excites me most is...",
-        options: ["The admiration or respect I'd receive from others","The financial or material rewards it would bring","A mix — both the external rewards and the personal satisfaction","Primarily the personal satisfaction of knowing I did it","The sense of having fully expressed my potential and contributed something meaningful"]
-      },
-      {
-        section: "Inner Fuel",
-        q: "How does fear of failure affect your ambition?",
-        options: ["It stops me completely — I don't pursue goals where failure is visible","It significantly shrinks what I'm willing to aim for","It makes me cautious and I sometimes play smaller than I should","I feel it but it doesn't stop me — I act in spite of it","It rarely holds me back — I've made peace with failure as part of the process"]
-      },
-      {
-        section: "Inner Fuel",
-        q: "On reflection, how ambitious do you honestly consider yourself to be — not compared to others, but relative to your own potential?",
-        options: ["Not ambitious at all — I'm content where I am and not pushing further","Mildly ambitious — I want more but I rarely act on it","Moderately ambitious — I push myself but not consistently or boldly","Quite ambitious — I regularly push toward bigger goals and take action","Highly ambitious — I am consistently working at or near the edge of my potential"]
-      }
-    ]
-  },
-
   // ── LONELINESS ────────────────────────────
   {
     id: "loneliness",
+    category:"Personality",
     title: "Loneliness & Connection Index",
     tagline: "Are you truly connected — or just surrounded?",
     description: "Loneliness isn't simply about being alone. It's about the perceived quality of your connections, your sense of belonging, and how well your emotional needs for intimacy and understanding are being met. This assessment explores the depth of your social connections, emotional intimacy, self-relationship, and how loneliness — if present — is shaping your daily life.",
@@ -576,6 +454,7 @@ const TESTS = [
   // ── LISTENING SKILLS ─────────────────────
   {
     id: "listening",
+    category:"Orientation",
     title: "Listening Intelligence Profile",
     tagline: "Are you truly listening — or just waiting to speak?",
     description: "Listening is the most underrated communication skill. Most people hear words — very few actually listen. The Listening Intelligence Profile measures your presence, comprehension, emotional attunement, response quality, and listening under pressure across 21 questions to reveal where your listening is an asset and where it's costing you.",
@@ -701,6 +580,7 @@ const TESTS = [
   // ── ATTACHMENT ────────────────────────────
   {
     id: "attachment",
+    category:"Personality",
     title: "Attachment Style Indicator",
     tagline: "How you love, connect, and pull away — and why.",
     description: "Your attachment style is the unconscious blueprint that shapes how you behave in close relationships. Developed in early life and reinforced over time, it drives how you handle intimacy, conflict, distance, and emotional need. This assessment maps your patterns across five dimensions to reveal whether you lean secure, anxious, avoidant, or a combination — and what that means for your relationships.",
@@ -844,6 +724,7 @@ const TESTS = [
   },
   {
     id: "leadership_mindset",
+    category:"Mindset",
     title: "Leadership Mindset Scanner",
     tagline: "The psychological blueprint of your authority.",
     description: "Leadership starts between the ears; it is as much about your internal beliefs as it is about your external actions. This assessment investigates your underlying philosophy regarding human potential, failure, risk tolerance, and trust defaults to uncover the 'invisible architecture' of your decision-making. By identifying these psychological patterns, you can understand how your private beliefs unconsciously shape your team's culture and your own professional ceiling.",
@@ -882,6 +763,7 @@ const TESTS = [
   },
   {
     id: "leadership_orientation",
+    category:"Orientation",
     title: "Leadership Orientation Scanner",
     tagline: "Pinpoint exactly where you direct your energy.",
     description: "Most leaders struggle not because they lack talent, but because their daily energy is misaligned with the requirements of their role. This scanner tracks your outward behavioral focus across four key arenas—Operational Execution, Strategic Direction, Human Development, and Structural Integrity—to see where you are truly driving impact. By mapping your default orientation, you can identify high-leverage areas where you excel and critical blind spots that require immediate delegation or system-building.",
@@ -920,6 +802,7 @@ const TESTS = [
   },
   {
     id: "ambition_mindset",
+    category:"Mindset",
     title: "Ambition Mindset Diagnostic",
     tagline: "The internal fuel driving your pursuit.",
     description: "Ambition is a powerful engine, but the quality of its fuel determines how far you can go before you burn out. This diagnostic measures the psychological drivers behind your pursuit: distinguishing between intrinsic mastery and the pressure of external validation or status-seeking. We analyze your internal relationship with stagnation, your resilience in the face of public failure, and how deeply your personal self-worth is tethered to your professional achievements.",
@@ -958,6 +841,7 @@ const TESTS = [
   },
   {
     id: "ambition_orientation",
+    category:"Orientation",
     title: "Ambition Orientation Scanner",
     tagline: "The outward mechanics of your success.",
     description: "Ambition remains a dream until it is translated into a tactical sequence of actions and risks. This scanner measures the outward mechanics of your success, focusing on your goal specificity, your tactical initiative, your networking leverage, and your appetite for calculated bets. By evaluating how you actually pursue your targets in the real world, we reveal the specific behavioral bottlenecks that are currently slowing down your momentum or capping your ultimate potential.",
@@ -2104,7 +1988,7 @@ let currentPage = "home";
 let currentTest = null;
 let currentQuestion = 0;
 let answers = [];
-
+let activeCategory = "all";
 // ============================================
 // NAVIGATION
 // ============================================
@@ -2144,9 +2028,49 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 // ============================================
 function renderTestGrid() {
   const grid = document.getElementById("test-grid-ui");
-  grid.innerHTML = TESTS.map(t => `
+  
+  // 1. Create the Filter Buttons HTML
+  const categories = [
+    { id: "all", label: "All Assessments" },
+    { id: "mindset", label: "Mindset" },
+    { id: "orientation", label: "Orientation" },
+    { id: "personality", label: "Personality" }
+  ];
+
+  const filterHtml = `
+    <div class="filter-container" style="display:flex; justify-content:center; gap:10px; margin-bottom:40px; flex-wrap:wrap;">
+      ${categories.map(cat => `
+        <button 
+          class="filter-btn ${activeCategory === cat.id ? 'active' : ''}" 
+          onclick="filterTests('${cat.id}')"
+          style="
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            border: 2px solid ${activeCategory === cat.id ? 'transparent' : '#e2e8f0'};
+            background: ${activeCategory === cat.id ? 'var(--brand-grad)' : 'white'};
+            color: ${activeCategory === cat.id ? 'white' : 'var(--text-muted)'};
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          "
+        >
+          ${cat.label}
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  // 2. Filter the tests based on selection
+  const filteredTests = activeCategory === "all" 
+    ? TESTS 
+    : TESTS.filter(t => t.category === activeCategory);
+
+  // 3. Generate the Cards
+  const cardsHtml = filteredTests.map(t => `
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
+      <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--brand-indigo); letter-spacing: 0.1em; margin-bottom: 8px;">${t.category}</div>
       <h3>${t.title}</h3>
       <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:18px; flex-grow:1;">${t.tagline}</p>
       <button class="btn-secondary" onclick="openKnowMore('${t.id}')">Know More</button>
@@ -2157,8 +2081,16 @@ function renderTestGrid() {
       </div>
     </div>
   `).join("");
+
+  // 4. Inject into the page
+  grid.innerHTML = filterHtml + `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">${cardsHtml}</div>`;
 }
 
+// 5. Add the click handler function
+function filterTests(catId) {
+  activeCategory = catId;
+  renderTestGrid();
+}
 // ============================================
 // KNOW MORE MODAL
 // ============================================
