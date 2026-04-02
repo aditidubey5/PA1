@@ -2673,7 +2673,7 @@ async function sendReportEmail() {
   sendBtn.textContent = "Capturing Report...";
   statusEl.style.display = "none";
 
-  const SCRIPT_URL = "YOUR_NEW_DEPLOYED_URL_HERE"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCUUE9uYewIJ6tJRPdmh3zOxiaEUjMXA6XsG68xFi-hFxC06UuUbxY7ALygR9n7Fkk/exec"; 
 
   try {
     // 1. Convert the visible HTML report into a PDF Base64 string
