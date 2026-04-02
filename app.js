@@ -2051,22 +2051,13 @@ function renderTestGrid() {
     </div>
   `;
 
-  // 3. The Tagline
-  const taglineHtml = `
-    <div style="text-align:center; margin-bottom: 40px;">
-        <p class="section-label" style="margin-bottom: 10px;">Diagnostics</p>
-        <h2 style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; color: var(--text-primary);">
-            Twelve diagnostics. Honest insights. No fluff.
-        </h2>
-    </div>
-  `;
 
-  // 4. Filter the logic
+  // 3. Filter the logic
   const filteredTests = activeCategory === "all" 
     ? TESTS 
     : TESTS.filter(t => t.category === activeCategory);
 
-  // 5. Generate Test Cards
+  // 4. Generate Test Cards
   const cardsHtml = filteredTests.map(t => `
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
