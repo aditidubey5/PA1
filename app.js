@@ -2076,7 +2076,6 @@ function renderTestGrid() {
   // 6. Inject everything: Buttons -> Tagline -> Grid
   grid.innerHTML = `
     ${filterHtml}
-    ${taglineHtml}
     <div class="test-grid-container">${cardsHtml}</div>
   `;
 }
