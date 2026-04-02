@@ -2660,66 +2660,43 @@ async function sendReportEmail() {
   const email      = emailInput ? emailInput.value.trim() : "";
 
   if (!email || !email.includes("@")) {
-    statusEl.style.display = "block";
-    statusEl.style.color   = "#ef4444";
-    statusEl.textContent   = "⚠ Please enter a valid email address.";
+    alert("Please enter a valid email.");
     return;
   }
 
-  // Target the exact report container the user sees
-  const reportElement = document.getElementById("report-page-content");
-
   sendBtn.disabled = true;
-  sendBtn.textContent = "Capturing Report...";
+  sendBtn.textContent = "Processing...";
   statusEl.style.display = "none";
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzh6aK4bcCYBkkFzIDN18eHgYx2QpU55cYJ3XdItpADTsJL67JEGTu_kEtm3nQZMuQv/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/library/d/1z4mqzdm-2xeie2oPxChAmmaDOSDaxu6usxAT68qa5_harSOVoRBf049g/6"; 
+
+  // We send the raw data, Google will format it into a PDF
+  const payload = {
+    to_email: email,
+    test_name: currentTest.title,
+    overall: lastReportResult.overall || lastReportResult.score,
+    label: lastReportResult.overallLabel || lastReportResult.label,
+    results: lastReportResult.sectionResults || []
+  };
 
   try {
-    // 1. Convert the visible HTML report into a PDF Base64 string
-    const opt = {
-      margin:       10,
-      filename:     'report.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // This captures the visual report and converts to string
-    const pdfBase64 = await html2pdf().from(reportElement).set(opt).outputPdf('datauristring');
-
-    sendBtn.textContent = "Sending Email...";
-
-    // 2. Prepare data for Google Script
-    const payload = {
-      to_email: email,
-      test_name: currentTest.title,
-      overall_score: lastReportResult.overall || lastReportResult.score,
-      overall_label: lastReportResult.overallLabel || lastReportResult.label,
-      pdf_base64: pdfBase64
-    };
-
-    // 3. Send to Google
     await fetch(SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors", 
       body: JSON.stringify(payload)
     });
 
     statusEl.style.display = "block";
     statusEl.style.color = "#10b981";
-    statusEl.textContent = "✓ Success! The exact report you see has been sent to your inbox.";
+    statusEl.textContent = "✓ PDF Report sent to " + email;
     sendBtn.textContent = "Sent ✓";
-    emailInput.value = "";
     
-    alert("Sent! Check your email for the PDF version of this report.");
+    alert("Report Sent! Check your email (and spam folder) in 1 minute.");
 
   } catch (error) {
-    console.error("PDF Error:", error);
+    console.error("Error:", error);
     statusEl.style.display = "block";
-    statusEl.style.color = "#ef4444";
-    statusEl.textContent = "⚠ Something went wrong. Try again.";
+    statusEl.textContent = "⚠ Connection error. Please try again.";
     sendBtn.disabled = false;
     sendBtn.textContent = "Email My Report →";
   }
