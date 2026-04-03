@@ -2028,29 +2028,33 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 // RENDER TEST GRID
 // ============================================
 
+let activeCategory = "all"; // Ensure this is at the top of your file
+
 function filterTests(catId) {
   activeCategory = catId;
-  // Update UI state of buttons
-  document.querySelectorAll('.filter-pill').forEach(pill => {
-    pill.classList.remove('active');
-    // Match the text or the onclick attribute to set active state
-    if(pill.getAttribute('onclick').includes(`'${catId}'`)) {
-        pill.classList.add('active');
-    }
-  });
   renderTestGrid();
 }
 
 function renderTestGrid() {
   const grid = document.getElementById("test-grid-ui");
-  if(!grid) return;
+  if (!grid) return;
 
-  // Filter based on the active category
+  // 1. Update the Filter Pills UI state
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.classList.remove('active');
+    // Check if this pill is the one that was clicked
+    if (pill.getAttribute('onclick').includes(`'${activeCategory}'`)) {
+      pill.classList.add('active');
+    }
+  });
+
+  // 2. Filter the tests
   const filteredTests = activeCategory === "all" 
     ? TESTS 
     : TESTS.filter(t => t.category === activeCategory);
 
-  // Map only the filtered tests to your existing card design
+  // 3. Render the cards
+  // Note: We use your exact original layout here
   grid.innerHTML = filteredTests.map(t => `
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
