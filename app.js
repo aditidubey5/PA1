@@ -841,7 +841,7 @@ const TESTS = [
   },
   {
     id: "ambition_orientation",
-    category:"Orientation",
+    
     title: "Ambition Orientation Scanner",
     tagline: "The outward mechanics of your success.",
     description: "Ambition remains a dream until it is translated into a tactical sequence of actions and risks. This scanner measures the outward mechanics of your success, focusing on your goal specificity, your tactical initiative, your networking leverage, and your appetite for calculated bets. By evaluating how you actually pursue your targets in the real world, we reveal the specific behavioral bottlenecks that are currently slowing down your momentum or capping your ultimate potential.",
@@ -1988,7 +1988,7 @@ let currentPage = "home";
 let currentTest = null;
 let currentQuestion = 0;
 let answers = [];
-let activeCategory = "all";
+
 // ============================================
 // NAVIGATION
 // ============================================
@@ -2026,39 +2026,31 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 // ============================================
 // RENDER TEST GRID
 // ============================================
+
+function filterTests(catId) {
+  activeCategory = catId;
+  // Update UI state of buttons
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.classList.remove('active');
+    // Match the text or the onclick attribute to set active state
+    if(pill.getAttribute('onclick').includes(`'${catId}'`)) {
+        pill.classList.add('active');
+    }
+  });
+  renderTestGrid();
+}
+
 function renderTestGrid() {
   const grid = document.getElementById("test-grid-ui");
-  
-  // 1. Define Categories
-  const categories = [
-    { id: "all", label: "All" },
-    { id: "mindset", label: "Mindset" },
-    { id: "orientation", label: "Orientation" },
-    { id: "personality", label: "Personality" }
-  ];
+  if(!grid) return;
 
-  // 2. Create the Filter Buttons HTML (Small & Pill-shaped)
-  const filterHtml = `
-    <div class="filter-bar">
-      ${categories.map(cat => `
-        <button 
-          class="filter-pill ${activeCategory === cat.id ? 'active' : ''}" 
-          onclick="filterTests('${cat.id}')"
-        >
-          ${cat.label}
-        </button>
-      `).join('')}
-    </div>
-  `;
-
-
-  // 3. Filter the logic
+  // Filter based on the active category
   const filteredTests = activeCategory === "all" 
     ? TESTS 
     : TESTS.filter(t => t.category === activeCategory);
 
-  // 4. Generate Test Cards
-  const cardsHtml = filteredTests.map(t => `
+  // Map only the filtered tests to your existing card design
+  grid.innerHTML = filteredTests.map(t => `
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
       <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--brand-indigo); letter-spacing: 0.1em; margin-bottom: 8px;">${t.category}</div>
@@ -2072,12 +2064,6 @@ function renderTestGrid() {
       </div>
     </div>
   `).join("");
-
-  // 6. Inject everything: Buttons -> Tagline -> Grid
-  grid.innerHTML = `
-    ${filterHtml}
-    <div class="test-grid-container">${cardsHtml}</div>
-  `;
 }
 // ============================================
 // KNOW MORE MODAL
