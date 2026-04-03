@@ -843,6 +843,7 @@ const TESTS = [
     id: "ambition_orientation",
     
     title: "Ambition Orientation Scanner",
+    category:"Orientation",
     tagline: "The outward mechanics of your success.",
     description: "Ambition remains a dream until it is translated into a tactical sequence of actions and risks. This scanner measures the outward mechanics of your success, focusing on your goal specificity, your tactical initiative, your networking leverage, and your appetite for calculated bets. By evaluating how you actually pursue your targets in the real world, we reveal the specific behavioral bottlenecks that are currently slowing down your momentum or capping your ultimate potential.",
     questions: 20,
