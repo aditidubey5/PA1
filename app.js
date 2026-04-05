@@ -2342,10 +2342,24 @@ function generateReport() {
   const logic = REPORT_LOGIC[currentTest.id];
   if (!logic) return;
   const result = logic(answers);
-  lastReportResult=result;
+  lastReportResult = result;
   showPage("report");
 
-  // SECTIONED REPORT (tests with sectionResults e.g. Hardworking Index)
+  // 1. DEFINE THE FOLLOW-UP QUESTION HTML FIRST
+  const followUpHtml = `
+    <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px;">
+            ${currentTest.followUp || "Ready to take the next step with your results?"}
+        </h3>
+        <div id="follow-up-actions" style="display: flex; justify-content: center; gap: 15px;">
+            <button class="btn-secondary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(false)">No</button>
+            <button class="btn-primary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(true, '${currentTest.keyword || 'coaching'}')">Yes</button>
+        </div>
+        <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
+    </div>
+  `;
+
+  // 2. CHECK IF IT IS A SECTIONED REPORT (e.g. Leadership, Mindset, Hardworking)
   if (result.sectionResults) {
     const sectionCardsHtml = result.sectionResults.map(sec => `
       <div style="background:#f8fafc; border-radius:16px; padding:20px 24px; margin-bottom:16px; border-left:4px solid ${sec.color};">
@@ -2360,27 +2374,20 @@ function generateReport() {
         </div>
         <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">${sec.description}</p>
         <div>
-          ${sec.watch.map(w => `
+          ${sec.watch ? sec.watch.map(w => `
             <div style="display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-top:1px solid #e2e8f0;">
               <span style="color:#f59e0b; margin-top:1px; flex-shrink:0;">→</span>
               <span style="font-size:0.82rem; color:var(--text-primary); font-weight:500;">${w}</span>
             </div>
-          `).join("")}
+          `).join("") : ""}
         </div>
       </div>
     `).join("");
 
+    // Inject into the page (Includes Report + Email Box + Follow Up)
     document.getElementById("report-page-content").innerHTML = `
       <div>
-        <div style="
-          background: var(--brand-grad);
-          border-radius: 24px;
-          padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
-          text-align: center;
-          margin-bottom: 28px;
-          position:relative;
-          overflow:hidden;
-        ">
+        <div style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
@@ -2405,27 +2412,18 @@ function generateReport() {
           ${sectionCardsHtml}
         </div>
 
-        <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12); margin-bottom:28px;">
-          <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
-          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
-            Your profile unlocks a personalised 1-on-1 session with a People Assets coach who specialises in performance and work habits.
-          </p>
-          <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
-            Book a Coaching Session →
-          </button>
-        </div>
-
         <div class="report-actions">
           <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
           <button class="btn-primary" onclick="window.print()">Download Report</button>
           <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
         </div>
         ${buildEmailReportSection()}
+        ${followUpHtml}
       </div>
     `;
 
+  // 3. OR IF IT IS A FLAT REPORT (e.g. DISC, Big Five)
   } else {
-    // FLAT REPORT (all original tests)
     const strengthsHtml = result.strengths?.map(s => `
       <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
         <span style="color:#10b981; font-size:1.1rem;">✓</span>
@@ -2440,17 +2438,10 @@ function generateReport() {
       </div>
     `).join("") || "";
 
+    // Inject into the page (Includes Report + Email Box + Follow Up)
     document.getElementById("report-page-content").innerHTML = `
       <div>
-        <div class="report-header" style="
-          background: var(--brand-grad);
-          border-radius: 24px;
-          padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px);
-          text-align: center;
-          margin-bottom: 28px;
-          position:relative;
-          overflow:hidden;
-        ">
+        <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
@@ -2478,81 +2469,19 @@ function generateReport() {
                   <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
                 </div>
               </div>
-              <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(217,70,239,0.06)); border-radius:16px; padding:24px; border:1px solid rgba(99,102,241,0.12);">
-                <div style="font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--brand-magenta); margin-bottom:12px;">Recommended Next Step</div>
-                <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
-                  Your profile unlocks a personalized 1-on-1 session with a People Assets coach who specializes in this archetype.
-                </p>
-                <button class="btn-primary btn-full" onclick="showPage('coaching')" style="font-size:0.85rem;">
-                  Book a Coaching Session →
-                </button>
-              </div>
             </div>
           </div>
         </div>
 
-        <div class="report-actions">
+        <div class="report-actions" style="margin-top: 28px;">
           <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
           <button class="btn-primary" onclick="window.print()">Download Report</button>
           <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
         </div>
-         ${buildEmailReportSection()}
-      </div>
-    `;
-    const followUpHtml = `
-    <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
-        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px;">
-            ${currentTest.followUp || "Ready to take the next step with your results?"}
-        </h3>
-        <div id="follow-up-actions" style="display: flex; justify-content: center; gap: 15px;">
-            <button class="btn-secondary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(false)">No</button>
-            <button class="btn-primary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(true, '${currentTest.keyword || 'coaching'}')">Yes</button>
-        </div>
-        <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
-    </div>
-  `;
-
-  if (result.sectionResults) {
-    const cardsHtml = result.sectionResults.map(sec => `
-      <div style="background:#f8fafc; border-radius:16px; padding:20px; margin-bottom:16px; border-left:4px solid ${sec.color};">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h4 style="font-weight:800; color:var(--text-primary);">${sec.name}</h4>
-          <span style="font-weight:800; color:${sec.color};">${sec.score}/100</span>
-        </div>
-        <p style="font-size:0.85rem; color:var(--text-muted);">${sec.description}</p>
-      </div>
-    `).join("");
-
-    document.getElementById("report-page-content").innerHTML = `
-      <div style="text-align:center; padding:50px 20px; background:var(--brand-grad); border-radius:24px; color:white; margin-bottom:30px;">
-        <p style="text-transform:uppercase; letter-spacing:0.1em; font-size:0.75rem;">${currentTest.title}</p>
-        <h1 style="font-size:3.5rem; margin:10px 0;">${result.overall}<span style="font-size:1.5rem;">/100</span></h1>
-        <h2>${result.overallLabel}</h2>
-      </div>
-      <div style="background:white; border-radius:24px; padding:40px; box-shadow:var(--shadow-card);">
-        <h3 style="margin-bottom:20px; font-weight:800;">Detailed Breakdown</h3>
-        ${cardsHtml}
-        <div class="report-actions" style="margin-top:30px;">
-          <button class="btn-primary btn-full" onclick="showPage('coaching')">Book Coaching →</button>
-        </div>
-        ${buildEmailReportSection()}
-        ${followUpHtml} 
-      </div>
-    `;
-  } else {
-    document.getElementById("report-page-content").innerHTML = `
-      <div style="text-align:center; padding:50px 20px; background:var(--brand-grad); border-radius:24px; color:white; margin-bottom:30px;">
-        <h1>${result.label}</h1>
-        <p>Score: ${result.score}/100</p>
-      </div>
-      <div style="background:white; border-radius:24px; padding:40px; box-shadow:var(--shadow-card);">
-        <p style="font-size:1.1rem; line-height:1.7;">${result.description}</p>
         ${buildEmailReportSection()}
         ${followUpHtml}
       </div>
     `;
-  }
-
   }
 }
 
