@@ -2510,7 +2510,7 @@ function generateReport() {
     </div>
     <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
 </div>
-`
+`;
   }
 }
 
@@ -2519,11 +2519,11 @@ function handleFollowUp(isYes, keyword) {
     const actionsDisplay = document.getElementById("follow-up-actions");
 
     if (isYes) {
-        resultDisplay.innerHTML = `Email "<span style="color:var(--brand-magenta)">${keyword}</span>" at <a href="mailto:growth@peopleassets.in" style="color: var(--brand-indigo)">growth@peopleassets.in</a>`;
+        resultDisplay.innerHTML = `✓ Great! Email "<span style="color:var(--brand-magenta)">${keyword}</span>" to <a href="mailto:growth@peopleassets.in" style="color: var(--brand-indigo); text-decoration: underline;">growth@peopleassets.in</a> to start.`;
         resultDisplay.style.display = "block";
         actionsDisplay.style.display = "none";
     } else {
-        resultDisplay.textContent = "Thank you for completing the assessment!";
+        resultDisplay.textContent = "Thank you for completing the assessment! You can download your report above.";
         resultDisplay.style.display = "block";
         actionsDisplay.style.display = "none";
     }
