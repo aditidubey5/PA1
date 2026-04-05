@@ -11,6 +11,8 @@ const TESTS = [
   {
     id: "disc",
     category: "Personality",
+    followUp: "Do you want to master your communication style?",
+    keyword: "disc", 
     title: "DISC Behavioral Profile",
     tagline: "Uncover how you communicate, lead, and react under pressure.",
     description: "The DISC model maps your natural behavioral style across four dimensions — Dominance, Influence, Steadiness, and Conscientiousness. Knowing your DISC profile helps you understand your default communication patterns, decision-making speed, and how others experience working with you.",
@@ -31,6 +33,8 @@ const TESTS = [
   {
     id: "bigfive",
     category: "Personality",
+    followUp: "Ready to see how your personality shapes your future?",
+    keyword: "bigfive",
     title: "Big Five Personality Map",
     tagline: "The gold standard of personality science — applied to your career.",
     description: "The Big Five (OCEAN) model is the most validated personality framework in psychological research. This assessment measures your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism — and translates each dimension into practical career intelligence.",
@@ -51,6 +55,8 @@ const TESTS = [
   {
     id: "martyr",
     category:"Mindset",
+    followUp: "Are you ready to stop suffering productively?",
+    keyword: "martyr",
     title: "The Martyr Index",
     tagline: "Are you working hard — or just suffering productively?",
     description: "The Martyr Index is a proprietary People Assets diagnostic. It measures the gap between effort invested and systemic impact generated. High martyrs work extremely hard but remain stuck — they over-invest in low-leverage tasks, under-delegate, and confuse busyness with progress.",
@@ -89,6 +95,8 @@ const TESTS = [
   {
     id: "signal",
     category:"Orientation",
+    followUp: "Ready to cut through the noise and focus on what truly matters?",
+    keyword: "signal",
     title: "Signal vs. Noise Quotient",
     tagline: "How much of your day is signal — and how much is static?",
     description: "In the attention economy, your ability to filter high-value information from digital noise is a professional superpower. This assessment measures your Signal/Noise Quotient (SNQ) — quantifying your information diet, focus quality, and strategic thinking bandwidth.",
@@ -127,6 +135,8 @@ const TESTS = [
   {
     id: "ei",
     category:"Personality",
+    followUp: "Want to build deeper connections and communicate with more impact?",
+    keyword: "ei",
     title: "Emotional Intelligence Audit",
     tagline: "Your EQ is the ceiling on your leadership. Find out where it sits.",
     description: "Emotional Intelligence (EQ) is the ability to recognize, understand, and manage emotions — in yourself and others. Research consistently shows EQ outperforms IQ in predicting leadership effectiveness, team performance, and career longevity.",
@@ -165,6 +175,8 @@ const TESTS = [
   {
     id: "growth",
     category:"Mindset",
+    followUp: "Do you want to turn these insights into a permanent growth strategy?",
+    keyword: "growth",
     title: "Growth Mindset Diagnostic",
     tagline: "Fixed or fluid? This is the meta-skill beneath every other skill.",
     description: "Psychologist Carol Dweck's foundational research shows that how you think about your own abilities determines how far you'll grow. This diagnostic goes beyond self-reported mindset to measure your behavioral patterns around challenge, failure, learning, and feedback.",
@@ -203,6 +215,8 @@ const TESTS = [
   {
     id: "hardworking",
     category:"Orientation",
+    followUp: "Ready to turn your hard work into high-impact results?",
+    keyword: "hardworking",
     title: "Hardworking Index",
     tagline: "Are you truly putting in the work — or just feeling busy?",
     description: "The Hardworking Index measures the depth and quality of your work across five dimensions: effort, consistency, focus, resilience, and self-motivation. It goes beyond surface-level busyness to reveal whether your energy is being channelled into meaningful, sustained output.",
@@ -334,6 +348,8 @@ const TESTS = [
   {
     id: "loneliness",
     category:"Personality",
+    followUp: "Want to find your tribe and build a stronger sense of belonging?",
+    keyword: "loneliness",
     title: "Loneliness & Connection Index",
     tagline: "Are you truly connected — or just surrounded?",
     description: "Loneliness isn't simply about being alone. It's about the perceived quality of your connections, your sense of belonging, and how well your emotional needs for intimacy and understanding are being met. This assessment explores the depth of your social connections, emotional intimacy, self-relationship, and how loneliness — if present — is shaping your daily life.",
@@ -455,6 +471,8 @@ const TESTS = [
   {
     id: "listening",
     category:"Orientation",
+    followUp: "Want to master your most underrated skill?",
+    keyword: "listening",
     title: "Listening Intelligence Profile",
     tagline: "Are you truly listening — or just waiting to speak?",
     description: "Listening is the most underrated communication skill. Most people hear words — very few actually listen. The Listening Intelligence Profile measures your presence, comprehension, emotional attunement, response quality, and listening under pressure across 21 questions to reveal where your listening is an asset and where it's costing you.",
@@ -581,6 +599,8 @@ const TESTS = [
   {
     id: "attachment",
     category:"Personality",
+    followUp: "Ready to build relationships that feel safe, steady, and supportive?",
+    keyword: "attachment",
     title: "Attachment Style Indicator",
     tagline: "How you love, connect, and pull away — and why.",
     description: "Your attachment style is the unconscious blueprint that shapes how you behave in close relationships. Developed in early life and reinforced over time, it drives how you handle intimacy, conflict, distance, and emotional need. This assessment maps your patterns across five dimensions to reveal whether you lean secure, anxious, avoidant, or a combination — and what that means for your relationships.",
@@ -725,6 +745,8 @@ const TESTS = [
   {
     id: "leadership_mindset",
     category:"Mindset",
+    followUp: "Ready to upgrade your leadership archetype?",
+    keyword: "leadership mindset",
     title: "Leadership Mindset Scanner",
     tagline: "The psychological blueprint of your authority.",
     description: "Leadership starts between the ears; it is as much about your internal beliefs as it is about your external actions. This assessment investigates your underlying philosophy regarding human potential, failure, risk tolerance, and trust defaults to uncover the 'invisible architecture' of your decision-making. By identifying these psychological patterns, you can understand how your private beliefs unconsciously shape your team's culture and your own professional ceiling.",
@@ -764,6 +786,8 @@ const TESTS = [
   {
     id: "leadership_orientation",
     category:"Orientation",
+    followUP: "Want to optimize where you direct your energy?",
+    keyword: "leadership orientation",
     title: "Leadership Orientation Scanner",
     tagline: "Pinpoint exactly where you direct your energy.",
     description: "Most leaders struggle not because they lack talent, but because their daily energy is misaligned with the requirements of their role. This scanner tracks your outward behavioral focus across four key arenas—Operational Execution, Strategic Direction, Human Development, and Structural Integrity—to see where you are truly driving impact. By mapping your default orientation, you can identify high-leverage areas where you excel and critical blind spots that require immediate delegation or system-building.",
@@ -803,6 +827,8 @@ const TESTS = [
   {
     id: "ambition_mindset",
     category:"Mindset",
+    followUp: "Ready to fuel your pursuit with the right mindset?",
+    keyword: "ambition mindset",
     title: "Ambition Mindset Diagnostic",
     tagline: "The internal fuel driving your pursuit.",
     description: "Ambition is a powerful engine, but the quality of its fuel determines how far you can go before you burn out. This diagnostic measures the psychological drivers behind your pursuit: distinguishing between intrinsic mastery and the pressure of external validation or status-seeking. We analyze your internal relationship with stagnation, your resilience in the face of public failure, and how deeply your personal self-worth is tethered to your professional achievements.",
@@ -841,9 +867,10 @@ const TESTS = [
   },
   {
     id: "ambition_orientation",
-    
-    title: "Ambition Orientation Scanner",
     category:"Orientation",
+    followUp: "Ready to optimize how you pursue your goals?",
+    keyword: "ambition orientation",
+    title: "Ambition Orientation Scanner",
     tagline: "The outward mechanics of your success.",
     description: "Ambition remains a dream until it is translated into a tactical sequence of actions and risks. This scanner measures the outward mechanics of your success, focusing on your goal specificity, your tactical initiative, your networking leverage, and your appetite for calculated bets. By evaluating how you actually pursue your targets in the real world, we reveal the specific behavioral bottlenecks that are currently slowing down your momentum or capping your ultimate potential.",
     questions: 20,
@@ -2472,7 +2499,34 @@ function generateReport() {
          ${buildEmailReportSection()}
       </div>
     `;
+    `
+<div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
+    <h3 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 20px;">
+        ${currentTest.followUp}
+    </h3>
+    <div id="follow-up-actions" style="display: flex; justify-content: center; gap: 15px;">
+        <button class="btn-secondary" style="padding: 10px 30px;" onclick="handleFollowUp(false)">No</button>
+        <button class="btn-primary" style="padding: 10px 30px;" onclick="handleFollowUp(true, '${currentTest.keyword}')">Yes</button>
+    </div>
+    <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
+</div>
+`
   }
+}
+
+function handleFollowUp(isYes, keyword) {
+    const resultDisplay = document.getElementById("follow-up-result");
+    const actionsDisplay = document.getElementById("follow-up-actions");
+
+    if (isYes) {
+        resultDisplay.innerHTML = `Email "<span style="color:var(--brand-magenta)">${keyword}</span>" at <a href="mailto:growth@peopleassets.in" style="color: var(--brand-indigo)">growth@peopleassets.in</a>`;
+        resultDisplay.style.display = "block";
+        actionsDisplay.style.display = "none";
+    } else {
+        resultDisplay.textContent = "Thank you for completing the assessment!";
+        resultDisplay.style.display = "block";
+        actionsDisplay.style.display = "none";
+    }
 }
 
 // ============================================
