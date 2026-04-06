@@ -761,26 +761,26 @@ const TESTS = [
       { name: "Success View", start: 15, end: 19 }
     ],
     questions_data: [
-        { section: "Growth Mindset", q: "I believe talent is a fixed trait to be managed.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Growth Mindset", q: "My job is to find the best people and get out of their way.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Mindset", q: "Most people require pressure to reach potential.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Growth Mindset", q: "I view team mistakes as necessary tuition.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Mindset", q: "I focus more on potential than current output.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Appetite", q: "Ambiguity feels like opportunity, not a threat.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Appetite", q: "A 'safe' plan is the most dangerous one long-term.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Appetite", q: "I prefer proven paths over high-reward experiments.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Risk Appetite", q: "In crisis, I look for the lesson, not the culprit.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Appetite", q: "I can decide with only 60% of available data.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Trust & Default", q: "Transparency can undermine a leader's authority.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Trust & Default", q: "I feel personal failure if a team member misses.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Trust & Default", q: "Trust should be given by default until broken.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Trust & Default", q: "Best decisions are made through consensus.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Trust & Default", q: "I feel most useful solving problems for my team.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Growth Mindset", q: "I feel I’ve succeeded as a leader when my team can run brilliantly without me stepping in.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Growth Mindset", q: "I tend to believe that people have a natural 'ceiling' for their talents that is mostly fixed.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Mindset", q: "Deep down, I feel that most people won't really push themselves unless there’s some pressure involved.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Growth Mindset", q: "When we hit a wall, I try to focus more on what the mistake taught us than the fact that we failed.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Mindset", q: "I often find myself betting on someone's future potential rather than just their current skills.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I see 'the unknown' as an opportunity to build something new, rather than a threat to what we have.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I worry that playing it 'safe' is actually the biggest risk I can take for my career long-term.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I find myself leaning toward proven methods because they feel more reliable than a high-stakes gamble.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Risk Appetite", q: "In a crisis, my brain goes straight to 'how do we fix the system?' rather than 'who messed up?", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Appetite", q: "I’m comfortable making a big call even when I only have a gut feeling and a few key facts.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "I sometimes worry that being too open with my team might make me look less like a leader.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Trust & Default", q: "I take it personally when someone on my team misses the mark—it feels like my own failure.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Trust & Default", q: "I prefer to give people my full trust from day one and only take it back if they give me a reason to.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "I don’t feel truly confident in a direction until I know the whole team is genuinely on board.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Trust & Default", q: "I feel most useful when I’m the one rolling up my sleeves to solve a tough problem for the group.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
         { section: "Success View", q: "I value 'how' we won as much as the victory.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Success View", q: "Leadership is service, not a position of power.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Success View", q: "If the system is right, people needn't be extraordinary.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Success View", q: "satisfaction comes from growth, not just KPIs.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Success View", q: "Effective leaders are born, not made.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
+        { section: "Success View", q: "I see leadership as a way to support others, not as a way to gain power or status.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Success View", q: "I believe a great leader builds a system that works so well it doesn't need 'heroes' to save the day.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Success View", q: "I get more satisfaction from seeing how much I’ve grown than from hitting a specific target or KPI.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Success View", q: "I have a gut feeling that great leaders are mostly born with it, rather than made through training.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
     ]
   },
   {
@@ -802,26 +802,26 @@ const TESTS = [
       { name: "Structural", start: 15, end: 19 }
     ],
     questions_data: [
-        { section: "Operational", q: "I spend most of my time monitoring current progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Operational", q: "I feel productive crossing tasks off the team's list.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Operational", q: "Meetings focus on immediate roadblocks.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Operational", q: "I prioritize speed over absolute perfection.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Operational", q: "I am involved in 'doing' work with the team.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Strategic", q: "I spend more time looking at the market than reports.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Strategic", q: "I prioritize long-term bets over short wins.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Strategic", q: "My style is 'Big Picture' rather than detail.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Strategic", q: "I frequently rethink our overall business model.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Strategic", q: "I get energized by a blank slate territory.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "People", q: "I spend 40%+ of time in one-on-one coaching.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "People", q: "Highest priority is team psychological safety.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "People", q: "Success is measured by those I've promoted.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "People", q: "I'd delay a project to prevent team burnout.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "People", q: "I align passions with organizational goals.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Structural", q: "I spend time building SOPs and workflows.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Structural", q: "I prioritize accuracy over other metrics.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Structural", q: "I look to automate my role so systems run without me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Structural", q: "I prefer a slow steady pace over fast chaotic ones.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Structural", q: "Leader's job is protecting org from risk.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
+        { section: "Operational", q: "I find that most of my mental energy goes into monitoring current projects and hitting today's deadlines.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "I get a real sense of accomplishment from crossing tasks off the team’s list and seeing immediate progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "When I sit down to talk with people I am working with, I prefer to focus on how to fix current problems and clear immediate hurdles.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Operational", q: "When things get stressful, I would rather keep moving and take action quickly than wait until every single detail is perfect.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Operational", q: "I am usually the person who starts getting my hands dirty and doing the actual work alongside everyone else to get it finished.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Strategic", q: "I am usually the person who starts getting my hands dirty and doing the actual work alongside everyone else to get it finished.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "I am willing to give up a small success today if it helps me build a much more meaningful result a few years from now.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "When explaining an idea to others, I focus on the overall purpose and the 'why' rather than giving a long list of instructions.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Strategic", q: "I regularly find myself questioning the 'old way' of doing things to see if there is a more creative path toward the future.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Strategic", q: "I feel most alive when I am starting something brand new from scratch and have the freedom to choose a completely new direction.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "A large part of my time is spent listening to others, supporting their feelings, and helping them figure out how they want to grow.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I believe the most important part of leading anything is making sure that everyone feels safe, heard, and comfortable being themselves.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I measure my own success by the personal growth and confidence I see in the people I have supported or taught.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I would choose to slow down or stop a project if I realized that the people around me were getting too stressed or unhappy.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "People", q: "I naturally try to figure out what people are truly passionate about so I can encourage them to do more of what they love.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Structural", q: "I enjoy creating clear routines and organized ways of doing things so that everything feels stable and runs smoothly.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "To me, doing a task correctly and avoiding mistakes is the most important part of ensuring that a plan actually works.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I like setting up clear rules and systems so that things can keep working well even when I am not there to check on them.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I would much rather have a slow and steady plan that I can rely on than a fast one that feels messy or out of control.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Structural", q: "I see myself as a safeguard—it is my job to spot potential problems and protect our plans from unnecessary risks.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
     ]
   },
   {
@@ -843,26 +843,26 @@ const TESTS = [
       { name: "Identity", start: 15, end: 19 }
     ],
     questions_data: [
-        { section: "Inner Drive", q: "I'd pursue goals even if no one ever found out.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Inner Drive", q: "Ambition is driven by proving others wrong.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Inner Drive", q: "I feel a restless need to improve constantly.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Inner Drive", q: "Financial rewards are the only true metric.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Inner Drive", q: "I feel an internal 'pull' toward mastery.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Resilience", q: "Setbacks make me more determined.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Resilience", q: "I abandon goals if they become embarrassing.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Resilience", q: "I view 'stagnation' as greater risk than 'failure'.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Resilience", q: "When I fail, I question my innate talent.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Resilience", q: "I can endure years of obscurity for long-term goals.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Vision", q: "I imagine a version of life much larger than now.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Vision", q: "Potential is limitless with right effort.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Vision", q: "I set goals based on what's exciting, not realistic.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Vision", q: "I feel responsible for expressing latent talents.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Growth Vision", q: "Thought of hitting a 'ceiling' is frightening.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Identity", q: "If I lost my career, I'd lose my identity.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Identity", q: "I find it hard to respect low-drive people.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Identity", q: "I feel most 'myself' in pursuit of targets.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Identity", q: "I judge day value by ambition progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Identity", q: "Ambition is an escape from other life areas.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
+        { section: "Inner Drive", q: "I find that my most meaningful goals come from a personal desire to improve, rather than a need for other people to notice my progress.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Inner Drive", q: "I often feel that a significant part of my motivation comes from wanting to show people who once doubted me what I am truly capable of.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Inner Drive", q: "I frequently experience a restless internal push to keep getting better, even during times when my life is going perfectly well.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Inner Drive", q: "When I think about success, I believe that money and material possessions are the most honest way to measure how far a person has come.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Inner Drive", q: "I feel a deep, internal pull to master the skills and topics I care about, regardless of whether there is a specific reward waiting for me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "When I face a major setback or obstacle, I usually find that my determination to succeed grows stronger instead of fading away.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "I am very sensitive to how I am perceived, and I might walk away from a goal if the path starts to look embarrassing or unsuccessful to others.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Resilience", q: "To me, the idea of staying exactly where I am for the next few years is much more frightening than the risk of trying something new and failing.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Resilience", q: "If I don't succeed at something on my first few attempts, I tend to worry that I simply don't have the natural talent required to do it.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Resilience", q: "I am willing to put in years of quiet, unrecognized effort if I know that it is moving me toward a vision that truly matters to me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I frequently find myself daydreaming about a future version of my life that is much more expansive and impactful than my current reality.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I believe that my potential as a person is almost limitless, as long as I am willing to apply the right amount of effort and focus.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "When I plan for the future, I tend to focus on what feels most exciting and inspiring, even if those ideas seem 'unrealistic' to the people around me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "I feel a strong sense of personal responsibility to fully develop and express the hidden talents and abilities I know I have inside me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Growth Vision", q: "The idea that I might one day reach a point where I can no longer grow, learn, or improve is a very uncomfortable thought for me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "If the main projects or goals I am currently focused on were taken away tomorrow, I feel like I would lose my sense of who I am.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Identity", q: "I find it difficult to truly respect or connect with people who seem to have no desire to improve themselves or their circumstances.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "I feel most like my true, authentic self when I am in the middle of a challenge or actively pursuing a clear target.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "I often judge the value of my day based on how much progress I made toward my ambitions, rather than how much I actually enjoyed the time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Identity", q: "I sometimes use my goals and my drive for success as a way to stay busy and avoid dealing with difficult emotions in other parts of my life.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] }
     ]
   },
   {
@@ -884,26 +884,26 @@ const TESTS = [
       { name: "Leverage", start: 15, end: 19 }
     ],
     questions_data: [
-        { section: "Specificity", q: "I have written down my top 3 goals.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Specificity", q: "I name the exact metric for success this quarter.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Specificity", q: "My goals shift depending on my mood.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Specificity", q: "I break big ambitions into daily checklists.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Specificity", q: "I track progress at least once a week.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative", q: "I'm usually the one taking the first step.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Initiative", q: "I spend more time planning than executing.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Initiative", q: "I actively seek competitive environments.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative", q: "I'm willing to outwork peers for an edge.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative", q: "I focus on high-leverage actions.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Management", q: "I'd bet 20% security for 200% growth.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Management", q: "I have a Plan B for all career bets.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Management", q: "I prefer certain gains over uncertain opportunities.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Risk Management", q: "I'm comfortable being the only one who believes.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Risk Management", q: "I manage energy as carefully as time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Social Leverage", q: "I build relationships with those further ahead.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Social Leverage", q: "I use my personal network to accelerate goals.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Social Leverage", q: "I am comfortable asking for favors.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Social Leverage", q: "I believe 'Who you know' > 'What you know'.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Social Leverage", q: "I mentor others to build a legacy.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
+        { section: "Specificity", q: "I make a deliberate effort to clearly define my most important goals in writing rather than keeping them as vague ideas in my head.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Specificity", q: "I have a very clear understanding of exactly what 'success' looks like for me, and I know the specific signs that show I am getting closer to it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Specificity", q: "I find that my main objectives stay consistent over time, and I don't frequently abandon them or change my mind based on how I am feeling that day.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Specificity", q: "I am effective at breaking down my largest ambitions into small, manageable daily tasks that I can actually act on immediately.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Specificity", q: "I set aside time at least once a week to look at my progress and honestly evaluate whether I am moving forward or standing still.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "When a new opportunity appears or a project needs to start, I am usually the person who takes the lead and makes the first move.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Initiative", q: "I often find myself spending more time over-thinking and planning my next move than actually doing the work required to succeed.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Initiative", q: "I find that I am more motivated and perform better when I am in an environment where I can compare my progress to others.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "I am willing to put in more time and energy than the people around me if it means I can get a better result or finish more quickly.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative", q: "I am careful to focus my energy on the activities that will have the biggest impact, rather than just staying busy with small, easy tasks.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I am willing to give up a significant amount of my current comfort or security if it gives me a real chance at massive personal growth.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "Before I take a big leap, I always make sure I have a backup plan or a safety net in case my primary idea doesn't work out.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I would rather stick with a path that guarantees a small, safe result than take a chance on an opportunity that might fail completely..", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Risk Management", q: "I am comfortable continuing to work toward a goal even if I am the only person who believes it is possible to achieve it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Risk Management", q: "I am very protective of my physical and mental energy, making sure I don't push myself so hard that I burn out before I reach my target.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I deliberately try to spend time with and learn from people who are much further ahead in life or skills than I currently am.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I am comfortable reaching out to my friends, family, or acquaintances to ask for help or advice to help me reach my goals faster.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Social Leverage", q: "I find it easy to ask for favors or introductions from others, even if I'm not sure if I can return the favor immediately.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I believe that building the right relationships is more important for reaching a goal than just working hard on my own.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Social Leverage", q: "I enjoy helping others reach their targets because I believe that building a community of successful people benefits everyone.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
     ]
   }
 ];
@@ -2040,6 +2040,63 @@ function toggleMobileNav() {
   drawer.classList.toggle("open");
 }
 
+function openTestLanding(testId) {
+    currentTest = TESTS.find(t => t.id === testId);
+    if (!currentTest) return;
+
+    const landing = document.getElementById("landing-content");
+    
+    // Generate section labels for a "What we measure" list
+    const measurementList = currentTest.sections 
+        ? currentTest.sections.map(s => `<li>${s.name}</li>`).join('')
+        : "<li>Behavioral Patterns</li><li>Core Instincts</li><li>Psychological Drivers</li>";
+
+    landing.innerHTML = `
+        <div class="landing-card">
+            <button class="back-link" onclick="showPage('tests')">← Back to Assessments</button>
+            
+            <div class="landing-header">
+                <div class="landing-icon">${currentTest.icon}</div>
+                <h1 class="text-gradient">${currentTest.title}</h1>
+                <p class="landing-tagline">${currentTest.tagline}</p>
+            </div>
+
+            <div class="landing-grid">
+                <div class="landing-main">
+                    <h3>About this assessment</h3>
+                    <p>${currentTest.description}</p>
+                    
+                    <h3>What we measure</h3>
+                    <ul class="measurement-list">
+                        ${measurementList}
+                    </ul>
+                </div>
+                
+                <div class="landing-sidebar">
+                    <div class="stat-box">
+                        <span class="stat-label">Duration</span>
+                        <span class="stat-value">${currentTest.time}</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Questions</span>
+                        <span class="stat-value">${currentTest.questions}</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Format</span>
+                        <span class="stat-value">Self-Reflective</span>
+                    </div>
+                    
+                    <button class="btn-primary btn-full" style="margin-top: 20px;" onclick="startTest('${currentTest.id}')">
+                        Begin Assessment →
+                    </button>
+                    <p class="privacy-note">Your data is processed locally and remains private.</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    showPage("test-landing");
+}
 // ============================================
 // MODAL
 // ============================================
@@ -2089,7 +2146,7 @@ function renderTestGrid() {
       <h3>${t.title}</h3>
       <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:18px; flex-grow:1;">${t.tagline}</p>
       <button class="btn-secondary" onclick="openKnowMore('${t.id}')">Know More</button>
-      <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Analysis →</button>
+      <button class="btn-primary btn-full" onclick="openTestLanding('${t.id}')">Start Analysis →</button>
       <div class="card-meta">
         <span><strong>${t.questions}</strong> Questions</span>
         <span><strong>${t.time}</strong></span>
