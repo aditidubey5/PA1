@@ -708,3 +708,18 @@ nav {
     .landing-grid { grid-template-columns: 1fr; }
     .landing-card { padding: 25px; }
 }
+
+.landing-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+.landing-card li::before {
+    content: "•";
+    margin-right: 10px;
+    color: var(--brand-magenta);
+}
+@media (max-width: 600px) {
+    .landing-card div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+}

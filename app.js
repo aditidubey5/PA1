@@ -2020,20 +2020,90 @@ let answers = [];
 // ============================================
 // NAVIGATION
 // ============================================
-function showPage(page) {
-  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-  document.getElementById(page).style.display = "block";
-  currentPage = page;
 
-  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-  const navMap = { home: "nav-home", tests: "nav-tests" };
-  if (navMap[page]) document.getElementById(navMap[page])?.classList.add("active");
+// 1. MODIFIED NAVIGATION: Updates the URL when you switch pages
+function showPage(page, testId = null) {
+    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+    const target = document.getElementById(page);
+    if(target) target.style.display = "block";
+    currentPage = page;
 
-  if (page === "tests") renderTestGrid();
-  if (page === "coaching") renderCoachingPage();
+    // Update URL bar without reloading the page
+    if (page === 'test-landing' && testId) {
+        window.history.pushState({page, testId}, "", `?test=${testId}`);
+    } else if (page === 'home') {
+        window.history.pushState({page}, "", window.location.pathname);
+    } else {
+        window.history.pushState({page}, "", `?view=${page}`);
+    }
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+// 2. THE LANDING PAGE GENERATOR
+function openTestLanding(testId) {
+    const t = TESTS.find(x => x.id === testId);
+    if (!t) {
+        showPage('home');
+        return;
+    }
+    
+    currentTest = t;
+    const landing = document.getElementById("landing-content");
+    
+    // Create the "What we measure" list from your section names
+    const measurementList = t.sections 
+        ? t.sections.map(s => `<li>${s.name}</li>`).join('')
+        : "<li>Behavioral Patterns</li><li>Core Instincts</li>";
+
+    landing.innerHTML = `
+        <div class="landing-card" style="background:white; padding:40px; border-radius:24px; box-shadow:var(--shadow-card); max-width:800px; margin:40px auto; text-align:left;">
+            <button class="btn-secondary" onclick="showPage('tests')" style="margin-bottom:20px;">← Back to Library</button>
+            <div style="text-align:center; margin-bottom:30px; border-bottom:1px solid #eee; padding-bottom:20px;">
+                <div style="font-size:4rem; margin-bottom:10px;">${t.icon}</div>
+                <h1 class="text-gradient">${t.title}</h1>
+                <p style="font-size:1.2rem; color:var(--brand-magenta); font-weight:700;">${t.tagline}</p>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 250px; gap:30px;">
+                <div>
+                    <h3 style="text-transform:uppercase; font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;">Description</h3>
+                    <p style="font-size:1.1rem; line-height:1.6;">${t.description}</p>
+                    <h3 style="text-transform:uppercase; font-size:0.9rem; color:var(--text-muted); margin-top:20px; margin-bottom:10px;">What we measure</h3>
+                    <ul style="list-style:none; padding:0; font-weight:600; color:var(--brand-indigo);">
+                        ${measurementList}
+                    </ul>
+                </div>
+                <div style="background:#f8fafc; padding:20px; border-radius:15px; text-align:center; height:fit-content;">
+                    <div style="margin-bottom:15px;"><strong>${t.questions}</strong> Questions</div>
+                    <div style="margin-bottom:20px;"><strong>${t.time}</strong> Est. Time</div>
+                    <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Test Now →</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Show the page (and skip the home page)
+    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+    document.getElementById('test-landing').style.display = "block";
+}
+
+// 3. THE "SHARE LINK" DETECTOR: Runs immediately on load
+function initRouter() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const testParam = urlParams.get('test');
+    const viewParam = urlParams.get('view');
+
+    if (testParam) {
+        openTestLanding(testParam);
+    } else if (viewParam) {
+        showPage(viewParam);
+    } else {
+        showPage('home');
+    }
+}
+
+// 4. Update the card button in renderTestGrid:
+// Change the "Start Analysis" button to call openTestLanding(t.id)
 
 function toggleMobileNav() {
   const drawer = document.getElementById("mobile-drawer");
@@ -2837,3 +2907,17 @@ function submitCoachingForm(e) {
 // ============================================
 showPage("home");
 
+window.onpopstate = function(event) {
+    if (event.state && event.state.page) {
+        if (event.state.page === 'test-landing') {
+            openTestLanding(event.state.testId);
+        } else {
+            showPage(event.state.page);
+        }
+    } else {
+        initRouter();
+    }
+};
+
+// Start the app using the router instead of just showPage('home')
+initRouter();
