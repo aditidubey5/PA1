@@ -2022,7 +2022,7 @@ let answers = [];
 // ============================================
 
 // 1. MODIFIED NAVIGATION: Updates the URL when you switch pages
-function showPage(page, testId = null) {
+function showPage(page, testId = null, shouldPush=true) {
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
     const target = document.getElementById(page);
     if(target) target.style.display = "block";
@@ -2030,6 +2030,7 @@ function showPage(page, testId = null) {
     currentPage = page;
 
     // Update the URL without reloading the page
+    if (shouldPush) {
     if (page === 'test-landing' && testId) {
         // Creates: aditidubey5.github.io/PA1/?test=martyr
         window.history.pushState({page, testId}, "", `?test=${testId}`);
@@ -2039,6 +2040,7 @@ function showPage(page, testId = null) {
         // Creates: aditidubey5.github.io/PA1/?view=tests
         window.history.pushState({page}, "", `?view=${page}`);
     }
+  }
 
     // FIX: Ensure the grid is always drawn if we are on the assessments page
     if (page === "tests") {
@@ -2049,39 +2051,36 @@ function showPage(page, testId = null) {
 }
 
 // 2. THE LANDING PAGE GENERATOR
-function openTestLanding(testId) {
+function openTestLanding(testId, shouldPush = true) {
     const t = TESTS.find(x => x.id === testId);
     if (!t) {
-        showPage('tests');
+        showPage('home', null, false);
         return;
     }
     
     currentTest = t;
-    const landing = document.getElementById("landing-content");
+    const landingContainer = document.getElementById("landing-content");
     
-    // Switch to the landing page view and update URL to ?test=id
-    showPage('test-landing', testId);
+    // Tell showPage whether to update the URL or not
+    showPage('test-landing', testId, shouldPush);
 
     const measurementList = t.sections 
         ? t.sections.map(s => `<li>${s.name}</li>`).join('')
-        : "<li>Core Behavioral Traits</li><li>Performance Impact</li><li>Psychological Drivers</li>";
+        : "<li>Behavioral Patterns</li><li>Core Instincts</li><li>Psychological Drivers</li>";
 
-    landing.innerHTML = `
+    landingContainer.innerHTML = `
         <div class="landing-card" style="background:white; padding:40px; border-radius:24px; box-shadow:var(--shadow-card); max-width:800px; margin:40px auto; text-align:left;">
             <button class="btn-secondary" style="margin-bottom:20px;" onclick="showPage('tests')">← Back to Library</button>
-            
             <div style="text-align:center; margin-bottom:30px; border-bottom:1px solid #eee; padding-bottom:20px;">
                 <div style="font-size:4rem; margin-bottom:10px;">${t.icon}</div>
                 <h1 class="text-gradient" style="margin-bottom:10px;">${t.title}</h1>
                 <p style="font-size:1.2rem; color:var(--brand-magenta); font-weight:700;">${t.tagline}</p>
             </div>
-
             <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:30px;">
                 <div>
                     <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; letter-spacing:0.1em;">Overview</h3>
                     <p style="font-size:1.05rem; line-height:1.7; color:var(--text-primary);">${t.description}</p>
-                    
-                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-top:25px; margin-bottom:10px; letter-spacing:0.1em;">What we analyze</h3>
+                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-top:25px; margin-bottom:10px; letter-spacing:0.1em;">Analysis Dimensions</h3>
                     <ul class="landing-list" style="list-style:none; padding:0; font-weight:600; color:var(--brand-indigo);">
                         ${measurementList}
                     </ul>
@@ -2090,11 +2089,11 @@ function openTestLanding(testId) {
                     <div style="margin-bottom:15px; font-size:0.9rem;"><strong>${t.questions}</strong> Questions</div>
                     <div style="margin-bottom:20px; font-size:0.9rem;"><strong>${t.time}</strong> Est. Time</div>
                     <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Analysis →</button>
-                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:15px;">No registration required. Results are generated instantly.</p>
                 </div>
             </div>
         </div>
     `;
+
 
     // Show the page (and skip the home page)
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
@@ -2108,17 +2107,14 @@ function initRouter() {
     const viewParam = urlParams.get('view');
 
     if (testParam) {
-        // Open shareable test link
-        openTestLanding(testParam);
+        // Pass 'false' for shouldPush because we are already on this URL
+        openTestLanding(testParam, false);
     } else if (viewParam) {
-        // Open specific view like Coaching or Library
-        showPage(viewParam);
+        showPage(viewParam, null, false);
     } else {
-        // Default to Home
-        showPage('home');
+        showPage('home', null, false);
     }
 }
-
 // 4. Update the card button in renderTestGrid:
 // Change the "Start Analysis" button to call openTestLanding(t.id)
 
