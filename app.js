@@ -2022,27 +2022,23 @@ let answers = [];
 // ============================================
 
 // 1. MODIFIED NAVIGATION: Updates the URL when you switch pages
-function showPage(page, testId = null, shouldPush=true) {
+function showPage(page, testId = null, shouldPush = true) {
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
     const target = document.getElementById(page);
-    if(target) target.style.display = "block";
+    if (target) target.style.display = "block";
     
     currentPage = page;
 
-    // Update the URL without reloading the page
     if (shouldPush) {
-    if (page === 'test-landing' && testId) {
-        // Creates: aditidubey5.github.io/PA1/?test=martyr
-        window.history.pushState({page, testId}, "", `?test=${testId}`);
-    } else if (page === 'home') {
-        window.history.pushState({page}, "", window.location.pathname);
-    } else {
-        // Creates: aditidubey5.github.io/PA1/?view=tests
-        window.history.pushState({page}, "", `?view=${page}`);
+        if (page === 'test-landing' && testId) {
+            window.history.pushState({page, testId}, "", `?test=${testId}`);
+        } else if (page === 'home') {
+            window.history.pushState({page}, "", window.location.pathname);
+        } else {
+            window.history.pushState({page}, "", `?view=${page}`);
+        }
     }
-  }
 
-    // FIX: Ensure the grid is always drawn if we are on the assessments page
     if (page === "tests") {
         renderTestGrid();
     }
@@ -2050,64 +2046,12 @@ function showPage(page, testId = null, shouldPush=true) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// 2. THE LANDING PAGE GENERATOR
-function openTestLanding(testId, shouldPush = true) {
-    const t = TESTS.find(x => x.id === testId);
-    if (!t) {
-        showPage('home', null, false);
-        return;
-    }
-    
-    currentTest = t;
-    const landingContainer = document.getElementById("landing-content");
-    
-    // Tell showPage whether to update the URL or not
-    showPage('test-landing', testId, shouldPush);
-
-    const measurementList = t.sections 
-        ? t.sections.map(s => `<li>${s.name}</li>`).join('')
-        : "<li>Behavioral Patterns</li><li>Core Instincts</li><li>Psychological Drivers</li>";
-
-    landingContainer.innerHTML = `
-        <div class="landing-card" style="background:white; padding:40px; border-radius:24px; box-shadow:var(--shadow-card); max-width:800px; margin:40px auto; text-align:left;">
-            <button class="btn-secondary" style="margin-bottom:20px;" onclick="showPage('tests')">← Back to Library</button>
-            <div style="text-align:center; margin-bottom:30px; border-bottom:1px solid #eee; padding-bottom:20px;">
-                <div style="font-size:4rem; margin-bottom:10px;">${t.icon}</div>
-                <h1 class="text-gradient" style="margin-bottom:10px;">${t.title}</h1>
-                <p style="font-size:1.2rem; color:var(--brand-magenta); font-weight:700;">${t.tagline}</p>
-            </div>
-            <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:30px;">
-                <div>
-                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; letter-spacing:0.1em;">Overview</h3>
-                    <p style="font-size:1.05rem; line-height:1.7; color:var(--text-primary);">${t.description}</p>
-                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-top:25px; margin-bottom:10px; letter-spacing:0.1em;">Analysis Dimensions</h3>
-                    <ul class="landing-list" style="list-style:none; padding:0; font-weight:600; color:var(--brand-indigo);">
-                        ${measurementList}
-                    </ul>
-                </div>
-                <div style="background:#f8fafc; padding:25px; border-radius:20px; text-align:center; height:fit-content; border:1px solid #e2e8f0;">
-                    <div style="margin-bottom:15px; font-size:0.9rem;"><strong>${t.questions}</strong> Questions</div>
-                    <div style="margin-bottom:20px; font-size:0.9rem;"><strong>${t.time}</strong> Est. Time</div>
-                    <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Analysis →</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-
-    // Show the page (and skip the home page)
-    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-    document.getElementById('test-landing').style.display = "block";
-}
-
-// 3. THE "SHARE LINK" DETECTOR: Runs immediately on load
 function initRouter() {
     const urlParams = new URLSearchParams(window.location.search);
     const testParam = urlParams.get('test');
     const viewParam = urlParams.get('view');
 
     if (testParam) {
-        // Pass 'false' for shouldPush because we are already on this URL
         openTestLanding(testParam, false);
     } else if (viewParam) {
         showPage(viewParam, null, false);
@@ -2115,6 +2059,7 @@ function initRouter() {
         showPage('home', null, false);
     }
 }
+
 // 4. Update the card button in renderTestGrid:
 // Change the "Start Analysis" button to call openTestLanding(t.id)
 
@@ -2123,54 +2068,81 @@ function toggleMobileNav() {
   drawer.classList.toggle("open");
 }
 
-function openTestLanding(testId) {
-    // Find the test data
+function openTestLanding(testId, shouldPush = true) {
     const t = TESTS.find(x => x.id === testId);
     if (!t) {
-        showPage('tests'); // Fallback if ID is wrong
+        showPage('tests', null, false);
         return;
     }
     
     currentTest = t;
     const landingContainer = document.getElementById("landing-content");
     
-    // Switch to the landing page view and update URL bar
-    showPage('test-landing', testId);
+    showPage('test-landing', testId, shouldPush);
 
-    // Build the "What we measure" list dynamically
     const measurementList = t.sections 
         ? t.sections.map(s => `<li>${s.name}</li>`).join('')
-        : "<li>Behavioral Patterns</li><li>Core Instincts</li><li>Psychological Drivers</li>";
+        : "<li>Core Insights</li><li>Behavioral Mapping</li>";
 
     landingContainer.innerHTML = `
         <div class="landing-card" style="background:white; padding:40px; border-radius:24px; box-shadow:var(--shadow-card); max-width:800px; margin:40px auto; text-align:left;">
             <button class="btn-secondary" style="margin-bottom:20px;" onclick="showPage('tests')">← Back to Library</button>
-            
             <div style="text-align:center; margin-bottom:30px; border-bottom:1px solid #eee; padding-bottom:20px;">
                 <div style="font-size:4rem; margin-bottom:10px;">${t.icon}</div>
                 <h1 class="text-gradient" style="margin-bottom:10px;">${t.title}</h1>
                 <p style="font-size:1.2rem; color:var(--brand-magenta); font-weight:700;">${t.tagline}</p>
             </div>
-
             <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:30px;">
                 <div>
-                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; letter-spacing:0.1em;">Overview</h3>
-                    <p style="font-size:1.05rem; line-height:1.7; color:var(--text-primary);">${t.description}</p>
-                    
-                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-top:25px; margin-bottom:10px; letter-spacing:0.1em;">Analysis Dimensions</h3>
-                    <ul class="landing-list" style="list-style:none; padding:0; font-weight:600; color:var(--brand-indigo);">
+                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">Overview</h3>
+                    <p style="font-size:1.05rem; line-height:1.7;">${t.description}</p>
+                    <h3 style="text-transform:uppercase; font-size:0.8rem; color:var(--text-muted); margin-top:25px; margin-bottom:10px;">What we analyze</h3>
+                    <ul style="list-style:none; padding:0; font-weight:600; color:var(--brand-indigo);">
                         ${measurementList}
                     </ul>
                 </div>
                 <div style="background:#f8fafc; padding:25px; border-radius:20px; text-align:center; height:fit-content; border:1px solid #e2e8f0;">
-                    <div style="margin-bottom:15px; font-size:0.9rem;"><strong>${t.questions}</strong> Questions</div>
-                    <div style="margin-bottom:20px; font-size:0.9rem;"><strong>${t.time}</strong> Est. Time</div>
+                    <div style="margin-bottom:15px;"><strong>${t.questions}</strong> Questions</div>
+                    <div style="margin-bottom:20px;"><strong>${t.time}</strong> Est. Time</div>
                     <button class="btn-primary btn-full" onclick="startTest('${t.id}')">Start Analysis →</button>
                 </div>
             </div>
         </div>
     `;
 }
+
+function filterTests(catId) {
+    activeCategory = catId;
+    renderTestGrid();
+}
+
+function renderTestGrid() {
+    const grid = document.getElementById("test-grid-ui");
+    if (!grid) return;
+
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+        pill.classList.remove('active');
+        if (pill.getAttribute('onclick').includes(`'${activeCategory}'`)) {
+            pill.classList.add('active');
+        }
+    });
+
+    const filteredTests = activeCategory === "all" 
+        ? TESTS 
+        : TESTS.filter(t => t.category === activeCategory);
+
+    grid.innerHTML = filteredTests.map(t => `
+        <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
+            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--brand-indigo); margin-bottom: 8px;">${t.category}</div>
+            <h3>${t.title}</h3>
+            <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:18px; flex-grow:1;">${t.tagline}</p>
+            <button class="btn-secondary" onclick="openTestLanding('${t.id}')">Know More</button>
+            <button class="btn-primary btn-full" onclick="openTestLanding('${t.id}')">Start Analysis →</button>
+        </div>
+    `).join("");
+}
+
 
 // ============================================
 // MODAL
@@ -2907,10 +2879,16 @@ function submitCoachingForm(e) {
   });
 }
 
+// HELPER STYLES
+const s = document.createElement('style');
+s.textContent = `.answer-option { display:flex; align-items:center; gap:16px; padding:18px; border:2px solid #e2e8f0; border-radius:14px; cursor:pointer; transition:0.2s; background:#fcfcfc; }.answer-option.selected { border-color:var(--brand-indigo); color:var(--brand-indigo); }.answer-letter { width:28px; height:28px; border-radius:50%; background:white; border:2px solid #e2e8f0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:800; }.answer-option.selected .answer-letter { background:var(--brand-indigo); color:white; }`;
+document.head.appendChild(s);
+
+function toggleMobileNav() { document.getElementById("mobile-drawer").classList.toggle("open"); }
+function closeModal() { document.getElementById("method-modal").style.display = "none"; }
 // ============================================
 // INIT
 // ============================================
-showPage("home");
 
 window.onpopstate = function(event) {
     if (event.state && event.state.page) {
