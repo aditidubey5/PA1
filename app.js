@@ -2893,17 +2893,7 @@ function closeModal() { document.getElementById("method-modal").style.display = 
 // INIT
 // ============================================
 
-window.onpopstate = function(event) {
-    if (event.state && event.state.page) {
-        if (event.state.page === 'test-landing') {
-            openTestLanding(event.state.testId);
-        } else {
-            showPage(event.state.page,null,false);
-        }
-    } else {
-        initRouter();
-    }
-};
+
 
 // Start the app using the router instead of just showPage('home')
 initRouter();
