@@ -2042,6 +2042,9 @@ function showPage(page, testId = null, shouldPush = true) {
     if (page === "tests") {
         renderTestGrid();
     }
+    if(page==="coaching"){
+      renderCoaching();
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
