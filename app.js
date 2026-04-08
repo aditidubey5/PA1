@@ -2025,25 +2025,30 @@ let answers = [];
 function showPage(page, testId = null, shouldPush = true) {
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
     const target = document.getElementById(page);
-    if (target) target.style.display = "block";
+    if(target) target.style.display = "block";
     
     currentPage = page;
 
     if (shouldPush) {
         if (page === 'test-landing' && testId) {
+            // Updated for Custom Domain
             window.history.pushState({page, testId}, "", `?test=${testId}`);
         } else if (page === 'home') {
-            window.history.pushState({page}, "", window.location.pathname);
+            // Updated for Custom Domain (removes /PA1/)
+            window.history.pushState({page}, "", "/");
         } else {
             window.history.pushState({page}, "", `?view=${page}`);
         }
     }
 
-    if (page === "tests")renderTestGrid();
-    if (page === "coaching")renderCoachingPage(); 
+    if (page === "tests") renderTestGrid();
+    if (page === "coaching") renderCoachingPage();
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
+//hello
+//hellooooo
+
 
 function initRouter() {
     const urlParams = new URLSearchParams(window.location.search);
