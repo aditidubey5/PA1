@@ -905,7 +905,49 @@ const TESTS = [
         { section: "Social Leverage", q: "I believe that building the right relationships is more important for reaching a goal than just working hard on my own.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
         { section: "Social Leverage", q: "I enjoy helping others reach their targets because I believe that building a community of successful people benefits everyone.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
     ]
-  }
+  },
+  {
+    id: "stress_resilience",
+    category: "Mindset",
+    followUp: "Do you want to build a customized stress-prevention roadmap?",
+    keyword: "resilience",
+    title: "Stress Resilience Map",
+    tagline: "Understand how you process and navigate pressure.",
+    description: "Stress is not a sign of weakness; it is a biological response to high-stakes environments. This diagnostic maps your unique resilience profile across five key dimensions: Internal Regulation, Tactical Relief, Perspective, Social Scaffolding, and Prevention. By understanding your processing style, you can stop fighting your natural reactions and start engineering a lifestyle that sustains your high performance without the cost of burnout.",
+    questions: 20,
+    time: "10 min",
+    icon: "🌊",
+    highlights: ["Internal Regulation", "Cognitive Reframing", "Support Scaffolding"],
+    sections: [
+      { name: "Regulation", start: 0, end: 3 },
+      { name: "Relief", start: 4, end: 7 },
+      { name: "Perspective", start: 8, end: 11 },
+      { name: "Scaffolding", start: 12, end: 15 },
+      { name: "Prevention", start: 16, end: 19 }
+    ],
+    questions_data: [
+        { section: "Regulation", q: "When a situation becomes unexpectedly high-pressure, I find it relatively easy to maintain a steady emotional rhythm.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Regulation", q: "I notice physical signs of stress (like a tight chest or jaw) early enough to address them before they overwhelm me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Regulation", q: "After a high-stress event, I can usually return to a calm state within a short amount of time.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Regulation", q: "I find myself making impulsive decisions when I feel pushed for time or under scrutiny.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Relief", q: "I have a specific 'toolkit' of activities (like breathing, walking, or music) that I use to lower my stress levels in real-time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Relief", q: "I am comfortable stepping away from a problem for a few minutes to reset my brain when I feel stuck.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Relief", q: "I tend to rely on unhealthy distractions (like mindless scrolling or over-eating) to escape the feeling of pressure.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Relief", q: "I can effectively communicate to others that I need space without feeling guilty or defensive.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Perspective", q: "When facing a difficult challenge, I am able to see the potential for growth rather than just the potential for failure.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Perspective", q: "I find it helpful to look at my current stressors from a 'one year from now' perspective to reduce their intensity.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Perspective", q: "I tend to catastrophize—imagining the worst possible outcome as soon as something goes wrong.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
+        { section: "Perspective", q: "I believe that I have the internal resources and skills necessary to handle most of the stress life throws at me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Scaffolding", q: "I have at least two people in my life I can call to discuss my stress without feeling like a burden.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Scaffolding", q: "I find that talking through a stressful situation with someone else helps me process it much faster than staying silent.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Scaffolding", q: "I am willing to ask for help with my daily responsibilities when I feel my bandwidth is reaching its limit.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Scaffolding", q: "I feel that the people I spend the most time with contribute positively to my emotional stability.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Prevention", q: "I prioritize regular rest and quality sleep as a non-negotiable part of my success strategy.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Prevention", q: "I am effective at saying 'no' to new commitments when my current schedule is already full.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Prevention", q: "I have a morning or evening routine that helps me mentally 'offload' the weight of the day.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Prevention", q: "I regularly take time to analyze what is causing me stress and look for ways to eliminate the root cause.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
+    ]
+  },
 ];
 
 // ============================================
@@ -1784,8 +1826,6 @@ const REPORT_LOGIC = {
       const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
-
-    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Analysis of your internal leadership blueprint.", sectionResults };
   },
 
   // ── LEADERSHIP ORIENTATION REPORT ────────────────
@@ -1858,10 +1898,9 @@ const REPORT_LOGIC = {
       const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
-
-    return { overall, overallLabel: labels[primaryIdx], overallColor: "#6366f1", overallDescription: "Energy allocation analysis.", sectionResults };
   },
 
+    
   // ── AMBITION MINDSET REPORT ─────────────────────
   ambition_mindset: (answers) => {
     const sectionDefs = [
@@ -2005,9 +2044,112 @@ const REPORT_LOGIC = {
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
 
-    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Pursuit mechanics analysis.", sectionResults };
   },
+
+  // ── STRESS RESILIENCE REPORT ───────────────────
+
+      
+stress_resilience: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Internal Regulation",
+        range: [0, 3],
+        descriptions: {
+          high: "You have a high degree of emotional stability. You can stay in the 'driver's seat' even when the environment is chaotic.",
+          mid: "Your regulation is solid but situational. You stay calm during familiar stress but may feel a 'biological spike' during brand new challenges.",
+          low: "You are a 'Deep Processor'. Your body reacts strongly to pressure, which means you need more deliberate cooling-off periods than most."
+        },
+        watchHigh: ["Don't mistake calmness for immunity; check your physical health markers even when you feel fine.", "Ensure you aren't suppressing stress to the point of a future collapse."],
+        watchMid: ["Practice 'body scanning' once a day to catch physical tension before it becomes a mood.", "Name your emotions out loud to reduce their power."],
+        watchLow: ["Focus on 'Box Breathing' (4s in, 4s hold, 4s out, 4s hold) to manually reset your nervous system.", "Schedule 15 minutes of quiet time after every high-stakes interaction."]
+      },
+      {
+        name: "Tactical Relief",
+        range: [4, 7],
+        descriptions: {
+          high: "You have an excellent real-time toolkit. You know how to pivot your state and lower the pressure valve immediately.",
+          mid: "You have some relief habits, but you often wait until you are fully overwhelmed before using them.",
+          low: "You tend to endure the pressure until it breaks you, or you rely on 'escapism' rather than actual relief."
+        },
+        watchHigh: ["Keep diversifying your toolkit so your brain doesn't become 'numb' to one specific relief method.", "Share your tactics with your team."],
+        watchMid: ["Set a 'Stress Trigger' alarm: if you feel a 7/10 stress, you MUST walk away for 5 minutes.", "Establish a clear boundary between 'Distraction' and 'Recovery'."],
+        watchLow: ["Identify two small things (a song, a scent, a stretch) that make you feel 10% better.", "Practice saying 'I need a moment to think' instead of answering immediately."]
+      },
+      {
+        name: "Perspective & Reframing",
+        range: [8, 11],
+        descriptions: {
+          high: "You have a masterful cognitive filter. You can quickly reframe threats into challenges and see the long-term utility of current pain.",
+          mid: "You are generally optimistic, but a series of small wins can be easily overshadowed by one large setback.",
+          low: "Your internal narrative tends to favor worst-case scenarios, which makes every stressor feel permanent and pervasive."
+        },
+        watchHigh: ["Ensure your optimism is grounded in reality; don't 'reframe' a situation that actually needs to be fixed.", "Help others reframe without sounding dismissive of their pain."],
+        watchMid: ["Apply the '10-10-10' rule: will this matter in 10 minutes? 10 months? 10 years?", "Journal your 'Setback to Growth' history to remind yourself of your resilience."],
+        watchLow: ["Write down the 3 facts of the situation and the 3 stories you are telling yourself about it.", "Stop using words like 'always', 'never', and 'disaster'."]
+      },
+      {
+        name: "Social Scaffolding",
+        range: [12, 15],
+        descriptions: {
+          high: "You leverage your social environment effectively. You understand that resilience is a team sport and you lean on your circle.",
+          mid: "You have a good support system but you often hesitate to use it because you don't want to seem weak or needy.",
+          low: "You are 'Lone-Wolfing' your stress. By processing everything in isolation, you are doubling the weight of every challenge."
+        },
+        watchHigh: ["Check in on your support system; ensure you are giving back as much emotional energy as you receive.", "Be specific about what kind of help you need (Listening vs. Solving)."],
+        watchMid: ["Practice 'low-stakes vulnerability'—share a small frustration with a peer this week.", "Recognize that asking for help is actually an act of competence, not failure."],
+        watchLow: ["Identify one person who is a 'Calm Anchor' and spend 10 minutes with them when things get heavy.", "Join a community or peer group where high-stakes discussions are normalized."]
+      },
+      {
+        name: "Proactive Prevention",
+        range: [16, 19],
+        descriptions: {
+          high: "You don't just cope; you architect. You have built a lifestyle that minimizes unnecessary stress and protects your energy.",
+          mid: "You understand prevention but often let 'urgent' tasks violate your self-care routines.",
+          low: "You are living in a 'Reactive Loop'. You spend your energy fighting fires that could have been prevented with better boundaries."
+        },
+        watchHigh: ["Be careful not to become too rigid with your routines; maintain the ability to flex when life demands it.", "Review your boundaries quarterly as your responsibilities grow."],
+        watchMid: ["Treat your rest like a meeting: put it on the calendar and don't cancel it.", "Identify your 'Yes-person' tendencies and practice saying 'I'll get back to you'."],
+        watchLow: ["Audit your calendar: where can you add a 30-minute 'White Space' buffer every day?", "Commit to one non-negotiable sleep habit starting tonight."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    let overallLabel, overallColor, overallDescription;
+
+    if (overall >= 75) {
+      overallLabel = "Resilient Strategist";
+      overallColor = "#10b981";
+      overallDescription = "You have a highly developed internal architecture for handling pressure. You balance tactical relief with long-term prevention, allowing you to sustain high-stakes performance without compromising your well-being. The opportunity now is to model this for others and guard against complacency.";
+    } else if (overall >= 45) {
+      overallLabel = "Contextual Adapter";
+      overallColor = "#f59e0b";
+      overallDescription = "Your resilience is functional but fluctuates. You cope well in certain environments but may lose your 'center' when multiple areas of life get heavy at once. Strengthening your real-time regulation and proactive boundaries will move you toward an elite level of resilience.";
+    } else {
+      overallLabel = "High-Capacity Processor";
+      overallColor = "#6366f1";
+      overallDescription = "You feel the weight of life more acutely than most, which often indicates a high level of empathy and conscientiousness. However, your current 'Lone Wolf' approach and reactive habits are creating a bottleneck. Your path forward isn't about being 'tougher', but about building better scaffolding and systems to support your processing style.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  }
 };
+
+    
+
 
 // ============================================
 // STATE
@@ -2025,30 +2167,29 @@ let answers = [];
 function showPage(page, testId = null, shouldPush = true) {
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
     const target = document.getElementById(page);
-    if(target) target.style.display = "block";
+    if (target) target.style.display = "block";
     
     currentPage = page;
 
     if (shouldPush) {
         if (page === 'test-landing' && testId) {
-            // Updated for Custom Domain
             window.history.pushState({page, testId}, "", `?test=${testId}`);
         } else if (page === 'home') {
-            // Updated for Custom Domain (removes /PA1/)
-            window.history.pushState({page}, "", "/");
+            window.history.pushState({page}, "", window.location.pathname);
         } else {
             window.history.pushState({page}, "", `?view=${page}`);
         }
     }
 
-    if (page === "tests") renderTestGrid();
-    if (page === "coaching") renderCoachingPage();
+    if (page === "tests") {
+        renderTestGrid();
+    }
+    if (page === "coaching") {
+        renderCoachingPage(); 
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
-//hello
-//hellooooo
-
 
 function initRouter() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -2760,7 +2901,7 @@ async function sendReportEmail() {
             </div>
             <div style="background: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
               <p style="margin: 0; font-size: 12px; color: #94a3b8;">
-                Generated by <strong>People Assets</strong> • peopleassets.in
+                Generated by <strong>People Assets</strong> • aditidubey5.github.io/PA1
               </p>
             </div>
           </div>
