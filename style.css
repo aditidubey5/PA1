@@ -484,6 +484,27 @@ nav {
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+.login-google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: #475569;
+    padding: 6px 16px; /* Slightly smaller for the navbar */
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 10px;
+}
+
+.login-google-btn:hover {
+    background: #f8fafc;
+    border-color: var(--brand-indigo);
+    transform: translateY(-1px);
+}
 
 /* ============================================ COACHING ============================================ */
 .coaching-wrap { max-width: 540px; margin: 0 auto; text-align: center; }
