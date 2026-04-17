@@ -2825,6 +2825,14 @@ async function sendReportEmail() {
     sendBtn.textContent = "Email My Report →";
   }
 }
+
+async function signInWithGoogle() {
+    // This points to your Supabase Auth URL
+    // It will open the Google Login page and redirect back to your site after success
+    const redirectUrl = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=https://peopleassets.in`;
+    
+    window.location.href = redirectUrl;
+}
 // ============================================
 // COACHING PAGE
 // ============================================

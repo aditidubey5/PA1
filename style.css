@@ -457,6 +457,34 @@ nav {
     background-clip: text;
 }
 
+.login-google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    color: #374151;
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.login-google-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.login-google-btn:hover {
+    background: #f9fafb;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 /* ============================================ COACHING ============================================ */
 .coaching-wrap { max-width: 540px; margin: 0 auto; text-align: center; }
 .coaching-wrap h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 12px; }
