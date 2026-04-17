@@ -7,6 +7,8 @@
 // ============================================
 // ASSESSMENT DATA
 // ============================================
+const SUPABASE_URL = "https://jgozwnygkuuxkwxhrhqk.supabase.co";
+const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
 const TESTS = [
   {
     id: "disc",
@@ -905,220 +907,7 @@ const TESTS = [
         { section: "Social Leverage", q: "I believe that building the right relationships is more important for reaching a goal than just working hard on my own.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
         { section: "Social Leverage", q: "I enjoy helping others reach their targets because I believe that building a community of successful people benefits everyone.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
     ]
-  },
-  {
-    id: "stress_resilience",
-    category: "Mindset",
-    followUp: "Do you want to build a customized stress-prevention roadmap?",
-    keyword: "resilience",
-    title: "Stress Resilience Map",
-    tagline: "Understand how you process and navigate pressure.",
-    description: "Stress is not a sign of weakness; it is a biological response to high-stakes environments. This diagnostic maps your unique resilience profile across five key dimensions: Internal Regulation, Tactical Relief, Perspective, Social Scaffolding, and Prevention. By understanding your processing style, you can stop fighting your natural reactions and start engineering a lifestyle that sustains your high performance without the cost of burnout.",
-    questions: 20,
-    time: "10 min",
-    icon: "🌊",
-    highlights: ["Internal Regulation", "Cognitive Reframing", "Support Scaffolding"],
-    sections: [
-      { name: "Regulation", start: 0, end: 3 },
-      { name: "Relief", start: 4, end: 7 },
-      { name: "Perspective", start: 8, end: 11 },
-      { name: "Scaffolding", start: 12, end: 15 },
-      { name: "Prevention", start: 16, end: 19 }
-    ],
-    questions_data: [
-        { section: "Regulation", q: "When a situation becomes unexpectedly high-pressure, I find it relatively easy to maintain a steady emotional rhythm.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Regulation", q: "I notice physical signs of stress (like a tight chest or jaw) early enough to address them before they overwhelm me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Regulation", q: "After a high-stress event, I can usually return to a calm state within a short amount of time.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Regulation", q: "I find myself making impulsive decisions when I feel pushed for time or under scrutiny.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Relief", q: "I have a specific 'toolkit' of activities (like breathing, walking, or music) that I use to lower my stress levels in real-time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Relief", q: "I am comfortable stepping away from a problem for a few minutes to reset my brain when I feel stuck.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Relief", q: "I tend to rely on unhealthy distractions (like mindless scrolling or over-eating) to escape the feeling of pressure.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Relief", q: "I can effectively communicate to others that I need space without feeling guilty or defensive.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Perspective", q: "When facing a difficult challenge, I am able to see the potential for growth rather than just the potential for failure.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Perspective", q: "I find it helpful to look at my current stressors from a 'one year from now' perspective to reduce their intensity.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Perspective", q: "I tend to catastrophize—imagining the worst possible outcome as soon as something goes wrong.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Perspective", q: "I believe that I have the internal resources and skills necessary to handle most of the stress life throws at me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Scaffolding", q: "I have at least two people in my life I can call to discuss my stress without feeling like a burden.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Scaffolding", q: "I find that talking through a stressful situation with someone else helps me process it much faster than staying silent.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Scaffolding", q: "I am willing to ask for help with my daily responsibilities when I feel my bandwidth is reaching its limit.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Scaffolding", q: "I feel that the people I spend the most time with contribute positively to my emotional stability.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Prevention", q: "I prioritize regular rest and quality sleep as a non-negotiable part of my success strategy.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Prevention", q: "I am effective at saying 'no' to new commitments when my current schedule is already full.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Prevention", q: "I have a morning or evening routine that helps me mentally 'offload' the weight of the day.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Prevention", q: "I regularly take time to analyze what is causing me stress and look for ways to eliminate the root cause.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
-  // ── 1. THE EGO PROFILE (Ego)
-  {
-    id: "ego_profile",
-    category: "Mindset",
-    followUp: "Ready to transition from protecting your identity to expanding your potential?",
-    keyword: "flexible-identity",
-    title: "The Ego Profile",
-    tagline: "Explore your relationship with being wrong and being challenged.",
-    description: "This assessment measures how much mental energy you spend defending your current self-image. Rather than measuring 'arrogance,' we analyze your 'Identity Shield'—the psychological barrier used to protect the ego from feedback, errors, and perceived status threats. Understanding this shield is the first step toward building true psychological flexibility and learning at a much higher velocity.",
-    questions: 20,
-    time: "10 min",
-    icon: "🛡️",
-    highlights: ["Feedback Receptivity", "Admission of Error", "Idea Ownership"],
-    sections: [
-      { name: "Feedback", start: 0, end: 4 },
-      { name: "Ownership", start: 5, end: 9 },
-      { name: "Error Tolerance", start: 10, end: 14 },
-      { name: "Status Baseline", start: 15, end: 19 }
-    ],
-    questions_data: [
-        { section: "Feedback", q: "When someone provides direct critique of my work, my first internal reaction is often to find the flaws in their logic.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Feedback", q: "I find that I am more likely to accept advice if it is delivered by someone I perceive as having a higher status than me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Feedback", q: "I feel a physical sense of discomfort or defensiveness when a group project I worked on is criticized publicly.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Feedback", q: "I tend to replay conversations where I was challenged, mentally refining the 'perfect rebuttal' I should have given.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Feedback", q: "I view unsolicited advice as a subtle suggestion that I am not handling the situation correctly on my own.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Ownership", q: "I find it difficult to fully support a plan if I wasn't involved in its original creation.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Ownership", q: "I feel a strong need to ensure that my specific contributions are clearly identified by leaders or peers.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Ownership", q: "I have a tendency to use 'I' or 'My' more than 'We' or 'Our' when describing a success.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Ownership", q: "I feel a sense of loss or frustration when an idea I proposed is attributed to someone else.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Ownership", q: "I find myself checking if I am 'in the loop' on major decisions as a way to verify my importance to the team.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Tolerance", q: "I find it easy to admit to a group that I have changed my mind based on new evidence.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"] },
-        { section: "Error Tolerance", q: "When I make a mistake, I am more likely to explain the 'context' (why it happened) than to simply apologize for the error.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Tolerance", q: "I worry that admitting I don't know the answer will make others lose confidence in my abilities.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Error Tolerance", q: "I feel an internal pressure to maintain a reputation for always being reliable and correct.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Tolerance", q: "If I realize I am wrong in the middle of a debate, I tend to 'pivot' my argument rather than acknowledge the other person's point.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Status Baseline", q: "I find myself comparing my current lifestyle or title to peers who started at the same time as me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Status Baseline", q: "I feel a sudden spike of restlessness or inadequacy when I see a colleague receiving praise that I feel I deserved.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Status Baseline", q: "I am careful about how I present myself on social or professional platforms to ensure I look 'successful.'", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Status Baseline", q: "I find it difficult to genuinely celebrate the success of a peer if they are currently outperforming me in my field.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Status Baseline", q: "I believe that my 'worth' is directly tied to the level of impact I am currently creating.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
-
-  // ── 2. THE HARMONY VS IMPACT QUOTIENT (People-Pleasing)
-  {
-    id: "harmony_quotient",
-    category: "Mindset",
-    followUp: "Want to learn how to be kind without being a pushover?",
-    keyword: "assertive-impact",
-    title: "Harmony vs. Impact Quotient",
-    tagline: "Analyze the balance between social safety and results.",
-    description: "Do you trade your long-term influence for short-term peace? This assessment measures your 'Harmony Default'—the subconscious tendency to prioritize the feelings of others over the objectives of the group. While empathy is a skill, chronic harmony-seeking can lead to decision-debt and personal burnout. We explore your conflict threshold, your relationship with validation, and your ability to hold firm boundaries.",
-    questions: 20,
-    time: "9 min",
-    icon: "🤝",
-    highlights: ["Conflict Receptivity", "Boundary Integrity", "Validation Baseline"],
-    sections: [
-      { name: "Conflict Threshold", start: 0, end: 4 },
-      { name: "Validation Need", start: 5, end: 9 },
-      { name: "Boundary Support", start: 10, end: 14 },
-      { name: "Decision Autonomy", start: 15, end: 19 }
-    ],
-    questions_data: [
-        { section: "Conflict Threshold", q: "I find myself choosing to stay silent about a problem if I know that bringing it up will create an awkward atmosphere.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Conflict Threshold", q: "When I have to deliver bad news, I spend a significant amount of time 'softening' the message so no one feels hurt.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Conflict Threshold", q: "I feel a sense of personal anxiety when there is tension in a room, even if I am not involved in the disagreement.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Conflict Threshold", q: "I would rather take on a task I don't like than deal with the discomfort of telling someone 'no' to their face.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Conflict Threshold", q: "I worry that if I am too direct, people will perceive me as aggressive or unkind.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Validation Need", q: "I often find myself checking people's facial expressions after I speak to ensure they approved of what I said.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Validation Need", q: "My internal mood for the day is heavily affected by whether I feel liked and included by my peers.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Validation Need", q: "I struggle to stand by my opinion if the rest of the group seems to be moving in a different direction.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Validation Need", q: "I feel a deep sense of guilt when I think I have let someone down, even if the request was unreasonable.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Validation Need", q: "I find myself apologizing frequently for things that are not actually my fault.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Boundary Support", q: "I often say 'yes' to requests instantly, only to regret it a few minutes later when I realize I don't have the time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Boundary Support", q: "I feel responsible for 'fixing' other people's bad moods or stress levels.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Boundary Support", q: "I find it difficult to set clear end-times for my availability, leading others to interrupt my personal time.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Boundary Support", q: "I worry that setting a boundary will make me look 'not like a team player.'", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Boundary Support", q: "I feel I must provide a long list of reasons or excuses whenever I have to decline a social or work request.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Decision Autonomy", q: "I frequently ask multiple people for their opinion before making a decision that only affects me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Decision Autonomy", q: "I tend to 'mirror' the energy or the opinions of the person I am currently talking to.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Decision Autonomy", q: "I feel a sense of relief when someone else takes the lead and makes the final choice for the group.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Decision Autonomy", q: "I find myself doing things because I feel I 'should,' rather than because I actually want to.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Decision Autonomy", q: "I would choose a path that makes everyone happy over a path that is correct but unpopular.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
-
-  // ── 3. THE OUTCOME OPTIMIZATION INDEX (Perfectionism)
-  {
-    id: "perfectionism_index",
-    category: "Mindset",
-    followUp: "Ready to stop over-engineering and start moving faster?",
-    keyword: "optimal-results",
-    title: "Outcome Optimization Index",
-    tagline: "The thin line between high standards and diminishing returns.",
-    description: "Perfectionism is often a mask for the fear of being judged. This diagnostic analyzes where your pursuit of excellence stops adding value and starts becoming a bottleneck. We measure your 'Shipping Velocity'—your ability to release work—and your 'Error Sensitivity.' Learn to distinguish between high-stakes precision and low-leverage over-thinking so you can increase your output without sacrificing your sanity.",
-    questions: 20,
-    time: "10 min",
-    icon: "📐",
-    highlights: ["Shipping Velocity", "Error Tolerance", "Process Obsession"],
-    sections: [
-      { name: "Velocity", start: 0, end: 4 },
-      { name: "Error Sensitivity", start: 5, end: 9 },
-      { name: "Process Control", start: 10, end: 14 },
-      { name: "Post-Release Rumination", start: 15, end: 19 }
-    ],
-    questions_data: [
-        { section: "Velocity", q: "I find it difficult to consider a task 'finished' until I have checked it at least three times.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Velocity", q: "I often miss deadlines or finish at the very last second because I was 'tweaking' minor details.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Velocity", q: "The idea of showing someone a 'rough draft' of my work makes me feel anxious or exposed.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Velocity", q: "I spend more than 20% of my time on a project focusing on aesthetics or formatting that doesn't affect the core result.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Velocity", q: "I frequently feel that if I had just one more day, I could make the project significantly better.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Error Sensitivity", q: "A minor typo or small mistake in a finished product feels like a stain on my professional reputation.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Sensitivity", q: "I tend to remember the one thing that went wrong in a project more than the ten things that went right.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Error Sensitivity", q: "I am much harsher on my own mistakes than I am on the mistakes of the people I work with.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Sensitivity", q: "I feel that any result below 'flawless' is a sign of personal laziness or lack of care.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Error Sensitivity", q: "When I receive feedback that is 90% positive, I spend most of my mental energy obsessing over the 10% negative.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Process Control", q: "I believe that there is one 'perfect' way to do things and I get frustrated when others deviate from it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Process Control", q: "I find it hard to delegate tasks because I worry that the other person won't follow the exact steps I would use.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Process Control", q: "I often get so caught up in the 'process' or the 'tools' that I lose sight of the actual goal.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Process Control", q: "I find it difficult to relax until my workspace or my to-do list is perfectly organized.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Process Control", q: "I value 'doing it right' more than 'doing it fast,' even for tasks where speed is the priority.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Post-Release Rumination", q: "After I hit 'send' or finish a project, I immediately start thinking about all the things I could have done differently.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Post-Release Rumination", q: "I find it hard to enjoy a victory because I am already worrying about maintaining that standard for the next task.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Post-Release Rumination", q: "I have difficulty sleeping when I feel a project I am working on is in an 'imperfect' state.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Post-Release Rumination", q: "I feel a sense of 'shame' when I look back at work I produced a year ago, even if it was successful at the time.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Post-Release Rumination", q: "I judge my self-worth by the quality of my latest output.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
-
-  // ── 4. THE DECISIVENESS ARCHITECTURE (Procrastination)
-  {
-    id: "procrastination_blueprint",
-    category: "Orientation",
-    followUp: "Ready to lower the barrier to action and reclaim your time?",
-    keyword: "initiative",
-    title: "Procrastination Blueprint",
-    tagline: "Understand the gap between your intentions and your actions.",
-    description: "Procrastination is not a time-management problem; it is an emotional regulation challenge. This assessment analyzes your 'Initiative Threshold'—the amount of mental energy you require to start a daunting task. By identifying your specific triggers (Clarity Dependency, Dopamine Sensitivity, or Anxiety), we can build an architecture that makes action the default setting of your day.",
-    questions: 20,
-    time: "9 min",
-    icon: "⏱️",
-    highlights: ["Initiative Threshold", "Clarity Dependency", "Dopamine Mapping"],
-    sections: [
-      { name: "Initiative Threshold", start: 0, end: 4 },
-      { name: "Clarity Dependency", start: 5, end: 9 },
-      { name: "Immediate Comfort", start: 10, end: 14 },
-      { name: "Activation Energy", start: 15, end: 19 }
-    ],
-    questions_data: [
-        { section: "Initiative Threshold", q: "I often spend hours doing 'productive-looking' small tasks (like cleaning or checking email) to avoid starting the one big thing that matters.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I find that I only feel a real surge of focus and energy when the deadline is dangerously close.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I tell myself 'I'll feel more like doing this tomorrow' or 'I need to wait for the right mood.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Initiative Threshold", q: "I find the act of 'beginning' a task much more exhausting than the act of actually doing the work.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I have a long list of 'half-started' projects that I intend to return to once I have more time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I tend to stall on a project if the next step is not 100% clear or defined for me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I spend more time 'researching' and 'gathering information' than I do actually taking action.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Clarity Dependency", q: "If I encounter a minor technical hurdle, I use it as a reason to stop working on the project for the day.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I feel that I need to 'understand' the whole system before I can comfortably start on a small piece of it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I find it hard to work if my environment isn't 'set up' exactly correctly first.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "When a task feels difficult, I have a strong impulse to check my phone or open a browser tab for a quick 'break.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Immediate Comfort", q: "I prioritize tasks that give me a quick feeling of success over those that are more important but take longer.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I find that I am a 'late-night' or 'early-morning' person purely because that is when there are no other distractions to compete with.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I use 'busyness' as an excuse to avoid the deeper, more emotionally taxing work I know I should be doing.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I am more motivated by the fear of consequences than I am by the excitement of the goal.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I find that once I actually start a task, it is rarely as difficult as I imagined it would be.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I require a significant amount of 'ramp-up' time (coffee, organizing, thinking) before I can do deep work.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Activation Energy", q: "I feel a sense of dread when I look at my to-do list in the morning.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I have difficulty finishing the 'final 5%' of a project once the initial excitement has worn off.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I judge my day's success by how much I 'thought' about my work, rather than what I actually produced.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
+  }
 ];
 
 // ============================================
@@ -1986,165 +1775,145 @@ const REPORT_LOGIC = {
       const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
-    
 
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    let overallLabel = overall >= 75 ? "Empathetic Growth Leader" : overall >= 50 ? "Balanced Pragmatist" : "Control-Oriented Traditionalist";
+    
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Analysis of your internal leadership blueprint.", sectionResults };
+  },
+
+  // ── LEADERSHIP ORIENTATION REPORT ────────────────
+  leadership_orientation: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Operational Execution",
+        range: [0, 4],
+        descriptions: {
+          high: "You are a 'Tactical Driver.' Your focus is on the 'Now'—ensuring that plans become reality with high speed and absolute precision.",
+          mid: "You are productive but can get caught in the 'messy middle' between doing the work and directing it. You ensure progress but may lack a high-speed edge.",
+          low: "You often lose sight of the tactical steps required to finish. You may have great ideas that fail to launch because the 'boring' work is ignored."
+        },
+        watchHigh: ["Watch for team burnout; not everyone can maintain your 'sprint' pace forever.", "Make sure you don't confuse being 'busy' with being 'effective'."],
+        watchMid: ["Use a more structured project management tool to visualize the finish line.", "Delegate one routine task today to reclaim one hour for strategic thinking."],
+        watchLow: ["Connect your big ideas to a specific 'Tuesday morning' to-do list.", "Focus on closing open loops before starting new ones."]
+      },
+      {
+        name: "Strategic Direction",
+        range: [5, 9],
+        descriptions: {
+          high: "You are a 'Visionary Architect.' You focus on the North Star and where the organization is heading 3 years from now.",
+          mid: "You have a vision but often struggle to communicate it in a way that feels actionable to the people responsible for doing it.",
+          low: "You are operating reactively. You spend your day responding to the fire of the hour rather than building the firebreak for the year."
+        },
+        watchHigh: ["Ensure your vision is grounded in current resource reality.", "Partner with a strong 'Operational' leader to land your big ideas."],
+        watchMid: ["Write down your 3-year plan and share it with a peer to check for clarity.", "Block out 2 hours of 'Strategy Only' time on your calendar weekly."],
+        watchLow: ["Read industry research for 30 minutes every morning before opening email.", "Ask: 'What will this decision look like in 12 months?' before acting."]
+      },
+      {
+        name: "Human Development",
+        range: [10, 14],
+        descriptions: {
+          high: "You are a 'People Coach.' You believe that scaling a business is impossible without scaling the human beings within it.",
+          mid: "You care about the team but often let 'the work' interrupt your investment in them. You are a supportive boss but an inconsistent mentor.",
+          low: "You see people as 'units of production.' You focus on the output, which build building a fragile, high-turnover culture."
+        },
+        watchHigh: ["Don't let your empathy prevent you from holding people to high standards.", "Set clear performance boundaries early to avoid 'empathy traps.'"],
+        watchMid: ["Schedule non-negotiable 1-on-1s that focus ONLY on growth, not project updates.", "Practice asking for feedback from your team as much as you give it."],
+        watchLow: ["Identify the career goals of your top 3 employees this week.", "Acknowledge great work publicly to build social capital."]
+      },
+      {
+        name: "Structural Integrity",
+        range: [15, 19],
+        descriptions: {
+          high: "You are a 'System Designer.' You build machines that run without you. You prioritize scalability and predictability.",
+          mid: "You appreciate process but your systems are often fragile or live 'in your head,' making it difficult for the team to operate autonomously.",
+          low: "You lead through chaos. You may find process 'stifling,' which leads to repeated mistakes and a culture of 'hero-fixes'."
+        },
+        watchHigh: ["Ensure your systems don't become red-tape that kills agility.", "Be willing to break a process if it's no longer serving the goal."],
+        watchMid: ["Document one key workflow this week that everyone uses.", "Look for one automation opportunity in your daily routine."],
+        watchLow: ["Recognize that 'boring' work (SOPs) is what allows for 'exciting' growth.", "Pick the most repetitive mistake in your team and build a checklist to stop it."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    const labels = ["Tactical Driver", "Strategic Visionary", "People Coach", "System Architect"];
+    const primaryIdx = sectionScores.indexOf(Math.max(...sectionScores));
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
       const color = score >= 70 ? "#6366f1" : score >= 40 ? "#a855f7" : "#94a3b8";
       const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    },
-
-  };
-
-  // ── STRESS RESILIENCE REPORT ───────────────────
-
-      
-stress_resilience: (answers) => {
-    const sectionDefs = [
-      {
-        name: "Internal Regulation",
-        range: [0, 3],
-        descriptions: {
-          high: "You have a high degree of emotional stability. You can stay in the 'driver's seat' even when the environment is chaotic.",
-          mid: "Your regulation is solid but situational. You stay calm during familiar stress but may feel a 'biological spike' during brand new challenges.",
-          low: "You are a 'Deep Processor'. Your body reacts strongly to pressure, which means you need more deliberate cooling-off periods than most."
-        },
-        watchHigh: ["Don't mistake calmness for immunity; check your physical health markers even when you feel fine.", "Ensure you aren't suppressing stress to the point of a future collapse."],
-        watchMid: ["Practice 'body scanning' once a day to catch physical tension before it becomes a mood.", "Name your emotions out loud to reduce their power."],
-        watchLow: ["Focus on 'Box Breathing' (4s in, 4s hold, 4s out, 4s hold) to manually reset your nervous system.", "Schedule 15 minutes of quiet time after every high-stakes interaction."]
-      },
-      {
-        name: "Tactical Relief",
-        range: [4, 7],
-        descriptions: {
-          high: "You have an excellent real-time toolkit. You know how to pivot your state and lower the pressure valve immediately.",
-          mid: "You have some relief habits, but you often wait until you are fully overwhelmed before using them.",
-          low: "You tend to endure the pressure until it breaks you, or you rely on 'escapism' rather than actual relief."
-        },
-        watchHigh: ["Keep diversifying your toolkit so your brain doesn't become 'numb' to one specific relief method.", "Share your tactics with your team."],
-        watchMid: ["Set a 'Stress Trigger' alarm: if you feel a 7/10 stress, you MUST walk away for 5 minutes.", "Establish a clear boundary between 'Distraction' and 'Recovery'."],
-        watchLow: ["Identify two small things (a song, a scent, a stretch) that make you feel 10% better.", "Practice saying 'I need a moment to think' instead of answering immediately."]
-      },
-      {
-        name: "Perspective & Reframing",
-        range: [8, 11],
-        descriptions: {
-          high: "You have a masterful cognitive filter. You can quickly reframe threats into challenges and see the long-term utility of current pain.",
-          mid: "You are generally optimistic, but a series of small wins can be easily overshadowed by one large setback.",
-          low: "Your internal narrative tends to favor worst-case scenarios, which makes every stressor feel permanent and pervasive."
-        },
-        watchHigh: ["Ensure your optimism is grounded in reality; don't 'reframe' a situation that actually needs to be fixed.", "Help others reframe without sounding dismissive of their pain."],
-        watchMid: ["Apply the '10-10-10' rule: will this matter in 10 minutes? 10 months? 10 years?", "Journal your 'Setback to Growth' history to remind yourself of your resilience."],
-        watchLow: ["Write down the 3 facts of the situation and the 3 stories you are telling yourself about it.", "Stop using words like 'always', 'never', and 'disaster'."]
-      },
-      {
-        name: "Social Scaffolding",
-        range: [12, 15],
-        descriptions: {
-          high: "You leverage your social environment effectively. You understand that resilience is a team sport and you lean on your circle.",
-          mid: "You have a good support system but you often hesitate to use it because you don't want to seem weak or needy.",
-          low: "You are 'Lone-Wolfing' your stress. By processing everything in isolation, you are doubling the weight of every challenge."
-        },
-        watchHigh: ["Check in on your support system; ensure you are giving back as much emotional energy as you receive.", "Be specific about what kind of help you need (Listening vs. Solving)."],
-        watchMid: ["Practice 'low-stakes vulnerability'—share a small frustration with a peer this week.", "Recognize that asking for help is actually an act of competence, not failure."],
-        watchLow: ["Identify one person who is a 'Calm Anchor' and spend 10 minutes with them when things get heavy.", "Join a community or peer group where high-stakes discussions are normalized."]
-      },
-      {
-        name: "Proactive Prevention",
-        range: [16, 19],
-        descriptions: {
-          high: "You don't just cope; you architect. You have built a lifestyle that minimizes unnecessary stress and protects your energy.",
-          mid: "You understand prevention but often let 'urgent' tasks violate your self-care routines.",
-          low: "You are living in a 'Reactive Loop'. You spend your energy fighting fires that could have been prevented with better boundaries."
-        },
-        watchHigh: ["Be careful not to become too rigid with your routines; maintain the ability to flex when life demands it.", "Review your boundaries quarterly as your responsibilities grow."],
-        watchMid: ["Treat your rest like a meeting: put it on the calendar and don't cancel it.", "Identify your 'Yes-person' tendencies and practice saying 'I'll get back to you'."],
-        watchLow: ["Audit your calendar: where can you add a 30-minute 'White Space' buffer every day?", "Commit to one non-negotiable sleep habit starting tonight."]
-      }
-    ];
-
-    const sectionScores = sectionDefs.map(sec => {
-      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
-    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    let overallLabel, overallColor, overallDescription;
+    return { overall, overallLabel: labels[primaryIdx], overallColor: "#6366f1", overallDescription: "Energy allocation analysis.", sectionResults };
+  },
 
-    if (overall >= 75) {
-      overallLabel = "Resilient Strategist";
-      overallColor = "#10b981";
-      overallDescription = "You have a highly developed internal architecture for handling pressure. You balance tactical relief with long-term prevention, allowing you to sustain high-stakes performance without compromising your well-being. The opportunity now is to model this for others and guard against complacency.";
-    } else if (overall >= 45) {
-      overallLabel = "Contextual Adapter";
-      overallColor = "#f59e0b";
-      overallDescription = "Your resilience is functional but fluctuates. You cope well in certain environments but may lose your 'center' when multiple areas of life get heavy at once. Strengthening your real-time regulation and proactive boundaries will move you toward an elite level of resilience.";
-    } else {
-      overallLabel = "High-Capacity Processor";
-      overallColor = "#6366f1";
-      overallDescription = "You feel the weight of life more acutely than most, which often indicates a high level of empathy and conscientiousness. However, your current 'Lone Wolf' approach and reactive habits are creating a bottleneck. Your path forward isn't about being 'tougher', but about building better scaffolding and systems to support your processing style.";
-    }
-
-    const sectionResults = sectionDefs.map((sec, i) => {
-      const score = sectionScores[i];
-      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
-      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    });
-
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  };
-
-  ego_profile: (answers) => {
+  // ── AMBITION MINDSET REPORT ─────────────────────
+  ambition_mindset: (answers) => {
     const sectionDefs = [
       {
-        name: "Feedback Receptivity",
+        name: "Inner Drive",
         range: [0, 4],
         descriptions: {
-          high: "You view critique as high-value data. You are able to separate your work from your worth, allowing you to iterate faster than others.",
-          mid: "You are open to feedback from trusted sources, but unasked-for advice still triggers a momentary 'Identity Shield' response.",
-          low: "Feedback currently feels like an interrogation. You spend significant bandwidth defending your logic rather than investigating the critique."
+          high: "Your fuel is almost entirely intrinsic. You chase goals for the sake of mastery and alignment with your potential.",
+          mid: "Your drive is a hybrid. You are motivated by passion, but you require external validation or status to feel 'successful'.",
+          low: "Your ambition is externally dependent. You are likely chasing what you think you *should* want, making motivation fragile."
         },
-        watchHigh: ["Ensure your openness doesn't turn into a lack of conviction; stand your ground when the data supports you.", "Model this 'Data-over-Ego' mindset for your peers."],
-        watchMid: ["Practice 'Active Inquiry'—when criticized, ask two clarifying questions before explaining your position.", "Notice which specific people trigger your defensiveness."],
-        watchLow: ["Ask 'What if they are 10% right?' as a mental exercise.", "Understand that a critique of a project is not a critique of your character."]
+        watchHigh: ["Watch for 'Ambition Blindness'—don't neglect your health or relationships.", "Stay connected to who you are today."],
+        watchMid: ["Identify which 20% of your goals are purely for 'status' and consider dropping them.", "Focus on the internal win."],
+        watchLow: ["Find one activity you would do even if you could never tell anyone about it.", "Explore your deeper 'Why'."]
       },
       {
-        name: "Idea Ownership",
+        name: "Failure Resilience",
         range: [5, 9],
         descriptions: {
-          high: "You optimize for the 'Best Idea,' regardless of where it came from. This intellectual humility makes you a powerful collaborator.",
-          mid: "You enjoy collaboration, but you still feel a significant psychological boost when you are recognized as the primary architect of a plan.",
-          low: "Your identity is currently tied to being the 'Source.' You may find it difficult to fully commit to plans that you didn't originate."
+          high: "You view failure as premium data. Setbacks sharpen your focus rather than dulling your spirit.",
+          mid: "You recover eventually, but setbacks take a heavy emotional toll. You spend time in self-criticism first.",
+          low: "Failure feels like a judgment on your worth. You likely avoid 'Big Bets' to protect your ego."
         },
-        watchHigh: ["Be careful of abdicating your own voice too much; your unique perspective is still a vital asset.", "Highlight your team's contributions more often to build a collective shield."],
-        watchMid: ["Practice supporting one plan this week that contradicts your original idea.", "Notice if you use 'I' more than 'We' when describing wins."],
-        watchLow: ["Remind yourself: 'The goal is to win, not to be the person who found the way to win.'", "Try 'Blind Ideation' where you evaluate ideas without knowing the author."]
+        watchHigh: ["Share your 'Failure Stories' with others to humanize your success.", "Don't stop doing thorough risk assessments."],
+        watchMid: ["Practice the '15-minute vent'—vent after a failure, then pivot immediately to 'Lesson Mode'.", "Keep a Success Journal."],
+        watchLow: ["Look at a failure from 2 years ago—what did it teach you?", "Separate your identity from your results."]
       },
       {
-        name: "Error Tolerance",
+        name: "Growth Vision",
         range: [10, 14],
         descriptions: {
-          high: "You have a high 'Public Error Tolerance.' You view mistakes as the cost of innovation and admit them with high velocity.",
-          mid: "You admit errors when the evidence is clear, but you often provide a long list of 'context' to explain why the mistake wasn't your fault.",
-          low: "Errors feel like 'Identity Cracks.' You likely hide or minimize mistakes to protect your reputation for being reliable and correct."
+          high: "You see no ceiling. Your vision for your life is expansive, and you believe your greatest work is always ahead of you.",
+          mid: "You aim high but often tether your vision to what is 'realistic.' You stretch within seen boundaries.",
+          low: "Your vision is limited by your current context. You struggle to imagine a life much larger than today."
         },
-        watchHigh: ["Don't become 'numb' to errors; ensure you are still conducting rigorous post-mortems.", "Help others feel safe failing by sharing your own 'Failure Resume.'"],
-        watchMid: ["Practice the 'Short Apology': admit the error, state the fix, and stop talking.", "Stop explaining the 'Why' unless specifically asked."],
-        watchLow: ["Acknowledge one small mistake publicly this week to realize that people’s respect for you actually increases.", "Shift your identity from 'The Person who is never wrong' to 'The Person who learns the fastest.'"]
+        watchHigh: ["Balance your 'future' self with your 'present' self.", "Ensure your vision includes well-being."],
+        watchMid: ["Write a 'No-Limits' 5-year plan this week—ignore logic for 10 minutes.", "Question your definition of 'realistic.'"],
+        watchLow: ["Read biographies of people who started from zero.", "Spend 10 minutes a day visualizing success."]
       },
       {
-        name: "Status Baseline",
+        name: "Work Identity",
         range: [15, 19],
         descriptions: {
-          high: "You are driven by internal mastery. Your self-worth is rooted in your own progress rather than your position relative to others.",
-          mid: "You are generally self-assured, but the sudden success of a peer can still trigger a spike of restlessness or comparison.",
-          low: "Your sense of worth is currently 'Comparison-Dependent.' You likely feel most successful only when you are outperforming your immediate circle."
+          high: "Ambition is your core identity. You define yourself through your impact, which provides massive focus.",
+          mid: "Your career is a major anchor, but you have other stable identities. You are balanced.",
+          low: "You separate your 'self' from your 'work.' This provides safety, but may lack the elite-level 'obsessive' edge."
         },
-        watchHigh: ["Ensure your 'Mastery' orientation doesn't make you appear aloof or disconnected from team goals.", "Use your stability to anchor others during competitive seasons."],
-        watchMid: ["Unfollow social or professional feeds that trigger your 'Status Anxiety' response.", "Define your own 'Success Metrics' that don't involve other people."],
-        watchLow: ["Celebrate a peer's win with a handwritten note or a public shout-out to break the comparison loop.", "Recognize that someone else's success is not your failure."]
+        watchHigh: ["Intentionally build an identity outside of work to prevent a crisis if work stalls.", "Mind your health."],
+        watchMid: ["Ensure your restful activities are actually restful.", "Review your values annually."],
+        watchLow: ["Connect your personal values to your professional output.", "Find a way to make work 'personal.'"]
       }
     ];
 
@@ -2155,21 +1924,7 @@ stress_resilience: (answers) => {
     });
 
     const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    let overallLabel, overallColor, overallDescription;
-
-    if (overall >= 75) {
-      overallLabel = "Flexible Growth Learner";
-      overallColor = "#10b981";
-      overallDescription = "You have successfully decoupled your identity from your output. By keeping your 'Identity Shield' low, you absorb information, feedback, and lessons at a much higher rate than your peers. You are an asset in high-innovation environments where iteration is the key to success.";
-    } else if (overall >= 45) {
-      overallLabel = "Pragmatic Protector";
-      overallColor = "#f59e0b";
-      overallDescription = "You are balanced but situational. You protect your identity when you feel threatened or exposed, which can occasionally bottleneck your growth. Increasing your comfort with being 'wrong' in public will unlock your next level of professional potential.";
-    } else {
-      overallLabel = "High-Intensity Identity Shield";
-      overallColor = "#6366f1";
-      overallDescription = "You spend significant cognitive energy defending your current self. While this makes you look confident, it is acting as a ceiling on your growth. True confidence isn't having all the answers; it's being the person most comfortable saying 'I don't know yet, but I will find out.'";
-    }
+    const overallLabel = overall >= 75 ? "Relentless Pursuer" : overall >= 45 ? "Pragmatic Achiever" : "Under-Fuelled Talent";
 
     const sectionResults = sectionDefs.map((sec, i) => {
       const score = sectionScores[i];
@@ -2179,57 +1934,59 @@ stress_resilience: (answers) => {
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
 
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  };
-  harmony_quotient: (answers) => {
+    return { overall, overallLabel, overallColor: "#f59e0b", overallDescription: "Psychological drive analysis.", sectionResults };
+  },
+
+  // ── AMBITION ORIENTATION REPORT ──────────────────
+  ambition_orientation: (answers) => {
     const sectionDefs = [
       {
-        name: "Conflict Threshold",
+        name: "Goal Specificity",
         range: [0, 4],
         descriptions: {
-          high: "You view conflict as a necessary tool for clarity. You are willing to endure a 'short-term awkward' moment to solve a 'long-term problem.'",
-          mid: "You are honest but 'soft.' You address issues eventually, but you spend so much energy cushioning the message that the urgency is often lost.",
-          low: "You trade Truth for Peace. By avoiding the discomfort of disagreement, you are accumulating 'Emotional Debt' that will eventually lead to resentment."
+          high: "You are tactically clear. You know exactly what success looks like and what the next three steps are.",
+          mid: "You have a general destination, but your milestones are often blurry, causing wasted energy on course correction.",
+          low: "You operate on 'vibes' rather than targets. You move in a general direction but lack concrete metrics."
         },
-        watchHigh: ["Check your tone; ensure that your directness isn't perceived as unnecessary aggression.", "Leave space for others to process the truth before moving to the solution."],
-        watchMid: ["Practice 'Radical Candor': care personally, but challenge directly.", "Stop using 'softener' phrases like 'Maybe I'm wrong but...' or 'Just a thought...'"],
-        watchLow: ["Identify one 'unspoken truth' this week and state it in a meeting.", "Acknowledge that conflict is a sign of respect—you care enough about the person to give them the truth."]
+        watchHigh: ["Don't become so rigid with metrics that you miss unexpected opportunities.", "Ensure goals are values-aligned."],
+        watchMid: ["Apply the SMART framework to your single most important goal today.", "Track metrics once a week."],
+        watchLow: ["Write down one measurable goal for this month.", "Use a simple tracking app or a physical planner."]
       },
       {
-        name: "Validation Need",
+        name: "Tactical Initiative",
         range: [5, 9],
         descriptions: {
-          high: "You are internally validated. You do what you believe is correct regardless of whether the room is applauding you.",
-          mid: "You enjoy external approval, and while it doesn't dictate your decisions, it heavily dictates your stress levels and mood.",
-          low: "Approval is your oxygen. You likely check the room's energy before speaking, which makes your leadership feel 'unfiltered' or inconsistent."
+          high: "You are a self-starter who creates momentum. You don't wait for permission or 'perfect conditions'.",
+          mid: "You take initiative when the path is clear, but you hesitate when the project is complex.",
+          low: "You are primarily reactive. You wait for external pressure to move, which means you are always 'following'."
         },
-        watchHigh: ["Don't become aloof; ensure you are still connected to the social reality of your group.", "Check that you aren't ignoring legitimate social data in favor of 'Lone Wolf' logic."],
-        watchMid: ["Do one thing today that you know someone will slightly dislike, just to practice being okay with it.", "Notice when you 'Mirror' the person you are talking to."],
-        watchLow: ["Limit your 'Opinion Polls.' When making a personal choice, ask only one trusted source instead of five.", "Recognize that 'Being Liked' is a byproduct of high-impact work, not the goal itself."]
+        watchHigh: ["Make sure you aren't running in the wrong direction just to stay busy.", "Pause for strategy daily."],
+        watchMid: ["Identify one thing you are 'waiting for permission' to do, and do it today.", "Analyze procrastination patterns."],
+        watchLow: ["Find a 'bias-toward-action' partner.", "Start with the '2-minute rule': if it takes < 2 mins, do it now."]
       },
       {
-        name: "Boundary Support",
+        name: "Risk Management",
         range: [10, 14],
         descriptions: {
-          high: "Your 'No' is a high-value asset. You protect your time and energy so that when you say 'Yes,' you can deliver elite results.",
-          mid: "Your boundaries are situational. You say 'no' to peers, but you struggle to say 'no' to authorities or high-status individuals.",
-          low: "Your 'Yes' is a debt-generator. You likely over-commit to protect your image, which leads to mediocre work and personal exhaustion."
+          high: "You have a high appetite for calculated risk. You understand that growth lives in the unknown.",
+          mid: "You take risks when forced, but prefer the comfort of the known path. Growth is steady but rarely exponential.",
+          low: "You are risk-averse. While this protects your current state, it acts as a ceiling on long-term potential."
         },
-        watchHigh: ["Explain the 'Why' behind your boundaries so they are seen as protective, not restrictive.", "Teach your boundary logic to your team."],
-        watchMid: ["Practice the '24-hour delay.' If a request is made, say 'Let me check my calendar and get back to you' as a default.", "Establish a hard stop time for work."],
-        watchLow: ["Stop providing a long list of excuses when you say no. 'I don't have the bandwidth for this right now' is a full sentence.", "Delete work apps for the weekend."]
+        watchHigh: ["Ensure you always have a 'downside protection' strategy.", "Don't bet everything on a single outcome."],
+        watchMid: ["Identify one 'Safe bet' that is actually costing you opportunity.", "Calculate the 'Cost of Inaction'."],
+        watchLow: ["Take one tiny social risk this week.", "Acknowledge that staying still is also a high-risk decision."]
       },
       {
-        name: "Decision Autonomy",
+        name: "Social Leverage",
         range: [15, 19],
         descriptions: {
-          high: "You own your outcomes. You value input but you don't use consensus as a shield to hide behind.",
-          mid: "You decide well, but you prefer to have the 'safety of the group' before moving forward on high-stakes choices.",
-          low: "You decide by committee. This slows down momentum and often results in 'average' decisions that satisfy everyone but solve nothing."
+          high: "You understand success is a team sport. You leverage your network to accelerate results and open doors.",
+          mid: "You have a good network but you feel 'guilty' when using it to advance goals. You under-utilize capital.",
+          low: "You are a 'Lone Wolf.' You try to do everything through individual effort, ignoring multipliers."
         },
-        watchHigh: ["Ensure you are building 'Collective Ownership' so the team doesn't feel like you are a dictator.", "Check in on your blind spots."],
-        watchMid: ["Make one solo decision today without checking with a peer first.", "Ask yourself: 'If the group hates this, would I still believe it's the right call?'"],
-        watchLow: ["Identify one project that you will take 100% responsibility for—the win and the loss.", "Practice stating your opinion *first* in a meeting instead of waiting to see what others say."]
+        watchHigh: ["Ensure you are giving as much value to your network as you take.", "Mentor someone junior."],
+        watchMid: ["Reach out to one person who is 5 years ahead of you.", "Practice 'The Ask'—be direct."],
+        watchLow: ["Join one professional community this month.", "Recognize that 'lone-wolfing' doesn't scale."]
       }
     ];
 
@@ -2240,206 +1997,19 @@ stress_resilience: (answers) => {
     });
 
     const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    let overallLabel, overallColor, overallDescription;
-
-    if (overall >= 75) {
-      overallLabel = "Impact-First Driver";
-      overallColor = "#10b981";
-      overallDescription = "You prioritize systemic value over social safety. While you may occasionally create social friction, you are the person who actually lands the mission. You are most effective in high-stakes turnaround environments where clear truth is required.";
-    } else if (overall >= 45) {
-      overallLabel = "Harmony-Oriented Professional";
-      overallColor = "#f59e0b";
-      overallDescription = "You are a 'Social Stabilizer.' You maintain the peace and build rapport easily. However, you are likely trading some of your personal impact for the sake of being well-liked. Hardening your boundaries will significantly increase your ROI.";
-    } else {
-      overallLabel = "Harmony Stabilizer";
-      overallColor = "#d946ef";
-      overallDescription = "Your current priority is social safety. You are a natural bridge-builder and highly empathetic. However, your 'Harmony Default' is likely causing you to over-function for others and avoid the hard decisions required for your own growth. You deserve to take up more space.";
-    }
+    const overallLabel = overall >= 75 ? "High-Impact Strategist" : overall >= 45 ? "Steady Progressor" : "Lone Workhorse";
 
     const sectionResults = sectionDefs.map((sec, i) => {
       const score = sectionScores[i];
       const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const color = score >= 70 ? "#6366f1" : score >= 40 ? "#a855f7" : "#94a3b8";
       const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
       return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
     });
 
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  };
-  perfectionism_index: (answers) => {
-    const sectionDefs = [
-      {
-        name: "Shipping Velocity",
-        range: [0, 4],
-        descriptions: {
-          high: "You optimize for momentum. You understand that 'Done is better than Perfect' and you move with high velocity.",
-          mid: "You are productive but cautious. You struggle with the 'last 10%' of a project where the impulse to tweak details is highest.",
-          low: "You are currently stuck in the 'Optimization Loop.' You spend so much energy on perfection that your actual output volume is low."
-        },
-        watchHigh: ["Watch for 'Sloppiness' in high-stakes tasks where precision actually matters.", "Ensure your speed doesn't leave your team behind."],
-        watchMid: ["Set a 'Hard Ship' time: once the clock hits the hour, you MUST send the version you have.", "Identify your 'Diminishing Returns' threshold."],
-        watchLow: ["Practice 'Imperfect Shipping'—send one email or draft today that is only 80% polished.", "Acknowledge that 'Perfect' is often a mask for the fear of being judged."]
-      },
-      {
-        name: "Error Sensitivity",
-        range: [5, 9],
-        descriptions: {
-          high: "You view errors as essential diagnostics. You don't ruminate on mistakes; you simply update your process and move on.",
-          mid: "You handle major errors well, but small aesthetic mistakes or typos cause you an outsized amount of internal stress.",
-          low: "A minor mistake feels like a character flaw. You likely ruminate on errors for days, which drains your cognitive bandwidth."
-        },
-        watchHigh: ["Ensure your tolerance for errors doesn't lead to a drop in overall standards.", "Model resilience for your team when things go wrong."],
-        watchMid: ["Celebrate the 90% that went right before you obsess over the 10% that went wrong.", "Keep a 'Win Log' to read when a mistake triggers you."],
-        watchLow: ["Ask: 'Will this error matter in one year?' If no, limit your rumination to 5 minutes.", "Separate your identity from your latest result."]
-      },
-      {
-        name: "Process Control",
-        range: [10, 14],
-        descriptions: {
-          high: "You optimize for the Result. You are flexible with methods as long as the target is hit.",
-          mid: "You appreciate structure, but your need for a 'Specific Way' often makes it hard for you to delegate successfully.",
-          low: "Rigidity is your current bottleneck. You value the 'Process' so highly that you often ignore more efficient shortcuts."
-        },
-        watchHigh: ["Document your 'Result-oriented' successes so they are repeatable.", "Be careful not to appear 'Chaotic' to your structured peers."],
-        watchMid: ["Identify one task this week where you will delegate the outcome, but NOT specify the steps.", "Try one new tool or method just to break your pattern."],
-        watchLow: ["Recognize that 'Boring' work (SOPs) is what allows for 'Exciting' growth.", "Build a checklist for the *results*, not the actions."]
-      },
-      {
-        name: "Standard Sustainability",
-        range: [15, 19],
-        descriptions: {
-          high: "Your standards are high but sustainable. You know when to apply pressure and when to 'Coast' to prevent burnout.",
-          mid: "You set high standards for yourself, but you struggle with the 'Success Burdens'—the pressure to repeat your highest win every time.",
-          low: "Your current standards are a threat to your health. You likely feel that any moment of rest is a moment of failure."
-        },
-        watchHigh: ["Continue to monitor your recovery markers.", "Ensure your standards are inclusive of your team's different processing speeds."],
-        watchMid: ["Define what 'Success' looks like *before* you start the task.", "Practice 'Calibrated Standards'—not every task deserves an A+ effort."],
-        watchLow: ["Schedule non-negotiable rest as if it were a high-stakes meeting.", "Read about the 'Pareto Principle' (80/20 rule)."]
-      }
-    ];
-
-    const sectionScores = sectionDefs.map(sec => {
-      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
-    });
-
-    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    let overallLabel, overallColor, overallDescription;
-
-    if (overall >= 75) {
-      overallLabel = "Momentum Optimizer";
-      overallColor = "#10b981";
-      overallDescription = "You are a master of high-quality action. You know exactly how to calibrate your effort to the stakes of the task, allowing you to ship high volumes of work without burning out. You are a natural builder who thrives in fast-paced environments.";
-    } else if (overall >= 45) {
-      overallLabel = "High-Standard Specialist";
-      overallColor = "#f59e0b";
-      overallDescription = "You are a precision player. Your work is reliable and high-quality. However, your perfectionism is currently acting as a speed-limiter. By learning to 'Ship early and iterate,' you can double your impact without working more hours.";
-    } else {
-      overallLabel = "High-Precision Architect";
-      overallColor = "#6366f1";
-      overallDescription = "You have an elite eye for detail and a deep sense of responsibility. Currently, however, your 'Outcome Protection' is creating a massive bottleneck. You are over-engineering tasks that don't deserve the bandwidth. Learn to distinguish between 'Heart Surgery' tasks (Zero errors allowed) and 'Postcard' tasks (Speed is the only metric).";
-    }
-
-    const sectionResults = sectionDefs.map((sec, i) => {
-      const score = sectionScores[i];
-      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
-      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    });
-
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  };
-  procrastination_blueprint: (answers) => {
-    const sectionDefs = [
-      {
-        name: "Initiative Threshold",
-        range: [0, 4],
-        descriptions: {
-          high: "You have a high 'Bias for Action.' You understand that the hardest part of any task is the first 2 minutes, and you are a master of starting.",
-          mid: "You start tasks well when you are inspired, but you require a long 'Ramp-up' period for tasks that feel boring or routine.",
-          low: "Your 'Starting Threshold' is very high. You likely spend hours in 'Productive Procrastination' (doing easy tasks to avoid the big one)."
-        },
-        watchHigh: ["Make sure your 'Starting' isn't actually 'Rushing.' Pause for 10% more planning time.", "Ensure you are finishing as well as you are starting."],
-        watchMid: ["Use the '5-Minute Rule': Commit to doing the hard task for only 5 minutes. Usually, the momentum carries you through.", "Notice which environments lower your threshold (e.g., library vs home)."],
-        watchLow: ["Write down the absolute smallest first step (e.g., 'Open the document').", "Remove the 'Activation Friction'—set up your tools the night before."]
-      },
-      {
-        name: "Clarity Dependency",
-        range: [5, 9],
-        descriptions: {
-          high: "You build clarity through action. You are comfortable moving into a project when it is only 50% clear, knowing you will find the way.",
-          mid: "You need a solid plan to act, but you can tolerate a small amount of ambiguity as long as the goal is defined.",
-          low: "Ambiguity is your primary trigger for stalling. You likely stop working as soon as you hit a detail you don't fully understand."
-        },
-        watchHigh: ["Ensure you are communicating enough clarity to the more structured people on your team.", "Check that you aren't ignoring 'Weak Signals' because you are moving too fast."],
-        watchMid: ["Practice 'Drafting'—tell yourself 'This is a trash version' to lower the pressure of getting the plan right.", "Set a time-limit for research."],
-        watchLow: ["Recognize that 'Gathering more information' is often a stalling tactic.", "Write down your 3 biggest questions and seek answers to ONLY those today."]
-      },
-      {
-        name: "Comfort Mapping",
-        range: [10, 14],
-        descriptions: {
-          high: "You prioritize Long-Term Relief over Short-Term Comfort. You eat the 'Frog' first every morning.",
-          mid: "You are a 'Firefighter.' You move fast when the pressure is high, but you drift into comfort loops when the deadlines are distant.",
-          low: "You are currently driven by dopamine-seeking. You prioritize immediate comfort (phone, easy tasks) at the cost of your future self."
-        },
-        watchHigh: ["Don't forget to schedule intentional dopamine breaks; willpower is a depletable resource.", "Reward yourself for finishing a 'Heavy' task."],
-        watchMid: ["Identify one 'Hard Win' to do first thing every Tuesday.", "Use a 'Focus Timer' to gamify your deep work."],
-        watchLow: ["Put your phone in another room during your deep work block.", "Ask: 'What task am I avoiding most right now?' Do that for 10 minutes immediately."]
-      },
-      {
-        name: "Activation Energy",
-        range: [15, 19],
-        descriptions: {
-          high: "You are a 'Closer.' You maintain a steady flow of energy until the project is 100% complete and verified.",
-          mid: "You have high energy at the start but lose interest in the 'Boring Middle' or the final 5%.",
-          low: "Your energy is 'Activation Heavy.' You feel emotionally taxed by the process of engagement, leading to a pattern of half-finished work."
-        },
-        watchHigh: ["Make sure you are celebrating the finish before diving into the next project.", "Model this 'Closing' behavior for your more reflective peers."],
-        watchMid: ["Identify why the 'Final 5%' feels scary or boring.", "Partner with an 'Executor' who can help you push through the admin details."],
-        watchLow: ["Commit to finishing one 'Half-Started' project this week before you start anything new.", "Reduce the size of your projects; aim for small, daily 'Ships'."]
-      }
-    ];
-
-    const sectionScores = sectionDefs.map(sec => {
-      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
-    });
-
-    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
-    let overallLabel, overallColor, overallDescription;
-
-    if (overall >= 75) {
-      overallLabel = "Direct Executor";
-      overallColor = "#10b981";
-      overallDescription = "You move with a massive bias for action. You understand that momentum is the primary antidote to anxiety. You thrive in high-stakes environments where 'Ready, Fire, Aim' is the required pace.";
-    } else if (overall >= 45) {
-      overallLabel = "Reflective Action-Taker";
-      overallColor = "#f59e0b";
-      overallDescription = "You are a steady producer, but your 'Decision Architecture' is currently fragile. You lose significant bandwidth to ramp-up time and clarity-seeking. By lowering your 'Initiative Threshold,' you can double your output without more effort.";
-    } else {
-      overallLabel = "The Strategic Delayer";
-      overallColor = "#6366f1";
-      overallDescription = "You are highly sensitive to the 'cost' of effort. While you are a deep thinker and potentially a high-precision producer, your current 'Activation Energy' is so taxing that you are likely underperforming your potential. Your work isn't about more discipline; it's about building a physical environment that makes starting easier.";
-    }
-
-    const sectionResults = sectionDefs.map((sec, i) => {
-      const score = sectionScores[i];
-      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
-      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
-      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
-    });
-
-    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  };
-  
-
-    
-
+    return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Pursuit mechanics analysis.", sectionResults };
+  },
+};
 
 // ============================================
 // STATE
@@ -2471,9 +2041,12 @@ function showPage(page, testId = null, shouldPush = true) {
         }
     }
 
+    // TRIGGER RENDERING
     if (page === "tests") {
         renderTestGrid();
     }
+    
+    // CORRECTED FUNCTION NAME HERE:
     if (page === "coaching") {
         renderCoachingPage(); 
     }
@@ -3125,6 +2698,38 @@ function buildEmailReportSection() {
   `;
 }
 
+async function syncToDatabase(userEmail, testResult) {
+    const payload = {
+        email: userEmail,
+        test_title: currentTest.title,
+        overall_score: testResult.overall || testResult.score,
+        result_label: testResult.overallLabel || testResult.label,
+        breakdown: testResult.sectionResults || []
+    };
+
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/test_results`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            console.log("Supabase Sync Success!");
+        } else {
+            const err = await response.json();
+            console.error("Supabase Error:", err);
+        }
+    } catch (err) {
+        console.error("Connection Error:", err);
+    }
+}
+
 // ============================================
 // SEND REPORT EMAIL
 // ============================================
@@ -3178,6 +2783,7 @@ async function sendReportEmail() {
     }
 
     const cleanHTML = reportClone.innerHTML;
+    syncToDatabase(email, lastReportResult);
 
     // 3. PREPARE PARAMETERS
     const templateParams = {
