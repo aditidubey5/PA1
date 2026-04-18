@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>People Assets | Meet The Real You</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -17,7 +17,6 @@
 <nav>
     <div class="nav-container">
         <div class="nav-logo" onclick="showPage('home')">
-            <img src="logo.jpeg" alt="People Assets Logo" class="main-logo">
             <div style="
         background-size: auto 290%;
         background-position: center -46px;
@@ -32,12 +31,10 @@
         <div class="nav-links">
             <span id="nav-home"     class="nav-item" onclick="showPage('home')">Home</span>
             <span id="nav-tests"    class="nav-item" onclick="showPage('tests')">Assessments</span>
-           <div id="auth-container" style="display: inline-block; vertical-align: middle;">
-        <button class="login-google-btn" onclick="signInWithGoogle()">
-            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
-            Sign in
-        </button>
-    </div>
+            <button class="login-google-btn" onclick="signInWithGoogle()">
+        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+        Sign in
+    </button>
             <span id="nav-coaching" class="nav-cta"  onclick="showPage('coaching')">Coaching</span>
         </div>
 
