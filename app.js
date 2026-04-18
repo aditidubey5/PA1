@@ -3626,6 +3626,7 @@ async function checkUser() {
     const authContainer = document.getElementById("auth-container");
 
     if (user) {
+      document.getElementById("auth-modal").style.display = "none"; 
         // 1. Show the success banner
         if (!sessionStorage.getItem('login_notified')) {
             const banner = document.getElementById("login-success-banner");
@@ -3662,7 +3663,31 @@ async function handleLogout() {
 }
 
 // Run this every time the site opens
-window.addEventListener('DOMContentLoaded', checkUser);
+window.addEventListener('DOMContentLoaded', async () => {
+    // 1. Check if user is already logged in
+    const { data: { user } } = await _supabase.auth.getUser();
+
+    // 2. Only show the popup if there is NO user AND they haven't closed it this session
+    setTimeout(() => {
+        if (!user && !sessionStorage.getItem('auth_popup_closed')) {
+            const authModal = document.getElementById("auth-modal");
+            if (authModal) authModal.style.display = "flex";
+        }
+    }, 1500);
+});
+
+// Close the profile dropdown if user clicks anywhere else on the screen
+window.addEventListener('click', function(e) {
+    const dropdown = document.getElementById("signout-dropdown");
+    const authContainer = document.getElementById("auth-container");
+    
+    // If the dropdown is open AND the click was NOT inside the profile menu/icon
+    if (dropdown && dropdown.style.display === "block") {
+        if (!authContainer.contains(e.target)) {
+            dropdown.style.display = "none";
+        }
+    }
+});
 // ============================================
 // INIT
 // ============================================
