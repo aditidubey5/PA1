@@ -752,6 +752,19 @@ nav {
     margin-top: 15px;
 }
 
+#auth-modal.modal-overlay {
+    display: none; /* Controlled by JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 41, 59, 0.7); /* Professional dark blue overlay */
+    backdrop-filter: blur(4px); /* Blurs the background site */
+    justify-content: center;
+    align-items: center;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .landing-grid { grid-template-columns: 1fr; }

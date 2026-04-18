@@ -136,6 +136,28 @@
     </div>
 </div>
 
+<!-- ============ LOGIN POPUP MODAL ============ -->
+<div id="auth-modal" class="modal-overlay" style="display:none; z-index: 9999;">
+    <div class="modal-content" style="max-width: 400px; text-align: center; padding: 40px 30px;">
+        <span class="close-modal" onclick="closeAuthModal()">&#x2715;</span>
+        
+        <div style="font-size: 3rem; margin-bottom: 20px;">👋</div>
+        <h2 class="text-gradient" style="margin-bottom: 10px;">Welcome to People Assets</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; line-height: 1.6;">
+            Log in to save your assessment history, track your growth, and unlock personalized coaching paths.
+        </p>
+
+        <button class="login-google-btn" onclick="signInWithGoogle()" style="width: 100%; justify-content: center; padding: 12px;">
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+            Continue with Google
+        </button>
+
+        <button class="btn-subtle" onclick="closeAuthModal()" style="margin-top: 20px; background: none; border: none; color: var(--text-muted); font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+            I'll do this later
+        </button>
+    </div>
+</div>
+
 <!-- PDF Generation Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 

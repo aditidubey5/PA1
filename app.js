@@ -3350,6 +3350,35 @@ function buildEmailReportSection() {
   `;
 }
 
+// 1. Function to close the Auth Modal
+function closeAuthModal() {
+    document.getElementById("auth-modal").style.display = "none";
+}
+
+// 2. Logic to trigger the popup on load
+window.addEventListener('DOMContentLoaded', () => {
+    // We wait 1.5 seconds so the user sees the home page first (feels less like an ad)
+    setTimeout(() => {
+        // Only show if the user hasn't already closed it in this session
+        if (!sessionStorage.getItem('auth_popup_closed')) {
+            document.getElementById("auth-modal").style.display = "flex";
+        }
+    }, 1500);
+});
+
+// 3. Update the close function to remember the choice for this session
+function closeAuthModal() {
+    document.getElementById("auth-modal").style.display = "none";
+    sessionStorage.setItem('auth_popup_closed', 'true');
+}
+
+// 4. Ensure clicking outside the modal closes it too
+// Add this inside your existing handleModalBackdropClick or update it:
+function handleModalBackdropClick(e) {
+    if (e.target.id === "method-modal") closeModal();
+    if (e.target.id === "auth-modal") closeAuthModal();
+}
+
 async function syncToDatabase(userEmail, testResult) {
     const payload = {
         email: userEmail,
