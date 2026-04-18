@@ -9,6 +9,7 @@
 // ============================================
 const SUPABASE_URL = "https://jgozwnygkuuxkwxhrhqk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TESTS = [
   {
     id: "disc",
@@ -3508,12 +3509,14 @@ async function sendReportEmail() {
 }
 
 async function signInWithGoogle() {
-    // This points to your Supabase Auth URL
-    // It will open the Google Login page and redirect back to your site after success
-    const redirectUrl = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=https://peopleassets.in`;
-    
-    window.location.href = redirectUrl;
-}
+    await _supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin // Automatically detects https://peopleassets.in
+        }
+    });
+} 
+
 
 // ============================================
 // COACHING PAGE
@@ -3617,6 +3620,49 @@ document.head.appendChild(s);
 
 function toggleMobileNav() { document.getElementById("mobile-drawer").classList.toggle("open"); }
 function closeModal() { document.getElementById("method-modal").style.display = "none"; }
+
+async function checkUser() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    const authContainer = document.getElementById("auth-container");
+
+    if (user) {
+        // 1. Show the success banner
+        if (!sessionStorage.getItem('login_notified')) {
+            const banner = document.getElementById("login-success-banner");
+            banner.style.display = "block";
+            setTimeout(() => { banner.style.display = "none"; }, 4000);
+            sessionStorage.setItem('login_notified', 'true');
+        }
+
+        // 2. Replace button with Profile Image
+        const userImage = user.user_metadata.avatar_url;
+        const userName = user.user_metadata.full_name;
+        
+        authContainer.innerHTML = `
+            <div class="user-profile-menu" onclick="toggleSignOut()" style="position:relative; cursor:pointer; display:flex; align-items:center; margin-left:15px;">
+                <img src="${userImage}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--brand-indigo);" alt="Profile">
+                <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; padding:12px; border-radius:12px; box-shadow:var(--shadow-card); min-width:150px; z-index:100;">
+                    <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">${userName}</p>
+                    <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.8rem;">Sign Out</button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function toggleSignOut() {
+    const dd = document.getElementById("signout-dropdown");
+    if(dd) dd.style.display = dd.style.display === "none" ? "block" : "none";
+}
+
+async function handleLogout() {
+    await _supabase.auth.signOut();
+    sessionStorage.removeItem('login_notified');
+    window.location.reload();
+}
+
+// Run this every time the site opens
+window.addEventListener('DOMContentLoaded', checkUser);
 // ============================================
 // INIT
 // ============================================
