@@ -3626,7 +3626,6 @@ async function checkUser() {
     const authContainer = document.getElementById("auth-container");
 
     if (user) {
-      document.getElementById("auth-modal").style.display = "none"; 
         // 1. Show the success banner
         if (!sessionStorage.getItem('login_notified')) {
             const banner = document.getElementById("login-success-banner");
@@ -3674,19 +3673,6 @@ window.addEventListener('DOMContentLoaded', async () => {
             if (authModal) authModal.style.display = "flex";
         }
     }, 1500);
-});
-
-// Close the profile dropdown if user clicks anywhere else on the screen
-window.addEventListener('click', function(e) {
-    const dropdown = document.getElementById("signout-dropdown");
-    const authContainer = document.getElementById("auth-container");
-    
-    // If the dropdown is open AND the click was NOT inside the profile menu/icon
-    if (dropdown && dropdown.style.display === "block") {
-        if (!authContainer.contains(e.target)) {
-            dropdown.style.display = "none";
-        }
-    }
 });
 // ============================================
 // INIT
