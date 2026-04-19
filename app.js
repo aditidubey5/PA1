@@ -52,6 +52,58 @@ const TESTS = [
     ]
   },
   {
+    id: "ai_readiness",
+    category: "Orientation",
+    followUp: "Ready to move from basic usage to AI-powered mastery?",
+    keyword: "ai-native",
+    title: "AI-Readiness Baseline",
+    tagline: "Measure your proficiency and integration of AI tools.",
+    description: "AI is no longer a futuristic concept; it is a current cognitive multiplier. This diagnostic measures your 'AI Quotient' across five dimensions: Daily Adoption, Literacy, Interaction Skill, Ethics, and Integration. By identifying your readiness level, you can transition from using AI as a simple search engine to a sophisticated strategic partner in your life and work.",
+    questions: 25,
+    time: "12 min",
+    icon: "🤖",
+    highlights: ["Prompt Engineering", "Algorithmic Literacy", "Ethical Discernment"],
+    sections: [
+      { name: "Adoption", start: 0, end: 4 },
+      { name: "Literacy", start: 5, end: 9 },
+      { name: "Skill", start: 10, end: 14 },
+      { name: "Ethics", start: 15, end: 19 },
+      { name: "Growth", start: 20, end: 24 }
+    ],
+    questions_data: [
+        // Daily Utility & Adoption
+        { section: "Daily Adoption", q: "I use AI-powered assistants (Siri, Alexa, Google Assistant) to manage my daily tasks.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Daily Adoption", q: "I use Generative AI (ChatGPT, Gemini, etc.) to draft personal or professional emails and messages.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Daily Adoption", q: "I use AI tools to summarise long-form content to save time.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Daily Adoption", q: "I consult AI for lifestyle planning, such as workout routines, meal plans, or travel itineraries.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Daily Adoption", q: "I use AI-driven navigation (Google Maps, Waze) to optimise my commute.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        // Knowledge & Literacy
+        { section: "Knowledge & Literacy", q: "I can explain the difference between a standard search engine (like Google) and a chatbot (like Gemini).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I am aware that AI models can sometimes provide incorrect information confidently.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I recognise when an image, video, or audio clip I see online has been generated or altered by AI.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I understand the basic privacy risks of sharing sensitive or personal information with public AI models.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I know that AI's knowledge is based on specific training data and may not know today's live news.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        // Skill & Interaction
+        { section: "Skill & Interaction", q: "I know how to write a 'prompt' that includes context and clear constraints.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Skill & Interaction", q: "I am comfortable 'iterating' with AI (asking follow-up questions to refine the original answer).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Skill & Interaction", q: "I know how to ask AI to change its tone (e.g., 'Make this sound more professional').", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Skill & Interaction", q: "I am capable of using AI to troubleshoot basic technical problems or learn a new software tool.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Skill & Interaction", q: "I frequently use 'Multi-modal' features (such as uploading a photo of a broken item for the AI to analyse).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        // Critical Thinking & Ethics
+        { section: "Critical Thinking & Ethics", q: "I cross-check important facts or data points provided by AI with a reliable secondary source.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Critical Thinking & Ethics", q: "I am conscious of potential biases in AI responses regarding gender, culture, or opinion.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Critical Thinking & Ethics", q: "I avoid using AI-generated content 'as is' and always edit the content.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Critical Thinking & Ethics", q: "I am aware of the copyright and intellectual property debates surrounding AI-generated art and text.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Critical Thinking & Ethics", q: "I actively manage my data settings within AI apps to control what information is saved or used for training.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        // Integration & Growth
+        { section: "Integration & Growth", q: "I have replaced at least one repetitive daily task (e.g., data entry, proofreading) with an AI-automated workflow.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Integration & Growth", q: "I use AI for brainstorming ideas when I feel stuck on a project or hobby.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Integration & Growth", q: "I keep up with new AI features or tools by reading tech news, watching tutorials, or experimenting.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Integration & Growth", q: "I am comfortable using AI to help me learn a new language or a complex skill.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Integration & Growth", q: "I view AI as a tool that improves my human intelligence rather than a threat to my personal productivity.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] }
+    ]
+  },
+  {
     id: "procrastination_blueprint",
     category: "Orientation",
     followUp: "Ready to lower the barrier to action and reclaim your time?",
@@ -514,7 +566,7 @@ const TESTS = [
 
   // ── LISTENING SKILLS ─────────────────────
   {
-    id: "listening",
+    id: "listening-Intelligence",
     category:"Orientation",
     followUp: "Want to master your most underrated skill?",
     keyword: "listening",
@@ -1130,6 +1182,103 @@ const TESTS = [
 // REPORT LOGIC
 // ============================================
 const REPORT_LOGIC = {
+  ai_readiness: (answers) => {
+    const sectionDefs = [
+      {
+        name: "Daily Adoption",
+        range: [0, 4],
+        descriptions: {
+          high: "You are an early adopter. AI is already woven into the fabric of your daily life, saving you significant time.",
+          mid: "You use AI for specific tasks but haven't yet explored its full utility as a daily personal assistant.",
+          low: "You are currently using manual workflows for tasks where AI could provide immediate relief."
+        },
+        watchHigh: ["Audit your 'AI-Dependency'—ensure you still maintain your own problem-solving muscles.", "Explore niche AI tools beyond just the big names."],
+        watchMid: ["Experiment with using AI for one lifestyle task (meal planning/travel) this week.", "Set up a shortcut for your favorite AI tool on your phone home screen."],
+        watchLow: ["Start small: ask a chatbot to draft one difficult email today.", "Check if your existing phone apps have AI features you've been ignoring."]
+      },
+      {
+        name: "Knowledge & Literacy",
+        range: [5, 9],
+        descriptions: {
+          high: "You have a deep understanding of how Large Language Models work, including their risks and limitations.",
+          mid: "You have a functional understanding of AI, but may be vulnerable to hallucinations or data-privacy slips.",
+          low: "You are treating AI like a standard search engine, which may lead to misinformation or security risks."
+        },
+        watchHigh: ["Keep up with the 'Agentic AI' shift—the next wave of AI that takes actions on your behalf.", "Teach a peer about AI hallucinations to solidify your knowledge."],
+        watchMid: ["Read one article on 'Data Privacy in Generative AI'.", "Practice identifying the 'cutoff date' of the specific model you use."],
+        watchLow: ["Remind yourself: AI is a prediction engine, not a fact-checker.", "Never put personal passwords or financial data into a public AI prompt."]
+      },
+      {
+        name: "Interaction Skill",
+        range: [10, 14],
+        descriptions: {
+          high: "You are a master prompter. You know how to provide context and iterate until you get elite results.",
+          mid: "You can get what you need from AI, but you often settle for the first answer instead of refining it.",
+          low: "Your interactions with AI are currently one-way commands, missing out on the power of collaborative iteration."
+        },
+        watchHigh: ["Try 'Few-Shot Prompting'—giving the AI 3 examples of the style you want before asking for the result.", "Learn how to use AI System Instructions for permanent personas."],
+        watchMid: ["The next time AI gives you a 'good' answer, ask: 'How can we make this 20% better?'", "Experiment with uploading a document or image to see how the AI processes multi-modal data."],
+        watchLow: ["Use the 'Act as a...' framework in your next prompt (e.g., 'Act as a career coach').", "Always ask a follow-up question to see how the AI adjusts its logic."]
+      },
+      {
+        name: "Critical Thinking",
+        range: [15, 19],
+        descriptions: {
+          high: "You have a high 'Skepticism Quotient.' You use AI as a collaborator while maintaining total human oversight.",
+          mid: "You edit AI content, but you might be over-relying on its logic for important decision-making.",
+          low: "You are at risk of 'Algorithmic Bias.' You likely trust AI output too much without checking the human nuance."
+        },
+        watchHigh: ["Monitor your 'Creative Voice'—ensure the AI isn't flattening your unique style.", "Advocate for ethical AI usage within your community."],
+        watchMid: ["For any fact-based task, use the 'Two-Source' rule: verify AI data with a primary source.", "Identify one bias you've noticed in an AI response recently."],
+        watchLow: ["Commit to never using 'Copy-Paste' for AI content; always rewrite it in your own voice.", "Acknowledge that AI can be wrong—it is a tool, not an authority."]
+      },
+      {
+        name: "Integration & Growth",
+        range: [20, 24],
+        descriptions: {
+          high: "You are 'AI-Native.' You view technology as an extension of your own intelligence and seek constant growth.",
+          mid: "You see the value of AI growth, but your adoption is reactive rather than proactive.",
+          low: "You are an 'AI Traditionalist.' You may feel that AI is a threat to your skills or a distraction from 'real' work."
+        },
+        watchHigh: ["Start a weekly AI experiment: try one tool that is completely outside your comfort zone.", "Think about how you can use AI to solve a community or social problem."],
+        watchMid: ["Block 30 minutes a week to watch a tutorial on a new AI feature.", "Identify one repetitive task you hate and find an AI to automate it."],
+        watchLow: ["Reframe AI: it isn't here to replace you, but to replace the 'boring' parts of your day.", "Talk to an AI-Native about how they've simplified their workflow."]
+      }
+    ];
+
+    const sectionScores = sectionDefs.map(sec => {
+      const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+    });
+
+    const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
+    let overallLabel, overallColor, overallDescription;
+
+    if (overall >= 85) {
+      overallLabel = "AI Native";
+      overallColor = "#10b981";
+      overallDescription = "You are operating at the leading edge of the AI transition. You have successfully integrated AI into your life as a cognitive partner while maintaining a high level of critical and ethical awareness. You are likely to lead others through this disruption.";
+    } else if (overall >= 40) {
+      overallLabel = "Strategic Adopter";
+      overallColor = "#f59e0b";
+      overallDescription = "You have a solid foundation and use AI effectively for specific tasks. Your path forward involves moving from 'task-based' usage to 'workflow integration'—thinking of AI as a partner that spans your entire day rather than just a tool for a quick answer.";
+    } else {
+      overallLabel = "AI Traditionalist";
+      overallColor = "#6366f1";
+      overallDescription = "You prefer manual, human-only workflows. While this protects your traditional skills, you are at risk of a 'bandwidth gap' as the world moves toward AI-powered efficiency. Readiness isn't about knowing everything; it's about starting the experiment.";
+    }
+
+    const sectionResults = sectionDefs.map((sec, i) => {
+      const score = sectionScores[i];
+      const tier = score >= 70 ? "high" : score >= 40 ? "mid" : "low";
+      const color = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
+      const watchKey = "watch" + tier.charAt(0).toUpperCase() + tier.slice(1);
+      return { name: sec.name, score, color, description: sec.descriptions[tier], watch: sec[watchKey] };
+    });
+
+    return { overall, overallLabel, overallColor, overallDescription, sectionResults };
+  },
   disc: (answers) => {
     const counts = { D: 0, I: 0, S: 0, C: 0 };
     const map = [
