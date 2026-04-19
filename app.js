@@ -2858,26 +2858,6 @@ function showPage(page, testId = null, shouldPush = true) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function showToast(message) {
-    const toast = document.getElementById('login-toast');
-    const msgElement = document.getElementById('toast-message');
-    
-    msgElement.innerText = message;
-    toast.classList.add('show');
-
-    // Automatically hide after 3 seconds
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-// Example usage in your existing login flow:
-// auth.onAuthStateChange((user) => {
-//    if (user) {
-//        showToast(`Welcome back, ${user.user_metadata.full_name.split(' ')[0]}!`);
-//        updateUIForUser(user);
-//    }
-// });
 
 function initRouter() {
     // Check if there is a redirect path from our 404 page (Step 2)
@@ -3860,6 +3840,104 @@ window.addEventListener('DOMContentLoaded', async () => {
             if (authModal) authModal.style.display = "flex";
         }
     }, 1500);
+});
+
+/* ============================================
+   IDENTITY & AUTHENTICATION MODULE
+   ============================================ */
+
+// 1. Live Auth Listener: Reacts to Login/Logout instantly
+_supabase.auth.onAuthStateChange(async (event, session) => {
+    const user = session?.user;
+    const authContainer = document.getElementById("auth-container");
+    const authModal = document.getElementById("auth-modal");
+
+    if (user) {
+        // --- LOGGED IN STATE ---
+
+        // A. Hide the Welcome Modal
+        if (authModal) authModal.style.display = "none";
+
+        // B. TRIGGER SUCCESS TOAST (The Popup)
+        if (event === 'SIGNED_IN' && !sessionStorage.getItem('toast_shown')) {
+            const toast = document.getElementById("login-toast");
+            if (toast) {
+                toast.classList.add("show");
+                sessionStorage.setItem('toast_shown', 'true');
+                setTimeout(() => { toast.classList.remove("show"); }, 4000);
+            }
+        }
+
+        // C. Clean URL tokens (stops the 'Stale URL' error)
+        if (window.location.hash) {
+            window.history.replaceState(null, null, window.location.pathname);
+        }
+
+        // D. Show Profile Icon
+        const userImage = user.user_metadata.avatar_url;
+        const userName = user.user_metadata.full_name;
+        
+        if (authContainer) {
+            authContainer.innerHTML = `
+                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; margin-left:15px;">
+                    <img src="${userImage}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--brand-indigo);" alt="Profile">
+                    <div id="signout-dropdown" style="display:none; position:absolute; top:45px; right:0; background:white; padding:12px; border-radius:12px; box-shadow:var(--shadow-card); min-width:160px; z-index:10000;">
+                        <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">${userName}</p>
+                        <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.8rem;">Sign Out</button>
+                    </div>
+                </div>
+            `;
+        }
+    } else {
+        // --- LOGGED OUT STATE ---
+        sessionStorage.removeItem('toast_shown'); // Reset for next login
+        
+        // Show Sign In button
+        if (authContainer) {
+            authContainer.innerHTML = `
+                <button class="login-google-btn" onclick="signInWithGoogle()">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                    Sign in
+                </button>
+            `;
+        }
+
+        // Show Welcome Modal after 2 seconds if not dismissed
+        setTimeout(() => {
+            if (!sessionStorage.getItem('auth_popup_closed') && currentPage === 'home') {
+                if (authModal) authModal.style.display = "flex";
+            }
+        }, 2000);
+    }
+});
+
+// 2. Action: Sign In
+async function signInWithGoogle() {
+    await _supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin }
+    });
+}
+
+// 3. Action: Log Out
+async function handleLogout() {
+    await _supabase.auth.signOut();
+    window.location.reload();
+}
+
+// 4. Action: Toggle Dropdown
+function toggleSignOut(event) {
+    if (event) event.stopPropagation();
+    const dd = document.getElementById("signout-dropdown");
+    if (dd) dd.style.display = dd.style.display === "none" ? "block" : "none";
+}
+
+// 5. Global Click Listener: Close dropdown when clicking away
+window.addEventListener('click', () => {
+    const dropdown = document.getElementById("signout-dropdown");
+    if (dropdown && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    }
 });
 // ============================================
 // INIT

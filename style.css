@@ -791,33 +791,39 @@ nav {
     margin-right: 10px;
     color: var(--brand-magenta);
 }
-.toast-notification {
+#login-toast {
     position: fixed;
     bottom: 30px;
     left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--brand-indigo);
-    padding: 12px 24px;
+    transform: translateX(-50%) translateY(150%); /* Start hidden below screen */
+    background: #10b981; /* Success Green */
+    color: white;
+    padding: 12px 28px;
     border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 10005;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 9999;
-    font-weight: 600;
-    color: var(--brand-indigo);
 }
 
-.toast-notification.show {
-    transform: translateX(-50%) translateY(0);
+#login-toast.show {
+    transform: translateX(-50%) translateY(0); /* Slide into view */
 }
 
 .toast-icon {
-    font-size: 1.2rem;
-}   
+    margin-right: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.8rem;
+}
 @media (max-width: 600px) {
     .landing-card div[style*="grid-template-columns"] {
         grid-template-columns: 1fr !important;
