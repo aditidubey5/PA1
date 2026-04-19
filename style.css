@@ -795,10 +795,11 @@ nav {
     position: fixed;
     bottom: 30px;
     left: 50%;
-    transform: translateX(-50%) translateY(150%); /* Start hidden below screen */
+    transform: translateX(-50%) translateY(200px); /* Start hidden below screen */
     background: #10b981; /* Success Green */
     color: white;
     padding: 12px 28px;
+    visibility: hidden;
     border-radius: 50px;
     font-weight: 700;
     font-size: 0.9rem;
@@ -811,6 +812,8 @@ nav {
 
 #login-toast.show {
     transform: translateX(-50%) translateY(0); /* Slide into view */
+    opacity: 1;
+    visibility: visible;
 }
 
 .toast-icon {
