@@ -12,47 +12,84 @@ const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TESTS = [
   {
-    id: "disc",
-    category: "Personality",
-    followUp: "Do you want to master your communication style?",
-    keyword: "disc", 
-    title: "DISC Behavioral Profile",
-    tagline: "Uncover how you communicate, lead, and react under pressure.",
-    description: "The DISC model maps your natural behavioral style across four dimensions — Dominance, Influence, Steadiness, and Conscientiousness. Knowing your DISC profile helps you understand your default communication patterns, decision-making speed, and how others experience working with you.",
-    questions: 28,
-    time: "12 min",
-    icon: "🎯",
+    id: "growth",
+    category:"Mindset",
+    followUp: "Do you want to turn these insights into a permanent growth strategy?",
+    keyword: "growth",
+    title: "Growth Mindset Diagnostic",
+    tagline: "Fixed or fluid? This is the meta-skill beneath every other skill.",
+    description: "Psychologist Carol Dweck's foundational research shows that how you think about your own abilities determines how far you'll grow. This diagnostic goes beyond self-reported mindset to measure your behavioral patterns around challenge, failure, learning, and feedback.",
+    questions: 18,
+    time: "8 min",
+    icon: "🌱",
+    sections: [
+      { name: "Challenges", start: 0, end: 4 },
+      { name: "Failure", start: 5, end: 9 },
+      { name: "Effort Beliefs", start: 10, end: 14 },
+      { name: "Feedback", start: 15, end: 19 }
+    ],
     questions_data: [
-      { q: "When working in a group, I typically...", options: ["Take charge and direct others","Motivate and energize the team","Support others and keep harmony","Analyze data before contributing"] },
-      { q: "Under pressure, I tend to...", options: ["Become more decisive and assertive","Talk more and seek input from others","Become quieter and more methodical","Double-check everything carefully"] },
-      { q: "My biggest frustration at work is...", options: ["Slow progress and indecisiveness","Lack of social connection","Sudden changes to routine","Vague instructions or unclear expectations"] },
-      { q: "I prefer a work environment that is...", options: ["Fast-paced and results-driven","Collaborative and energetic","Stable and structured","Precise and well-organized"] },
-      { q: "When making decisions, I prioritize...", options: ["Speed and results","People's feelings and buy-in","Consistency with past decisions","Accuracy and all available data"] },
-      { q: "My communication style is best described as...", options: ["Direct and to the point","Enthusiastic and expressive","Calm and supportive","Detailed and systematic"] },
-      { q: "When I disagree with someone, I...", options: ["State my view confidently and debate it","Try to find common ground through conversation","Avoid conflict and accommodate","Present facts and logical arguments"] },
-      { q: "I feel most accomplished when I...", options: ["Win or achieve a measurable result","Positively influence or inspire someone","Create a smooth, stable process","Deliver something error-free and complete"] }
+      { section: "Challenges", q: "I actively seek out tasks that are beyond my current skill level.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Challenges", q: "I prefer tasks where I know I can succeed without making mistakes.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Challenges", q: "I see difficult problems as puzzles rather than threats.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Challenges", q: "I feel excited when I encounter a challenge I haven't seen before.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Challenges", q: "I avoid taking on projects where there is a risk of public failure.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Failure", q: "When I fail at something, I treat it as data for improvement.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Failure", q: "I tend to hide my mistakes from my boss or colleagues.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Failure", q: "I believe that my core talents can be developed with effort.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Failure", q: "I get discouraged and stop trying if I don't see immediate results.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Failure", q: "I view failure as a necessary step toward mastery.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Effort Beliefs", q: "I believe that intelligence is something you are born with and can't change much.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Effort Beliefs", q: "I think that if you have to work hard at something, you probably aren't good at it.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Effort Beliefs", q: "I take pride in the amount of effort I put into a difficult task.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Effort Beliefs", q: "I believe that 'practice makes permanent' and keep trying.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Effort Beliefs", q: "I see mastery as a never-ending journey rather than a destination.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Feedback", q: "I seek out feedback even when I know it might be critical.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Feedback", q: "Critical feedback feels like a personal attack rather than useful info.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Feedback", q: "I feel threatened when a colleague outperforms me.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Feedback", q: "I regularly ask high-performers for advice on their success.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Feedback", q: "I share my own failures with others so they can learn from them.", options: ["Almost always","Often","Sometimes","Rarely","Never"] }
     ]
   },
   {
-    id: "bigfive",
-    category: "Personality",
-    followUp: "Ready to see how your personality shapes your future?",
-    keyword: "bigfive",
-    title: "Big Five Personality Map",
-    tagline: "The gold standard of personality science — applied to your career.",
-    description: "The Big Five (OCEAN) model is the most validated personality framework in psychological research. This assessment measures your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism — and translates each dimension into practical career intelligence.",
-    questions: 30,
-    time: "14 min",
-    icon: "🧠",
+    id: "procrastination_blueprint",
+    category: "Orientation",
+    followUp: "Ready to lower the barrier to action and reclaim your time?",
+    keyword: "initiative",
+    title: "Procrastination Blueprint",
+    tagline: "Understand the gap between your intentions and your actions.",
+    description: "Procrastination is not a time-management problem; it is an emotional regulation challenge. This assessment analyzes your 'Initiative Threshold'—the amount of mental energy you require to start a daunting task. By identifying your specific triggers (Clarity Dependency, Dopamine Sensitivity, or Anxiety), we can build an architecture that makes action the default setting of your day.",
+    questions: 20,
+    time: "9 min",
+    icon: "⏱️",
+    highlights: ["Initiative Threshold", "Clarity Dependency", "Dopamine Mapping"],
+    sections: [
+      { name: "Initiative Threshold", start: 0, end: 4 },
+      { name: "Clarity Dependency", start: 5, end: 9 },
+      { name: "Immediate Comfort", start: 10, end: 14 },
+      { name: "Activation Energy", start: 15, end: 19 }
+    ],
     questions_data: [
-      { q: "I enjoy exploring new ideas and abstract concepts.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I keep my workspace and schedule highly organized.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I find social events energizing rather than draining.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I go out of my way to help others, even at personal cost.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I often worry about things that could go wrong.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I regularly seek out creative or artistic experiences.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I meet deadlines without needing external reminders.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
+        { section: "Initiative Threshold", q: "I often spend hours doing 'productive-looking' small tasks (like cleaning or checking email) to avoid starting the one big thing that matters.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative Threshold", q: "I find that I only feel a real surge of focus and energy when the deadline is dangerously close.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative Threshold", q: "I tell myself 'I'll feel more like doing this tomorrow' or 'I need to wait for the right mood.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Initiative Threshold", q: "I find the act of 'beginning' a task much more exhausting than the act of actually doing the work.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Initiative Threshold", q: "I have a long list of 'half-started' projects that I intend to return to once I have more time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Clarity Dependency", q: "I tend to stall on a project if the next step is not 100% clear or defined for me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Clarity Dependency", q: "I spend more time 'researching' and 'gathering information' than I do actually taking action.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Clarity Dependency", q: "If I encounter a minor technical hurdle, I use it as a reason to stop working on the project for the day.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Clarity Dependency", q: "I feel that I need to 'understand' the whole system before I can comfortably start on a small piece of it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Clarity Dependency", q: "I find it hard to work if my environment isn't 'set up' exactly correctly first.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Immediate Comfort", q: "When a task feels difficult, I have a strong impulse to check my phone or open a browser tab for a quick 'break.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Immediate Comfort", q: "I prioritize tasks that give me a quick feeling of success over those that are more important but take longer.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Immediate Comfort", q: "I find that I am a 'late-night' or 'early-morning' person purely because that is when there are no other distractions to compete with.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Immediate Comfort", q: "I use 'busyness' as an excuse to avoid the deeper, more emotionally taxing work I know I should be doing.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Immediate Comfort", q: "I am more motivated by the fear of consequences than I am by the excitement of the goal.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Activation Energy", q: "I find that once I actually start a task, it is rarely as difficult as I imagined it would be.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Activation Energy", q: "I require a significant amount of 'ramp-up' time (coffee, organizing, thinking) before I can do deep work.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Activation Energy", q: "I feel a sense of dread when I look at my to-do list in the morning.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Activation Energy", q: "I have difficulty finishing the 'final 5%' of a project once the initial excitement has worn off.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
+        { section: "Activation Energy", q: "I judge my day's success by how much I 'thought' about my work, rather than what I actually produced.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
     ]
   },
   {
@@ -135,6 +172,51 @@ const TESTS = [
       { section: "Filter Quality", q: "I spend more time producing than I do consuming.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
+  
+  {
+    id: "disc",
+    category: "Personality",
+    followUp: "Do you want to master your communication style?",
+    keyword: "disc", 
+    title: "DISC Behavioral Profile",
+    tagline: "Uncover how you communicate, lead, and react under pressure.",
+    description: "The DISC model maps your natural behavioral style across four dimensions — Dominance, Influence, Steadiness, and Conscientiousness. Knowing your DISC profile helps you understand your default communication patterns, decision-making speed, and how others experience working with you.",
+    questions: 28,
+    time: "12 min",
+    icon: "🎯",
+    questions_data: [
+      { q: "When working in a group, I typically...", options: ["Take charge and direct others","Motivate and energize the team","Support others and keep harmony","Analyze data before contributing"] },
+      { q: "Under pressure, I tend to...", options: ["Become more decisive and assertive","Talk more and seek input from others","Become quieter and more methodical","Double-check everything carefully"] },
+      { q: "My biggest frustration at work is...", options: ["Slow progress and indecisiveness","Lack of social connection","Sudden changes to routine","Vague instructions or unclear expectations"] },
+      { q: "I prefer a work environment that is...", options: ["Fast-paced and results-driven","Collaborative and energetic","Stable and structured","Precise and well-organized"] },
+      { q: "When making decisions, I prioritize...", options: ["Speed and results","People's feelings and buy-in","Consistency with past decisions","Accuracy and all available data"] },
+      { q: "My communication style is best described as...", options: ["Direct and to the point","Enthusiastic and expressive","Calm and supportive","Detailed and systematic"] },
+      { q: "When I disagree with someone, I...", options: ["State my view confidently and debate it","Try to find common ground through conversation","Avoid conflict and accommodate","Present facts and logical arguments"] },
+      { q: "I feel most accomplished when I...", options: ["Win or achieve a measurable result","Positively influence or inspire someone","Create a smooth, stable process","Deliver something error-free and complete"] }
+    ]
+  },
+  {
+    id: "bigfive",
+    category: "Personality",
+    followUp: "Ready to see how your personality shapes your future?",
+    keyword: "bigfive",
+    title: "Big Five Personality Map",
+    tagline: "The gold standard of personality science — applied to your career.",
+    description: "The Big Five (OCEAN) model is the most validated personality framework in psychological research. This assessment measures your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism — and translates each dimension into practical career intelligence.",
+    questions: 30,
+    time: "14 min",
+    icon: "🧠",
+    questions_data: [
+      { q: "I enjoy exploring new ideas and abstract concepts.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I keep my workspace and schedule highly organized.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I find social events energizing rather than draining.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I go out of my way to help others, even at personal cost.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I often worry about things that could go wrong.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I regularly seek out creative or artistic experiences.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I meet deadlines without needing external reminders.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { q: "I feel comfortable being the center of attention.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
+    ]
+  },
   {
     id: "ei",
     category:"Personality",
@@ -173,46 +255,6 @@ const TESTS = [
       { section: "Social Skills", q: "I can influence others without having to use my formal authority.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
       { section: "Social Skills", q: "I am effective at diffusing tension in a team meeting.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
       { section: "Social Skills", q: "I am able to provide critical feedback in a way that is well-received.", options: ["Almost always","Often","Sometimes","Rarely","Never"] }
-    ]
-  },
-  {
-    id: "growth",
-    category:"Mindset",
-    followUp: "Do you want to turn these insights into a permanent growth strategy?",
-    keyword: "growth",
-    title: "Growth Mindset Diagnostic",
-    tagline: "Fixed or fluid? This is the meta-skill beneath every other skill.",
-    description: "Psychologist Carol Dweck's foundational research shows that how you think about your own abilities determines how far you'll grow. This diagnostic goes beyond self-reported mindset to measure your behavioral patterns around challenge, failure, learning, and feedback.",
-    questions: 18,
-    time: "8 min",
-    icon: "🌱",
-    sections: [
-      { name: "Challenges", start: 0, end: 4 },
-      { name: "Failure", start: 5, end: 9 },
-      { name: "Effort Beliefs", start: 10, end: 14 },
-      { name: "Feedback", start: 15, end: 19 }
-    ],
-    questions_data: [
-      { section: "Challenges", q: "I actively seek out tasks that are beyond my current skill level.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Challenges", q: "I prefer tasks where I know I can succeed without making mistakes.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Challenges", q: "I see difficult problems as puzzles rather than threats.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Challenges", q: "I feel excited when I encounter a challenge I haven't seen before.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Challenges", q: "I avoid taking on projects where there is a risk of public failure.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Failure", q: "When I fail at something, I treat it as data for improvement.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Failure", q: "I tend to hide my mistakes from my boss or colleagues.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Failure", q: "I believe that my core talents can be developed with effort.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Failure", q: "I get discouraged and stop trying if I don't see immediate results.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Failure", q: "I view failure as a necessary step toward mastery.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Effort Beliefs", q: "I believe that intelligence is something you are born with and can't change much.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Effort Beliefs", q: "I think that if you have to work hard at something, you probably aren't good at it.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Effort Beliefs", q: "I take pride in the amount of effort I put into a difficult task.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Effort Beliefs", q: "I believe that 'practice makes permanent' and keep trying.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Effort Beliefs", q: "I see mastery as a never-ending journey rather than a destination.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Feedback", q: "I seek out feedback even when I know it might be critical.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Feedback", q: "Critical feedback feels like a personal attack rather than useful info.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Feedback", q: "I feel threatened when a colleague outperforms me.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Feedback", q: "I regularly ask high-performers for advice on their success.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Feedback", q: "I share my own failures with others so they can learn from them.", options: ["Almost always","Often","Sometimes","Rarely","Never"] }
     ]
   },
   {
@@ -1081,47 +1123,7 @@ const TESTS = [
   },
 
   // ── 4. THE DECISIVENESS ARCHITECTURE (Procrastination)
-  {
-    id: "procrastination_blueprint",
-    category: "Orientation",
-    followUp: "Ready to lower the barrier to action and reclaim your time?",
-    keyword: "initiative",
-    title: "Procrastination Blueprint",
-    tagline: "Understand the gap between your intentions and your actions.",
-    description: "Procrastination is not a time-management problem; it is an emotional regulation challenge. This assessment analyzes your 'Initiative Threshold'—the amount of mental energy you require to start a daunting task. By identifying your specific triggers (Clarity Dependency, Dopamine Sensitivity, or Anxiety), we can build an architecture that makes action the default setting of your day.",
-    questions: 20,
-    time: "9 min",
-    icon: "⏱️",
-    highlights: ["Initiative Threshold", "Clarity Dependency", "Dopamine Mapping"],
-    sections: [
-      { name: "Initiative Threshold", start: 0, end: 4 },
-      { name: "Clarity Dependency", start: 5, end: 9 },
-      { name: "Immediate Comfort", start: 10, end: 14 },
-      { name: "Activation Energy", start: 15, end: 19 }
-    ],
-    questions_data: [
-        { section: "Initiative Threshold", q: "I often spend hours doing 'productive-looking' small tasks (like cleaning or checking email) to avoid starting the one big thing that matters.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I find that I only feel a real surge of focus and energy when the deadline is dangerously close.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I tell myself 'I'll feel more like doing this tomorrow' or 'I need to wait for the right mood.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Initiative Threshold", q: "I find the act of 'beginning' a task much more exhausting than the act of actually doing the work.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Initiative Threshold", q: "I have a long list of 'half-started' projects that I intend to return to once I have more time.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I tend to stall on a project if the next step is not 100% clear or defined for me.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I spend more time 'researching' and 'gathering information' than I do actually taking action.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Clarity Dependency", q: "If I encounter a minor technical hurdle, I use it as a reason to stop working on the project for the day.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I feel that I need to 'understand' the whole system before I can comfortably start on a small piece of it.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Clarity Dependency", q: "I find it hard to work if my environment isn't 'set up' exactly correctly first.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "When a task feels difficult, I have a strong impulse to check my phone or open a browser tab for a quick 'break.'", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Immediate Comfort", q: "I prioritize tasks that give me a quick feeling of success over those that are more important but take longer.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I find that I am a 'late-night' or 'early-morning' person purely because that is when there are no other distractions to compete with.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I use 'busyness' as an excuse to avoid the deeper, more emotionally taxing work I know I should be doing.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Immediate Comfort", q: "I am more motivated by the fear of consequences than I am by the excitement of the goal.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I find that once I actually start a task, it is rarely as difficult as I imagined it would be.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I require a significant amount of 'ramp-up' time (coffee, organizing, thinking) before I can do deep work.", options: ["Almost always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Activation Energy", q: "I feel a sense of dread when I look at my to-do list in the morning.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I have difficulty finishing the 'final 5%' of a project once the initial excitement has worn off.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
-        { section: "Activation Energy", q: "I judge my day's success by how much I 'thought' about my work, rather than what I actually produced.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
+  
 ];
 
 // ============================================
