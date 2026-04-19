@@ -2858,6 +2858,26 @@ function showPage(page, testId = null, shouldPush = true) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function showToast(message) {
+    const toast = document.getElementById('login-toast');
+    const msgElement = document.getElementById('toast-message');
+    
+    msgElement.innerText = message;
+    toast.classList.add('show');
+
+    // Automatically hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Example usage in your existing login flow:
+// auth.onAuthStateChange((user) => {
+//    if (user) {
+//        showToast(`Welcome back, ${user.user_metadata.full_name.split(' ')[0]}!`);
+//        updateUIForUser(user);
+//    }
+// });
 
 function initRouter() {
     // Check if there is a redirect path from our 404 page (Step 2)
