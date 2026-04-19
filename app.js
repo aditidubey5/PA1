@@ -104,6 +104,46 @@ const TESTS = [
     ]
   },
   {
+    id: "_index",
+    category:"Mindset",
+    followUp: "Are you ready to stop suffering productively?",
+    keyword: "martyr",
+    title: "The Martyr Index",
+    tagline: "Are you working hard — or just suffering productively?",
+    description: "The Martyr Index is a proprietary People Assets diagnostic. It measures the gap between effort invested and systemic impact generated. High martyrs work extremely hard but remain stuck — they over-invest in low-leverage tasks, under-delegate, and confuse busyness with progress.",
+    questions: 20,
+    time: "9 min",
+    icon: "⚖️",
+    sections: [
+      { name: "Over-Functioning", start: 0, end: 4 },
+      { name: "Delegation Barriers", start: 5, end: 9 },
+      { name: "Impact vs Effort", start: 10, end: 14 },
+      { name: "Boundaries", start: 15, end: 19 }
+    ],
+    questions_data: [
+      { section: "Over-Functioning", q: "I regularly stay late to finish tasks others could have handled.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Over-Functioning", q: "I feel the project will fail if I am not involved in every minor detail.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Over-Functioning", q: "I take on more work even when I am already at my breaking point.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Over-Functioning", q: "I jump in to solve problems before others have a chance to try.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Over-Functioning", q: "I feel responsible for the output of people who don't report to me.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Delegation Barriers", q: "I believe it takes longer to explain a task than to just do it myself.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Delegation Barriers", q: "I struggle to trust that others will maintain my quality standards.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Delegation Barriers", q: "I feel guilty when I delegate 'hard' tasks to my team.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Delegation Barriers", q: "I find myself 'fixing' work that others have already completed.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Delegation Barriers", q: "My team relies on me for answers they could find themselves.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Impact vs Effort", q: "I spend most of my day on reactive tasks (emails/Slack) rather than strategic work.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Impact vs Effort", q: "I feel exhausted at the end of the day but can't name one big win.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Impact vs Effort", q: "I prioritize tasks based on who is shouting loudest, not what matters most.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Impact vs Effort", q: "I value 'being busy' as a metric of my own success.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Impact vs Effort", q: "I confuse high activity with high impact.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Boundaries", q: "I check my work messages within 15 minutes of waking up.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
+      { section: "Boundaries", q: "I find it nearly impossible to say 'no' to my superiors.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Boundaries", q: "I feel resentful toward colleagues who have better work-life balance.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Boundaries", q: "I use my 'hard work' as a way to avoid dealing with my own burnout.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
+      { section: "Boundaries", q: "I feel like I am the only one who truly cares about this company's success.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
+    ]
+  },
+  {
     id: "procrastination_blueprint",
     category: "Orientation",
     followUp: "Ready to lower the barrier to action and reclaim your time?",
@@ -142,46 +182,6 @@ const TESTS = [
         { section: "Activation Energy", q: "I feel a sense of dread when I look at my to-do list in the morning.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
         { section: "Activation Energy", q: "I have difficulty finishing the 'final 5%' of a project once the initial excitement has worn off.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] },
         { section: "Activation Energy", q: "I judge my day's success by how much I 'thought' about my work, rather than what I actually produced.", options: ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"] }
-    ]
-  },
-  {
-    id: "martyr",
-    category:"Mindset",
-    followUp: "Are you ready to stop suffering productively?",
-    keyword: "martyr",
-    title: "The Martyr Index",
-    tagline: "Are you working hard — or just suffering productively?",
-    description: "The Martyr Index is a proprietary People Assets diagnostic. It measures the gap between effort invested and systemic impact generated. High martyrs work extremely hard but remain stuck — they over-invest in low-leverage tasks, under-delegate, and confuse busyness with progress.",
-    questions: 20,
-    time: "9 min",
-    icon: "⚖️",
-    sections: [
-      { name: "Over-Functioning", start: 0, end: 4 },
-      { name: "Delegation Barriers", start: 5, end: 9 },
-      { name: "Impact vs Effort", start: 10, end: 14 },
-      { name: "Boundaries", start: 15, end: 19 }
-    ],
-    questions_data: [
-      { section: "Over-Functioning", q: "I regularly stay late to finish tasks others could have handled.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Over-Functioning", q: "I feel the project will fail if I am not involved in every minor detail.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Over-Functioning", q: "I take on more work even when I am already at my breaking point.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Over-Functioning", q: "I jump in to solve problems before others have a chance to try.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Over-Functioning", q: "I feel responsible for the output of people who don't report to me.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Delegation Barriers", q: "I believe it takes longer to explain a task than to just do it myself.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Delegation Barriers", q: "I struggle to trust that others will maintain my quality standards.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Delegation Barriers", q: "I feel guilty when I delegate 'hard' tasks to my team.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Delegation Barriers", q: "I find myself 'fixing' work that others have already completed.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Delegation Barriers", q: "My team relies on me for answers they could find themselves.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Impact vs Effort", q: "I spend most of my day on reactive tasks (emails/Slack) rather than strategic work.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Impact vs Effort", q: "I feel exhausted at the end of the day but can't name one big win.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Impact vs Effort", q: "I prioritize tasks based on who is shouting loudest, not what matters most.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Impact vs Effort", q: "I value 'being busy' as a metric of my own success.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Impact vs Effort", q: "I confuse high activity with high impact.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Boundaries", q: "I check my work messages within 15 minutes of waking up.", options: ["Almost always","Often","Sometimes","Rarely","Never"] },
-      { section: "Boundaries", q: "I find it nearly impossible to say 'no' to my superiors.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Boundaries", q: "I feel resentful toward colleagues who have better work-life balance.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Boundaries", q: "I use my 'hard work' as a way to avoid dealing with my own burnout.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] },
-      { section: "Boundaries", q: "I feel like I am the only one who truly cares about this company's success.", options: ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"] }
     ]
   },
   {
