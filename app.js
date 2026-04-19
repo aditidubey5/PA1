@@ -2686,11 +2686,11 @@ function showPage(page, testId = null, shouldPush = true) {
 
     if (shouldPush) {
         if (page === 'test-landing' && testId) {
-            window.history.pushState({page, testId}, "", `?test=${testId}`);
+            window.history.pushState({page, testId}, "", "/" + testId);
         } else if (page === 'home') {
-            window.history.pushState({page}, "", window.location.pathname);
+            window.history.pushState({page}, "", "/");
         } else {
-            window.history.pushState({page}, "", `?view=${page}`);
+            window.history.pushState({page}, "", "/" + page);
         }
     }
 
@@ -2707,15 +2707,31 @@ function showPage(page, testId = null, shouldPush = true) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function initRouter() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const testParam = urlParams.get('test');
-    const viewParam = urlParams.get('view');
 
-    if (testParam) {
-        openTestLanding(testParam, false);
-    } else if (viewParam) {
-        showPage(viewParam, null, false);
+function initRouter() {
+    // Check if there is a redirect path from our 404 page (Step 2)
+    const sessionPath = sessionStorage.getItem('redirect_path');
+    if (sessionPath) {
+        sessionStorage.removeItem('redirect_path');
+        processPath(sessionPath);
+        return;
+    }
+
+    // Otherwise, process the current location
+    processPath(window.location.pathname);
+}
+
+// Helper to parse the path string
+function processPath(fullPath) {
+    const path = fullPath.replace(/\/$/, "").split("/").pop();
+    
+    // Check if the path is a valid test ID
+    const isTest = TESTS.find(t => t.id === path);
+    
+    if (isTest) {
+        openTestLanding(path, false);
+    } else if (path === "tests" || path === "coaching") {
+        showPage(path, null, false);
     } else {
         showPage('home', null, false);
     }
