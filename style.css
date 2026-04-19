@@ -54,17 +54,20 @@ nav {
     align-items: center;
     padding: 14px 24px;
     gap: 16px;
+    height: 80px;
 }
 .nav-logo {
     cursor: pointer;
     display: flex;
     align-items: center;
+    gap: 10px;
     flex-shrink: 0;
     transition: transform var(--transition);
 }
 .nav-logo:hover { transform: scale(1.02); }
 .nav-logo-img {
     flex-shrink: 0;
+    height: 48px;
 }
 .nav-links {
     display: flex;
@@ -455,6 +458,14 @@ nav {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.logo-text {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color: #1e293b;
+    white-space: nowrap;
 }
 
 .login-google-btn {

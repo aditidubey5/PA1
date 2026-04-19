@@ -28,10 +28,13 @@
         <div class="nav-links">
             <span id="nav-home"     class="nav-item" onclick="showPage('home')">Home</span>
             <span id="nav-tests"    class="nav-item" onclick="showPage('tests')">Assessments</span>
-            <button class="login-google-btn" onclick="signInWithGoogle()">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google">
-  Sign in with Google
-</button>
+            <!-- AUTH CONTAINER: This allows JS to swap the button for your profile photo -->
+            <div id="auth-container">
+                <button class="login-google-btn" onclick="signInWithGoogle()">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="WiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADGoogle">
+                    Sign in
+                </button>
+            </div>
             <span id="nav-coaching" class="nav-cta"  onclick="showPage('coaching')">Coaching</span>
         </div>
 
