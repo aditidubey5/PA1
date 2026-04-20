@@ -3389,7 +3389,7 @@ function generateReport() {
           
           <!-- PERSONALIZED TITLE ADDED HERE -->
           <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
-            ${personalizedTitle}you are a ${result.overallLabel}
+            ${personalizedTitle}you are of a ${result.overallLabel}
           </h1>
           
           <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
