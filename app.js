@@ -61,7 +61,7 @@ const TESTS = [
     description: "AI is no longer a futuristic concept; it is a current cognitive multiplier. This diagnostic measures your 'AI Quotient' across five dimensions: Daily Adoption, Literacy, Interaction Skill, Ethics, and Integration. By identifying your readiness level, you can transition from using AI as a simple search engine to a sophisticated strategic partner in your life and work.",
     questions: 25,
     time: "12 min",
-    icon: "🤖",
+    icon: "💡",
     highlights: ["Prompt Engineering", "Algorithmic Literacy", "Ethical Discernment"],
     sections: [
       { name: "Adoption", start: 0, end: 4 },
