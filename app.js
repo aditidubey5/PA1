@@ -2823,6 +2823,7 @@ let currentTest = null;
 let currentQuestion = 0;
 let answers = [];
 
+
 // ============================================
 // NAVIGATION
 // ============================================
@@ -3180,6 +3181,42 @@ function selectAnswer(index) {
   });
 }
 
+async function showNameInputScreen() {
+    // 1. Check if user is logged in via Google
+    const { data: { user } } = await _supabase.auth.getUser();
+    
+    if (user) {
+        // If logged in, skip the screen and use their Google name
+        userName = user.user_metadata.full_name.split(' ')[0]; // Take first name
+        generateReport();
+        return;
+    }
+
+    // 2. If Guest, show the input UI
+    const area = document.getElementById("question-area");
+    area.innerHTML = `
+        <div style="background:white; border-radius:24px; padding: 40px; box-shadow:var(--shadow-card); max-width:500px; margin:40px auto; text-align:center;">
+            <div style="font-size:3rem; margin-bottom:20px;">✍️</div>
+            <h2 class="text-gradient" style="margin-bottom:15px;">One Last Step...</h2>
+            <p style="color:var(--text-muted); margin-bottom:30px;">Tell us your name and we'll generate a customized report for you.</p>
+            
+            <input type="text" id="user-name-field" placeholder="Enter your first name" 
+                style="width:100%; padding:15px; border-radius:12px; border:2px solid #e2e8f0; font-size:1.1rem; margin-bottom:20px; text-align:center;">
+            
+            <button class="btn-primary btn-full" onclick="saveNameAndGenerate()">Generate My Report →</button>
+        </div>
+    `;
+    
+    // Hide the back/next buttons of the engine
+    document.querySelector(".engine-nav").style.display = "none";
+}
+
+function saveNameAndGenerate() {
+    const input = document.getElementById("user-name-field");
+    userName = input.value.trim() || "there"; // Fallback to "there" if empty
+    generateReport();
+}
+
 function changeQuestion(direction) {
   if (direction === 1) {
     if (answers[currentQuestion] === null) {
@@ -3187,7 +3224,7 @@ function changeQuestion(direction) {
       return;
     }
     if (currentQuestion === currentTest.questions_data.length - 1) {
-      generateReport();
+      showNameInputScreen();
       return;
     }
     currentQuestion++;
@@ -3292,6 +3329,8 @@ function generateReport() {
   const result = logic(answers);
   lastReportResult = result;
   showPage("report");
+
+  const greeting = `Hi ${userName}, `;
 
   // 1. DEFINE THE FOLLOW-UP QUESTION HTML FIRST
   const followUpHtml = `
@@ -3653,6 +3692,7 @@ async function sendReportEmail() {
     // 3. PREPARE PARAMETERS
     const templateParams = {
       to_email: email,
+      user_name: userName,
       test_name: currentTest.title,
       report_html: `
         <div style="background-color: #f3f4f6; padding: 20px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
