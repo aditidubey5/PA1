@@ -566,7 +566,7 @@ const TESTS = [
 
   // ── LISTENING SKILLS ─────────────────────
   {
-    id: "listening-Intelligence",
+    id: "listeningIntelligence",
     category:"Orientation",
     followUp: "Want to master your most underrated skill?",
     keyword: "listening",
@@ -1182,7 +1182,7 @@ const TESTS = [
 // REPORT LOGIC
 // ============================================
 const REPORT_LOGIC = {
-  ai_readiness: (answers) => {
+  AIusage: (answers) => {
     const sectionDefs = [
       {
         name: "Daily Adoption",
@@ -1305,7 +1305,7 @@ const REPORT_LOGIC = {
     return { label: "Introverted Analyst", score: pct, color: "#0ea5e9", description: "Your Big Five profile shows high conscientiousness and introversion. You do your best work in structured, focused environments where quality matters.", strengths: ["Deep, focused thinker","High accuracy and reliability","Disciplined self-manager","Excellent solo performer"], watch: ["Can be drained by excessive social demands","May appear reserved in group settings","Needs time to process before deciding"] };
   },
 
-   martyr: (answers) => {
+   MartyrIndex: (answers) => {
     const sectionDefs = [
       {
         name: "Over-Functioning",
@@ -1394,7 +1394,7 @@ const REPORT_LOGIC = {
   },
 
   // ── SIGNAL VS NOISE (DETAILED) ───────────
-  signal: (answers) => {
+  SignalNoise: (answers) => {
     const sectionDefs = [
       {
         name: "Information Diet",
@@ -1494,7 +1494,7 @@ const REPORT_LOGIC = {
     return { overall, overallLabel: "High Output", overallColor: "#10b981", overallDescription: "Depth and quality of effort.", sectionResults: results };
   },
   // ── EMOTIONAL INTELLIGENCE (DETAILED) ────
-  ei: (answers) => {
+  EmotionalIntelligence: (answers) => {
     const sectionDefs = [
       {
         name: "Self-Awareness",
@@ -1581,7 +1581,7 @@ const REPORT_LOGIC = {
   },
 
   // ── GROWTH MINDSET (DETAILED) ────────────
-  growth: (answers) => {
+  GrowthMindset: (answers) => {
     const sectionDefs = [
       {
         name: "Challenge Receptivity",
@@ -1866,7 +1866,7 @@ const REPORT_LOGIC = {
   },
 
   // ── LISTENING REPORT ──────────────────────
-  listening: (answers) => {
+  listeningIntelligence: (answers) => {
     const sectionDefs = [
       {
         name: "Presence & Attention",
@@ -2083,7 +2083,7 @@ const REPORT_LOGIC = {
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   },
   // ── LEADERSHIP MINDSET REPORT ───────────────────
-  leadership_mindset: (answers) => {
+  leadershipMindset: (answers) => {
     const sectionDefs = [
       {
         name: "Growth & Potential",
@@ -2156,7 +2156,7 @@ const REPORT_LOGIC = {
   },
 
   // ── LEADERSHIP ORIENTATION REPORT ────────────────
-  leadership_orientation: (answers) => {
+  leadershipOrientation: (answers) => {
     const sectionDefs = [
       {
         name: "Operational Execution",
@@ -2230,7 +2230,7 @@ const REPORT_LOGIC = {
   },
 
   // ── AMBITION MINDSET REPORT ─────────────────────
-  ambition_mindset: (answers) => {
+  ambitionMindset: (answers) => {
     const sectionDefs = [
       {
         name: "Inner Drive",
@@ -2303,7 +2303,7 @@ const REPORT_LOGIC = {
   },
 
   // ── AMBITION ORIENTATION REPORT ──────────────────
-  ambition_orientation: (answers) => {
+  ambitionOrientation: (answers) => {
     const sectionDefs = [
       {
         name: "Goal Specificity",
@@ -2374,7 +2374,7 @@ const REPORT_LOGIC = {
 
     return { overall, overallLabel, overallColor: "#6366f1", overallDescription: "Pursuit mechanics analysis.", sectionResults };
   },
-  stress_resilience: (answers) => {
+  StressResilience: (answers) => {
     const sectionDefs = [
       {
         name: "Internal Regulation",
@@ -2472,7 +2472,7 @@ const REPORT_LOGIC = {
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   },
 
-  ego_profile: (answers) => {
+  EgoProfile: (answers) => {
     const sectionDefs = [
       {
         name: "Feedback Receptivity",
@@ -2557,7 +2557,7 @@ const REPORT_LOGIC = {
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   },
-  harmony_quotient: (answers) => {
+  HarmonyVsImpactQuotient: (answers) => {
     const sectionDefs = [
       {
         name: "Conflict Threshold",
@@ -2727,7 +2727,7 @@ const REPORT_LOGIC = {
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
   },
-  procrastination_blueprint: (answers) => {
+  ProcrastinationBlueprint: (answers) => {
     const sectionDefs = [
       {
         name: "Initiative Threshold",
