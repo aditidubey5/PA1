@@ -2827,20 +2827,11 @@ let answers = [];
 // NAVIGATION
 // ============================================
 
-function trackPageView(pageName) {
-    if (typeof gtag === 'function') {
-        gtag('event', 'page_view', {
-            page_title: pageName,
-            page_location: window.location.href,
-            page_path: window.location.pathname + window.location.hash
-        });
-    }
-}
+
 
 // 1. MODIFIED NAVIGATION: Updates the URL when you switch pages
 function showPage(page, testId = null, shouldPush = true) {
     document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-    trackPageView(testId ? `Test: ${testId}` : `Page: ${pageId}`);
     const target = document.getElementById(page);
     if (target) target.style.display = "block";
     
@@ -3283,11 +3274,6 @@ let lastReportResult = null;
 // ============================================
 function generateReport() {
   const logic = REPORT_LOGIC[currentTest.id];
-  // Add this inside your generateReport function
-gtag('event', 'test_completed', {
-    'event_category': 'Engagement',
-    'event_label': currentTest.id
-});
   if (!logic) return;
   const result = logic(answers);
   lastReportResult = result;
