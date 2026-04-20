@@ -12,7 +12,7 @@ const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TESTS = [
   {
-    id: "growth",
+    id: "GrowthMindset",
     category:"Mindset",
     followUp: "Do you want to turn these insights into a permanent growth strategy?",
     keyword: "growth",
@@ -52,7 +52,7 @@ const TESTS = [
     ]
   },
   {
-    id: "ai_readiness",
+    id: "AIusage",
     category: "Orientation",
     followUp: "Ready to move from basic usage to AI-powered mastery?",
     keyword: "ai-native",
@@ -79,16 +79,16 @@ const TESTS = [
         { section: "Daily Adoption", q: "I use AI-driven navigation (Google Maps, Waze) to optimise my commute.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         // Knowledge & Literacy
         { section: "Knowledge & Literacy", q: "I can explain the difference between a standard search engine (like Google) and a chatbot (like Gemini).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Knowledge & Literacy", q: "I am aware that AI models can sometimes provide incorrect information confidently.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I realise that AI models can sometimes provide incorrect information confidently.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Knowledge & Literacy", q: "I recognise when an image, video, or audio clip I see online has been generated or altered by AI.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Knowledge & Literacy", q: "I understand the basic privacy risks of sharing sensitive or personal information with public AI models.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Knowledge & Literacy", q: "I know that AI's knowledge is based on specific training data and may not know today's live news.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Knowledge & Literacy", q: "I realise that AI's knowledge is based on specific training data and may not know today's live news.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         // Skill & Interaction
         { section: "Skill & Interaction", q: "I know how to write a 'prompt' that includes context and clear constraints.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Skill & Interaction", q: "I am comfortable 'iterating' with AI (asking follow-up questions to refine the original answer).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Skill & Interaction", q: "I know how to ask AI to change its tone (e.g., 'Make this sound more professional').", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Skill & Interaction", q: "I am capable of using AI to troubleshoot basic technical problems or learn a new software tool.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
-        { section: "Skill & Interaction", q: "I frequently use 'Multi-modal' features (such as uploading a photo of a broken item for the AI to analyse).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
+        { section: "Skill & Interaction", q: "I use 'Multi-modal' features (such as uploading a photo of a broken item for the AI to analyse).", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         // Critical Thinking & Ethics
         { section: "Critical Thinking & Ethics", q: "I cross-check important facts or data points provided by AI with a reliable secondary source.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
         { section: "Critical Thinking & Ethics", q: "I am conscious of potential biases in AI responses regarding gender, culture, or opinion.", options: ["Almost Always", "Often", "Sometimes", "Rarely", "Never"] },
@@ -104,7 +104,7 @@ const TESTS = [
     ]
   },
   {
-    id: "_index",
+    id: "MartyrIndex",
     category:"Mindset",
     followUp: "Are you ready to stop suffering productively?",
     keyword: "martyr",
@@ -144,7 +144,7 @@ const TESTS = [
     ]
   },
   {
-    id: "procrastination_blueprint",
+    id: "ProcrastinationBlueprint",
     category: "Orientation",
     followUp: "Ready to lower the barrier to action and reclaim your time?",
     keyword: "initiative",
@@ -185,7 +185,7 @@ const TESTS = [
     ]
   },
   {
-    id: "signal",
+    id: "SignalNoise",
     category:"Orientation",
     followUp: "Ready to cut through the noise and focus on what truly matters?",
     keyword: "signal",
@@ -270,7 +270,7 @@ const TESTS = [
     ]
   },
   {
-    id: "ei",
+    id: "EmotionalIntelligence",
     category:"Personality",
     followUp: "Want to build deeper connections and communicate with more impact?",
     keyword: "ei",
@@ -840,7 +840,7 @@ const TESTS = [
     ]
   },
   {
-    id: "leadership_mindset",
+    id: "leadershipMindset",
     category:"Mindset",
     followUp: "Ready to upgrade your leadership archetype?",
     keyword: "leadership mindset",
@@ -881,7 +881,7 @@ const TESTS = [
     ]
   },
   {
-    id: "leadership_orientation",
+    id: "leadershipOrientation",
     category:"Orientation",
     followUP: "Want to optimize where you direct your energy?",
     keyword: "leadership orientation",
@@ -922,7 +922,7 @@ const TESTS = [
     ]
   },
   {
-    id: "ambition_mindset",
+    id: "AmbitionMindset",
     category:"Mindset",
     followUp: "Ready to fuel your pursuit with the right mindset?",
     keyword: "ambition mindset",
@@ -963,7 +963,7 @@ const TESTS = [
     ]
   },
   {
-    id: "ambition_orientation",
+    id: "AmbitionOrientation",
     category:"Orientation",
     followUp: "Ready to optimize how you pursue your goals?",
     keyword: "ambition orientation",
@@ -1004,7 +1004,7 @@ const TESTS = [
     ]
   },
   {
-    id: "stress_resilience",
+    id: "StressResilience",
     category: "Mindset",
     followUp: "Do you want to build a customized stress-prevention roadmap?",
     keyword: "resilience",
@@ -1047,7 +1047,7 @@ const TESTS = [
   },
   // ── 1. THE EGO PROFILE (Ego)
   {
-    id: "ego_profile",
+    id: "EgoProfile",
     category: "Mindset",
     followUp: "Ready to transition from protecting your identity to expanding your potential?",
     keyword: "flexible-identity",
@@ -1090,7 +1090,7 @@ const TESTS = [
 
   // ── 2. THE HARMONY VS IMPACT QUOTIENT (People-Pleasing)
   {
-    id: "harmony_quotient",
+    id: "HarmonyVsImpactQuotient",
     category: "Mindset",
     followUp: "Want to learn how to be kind without being a pushover?",
     keyword: "assertive-impact",
@@ -1133,7 +1133,7 @@ const TESTS = [
 
   // ── 3. THE OUTCOME OPTIMIZATION INDEX (Perfectionism)
   {
-    id: "perfectionism_index",
+    id: "PerfectionismIndex",
     category: "Mindset",
     followUp: "Ready to stop over-engineering and start moving faster?",
     keyword: "optimal-results",
@@ -3092,6 +3092,7 @@ function openKnowMore(testId) {
 function startTest(testId) {
   currentTest = TESTS.find(t => t.id === testId);
   if (!currentTest) return;
+  document.querySelector(".engine-nav").style.display = "flex";
   gtag('event', 'begin_test', {
         'test_id': testId,
         'test_name': currentTest.title
@@ -3330,7 +3331,9 @@ function generateReport() {
   lastReportResult = result;
   showPage("report");
 
+  // These are the variables we will use below
   const greeting = `Hi ${userName}, `;
+  const personalizedTitle = userName ? `${userName}, ` : "";
 
   // 1. DEFINE THE FOLLOW-UP QUESTION HTML FIRST
   const followUpHtml = `
@@ -3371,15 +3374,24 @@ function generateReport() {
       </div>
     `).join("");
 
-    // Inject into the page (Includes Report + Email Box + Follow Up)
     document.getElementById("report-page-content").innerHTML = `
       <div>
         <div style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
-          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
+          
+          <!-- NAME ADDED HERE -->
+          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
+            Analysis Result for ${userName}
+          </p>
+          
           <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.overall}<span style="font-size:1.5rem;">/100</span></div>
-          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.overallLabel}</h1>
+          
+          <!-- PERSONALIZED TITLE ADDED HERE -->
+          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
+            ${personalizedTitle}you are a ${result.overallLabel}
+          </h1>
+          
           <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
         </div>
 
@@ -3409,31 +3421,23 @@ function generateReport() {
       </div>
     `;
 
-  // 3. OR IF IT IS A FLAT REPORT (e.g. DISC, Big Five)
   } else {
-    const strengthsHtml = result.strengths?.map(s => `
-      <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
-        <span style="color:#10b981; font-size:1.1rem;">✓</span>
-        <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${s}</span>
-      </div>
-    `).join("") || "";
-
-    const watchHtml = result.watch?.map(w => `
-      <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9;">
-        <span style="color:#f59e0b; font-size:1.1rem; margin-top:1px;">→</span>
-        <span style="font-size:0.9rem; color:var(--text-primary); font-weight:500;">${w}</span>
-      </div>
-    `).join("") || "";
-
-    // Inject into the page (Includes Report + Email Box + Follow Up)
+    // 3. FLAT REPORT (e.g. DISC, Big Five)
     document.getElementById("report-page-content").innerHTML = `
       <div>
         <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
-          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">${currentTest.title}</p>
+          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
+            Analysis Result for ${userName}
+          </p>
           <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
-          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">${result.label}</h1>
+          
+          <!-- PERSONALIZED TITLE ADDED HERE -->
+          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
+            ${personalizedTitle}your result is ${result.label}
+          </h1>
+          
           <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
         </div>
 
@@ -3605,6 +3609,7 @@ function handleModalBackdropClick(e) {
 async function syncToDatabase(userEmail, testResult) {
     const payload = {
         email: userEmail,
+        user_name: userName,
         test_title: currentTest.title,
         overall_score: testResult.overall || testResult.score,
         result_label: testResult.overallLabel || testResult.label,
