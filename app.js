@@ -2837,6 +2837,16 @@ function showPage(page, testId = null, shouldPush = true) {
     
     currentPage = page;
 
+    // --- GOOGLE ANALYTICS TRACKING CODE ---
+    if (typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+            page_title: testId ? `${page}: ${testId}` : page,
+            page_location: window.location.href,
+            page_path: window.location.pathname + window.location.search
+        });
+    }
+    // --------------------------------------
+
     if (shouldPush) {
         if (page === 'test-landing' && testId) {
             window.history.pushState({page, testId}, "", "/" + testId);
@@ -3081,6 +3091,10 @@ function openKnowMore(testId) {
 function startTest(testId) {
   currentTest = TESTS.find(t => t.id === testId);
   if (!currentTest) return;
+  gtag('event', 'begin_test', {
+        'test_id': testId,
+        'test_name': currentTest.title
+    });
   currentQuestion = 0;
   answers = new Array(currentTest.questions_data.length).fill(null);
   showPage("engine");
