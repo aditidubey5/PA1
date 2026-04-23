@@ -1182,7 +1182,7 @@ const TESTS = [
 // REPORT LOGIC
 // ============================================
 const REPORT_LOGIC = {
-  AIusage: (answers) => {
+AIusage: (answers) => {
     const sectionDefs = [
       {
         name: "Daily Adoption",
@@ -1248,8 +1248,10 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
-      return Math.round((raw / (sectionAnswers.length * 4)) * 100);
+      const maxScore = sectionAnswers.length * 4;
+      // KEY FIX: We use (4 - a) to flip the scale so index 0 = 4 points
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
+      return Math.round((raw / maxScore) * 100);
     });
 
     const overall = Math.round(sectionScores.reduce((s, v) => s + v, 0) / sectionScores.length);
@@ -1258,15 +1260,15 @@ const REPORT_LOGIC = {
     if (overall >= 85) {
       overallLabel = "AI Native";
       overallColor = "#10b981";
-      overallDescription = "You are operating at the leading edge of the AI transition. You have successfully integrated AI into your life as a cognitive partner while maintaining a high level of critical and ethical awareness. You are likely to lead others through this disruption.";
+      overallDescription = "You are operating at the leading edge of the AI transition. You have successfully integrated AI into your life as a cognitive partner while maintaining a high level of critical and ethical awareness.";
     } else if (overall >= 40) {
       overallLabel = "Strategic Adopter";
       overallColor = "#f59e0b";
-      overallDescription = "You have a solid foundation and use AI effectively for specific tasks. Your path forward involves moving from 'task-based' usage to 'workflow integration'—thinking of AI as a partner that spans your entire day rather than just a tool for a quick answer.";
+      overallDescription = "You have a solid foundation and use AI effectively for specific tasks. Your path forward involves moving from 'task-based' usage to 'workflow integration'.";
     } else {
       overallLabel = "AI Traditionalist";
       overallColor = "#6366f1";
-      overallDescription = "You prefer manual, human-only workflows. While this protects your traditional skills, you are at risk of a 'bandwidth gap' as the world moves toward AI-powered efficiency. Readiness isn't about knowing everything; it's about starting the experiment.";
+      overallDescription = "You prefer manual, human-only workflows. While this protects your traditional skills, you are at risk of a 'bandwidth gap' as the world moves toward AI-powered efficiency.";
     }
 
     const sectionResults = sectionDefs.map((sec, i) => {
@@ -1278,7 +1280,7 @@ const REPORT_LOGIC = {
     });
 
     return { overall, overallLabel, overallColor, overallDescription, sectionResults };
-  },
+},
   disc: (answers) => {
     const counts = { D: 0, I: 0, S: 0, C: 0 };
     const map = [
@@ -1359,7 +1361,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -1448,7 +1450,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4-a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -1548,7 +1550,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4-a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -1635,7 +1637,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4-a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -1733,7 +1735,7 @@ const REPORT_LOGIC = {
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
       const maxScore = sectionAnswers.length * 4;
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / maxScore) * 100);
     });
 
@@ -1832,7 +1834,7 @@ const REPORT_LOGIC = {
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
       const maxScore = sectionAnswers.length * 4;
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / maxScore) * 100);
     });
 
@@ -1933,7 +1935,7 @@ const REPORT_LOGIC = {
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
       const maxScore = sectionAnswers.length * 4;
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / maxScore) * 100);
     });
 
@@ -2033,7 +2035,7 @@ const REPORT_LOGIC = {
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
       const maxScore = sectionAnswers.length * 4;
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / maxScore) * 100);
     });
 
@@ -2137,7 +2139,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2210,7 +2212,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2284,7 +2286,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2357,7 +2359,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2440,7 +2442,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2526,7 +2528,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2611,7 +2613,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2696,7 +2698,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
@@ -2781,7 +2783,7 @@ const REPORT_LOGIC = {
 
     const sectionScores = sectionDefs.map(sec => {
       const sectionAnswers = answers.slice(sec.range[0], sec.range[1] + 1);
-      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? a : 0), 0);
+      const raw = sectionAnswers.reduce((sum, a) => sum + (a !== null ? (4 - a) : 0), 0);
       return Math.round((raw / (sectionAnswers.length * 4)) * 100);
     });
 
