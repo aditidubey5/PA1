@@ -3299,7 +3299,8 @@ function showPage(page, testId = null, shouldPush = true) {
     }
 
     if (page === "profile") { 
-      renderProfilePage(); }
+      renderProfilePage(); 
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -4373,16 +4374,19 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
         authContainer.innerHTML = buildAuthDropdownHTML(userImage, userName);
         
         if (authContainer) {
+           if (authContainer) {
             authContainer.innerHTML = `
-                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; margin-left:15px;">
-                    <img src="${userImage}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--brand-indigo);" alt="Profile">
-                    <div id="signout-dropdown" style="display:none; position:absolute; top:45px; right:0; background:white; padding:12px; border-radius:12px; box-shadow:var(--shadow-card); min-width:160px; z-index:10000;">
-                        <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">${userName}</p>
-                        <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.8rem;">Sign Out</button>
+                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                    <img src="${userImage}" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--brand-indigo); display:block;" alt="Profile">
+                    <div id="signout-dropdown" style="display:none; position:absolute; top:48px; right:0; background:white; padding:14px; border-radius:14px; box-shadow:var(--shadow-card); min-width:180px; z-index:10000;">
+                        <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">${userName}</p>
+                        <button onclick="showPage('profile')" style="color:var(--brand-indigo); background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:4px 0; display:block;">👤 My Profile</button>
+                        <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:4px 0; display:block; margin-top:4px;">Sign Out</button>
                     </div>
                 </div>
             `;
         }
+      }
     } else {
         // --- LOGGED OUT STATE ---
         sessionStorage.removeItem('toast_shown'); // Reset for next login
