@@ -833,26 +833,3 @@ nav {
     }
 }
 
-/* Navigation Logo Styling */
-.nav-logo {
-    padding: 5px 0;
-    transition: transform 0.2s ease;
-}
-
-.nav-logo:hover {
-    transform: translateY(-1px); /* Subtle lift on hover */
-}
-
-.nav-logo .text-gradient {
-    background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Ensure the navbar itself is clean */
-nav {
-    background: white;
-    border-bottom: 1px solid #f1f5f9; /* Very subtle line to separate nav from body */
-    height: 80px;
-}
