@@ -2870,15 +2870,27 @@ async function renderProfilePage() {
     // Fetch all results for this user
     let results = [];
     try {
+        const { data: { user: currentUser } } = await _supabase.auth.getUser();
+        if (!currentUser) {
+            section.innerHTML = `<div style="text-align:center;padding:80px 20px;">
+                <p style="color:var(--text-muted);">Please sign in to view your profile.</p>
+            </div>`;
+            return;
+        }
+ 
         const { data, error } = await _supabase
             .from('test_results')
             .select('*')
-            .eq('email', userEmail)
+            .eq('email', currentUser.email)
             .order('created_at', { ascending: false });
-
-        if (!error) results = data || [];
+ 
+        if (error) {
+            console.error("Profile fetch error:", error);
+        } else {
+            results = data || [];
+        }
     } catch (e) {
-        console.error("Profile fetch error:", e);
+        console.error("Profile fetch exception:", e);
     }
 
     // Render full profile
@@ -3763,6 +3775,12 @@ function generateReport() {
   if (!logic) return;
   const result = logic(answers);
   lastReportResult = result;
+  (async () => {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (user) {
+      syncToDatabase(user.email, result);
+    }
+  })();
   showPage("report");
 
   // These are the variables we will use below
