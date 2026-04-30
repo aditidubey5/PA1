@@ -4359,7 +4359,23 @@ window.addEventListener('DOMContentLoaded', async () => {
    ============================================ */
 
 // 1. Live Auth Listener: Reacts to Login/Logout instantly
+// Handle session from URL hash after Google redirect
+async function handleAuthRedirect() {
+    const hash = window.location.hash;
+    if (hash && hash.includes('access_token')) {
+        const { data, error } = await _supabase.auth.getSessionFromUrl();
+        if (data?.session) {
+            await _supabase.auth.setSession(data.session);
+        }
+        // Clean the URL
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+}
+handleAuthRedirect();
+
+
 _supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log("Auth event:", event, "User:", session?.user?.email);
     const user = session?.user;
     const authContainer = document.getElementById("auth-container");
     const authModal = document.getElementById("auth-modal");
