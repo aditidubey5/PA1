@@ -4035,24 +4035,18 @@ function closeAuthModal() {
 
 // 2. Logic to trigger the popup on load
 window.addEventListener('DOMContentLoaded', () => {
-    // We wait 1.5 seconds so the user sees the home page first (feels less like an ad)
     setTimeout(() => {
-        // Only show if the user hasn't already closed it in this session
         if (!sessionStorage.getItem('auth_popup_closed')) {
-            const authModal = document.getElementById("auth-modal");
-            if (authModal) {
-                authModal.style.display = "flex";
-            }
+            const m = document.getElementById("auth-modal");
+            if (m) m.style.display = "flex";
         }
     }, 1500);
 });
 
 // 3. Update the close function to remember the choice for this session
 function closeAuthModal() {
-    const authModal = document.getElementById("auth-modal");
-    if (authModal) {
-        authModal.style.display = "none";
-    }
+    const m = document.getElementById("auth-modal");
+    if (m) m.style.display = "none";
     sessionStorage.setItem('auth_popup_closed', 'true');
 }
 
@@ -4193,7 +4187,14 @@ async function sendReportEmail() {
   }
 }
 
-
+async function signInWithGoogle() {
+    await _supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin // Automatically detects https://peopleassets.in
+        }
+    });
+} 
 
 
 // ============================================
@@ -4316,7 +4317,15 @@ async function checkUser() {
         const userImage = user.user_metadata.avatar_url;
         const userName = user.user_metadata.full_name;
         
-
+        authContainer.innerHTML = `
+            <div class="user-profile-menu" onclick="toggleSignOut()" style="position:relative; cursor:pointer; display:flex; align-items:center; margin-left:15px;">
+                <img src="${userImage}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--brand-indigo);" alt="Profile">
+                <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; padding:12px; border-radius:12px; box-shadow:var(--shadow-card); min-width:150px; z-index:100;">
+                    <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">${userName}</p>
+                    <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.8rem;">Sign Out</button>
+                </div>
+            </div>
+        `;
     }
 }
 
@@ -4377,8 +4386,8 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
         }
 
         // D. Show Profile Icon
-        const userImage = user.user_metadata.avatar_url;
-        const userName = user.user_metadata.full_name;
+        const userImage = user.user_metadata?.avatar_url || "";
+        const userName = user.user_metadata?.full_name || "User";
         if (authContainer) {
             authContainer.innerHTML = `
                 <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
