@@ -4363,10 +4363,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 async function handleAuthRedirect() {
     const hash = window.location.hash;
     if (hash && hash.includes('access_token')) {
-        const { data, error } = await _supabase.auth.getSessionFromUrl();
-        if (data?.session) {
-            await _supabase.auth.setSession(data.session);
-        }
+        // In Supabase v2, just getting the session is enough
+        // it automatically reads the hash from the URL
+        const { data, error } = await _supabase.auth.getSession();
+        if (error) console.log("Session error:", error);
         // Clean the URL
         window.history.replaceState(null, null, window.location.pathname);
     }
