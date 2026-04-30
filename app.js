@@ -6,8 +6,8 @@
 // ============================================
 // ASSESSMENT DATA
 // ============================================
-const SUPABASE_URL = "https://bphdfjtllukteqicztvo.supabase.co";
-const SUPABASE_KEY = "sb_publishable_M8sfW8rk5_pswRdG-16Wbg_Rc56zRfB";
+const SUPABASE_URL = "https://jgozwnygkuuxkwxhrhqk.supabase.co";
+const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TESTS = [
   {
@@ -3932,6 +3932,7 @@ function handleFollowUp(isYes, keyword) {
     const actionsDisplay = document.getElementById("follow-up-actions");
 
     if (isYes) {
+      saveCoachingLead(keyword); 
         resultDisplay.innerHTML = `✓ Great! Email "<span style="color:var(--brand-magenta)">${keyword}</span>" to <a href="mailto:growth@peopleassets.in" style="color: var(--brand-indigo); text-decoration: underline;">growth@peopleassets.in</a> to start.`;
         resultDisplay.style.display = "block";
         actionsDisplay.style.display = "none";
@@ -4081,6 +4082,27 @@ async function syncToDatabase(userEmail, testResult) {
         }
     } catch (err) {
         console.error("Connection Error:", err);
+    }
+}
+
+async function saveCoachingLead(keyword) {
+    const { data: { user } } = await _supabase.auth.getUser();
+    const email = user?.email || "";
+    const name = user?.user_metadata?.full_name || userName || "";
+
+    const { error } = await _supabase
+        .from('coaching_leads')
+        .insert([{
+            email: email,
+            user_name: name,
+            test_title: currentTest?.title || "",
+            keyword: keyword
+        }]);
+
+    if (error) {
+        console.error("Coaching lead save error:", error.message);
+    } else {
+        console.log("Coaching lead saved!");
     }
 }
 
@@ -4427,7 +4449,7 @@ async function signInWithGoogle() {
         provider: 'google',
         options: { redirectTo: window.location.origin }
     });
-}
+} 
 
 // 3. Action: Log Out
 async function handleLogout() {
