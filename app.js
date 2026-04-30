@@ -3932,7 +3932,6 @@ function handleFollowUp(isYes, keyword) {
     const actionsDisplay = document.getElementById("follow-up-actions");
 
     if (isYes) {
-      saveCoachingLead(keyword); 
         resultDisplay.innerHTML = `✓ Great! Email "<span style="color:var(--brand-magenta)">${keyword}</span>" to <a href="mailto:growth@peopleassets.in" style="color: var(--brand-indigo); text-decoration: underline;">growth@peopleassets.in</a> to start.`;
         resultDisplay.style.display = "block";
         actionsDisplay.style.display = "none";
@@ -4069,40 +4068,25 @@ async function syncToDatabase(userEmail, testResult) {
     };
 
     try {
-        // Use _supabase client (not raw fetch) so the user's live
-        // session JWT is automatically attached — required for RLS
-        const { error } = await _supabase
-            .from('test_results')
-            .insert([payload]);
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/test_results`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+        });
 
-        if (error) {
-            console.error("Supabase Sync Error:", error.message, error);
+        if (response.ok) {
+            console.log("Supabase Sync Success!");
         } else {
-            console.log("Supabase Sync Success!", payload);
+            const err = await response.json();
+            console.error("Supabase Error:", err);
         }
     } catch (err) {
         console.error("Connection Error:", err);
-    }
-}
-
-async function saveCoachingLead(keyword) {
-    const { data: { user } } = await _supabase.auth.getUser();
-    const email = user?.email || "";
-    const name = user?.user_metadata?.full_name || userName || "";
-
-    const { error } = await _supabase
-        .from('coaching_leads')
-        .insert([{
-            email: email,
-            user_name: name,
-            test_title: currentTest?.title || "",
-            keyword: keyword
-        }]);
-
-    if (error) {
-        console.error("Coaching lead save error:", error.message);
-    } else {
-        console.log("Coaching lead saved!");
     }
 }
 
@@ -4203,14 +4187,7 @@ async function sendReportEmail() {
   }
 }
 
-async function signInWithGoogle() {
-    await _supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            redirectTo: window.location.origin // Automatically detects https://peopleassets.in
-        }
-    });
-} 
+
 
 
 // ============================================
@@ -4333,15 +4310,7 @@ async function checkUser() {
         const userImage = user.user_metadata.avatar_url;
         const userName = user.user_metadata.full_name;
         
-        authContainer.innerHTML = `
-            <div class="user-profile-menu" onclick="toggleSignOut()" style="position:relative; cursor:pointer; display:flex; align-items:center; margin-left:15px;">
-                <img src="${userImage}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--brand-indigo);" alt="Profile">
-                <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; padding:12px; border-radius:12px; box-shadow:var(--shadow-card); min-width:150px; z-index:100;">
-                    <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">${userName}</p>
-                    <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.8rem;">Sign Out</button>
-                </div>
-            </div>
-        `;
+
     }
 }
 
@@ -4404,10 +4373,7 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
         // D. Show Profile Icon
         const userImage = user.user_metadata.avatar_url;
         const userName = user.user_metadata.full_name;
-        authContainer.innerHTML = buildAuthDropdownHTML(userImage, userName);
-        
         if (authContainer) {
-           if (authContainer) {
             authContainer.innerHTML = `
                 <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
                     <img src="${userImage}" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--brand-indigo); display:block;" alt="Profile">
@@ -4419,7 +4385,6 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
                 </div>
             `;
         }
-      }
     } else {
         // --- LOGGED OUT STATE ---
         sessionStorage.removeItem('toast_shown'); // Reset for next login
@@ -4449,7 +4414,7 @@ async function signInWithGoogle() {
         provider: 'google',
         options: { redirectTo: window.location.origin }
     });
-} 
+}
 
 // 3. Action: Log Out
 async function handleLogout() {
