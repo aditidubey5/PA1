@@ -158,6 +158,18 @@
     </div>
 </div>
 
+<div id="auth-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
+    <div style="background:white; border-radius:20px; padding:40px; max-width:400px; width:90%; text-align:center; position:relative;">
+        <button onclick="closeAuthModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+        <h2 style="font-weight:900; margin-bottom:8px;">Welcome to People Assets</h2>
+        <p style="color:#666; margin-bottom:24px;">Sign in to save your results and track your growth.</p>
+        <button onclick="signInWithGoogle(); closeAuthModal();" style="background:linear-gradient(135deg,#6366f1,#d946ef); color:white; border:none; padding:14px 28px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; width:100%;">
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" style="width:18px; vertical-align:middle; margin-right:8px;">
+            Sign in with Google
+        </button>
+    </div>
+</div>
+
 <!-- PDF Generation Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 

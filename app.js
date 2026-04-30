@@ -4039,14 +4039,20 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         // Only show if the user hasn't already closed it in this session
         if (!sessionStorage.getItem('auth_popup_closed')) {
-            document.getElementById("auth-modal").style.display = "flex";
+            const authModal = document.getElementById("auth-modal");
+            if (authModal) {
+                authModal.style.display = "flex";
+            }
         }
     }, 1500);
 });
 
 // 3. Update the close function to remember the choice for this session
 function closeAuthModal() {
-    document.getElementById("auth-modal").style.display = "none";
+    const authModal = document.getElementById("auth-modal");
+    if (authModal) {
+        authModal.style.display = "none";
+    }
     sessionStorage.setItem('auth_popup_closed', 'true');
 }
 
