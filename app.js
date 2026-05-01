@@ -8,7 +8,13 @@
 // ============================================
 const SUPABASE_URL = "https://jgozwnygkuuxkwxhrhqk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+    }
+});
 const TESTS = [
   {
     id: "GrowthMindset",
@@ -4033,16 +4039,6 @@ function closeAuthModal() {
     document.getElementById("auth-modal").style.display = "none";
 }
 
-// 2. Logic to trigger the popup on load
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        if (!sessionStorage.getItem('auth_popup_closed')) {
-            const m = document.getElementById("auth-modal");
-            if (m) m.style.display = "flex";
-        }
-    }, 1500);
-});
-
 // 3. Update the close function to remember the choice for this session
 function closeAuthModal() {
     const m = document.getElementById("auth-modal");
@@ -4431,19 +4427,13 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
         }
 
         // Show Welcome Modal after 2 seconds if not dismissed
-        setTimeout(() => {
-            if (!sessionStorage.getItem('auth_popup_closed') && currentPage === 'home') {
-                if (authModal) authModal.style.display = "flex";
-            }
-        }, 2000);
-    }
-});
+}});
 
 // 2. Action: Sign In
 async function signInWithGoogle() {
     await _supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: window.location.origin }
+        options: { redirectTo:  'https://peopleassets.in' }
     });
 }
 
