@@ -4419,14 +4419,8 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
             `;
         }
 
-        // Show Welcome Modal after 2 seconds if not dismissed
-        setTimeout(() => {
-            if (!sessionStorage.getItem('auth_popup_closed') && currentPage === 'home') {
-                if (authModal) authModal.style.display = "flex";
-            }
-        }, 2000);
-    }
-});
+        
+}});
 
 // 2. Action: Sign In
 async function signInWithGoogle() {
