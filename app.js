@@ -1,3 +1,4 @@
+
 /* ============================================
    PEOPLE ASSETS — app.js
    Full application logic
@@ -4068,16 +4069,22 @@ async function syncToDatabase(userEmail, testResult) {
     };
 
     try {
-        // Use _supabase client (not raw fetch) so the user's live
-        // session JWT is automatically attached — required for RLS
-        const { error } = await _supabase
-            .from('test_results')
-            .insert([payload]);
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/test_results`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+        });
 
-        if (error) {
-            console.error("Supabase Sync Error:", error.message, error);
+        if (response.ok) {
+            console.log("Supabase Sync Success!");
         } else {
-            console.log("Supabase Sync Success!", payload);
+            const err = await response.json();
+            console.error("Supabase Error:", err);
         }
     } catch (err) {
         console.error("Connection Error:", err);
