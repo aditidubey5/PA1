@@ -1704,8 +1704,21 @@ async function generateReport() {
 }, 800);
 
     // === Render Report (you can expand this later) ===
-    const personalizedTitle = userName ? `${userName}, ` : "";
-    const followUpHtml = `... your follow-up card HTML ...`;   // Paste your followUpHtml here
+    const greeting = `Hi ${userName}, `;
+  const personalizedTitle = userName ? `${userName}, ` : "";
+    
+  const followUpHtml = `
+    <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px;">
+            ${currentTest.followUp || "Ready to take the next step with your results?"}
+        </h3>
+        <div id="follow-up-actions" style="display: flex; justify-content: center; gap: 15px;">
+            <button class="btn-secondary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(false)">No</button>
+            <button class="btn-primary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(true, '${currentTest.keyword || 'coaching'}')">Yes</button>
+        </div>
+        <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
+    </div>
+  `;
 
     let html = '';
 
@@ -1741,12 +1754,61 @@ async function generateReport() {
             ${followUpHtml}
         `;
     } else {
-        // Flat reports (DISC, Big Five, etc.) — keep your existing code here for now
-        html = `Your existing flat report HTML...`;
-    }
+        document.getElementById("report-page-content").innerHTML = `
+      <div>
+        <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
+          <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+          <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
+            Analysis Result for ${userName}
+          </p>
+          <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
+          
+          <!-- PERSONALIZED TITLE ADDED HERE -->
+          <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
+            ${personalizedTitle}your result is ${result.label}
+          </h1>
+          
+          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+        </div>
+
+        <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
+          <div class="report-inner-grid" style="display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:start;">
+            <div>
+              <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Your Profile Summary</h3>
+              <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description}</p>
+              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3>
+              <div style="margin-bottom:28px;">${strengthsHtml}</div>
+              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3>
+              <div>${watchHtml}</div>
+            </div>
+            <div>
+              <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
+                <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
+                <div style="font-size:4rem; font-weight:800; color:${result.color}; line-height:1;">${result.score}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">out of 100</div>
+                <div style="margin-top:16px; background:#e2e8f0; border-radius:50px; height:8px; overflow:hidden;">
+                  <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-actions" style="margin-top: 28px;">
+          <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
+          <button class="btn-primary" onclick="window.print()">Download Report</button>
+          <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+        </div>
+        ${buildEmailReportSection()}
+        ${followUpHtml}
+      </div>
+    `;
+  }
+}
+    
 
     document.getElementById("report-page-content").innerHTML = `<div class="container">${html}</div>`;
-}
 
 window.generateReport = generateReport;
 window.buildEmailReportSection = buildEmailReportSection;
