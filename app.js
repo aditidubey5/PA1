@@ -492,11 +492,10 @@ function showPage(page, testId = null, shouldPush = true) {
     }
 
     if (page === "profile") {
-      if (typeof renderProfilePage === "function") {
-            renderProfilePage();
-        }
-    }loadProfile(); 
-
+    if (typeof renderProfilePage === "function") {
+        renderProfilePage();
+    }
+}
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1050,8 +1049,9 @@ async function syncToDatabase(testResult) {
         overall_score: testResult.overall || testResult.score || 0,
         result_label: testResult.overallLabel || testResult.label || "Unknown",
         section_breakdown: testResult.sectionResults || [],
-        completed_at: new Date().toISOString()
     };
+
+    console.log("Saving to Supabase:", payload);
 
     try {
         const { error } = await _supabase

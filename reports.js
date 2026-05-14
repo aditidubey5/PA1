@@ -1697,6 +1697,11 @@ async function generateReport() {
     }
 
     showPage("report");
+    setTimeout(() => {
+    if (typeof renderProfilePage === "function") {
+        renderProfilePage();   // Force refresh profile data
+    }
+}, 800);
 
     // === Render Report (you can expand this later) ===
     const personalizedTitle = userName ? `${userName}, ` : "";
