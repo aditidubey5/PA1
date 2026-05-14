@@ -1805,10 +1805,11 @@ async function generateReport() {
       </div>
     `;
   }
-}
+
     
 
     document.getElementById("report-page-content").innerHTML = `<div class="container">${html}</div>`;
+}
 
 window.generateReport = generateReport;
 window.buildEmailReportSection = buildEmailReportSection;
