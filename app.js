@@ -1051,15 +1051,21 @@ async function syncToDatabase(testResult) {
     };
 
     try {
-        const { data, error } = await _supabase
+        const { error } = await _supabase
             .from('test_results')
-            .insert(payload)
-            .select();
+            .insert(payload);
 
         if (error) {
-            console.error("❌ Supabase Insert Error:", error);
+            console.error("❌ Save Error:", error);
         } else {
-            console.log("✅ Result saved successfully!", data);
+            console.log("✅ Test result saved successfully!");
+            
+            // Trigger AI summary update after successful save
+            setTimeout(() => {
+                if (typeof updateAIProfileSummary === "function") {
+                    updateAIProfileSummary();
+                }
+            }, 800);
         }
     } catch (err) {
         console.error("Sync failed:", err);
@@ -1430,7 +1436,114 @@ window.addEventListener('click', () => {
 // INIT
 // ============================================
 
+// Long-term AI Summary Updater (using Gemini)
+async function updateAIProfileSummary() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) return;
 
+    // Get all results
+    const { data: results } = await _supabase
+        .from('test_results')
+        .select('*')
+        .eq('email', user.email)
+        .order('created_at', { ascending: false });
+
+    if (!results || results.length === 0) return;
+
+    const userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
+
+    try {
+        const summary = await generateGeminiSummary(results, userName);
+
+        // Save summary
+        await _supabase
+            .from('user_profiles')
+            .upsert({
+                email: user.email,
+                ai_summary: summary,
+                summary_updated_at: new Date().toISOString()
+            });
+
+        console.log("✅ AI Profile Summary updated");
+    } catch (e) {
+        console.error("AI Summary failed:", e);
+    }
+}
+
+// ============================================
+// GEMINI AI SUMMARY (Free + Long-term)
+// ============================================
+
+async function callGeminiForSummary(results, userName) {
+    const apiKey = "AIzaSyB1RBMPh4cHkVu9jzgYpTCD3LRj_2H_Q2Y";   // ← my key here
+
+    const testData = results.map(r => `
+Test: ${r.test_title}
+Score: ${r.overall_score || "N/A"}
+Label: ${r.result_label || "N/A"}
+Date: ${new Date(r.created_at).toLocaleDateString('en-IN')}
+    `.trim()).join("\n\n---\n\n");
+
+    const prompt = `You are an expert executive coach at People Assets.
+
+User: ${userName} has completed multiple behavioral assessments.
+
+Here is their data:
+${testData}
+
+Write a warm, professional, insightful profile summary in second person ("You are...", "Your strengths include...").
+
+Structure:
+1. One strong opening paragraph about their overall personality/approach.
+2. 2-3 key strengths.
+3. 1-2 important growth areas.
+4. Three actionable next steps.
+
+Keep total length under 320 words. Be encouraging but honest.`;
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
+        });
+
+        const data = await response.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to generate summary at this time.";
+    } catch (err) {
+        console.error("Gemini API error:", err);
+        return "AI summary generation is currently unavailable. Please try again later.";
+    }
+}
+
+async function updateAIProfileSummary() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: results } = await _supabase
+        .from('test_results')
+        .select('*')
+        .eq('email', user.email)
+        .order('created_at', { ascending: false });
+
+    if (!results || results.length === 0) return;
+
+    const userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
+
+    const summaryText = await callGeminiForSummary(results, userName);
+
+    await _supabase
+        .from('user_profiles')
+        .upsert({
+            email: user.email,
+            ai_summary: summaryText,
+            summary_updated_at: new Date().toISOString()
+        });
+
+    console.log("✅ AI Profile Summary updated and saved");
+}
 
 // Start the app using the router instead of just showPage('home')
 initRouter();
