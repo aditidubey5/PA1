@@ -1038,34 +1038,31 @@ async function syncToDatabase(testResult) {
         email = user?.email;
     }
     if (!email) {
-        console.warn("⚠️ Cannot sync: No email found");
+        console.warn("⚠️ No email found for sync");
         return;
     }
 
     const payload = {
         email: email,
-        user_name: userName || "Anonymous",
-        test_id: currentTest?.id,
-        test_title: currentTest?.title,
+        test_title: currentTest?.title || "Unknown Test",
         overall_score: testResult.overall || testResult.score || 0,
-        result_label: testResult.overallLabel || testResult.label || "Unknown",
-        section_breakdown: testResult.sectionResults || [],
+        // Only using columns that actually exist in your table
     };
-
-    console.log("Saving to Supabase:", payload);
 
     try {
         const { error } = await _supabase
             .from('test_results')
-            .upsert(payload, { onConflict: 'email,test_id' });
+            .upsert(payload, { onConflict: 'email,test_title' });   // Match on email + test_title
 
-        if (error) console.error("Supabase Error:", error);
-        else console.log("✅ Result saved successfully");
+        if (error) {
+            console.error("Supabase Save Error:", error);
+        } else {
+            console.log("✅ Test result saved successfully");
+        }
     } catch (err) {
         console.error("Sync failed:", err);
     }
 }
-
 
 // ============================================
 // SEND REPORT EMAIL
