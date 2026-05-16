@@ -1060,7 +1060,7 @@ async function syncToDatabase(testResult) {
         if (error) {
             console.error("Supabase Save Error:", error);
         } else {
-            console.log("✅ Result saved successfully to test_results table");
+            console.log("✅ Result saved successfully!");
         }
     } catch (err) {
         console.error("Sync failed:", err);
