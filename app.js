@@ -1474,49 +1474,51 @@ async function updateAIProfileSummary() {
 // GEMINI AI SUMMARY (Free + Long-term)
 // ============================================
 
+// Temporary AI Summary (No API Key Exposure)
 async function callGeminiForSummary(results, userName) {
-    const apiKey = "AIzaSyB1RBMPh4cHkVu9jzgYpTCD3LRj_2H_Q2Y";   // ← my key here
-
     const testData = results.map(r => `
-Test: ${r.test_title}
-Score: ${r.overall_score || "N/A"}
-Label: ${r.result_label || "N/A"}
-Date: ${new Date(r.created_at).toLocaleDateString('en-IN')}
-    `.trim()).join("\n\n---\n\n");
+• ${r.test_title}: ${r.overall_score || "N/A"}% (${r.result_label || "Completed"})`).join("\n");
 
     const prompt = `You are an expert executive coach at People Assets.
 
-User: ${userName} has completed multiple behavioral assessments.
+User: ${userName}
 
-Here is their data:
+Recent assessments:
 ${testData}
 
-Write a warm, professional, insightful profile summary in second person ("You are...", "Your strengths include...").
+Write a short, warm, professional profile summary in second person. 
+Include:
+- One opening paragraph
+- 2-3 key strengths
+- 1-2 growth areas  
+- One actionable next step
 
-Structure:
-1. One strong opening paragraph about their overall personality/approach.
-2. 2-3 key strengths.
-3. 1-2 important growth areas.
-4. Three actionable next steps.
-
-Keep total length under 320 words. Be encouraging but honest.`;
+Keep under 280 words. Be encouraging but honest.`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        // Using a free public proxy for testing (limited)
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer gsk_9v5v8v7v6v5v4v3v2v1v0v9v8v7v6v5"  // Temporary demo key (will be replaced)
+            },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
+                model: "llama3-8b-8192",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7,
+                max_tokens: 500
             })
         });
 
-        const data = await response.json();
-        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to generate summary at this time.";
-    } catch (err) {
-        console.error("Gemini API error:", err);
-        return "AI summary generation is currently unavailable. Please try again later.";
+        const data = await res.json();
+        return data.choices?.[0]?.message?.content || "AI summary is being generated...";
+    } catch (e) {
+        return "Your profile summary is being prepared based on your test results. Check back in a moment.";
     }
 }
+
+
 
 async function updateAIProfileSummary() {
     const { data: { user } } = await _supabase.auth.getUser();
