@@ -1047,20 +1047,19 @@ async function syncToDatabase(testResult) {
         test_title: currentTest?.title || "Unknown Test",
         overall_score: testResult.overall || testResult.score || 0,
         result_label: testResult.overallLabel || testResult.label || "Completed",
-        breakdown: testResult.sectionResults || []   // jsonb column
+        breakdown: testResult.sectionResults || []
     };
 
     try {
-        const { error } = await _supabase
+        const { data, error } = await _supabase
             .from('test_results')
-            .upsert(payload, { 
-                onConflict: 'email,test_title' 
-            });
+            .insert(payload)
+            .select();
 
         if (error) {
-            console.error("Supabase Save Error:", error);
+            console.error("❌ Supabase Insert Error:", error);
         } else {
-            console.log("✅ Result saved successfully!");
+            console.log("✅ Result saved successfully!", data);
         }
     } catch (err) {
         console.error("Sync failed:", err);
