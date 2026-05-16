@@ -492,12 +492,13 @@ function showPage(page, testId = null, shouldPush = true) {
     }
 
     if (page === "profile") {
-    if (typeof renderProfilePage === "function") {
-        renderProfilePage();
+        if (typeof renderProfilePage === "function") {
+            renderProfilePage();
+        }
     }
 }
     window.scrollTo({ top: 0, behavior: "smooth" });
-}
+
 
 
 function initRouter() {
@@ -1009,12 +1010,12 @@ function closeAuthModal() {
 // 2. Logic to trigger the popup on load
 window.addEventListener('DOMContentLoaded', () => {
     // We wait 1.5 seconds so the user sees the home page first (feels less like an ad)
-    setTimeout(() => {
+    /*setTimeout(() => {
         // Only show if the user hasn't already closed it in this session
         if (!sessionStorage.getItem('auth_popup_closed')) {
             document.getElementById("auth-modal").style.display = "flex";
         }
-    }, 1500);
+    }, 1500);*/
 });
 
 // 3. Update the close function to remember the choice for this session
@@ -1322,12 +1323,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     const { data: { user } } = await _supabase.auth.getUser();
 
     // 2. Only show the popup if there is NO user AND they haven't closed it this session
-    setTimeout(() => {
+    /*setTimeout(() => {
         if (!user && !sessionStorage.getItem('auth_popup_closed')) {
             const authModal = document.getElementById("auth-modal");
             if (authModal) authModal.style.display = "flex";
         }
-    }, 1500);
+    }, 1500);*/
 });
 
 /* ============================================
@@ -1342,7 +1343,7 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
 
     if (user) {
         // --- LOGGED IN STATE ---
-
+        console.log("✅ User logged in:", user.email);
         // A. Hide the Welcome Modal
         if (authModal) authModal.style.display = "none";
 
@@ -1364,6 +1365,7 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
         // D. Show Profile Icon
         const userImage = user.user_metadata.avatar_url;
         const userName = user.user_metadata.full_name;
+        const displayName = userName.split(" ")[0];
         authContainer.innerHTML = buildAuthDropdownHTML(userImage, userName);
         
         if (authContainer) {

@@ -1698,10 +1698,10 @@ async function generateReport() {
 
     showPage("report");
     setTimeout(() => {
-    if (typeof renderProfilePage === "function") {
-        renderProfilePage();   // Force refresh profile data
-    }
-}, 800);
+        if (typeof renderProfilePage === "function") {
+            renderProfilePage();
+        }
+    }, 1000);
 
     // === Render Report (you can expand this later) ===
     const greeting = `Hi ${userName}, `;
