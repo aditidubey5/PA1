@@ -1,0 +1,7 @@
+# Ignore API keys and config
+config.js
+.env
+*.env
+
+# Ignore other sensitive files
+supabase.js.bak
