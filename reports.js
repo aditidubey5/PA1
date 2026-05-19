@@ -1697,6 +1697,12 @@ async function generateReport() {
     }
 
     showPage("report");
+        // Auto-update AI Profile Summary
+    setTimeout(() => {
+        if (typeof updateAIProfileSummary === "function") {
+            updateAIProfileSummary();
+        }
+    }, 1200);
     setTimeout(() => {
         if (typeof renderProfilePage === "function") {
             renderProfilePage();

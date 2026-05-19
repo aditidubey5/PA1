@@ -375,6 +375,7 @@ A user named ${userName} has completed the following assessments. Synthesize a r
 2. Highlights their PRIMARY GROWTH AREAS (2-3 patterns of development opportunity)
 3. Provides a SHORT "Who You Are" paragraph — a confident, warm, accurate character sketch
 4. Ends with one concrete, actionable NEXT STEP tailored to their profile
+5. Suggest another test that they could take from the given assessments on the page.
 
 ASSESSMENT DATA:
 ${testSummaries}
