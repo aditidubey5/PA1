@@ -979,10 +979,7 @@ async function syncToDatabase(testResult) {
         const { data: { user } } = await _supabase.auth.getUser();
         email = user?.email;
     }
-    if (!email) {
-        console.warn("⚠️ No email found for sync");
-        return;
-    }
+    if (!email) return console.warn("No email");
 
     const payload = {
         email: email,
@@ -993,21 +990,28 @@ async function syncToDatabase(testResult) {
     };
 
     try {
+        // First try upsert (preferred)
         const { error } = await _supabase
             .from('test_results')
-            .insert(payload);
+            .upsert(payload, { 
+                onConflict: 'email,test_title' 
+            });
 
         if (error) {
-            console.error("❌ Save Error:", error);
-        } else {
-            console.log("✅ Test result saved successfully!");
+            console.warn("Upsert failed, trying insert...", error.message);
             
-            // Trigger AI summary update after successful save
-            setTimeout(() => {
-                if (typeof updateAIProfileSummary === "function") {
-                    updateAIProfileSummary();
-                }
-            }, 800);
+            // Fallback: Simple insert
+            const { error: insertError } = await _supabase
+                .from('test_results')
+                .insert(payload);
+
+            if (insertError) {
+                console.error("❌ Both upsert and insert failed:", insertError);
+            } else {
+                console.log("✅ Result saved (via insert)");
+            }
+        } else {
+            console.log("✅ Result saved successfully (upsert)");
         }
     } catch (err) {
         console.error("Sync failed:", err);
