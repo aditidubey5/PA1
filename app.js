@@ -990,7 +990,6 @@ async function syncToDatabase(testResult) {
     };
 
     try {
-        // First try upsert (preferred)
         const { error } = await _supabase
             .from('test_results')
             .upsert(payload, { 
@@ -998,20 +997,9 @@ async function syncToDatabase(testResult) {
             });
 
         if (error) {
-            console.warn("Upsert failed, trying insert...", error.message);
-            
-            // Fallback: Simple insert
-            const { error: insertError } = await _supabase
-                .from('test_results')
-                .insert(payload);
-
-            if (insertError) {
-                console.error("❌ Both upsert and insert failed:", insertError);
-            } else {
-                console.log("✅ Result saved (via insert)");
-            }
+            console.error("Save Error:", error);
         } else {
-            console.log("✅ Result saved successfully (upsert)");
+            console.log("✅ Result saved successfully (no duplicate)");
         }
     } catch (err) {
         console.error("Sync failed:", err);
@@ -1436,7 +1424,8 @@ async function updateAIProfileSummary() {
 
 async function callGeminiForSummary(results, userName) {
     if (!window.GEMINI_API_KEY) {
-        return "AI summary configuration is missing. Please contact support.";
+        console.error("❌ GEMINI_API_KEY not found in config.js");
+        return "AI summary configuration is missing. Please check config.js";
     }
 
     const testData = results.map(r => `
@@ -1449,22 +1438,20 @@ User: ${userName}
 Recent Assessments:
 ${testData}
 
-A user named ${userName} has completed the following assessments. Synthesize a rich, integrated profile summary that:
-1. Identifies their KEY STRENGTHS (2-3 themes that emerge across multiple tests)
-2. Highlights their PRIMARY GROWTH AREAS (2-3 patterns of development opportunity)
-3. Provides a SHORT "Who You Are" paragraph — a confident, warm, accurate character sketch
-4. Ends with one concrete, actionable NEXT STEP tailored to their profile
-5. Suggest another test that they could take from the given assessments on the page.
+Write a warm, professional, insightful profile summary in second person.
 
+Structure it as:
+1. One strong opening paragraph about their overall personality/approach.
+2. 2-3 key strengths (with references to specific tests).
+3. 1-2 important growth areas.
+4. One concrete, actionable next step.
+5. Suggest one more test they should take next.
 
-IMPORTANT GUIDELINES:
+IMPORTANT:
 - Be specific and reference actual test names and scores
-- Be encouraging but honest — don't sugarcoat real development areas
-- Write in second person ("You demonstrate...", "Your data shows...")
-- Keep total length under 350 words
-- Use plain text, no markdown headers or bullet symbols — use clean line breaks
-- Start directly with the "Who You Are" paragraph, no preamble`;
-
+- Be encouraging but honest
+- Keep total length under 320 words
+- Start directly with the "Who You Are" paragraph`;
 
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
@@ -1477,6 +1464,7 @@ IMPORTANT GUIDELINES:
 
         const data = await response.json();
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
         return text || "Summary is being generated...";
     } catch (err) {
         console.error("Gemini Error:", err);
