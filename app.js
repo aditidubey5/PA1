@@ -6,6 +6,8 @@ let lastReportResult = null;
 let userName = "";
 let userEmail = "";
 
+const SUPABASE_ANON_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH"; // your current anon key
+
 
 /* ============================================================
    PROFILE PAGE — MAIN RENDERER
@@ -1422,56 +1424,39 @@ async function updateAIProfileSummary() {
 // GEMINI AI SUMMARY - SAFE VERSION
 // ============================================
 
+// ============================================
+// AI SUMMARY - LONG TERM SOLUTION (Edge Function)
+// ============================================
+
 async function callGeminiForSummary(results, userName) {
-    if (!window.GEMINI_API_KEY) {
-        console.error("❌ GEMINI_API_KEY not found in config.js");
-        return "AI summary configuration is missing. Please check config.js";
+    if (!results || results.length === 0) {
+        return "Take your first assessment to unlock your AI Profile Summary.";
     }
-
-    const testData = results.map(r => `
-• ${r.test_title}: ${r.overall_score || "N/A"}% (${r.result_label || "Completed"})`).join("\n");
-
-    const prompt = `You are an expert executive coach at People Assets.
-
-User: ${userName}
-
-Recent Assessments:
-${testData}
-
-Write a warm, professional, insightful profile summary in second person.
-
-Structure it as:
-1. One strong opening paragraph about their overall personality/approach.
-2. 2-3 key strengths (with references to specific tests).
-3. 1-2 important growth areas.
-4. One concrete, actionable next step.
-5. Suggest one more test they should take next.
-
-IMPORTANT:
-- Be specific and reference actual test names and scores
-- Be encouraging but honest
-- Keep total length under 320 words
-- Start directly with the "Who You Are" paragraph`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
+        const response = await fetch(
+            "https://jgozwnygkuuxkwxhrhqk.supabase.co/functions/v1/generate-profile-summary", 
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`   // Use your anon key
+                },
+                body: JSON.stringify({
+                    results: results,
+                    userName: userName
+                })
+            }
+        );
 
         const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        return data.summary || "Summary is being generated...";
 
-        return text || "Summary is being generated...";
     } catch (err) {
-        console.error("Gemini Error:", err);
-        return "Your personalized AI summary is being prepared based on your assessments.";
+        console.error("Edge Function Error:", err);
+        return "AI summary is being prepared. Please try refreshing.";
     }
 }
-
 
 async function updateAIProfileSummary() {
     const { data: { user } } = await _supabase.auth.getUser();
