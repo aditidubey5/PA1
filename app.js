@@ -316,16 +316,16 @@ function toggleResultDetail(detailId, cardId) {
 }
 
 
-/* ============================================================
-   AI PROFILE SUMMARY GENERATOR
-   Uses Anthropic API (claude-sonnet-4-20250514)
-   ============================================================ */
+// ============================================
+// AI PROFILE SUMMARY - USING GEMINI (Safe Version)
+// ============================================
+
 async function generateProfileSummary(results, userName) {
     const summaryEl = document.getElementById("summary-content");
     const regenBtn = document.getElementById("regen-summary-btn");
     if (!summaryEl) return;
 
-    // If called from refresh button, re-fetch results
+    // Re-fetch if called from refresh button
     if (!results) {
         const { data: { user } } = await _supabase.auth.getUser();
         if (!user) return;
@@ -337,92 +337,33 @@ async function generateProfileSummary(results, userName) {
         results = data || [];
     }
 
-    if (results.length === 0) return;
+    if (results.length === 0) {
+        summaryEl.innerHTML = `<p style="color:var(--text-muted);">Take your first assessment to unlock your AI Profile Summary.</p>`;
+        return;
+    }
 
-    // Show loading state
+    // Loading state
     summaryEl.innerHTML = `
         <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
             <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;"></div>
-            <span style="font-size:0.9rem;font-weight:600;">Analysing your assessments…</span>
+            <span style="font-size:0.9rem;font-weight:600;">Analyzing your assessments…</span>
         </div>
     `;
     if (regenBtn) regenBtn.disabled = true;
 
-    // Build context for AI
-    const latestByTest = {};
-    results.forEach(r => {
-        if (!latestByTest[r.test_title]) latestByTest[r.test_title] = r;
-    });
+    const summaryText = await callGeminiForSummary(results, userName);
 
-    const testSummaries = Object.values(latestByTest).map(r => {
-        const breakdown = Array.isArray(r.breakdown) && r.breakdown.length > 0
-            ? r.breakdown.map(s => `  • ${s.name}: ${s.score ?? "N/A"}%${s.description ? " — " + s.description : ""}`).join("\n")
-            : "  No section breakdown available.";
-        return `
-TEST: ${r.test_title}
-Date: ${new Date(r.created_at).toLocaleDateString('en-IN')}
-Overall Score: ${r.overall_score ?? "N/A"}%
-Result Label: ${r.result_label || "N/A"}
-Section Breakdown:
-${breakdown}
-        `.trim();
-    }).join("\n\n---\n\n");
-
-    const prompt = `You are an expert executive coach and organizational psychologist at People Assets, a professional development platform.
-
-A user named ${userName} has completed the following assessments. Synthesize a rich, integrated profile summary that:
-1. Identifies their KEY STRENGTHS (2-3 themes that emerge across multiple tests)
-2. Highlights their PRIMARY GROWTH AREAS (2-3 patterns of development opportunity)
-3. Provides a SHORT "Who You Are" paragraph — a confident, warm, accurate character sketch
-4. Ends with one concrete, actionable NEXT STEP tailored to their profile
-5. Suggest another test that they could take from the given assessments on the page.
-
-ASSESSMENT DATA:
-${testSummaries}
-
-IMPORTANT GUIDELINES:
-- Be specific and reference actual test names and scores
-- Be encouraging but honest — don't sugarcoat real development areas
-- Write in second person ("You demonstrate...", "Your data shows...")
-- Keep total length under 350 words
-- Use plain text, no markdown headers or bullet symbols — use clean line breaks
-- Start directly with the "Who You Are" paragraph, no preamble`;
-
-    try {
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model: "claude-sonnet-4-20250514",
-                max_tokens: 1000,
-                messages: [{ role: "user", content: prompt }]
-            })
-        });
-
-        const data = await response.json();
-        const text = data?.content?.[0]?.text || "";
-
-        if (text) {
-            // Parse into sections for nicer display
-            const paragraphs = text.trim().split(/\n\n+/).filter(Boolean);
-
-            summaryEl.innerHTML = `
-                <div style="border-left:3px solid var(--brand-indigo);padding-left:20px;margin-bottom:20px;">
-                    ${paragraphs.map((p, i) => `<p style="margin:0 0 ${i < paragraphs.length - 1 ? '16px' : '0'};font-size:0.95rem;line-height:1.75;color:var(--text-primary);">${p.replace(/\n/g, '<br>')}</p>`).join("")}
-                </div>
-                <p style="font-size:0.72rem;color:var(--text-muted);margin:0;">Generated from ${Object.keys(latestByTest).length} assessment${Object.keys(latestByTest).length > 1 ? "s" : ""} · Retake tests to update your summary</p>
-            `;
-        } else {
-            summaryEl.innerHTML = `<p style="color:#ef4444;font-size:0.9rem;">Could not generate summary. Please try again.</p>`;
-        }
-    } catch (err) {
-        console.error("Summary generation error:", err);
-        summaryEl.innerHTML = `<p style="color:#ef4444;font-size:0.9rem;">Something went wrong. Please try again.</p>`;
-    }
+    summaryEl.innerHTML = `
+        <div style="line-height:1.75; font-size:0.96rem; color:var(--text-primary);">
+            ${summaryText.replace(/\n/g, '<br><br>')}
+        </div>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:20px;">
+            Generated from ${results.length} assessments • Updated just now
+        </p>
+    `;
 
     if (regenBtn) regenBtn.disabled = false;
 }
-
 
 /* ============================================================
    UPDATE AUTH DROPDOWN — call this inside onAuthStateChange
@@ -1438,45 +1379,62 @@ window.addEventListener('click', () => {
 // ============================================
 
 // Long-term AI Summary Updater (using Gemini)
+// ============================================
+// AUTO UPDATE AI SUMMARY AFTER EACH TEST
+// ============================================
+
 async function updateAIProfileSummary() {
     const { data: { user } } = await _supabase.auth.getUser();
     if (!user) return;
 
-    // Get all results
-    const { data: results } = await _supabase
+    console.log("🔄 Updating AI Profile Summary...");
+
+    // Get all user results
+    const { data: results, error } = await _supabase
         .from('test_results')
         .select('*')
         .eq('email', user.email)
         .order('created_at', { ascending: false });
 
-    if (!results || results.length === 0) return;
+    if (error || !results || results.length === 0) {
+        console.log("No results yet for AI summary");
+        return;
+    }
 
     const userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
 
-    try {
-        const summary = await generateGeminiSummary(results, userName);
+    // Generate new summary
+    const summaryText = await callGeminiForSummary(results, userName);
 
-        // Save summary
-        await _supabase
-            .from('user_profiles')
-            .upsert({
-                email: user.email,
-                ai_summary: summary,
-                summary_updated_at: new Date().toISOString()
-            });
+    // Save to user_profiles table
+    const { error: saveError } = await _supabase
+        .from('user_profiles')
+        .upsert({
+            email: user.email,
+            ai_summary: summaryText,
+            summary_updated_at: new Date().toISOString()
+        });
 
-        console.log("✅ AI Profile Summary updated");
-    } catch (e) {
-        console.error("AI Summary failed:", e);
+    if (saveError) {
+        console.error("Failed to save AI summary:", saveError);
+    } else {
+        console.log("✅ AI Profile Summary updated and saved");
     }
 }
-
 // ============================================
 // GEMINI AI SUMMARY (Free + Long-term)
 // ============================================
 
 // Temporary AI Summary (No API Key Exposure)
+// ============================================
+// GEMINI AI SUMMARY - SAFE VERSION
+// ============================================
+
 async function callGeminiForSummary(results, userName) {
+    if (!window.GEMINI_API_KEY) {
+        return "AI summary configuration is missing. Please contact support.";
+    }
+
     const testData = results.map(r => `
 • ${r.test_title}: ${r.overall_score || "N/A"}% (${r.result_label || "Completed"})`).join("\n");
 
@@ -1484,41 +1442,43 @@ async function callGeminiForSummary(results, userName) {
 
 User: ${userName}
 
-Recent assessments:
+Recent Assessments:
 ${testData}
 
-Write a short, warm, professional profile summary in second person. 
-Include:
-- One opening paragraph
-- 2-3 key strengths
-- 1-2 growth areas  
-- One actionable next step
+A user named ${userName} has completed the following assessments. Synthesize a rich, integrated profile summary that:
+1. Identifies their KEY STRENGTHS (2-3 themes that emerge across multiple tests)
+2. Highlights their PRIMARY GROWTH AREAS (2-3 patterns of development opportunity)
+3. Provides a SHORT "Who You Are" paragraph — a confident, warm, accurate character sketch
+4. Ends with one concrete, actionable NEXT STEP tailored to their profile
+5. Suggest another test that they could take from the given assessments on the page.
 
-Keep under 280 words. Be encouraging but honest.`;
+
+IMPORTANT GUIDELINES:
+- Be specific and reference actual test names and scores
+- Be encouraging but honest — don't sugarcoat real development areas
+- Write in second person ("You demonstrate...", "Your data shows...")
+- Keep total length under 350 words
+- Use plain text, no markdown headers or bullet symbols — use clean line breaks
+- Start directly with the "Who You Are" paragraph, no preamble`;
+
 
     try {
-        // Using a free public proxy for testing (limited)
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer gsk_9v5v8v7v6v5v4v3v2v1v0v9v8v7v6v5"  // Temporary demo key (will be replaced)
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                model: "llama3-8b-8192",
-                messages: [{ role: "user", content: prompt }],
-                temperature: 0.7,
-                max_tokens: 500
+                contents: [{ parts: [{ text: prompt }] }]
             })
         });
 
-        const data = await res.json();
-        return data.choices?.[0]?.message?.content || "AI summary is being generated...";
-    } catch (e) {
-        return "Your profile summary is being prepared based on your test results. Check back in a moment.";
+        const data = await response.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        return text || "Summary is being generated...";
+    } catch (err) {
+        console.error("Gemini Error:", err);
+        return "Your personalized AI summary is being prepared based on your assessments.";
     }
 }
-
 
 
 async function updateAIProfileSummary() {
