@@ -103,27 +103,46 @@ function buildTestCard(r) {
     </div>`;
 }
 
+
 // Load AI Summary
 async function loadAISummary(email, userName) {
     const summaryEl = document.getElementById("summary-content");
     if (!summaryEl) return;
 
-    try {
-        const { data } = await _supabase
-            .from('user_profiles')
-            .select('ai_summary')
-            .eq('email', email)
-            .single();
+    summaryEl.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px; color:var(--brand-indigo);">
+            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            <span>Generating your personalized summary...</span>
+        </div>
+    `;
 
-        if (data && data.ai_summary) {
-            summaryEl.innerHTML = `<p style="line-height:1.8; color:#1e293b;">${data.ai_summary}</p>`;
-        } else {
-            summaryEl.innerHTML = `<p style="color:#64748b;">Generating your personalized summary...</p>`;
-            // Trigger generation
-            if (typeof updateAIProfileSummary === "function") updateAIProfileSummary();
+    try {
+        // Get latest results again
+        const { data: results } = await _supabase
+            .from('test_results')
+            .select('*')
+            .eq('email', email)
+            .order('created_at', { ascending: false });
+
+        if (!results || results.length === 0) {
+            summaryEl.innerHTML = `<p>Take some assessments to generate your AI summary.</p>`;
+            return;
         }
+
+        const summaryText = await callGeminiForSummary(results, userName);
+
+        summaryEl.innerHTML = `
+            <div style="line-height:1.8; color:#1e293b; font-size:0.97rem;">
+                ${summaryText.replace(/\n/g, '<br><br>')}
+            </div>
+            <p style="margin-top:20px; font-size:0.8rem; color:#64748b;">
+                Generated from ${results.length} assessments • Updated just now
+            </p>
+        `;
+
     } catch (e) {
-        console.error(e);
+        console.error("Summary rendering error:", e);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to load summary. Please refresh.</p>`;
     }
 }
 
