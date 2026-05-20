@@ -103,21 +103,20 @@ function buildTestCard(r) {
     </div>`;
 }
 
-
 // Load AI Summary
 async function loadAISummary(email, userName) {
     const summaryEl = document.getElementById("summary-content");
     if (!summaryEl) return;
 
+    // Show loading
     summaryEl.innerHTML = `
-        <div style="display:flex; align-items:center; gap:12px; color:var(--brand-indigo);">
-            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+        <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
+            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;"></div>
             <span>Generating your personalized summary...</span>
         </div>
     `;
 
     try {
-        // Get latest results again
         const { data: results } = await _supabase
             .from('test_results')
             .select('*')
@@ -125,24 +124,27 @@ async function loadAISummary(email, userName) {
             .order('created_at', { ascending: false });
 
         if (!results || results.length === 0) {
-            summaryEl.innerHTML = `<p>Take some assessments to generate your AI summary.</p>`;
+            summaryEl.innerHTML = `<p>Take assessments to generate summary.</p>`;
             return;
         }
 
         const summaryText = await callGeminiForSummary(results, userName);
 
+        // This is the key part - make sure it displays
         summaryEl.innerHTML = `
-            <div style="line-height:1.8; color:#1e293b; font-size:0.97rem;">
+            <div style="line-height:1.85; color:#1e293b; font-size:0.98rem;">
                 ${summaryText.replace(/\n/g, '<br><br>')}
             </div>
-            <p style="margin-top:20px; font-size:0.8rem; color:#64748b;">
+            <p style="margin-top:24px; font-size:0.78rem; color:#64748b;">
                 Generated from ${results.length} assessments • Updated just now
             </p>
         `;
 
+        console.log("✅ Summary displayed successfully");
+
     } catch (e) {
-        console.error("Summary rendering error:", e);
-        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to load summary. Please refresh.</p>`;
+        console.error("Summary display error:", e);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to display summary. Please refresh.</p>`;
     }
 }
 
