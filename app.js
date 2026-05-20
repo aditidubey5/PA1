@@ -1434,17 +1434,26 @@ async function callGeminiForSummary(results, userName) {
     }
 
     try {
+        console.log("Calling Edge Function with", results.length, "results");
+
         const { data, error } = await _supabase.functions.invoke('generate-profile-summary', {
-            body: { results, userName }
+            body: { 
+                results: results,
+                userName: userName 
+            }
         });
 
-        if (error) throw error;
+        if (error) {
+            console.error("Edge Function Error:", error);
+            throw error;
+        }
 
+        console.log("✅ Edge Function Success");
         return data.summary || "Summary is being generated...";
 
     } catch (err) {
-        console.error("Edge Function Error:", err);
-        return "Your personalized AI summary is being prepared. Please refresh.";
+        console.error("❌ Final Edge Function Error:", err);
+        return "AI summary is temporarily unavailable. Please try refreshing the page.";
     }
 }
 
