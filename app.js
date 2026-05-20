@@ -325,14 +325,14 @@ function toggleResultDetail(detailId, cardId) {
 async function generateProfileSummary(results, userName) {
     let summaryEl = document.getElementById("summary-content");
     
-    // Fallback: Try to find it if ID changed
-    if (!summaryEl) summaryEl = document.querySelector("#ai-summary-card div[id*='summary']");
-
     if (!summaryEl) {
-        console.error("❌ Could not find summary-content element");
+        console.error("❌ summary-content element NOT found");
         return;
     }
 
+    console.log("🔄 Starting summary render...");
+
+    // Force loading state
     summaryEl.innerHTML = `
         <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
             <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
@@ -343,19 +343,25 @@ async function generateProfileSummary(results, userName) {
     try {
         const summaryText = await callGeminiForSummary(results, userName);
 
-        summaryEl.innerHTML = `
-            <div style="line-height:1.8; font-size:0.97rem; color:#1e293b;">
-                ${summaryText.replace(/\n/g, '<br><br>')}
-            </div>
-            <p style="margin-top:20px; font-size:0.8rem; color:#64748b;">
-                Generated from ${results.length} assessments • Updated just now
-            </p>
-        `;
+        console.log("📝 Summary received:", summaryText ? summaryText.substring(0, 120) + "..." : "EMPTY");
 
-        console.log("✅ Summary rendered successfully");
+        if (summaryText && summaryText.length > 10) {
+            summaryEl.innerHTML = `
+                <div style="line-height:1.85; font-size:0.97rem; color:#1e293b;">
+                    ${summaryText.replace(/\n/g, '<br><br>')}
+                </div>
+                <p style="margin-top:24px; font-size:0.8rem; color:#64748b;">
+                    Generated from ${results.length} assessments • Updated just now
+                </p>
+            `;
+            console.log("✅ Summary displayed on page");
+        } else {
+            summaryEl.innerHTML = `<p style="color:#f59e0b;">Summary received but empty. Try Refresh.</p>`;
+        }
+
     } catch (err) {
-        console.error("Generate Summary Error:", err);
-        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to generate summary. Please refresh.</p>`;
+        console.error("Render error:", err);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to show summary. Please refresh.</p>`;
     }
 }
 /* ============================================================
@@ -1489,4 +1495,5 @@ window.signInWithGoogle = signInWithGoogle;
 window.handleLogout = handleLogout;
 window.renderProfilePage = renderProfilePage;
 window.generateProfileSummary = generateProfileSummary;
+window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
 };
