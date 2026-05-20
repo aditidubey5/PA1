@@ -110,37 +110,44 @@ function statBadge(value, label) {
     </div>`;
 }
 
-function buildTestCard(r) {
-    const date = new Date(r.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-    const score = r.overall_score;
+function buildTestResultCard(r, index) {
+    const date = new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const score = r.overall_score ?? null;
     const scoreColor = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444";
-    const breakdown = Array.isArray(r.breakdown) ? r.breakdown : [];
+    const breakdown = r.breakdown || [];
+    const hasBreakdown = Array.isArray(breakdown) && breakdown.length > 0;
 
     return `
-    <div style="background:white; border-radius:20px; padding:24px 28px; margin-bottom:14px; box-shadow:0 4px 20px rgba(0,0,0,0.06); border:1px solid #f0eeff;">
-        <div style="display:flex; align-items:center; gap:16px;">
+    <div style="background:white; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,0.06); margin-bottom:16px; overflow:hidden;">
+        <div style="padding:24px 28px; display:flex; align-items:center; gap:16px; cursor:pointer;" onclick="toggleResultDetail('detail-${index}', this)">
+            <div style="font-size:1.8rem;flex-shrink:0;">${r.test_title.includes("Mindset") ? "🌱" : r.test_title.includes("Procrastination") ? "⏰" : "📊"}</div>
             <div style="flex:1;">
-                <div style="font-weight:800; font-size:1rem; color:#1e293b;">${r.test_title}</div>
-                <div style="font-size:0.78rem; color:#94a3b8; margin-top:3px;">📅 ${date} ${r.result_label ? `· <span style="background:#f3f0ff; color:#6366f1; padding:2px 10px; border-radius:20px; font-weight:700;">${r.result_label}</span>` : ""}</div>
+                <h3 style="margin:0 0 6px 0; font-size:1.05rem;">${r.test_title}</h3>
+                <small style="color:#64748b;">${date}</small>
             </div>
-            ${score != null ? `
-            <div style="width:52px; height:52px; border-radius:50%; border:3px solid ${scoreColor}; display:flex; align-items:center; justify-content:center; flex-direction:column; flex-shrink:0;">
-                <span style="font-size:0.95rem; font-weight:900; color:${scoreColor};">${score}</span>
-                <span style="font-size:0.5rem; color:${scoreColor}; font-weight:700;">%</span>
+            ${score !== null ? `
+            <div style="text-align:center;">
+                <div style="width:60px;height:60px;border-radius:50%;border:4px solid ${scoreColor};display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                    <span style="font-size:1.35rem;font-weight:900;color:${scoreColor};">${score}</span>
+                    <span style="font-size:0.65rem;color:${scoreColor};">%</span>
+                </div>
             </div>` : ""}
         </div>
-        ${breakdown.length > 0 ? `
-        <div style="margin-top:16px; padding-top:16px; border-top:1px solid #f0eeff;">
-            ${breakdown.map(s => `
-            <div style="margin-bottom:10px;">
-                <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;">
-                    <span style="font-weight:600; color:#334155;">${s.name}</span>
-                    <span style="font-weight:700; color:${(s.score||0) >= 70 ? "#10b981" : (s.score||0) >= 40 ? "#f59e0b" : "#ef4444"};">${s.score || 0}%</span>
+
+        ${hasBreakdown ? `
+        <div id="detail-${index}" style="display:none; padding:0 28px 28px; background:#faf9ff; border-top:1px solid #f0eeff;">
+            <h4 style="font-size:0.8rem; font-weight:700; color:#64748b; margin:16px 0 12px;">Section Breakdown</h4>
+            ${breakdown.map(sec => `
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                        <span style="font-weight:600;">${sec.name}</span>
+                        <span style="font-weight:700;color:#10b981;">${sec.score}%</span>
+                    </div>
+                    <div style="height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;">
+                        <div style="height:100%;width:${sec.score}%;background:#10b981;border-radius:999px;"></div>
+                    </div>
                 </div>
-                <div style="height:7px; background:#ede9ff; border-radius:99px; overflow:hidden;">
-                    <div style="height:100%; width:${s.score||0}%; background:${(s.score||0) >= 70 ? "#10b981" : (s.score||0) >= 40 ? "#f59e0b" : "#ef4444"}; border-radius:99px;"></div>
-                </div>
-            </div>`).join("")}
+            `).join('')}
         </div>` : ""}
     </div>`;
 }
@@ -223,6 +230,26 @@ async function loadAISummary(email, userName) {
     }
 }
 
+// Direct call from profile
+window.callGeminiForSummary = async function(results, userName) {
+    if (!window.GEMINI_API_KEY) return "Key missing in config.js";
+
+    const testData = results.map(r => `• ${r.test_title}: ${r.overall_score}%`).join("\n");
+
+    const prompt = `You are an expert coach. User: ${userName}\n\nAssessments:\n${testData}\n\nWrite a warm, honest profile summary in second person under 280 words.`;
+
+    try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await res.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Summary generated.";
+    } catch (e) {
+        return "Summary is being prepared...";
+    }
+};
 // Make global
 window.loadAISummary = loadAISummary;
 window.renderProfilePage = renderProfilePage;
