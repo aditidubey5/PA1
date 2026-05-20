@@ -323,50 +323,41 @@ function toggleResultDetail(detailId, cardId) {
 // ============================================
 
 async function generateProfileSummary(results, userName) {
-    const summaryEl = document.getElementById("summary-content");
-    const regenBtn = document.getElementById("regen-summary-btn");
-    if (!summaryEl) return;
+    let summaryEl = document.getElementById("summary-content");
+    
+    // Fallback: Try to find it if ID changed
+    if (!summaryEl) summaryEl = document.querySelector("#ai-summary-card div[id*='summary']");
 
-    // Re-fetch if called from refresh button
-    if (!results) {
-        const { data: { user } } = await _supabase.auth.getUser();
-        if (!user) return;
-        const { data } = await _supabase
-            .from('test_results')
-            .select('*')
-            .eq('email', user.email)
-            .order('created_at', { ascending: false });
-        results = data || [];
-    }
-
-    if (results.length === 0) {
-        summaryEl.innerHTML = `<p style="color:var(--text-muted);">Take your first assessment to unlock your AI Profile Summary.</p>`;
+    if (!summaryEl) {
+        console.error("❌ Could not find summary-content element");
         return;
     }
 
-    // Loading state
     summaryEl.innerHTML = `
         <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
-            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;"></div>
-            <span style="font-size:0.9rem;font-weight:600;">Analyzing your assessments…</span>
+            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            <span>Analyzing your assessments…</span>
         </div>
     `;
-    if (regenBtn) regenBtn.disabled = true;
 
-    const summaryText = await callGeminiForSummary(results, userName);
+    try {
+        const summaryText = await callGeminiForSummary(results, userName);
 
-    summaryEl.innerHTML = `
-        <div style="line-height:1.75; font-size:0.96rem; color:var(--text-primary);">
-            ${summaryText.replace(/\n/g, '<br><br>')}
-        </div>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:20px;">
-            Generated from ${results.length} assessments • Updated just now
-        </p>
-    `;
+        summaryEl.innerHTML = `
+            <div style="line-height:1.8; font-size:0.97rem; color:#1e293b;">
+                ${summaryText.replace(/\n/g, '<br><br>')}
+            </div>
+            <p style="margin-top:20px; font-size:0.8rem; color:#64748b;">
+                Generated from ${results.length} assessments • Updated just now
+            </p>
+        `;
 
-    if (regenBtn) regenBtn.disabled = false;
+        console.log("✅ Summary rendered successfully");
+    } catch (err) {
+        console.error("Generate Summary Error:", err);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to generate summary. Please refresh.</p>`;
+    }
 }
-
 /* ============================================================
    UPDATE AUTH DROPDOWN — call this inside onAuthStateChange
    to add a "My Profile" link in the dropdown.
@@ -1434,26 +1425,27 @@ async function callGeminiForSummary(results, userName) {
     }
 
     try {
-        console.log("Calling Edge Function with", results.length, "results");
-
-        const { data, error } = await _supabase.functions.invoke('generate-profile-summary', {
-            body: { 
-                results: results,
-                userName: userName 
+        const response = await fetch(
+            "https://jgozwnygkuuxkwxhrhqk.supabase.co/functions/v1/generate-profile-summary", 
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`   // Use your anon key
+                },
+                body: JSON.stringify({
+                    results: results,
+                    userName: userName
+                })
             }
-        });
+        );
 
-        if (error) {
-            console.error("Edge Function Error:", error);
-            throw error;
-        }
-
-        console.log("✅ Edge Function Success");
+        const data = await response.json();
         return data.summary || "Summary is being generated...";
 
     } catch (err) {
-        console.error("❌ Final Edge Function Error:", err);
-        return "AI summary is temporarily unavailable. Please try refreshing the page.";
+        console.error("Edge Function Error:", err);
+        return "AI summary is being prepared. Please try refreshing.";
     }
 }
 
