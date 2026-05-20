@@ -148,93 +148,81 @@ function buildTestCard(r) {
 // ============================================
 // AI SUMMARY — CALLS GEMINI DIRECTLY
 // ============================================
-async function loadAISummary(results, userName) {
-    const summaryEl = document.getElementById("summary-content");
-    if (!summaryEl) return;
-
-    // If called from refresh button, re-fetch results
-    if (!results) {
-        const { data: { user } } = await _supabase.auth.getUser();
-        if (!user) return;
-        const { data } = await _supabase
-            .from('test_results')
-            .select('*')
-            .eq('email', user.email)
-            .order('created_at', { ascending: false });
-        results = data || [];
-        userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
+// ====================== AI SUMMARY - DIRECT GEMINI CALL ======================
+async function callGeminiForSummary(results, userName) {
+    if (!window.GEMINI_API_KEY) {
+        return "AI summary configuration is missing. Check config.js";
     }
 
-    if (!results || results.length === 0) {
-        summaryEl.innerHTML = `<p style="color:#64748b;">No assessments found yet.</p>`;
-        return;
-    }
+    const testData = results.map(r => `• ${r.test_title}: ${r.overall_score || "N/A"}% (${r.result_label || "Completed"})`).join("\n");
 
-    // Show loading spinner
-    summaryEl.innerHTML = `
-        <div style="display:flex; align-items:center; gap:12px; color:#6366f1;">
-            <div style="width:20px; height:20px; border:2px solid #6366f1; border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; flex-shrink:0;"></div>
-            <span style="font-size:0.9rem; font-weight:600;">Analysing your assessments…</span>
-        </div>`;
+    const prompt = `You are an expert executive coach at People Assets.
 
-    // Build prompt
-    const testData = results.map(r => {
-        const breakdown = Array.isArray(r.breakdown) && r.breakdown.length > 0
-            ? r.breakdown.map(s => `  • ${s.name}: ${s.score ?? "N/A"}%`).join("\n")
-            : "  No section breakdown";
-        return `TEST: ${r.test_title}\nScore: ${r.overall_score ?? "N/A"}%\nLabel: ${r.result_label || "N/A"}\nSections:\n${breakdown}`;
-    }).join("\n\n---\n\n");
+User: ${userName}
 
-    const prompt = `You are an expert coach at People Assets, a professional development platform.
+Recent Assessments:
+${testData}
 
-Analyze ${userName}'s assessment results and write a short, warm, insightful profile summary (under 200 words). 
-
-Structure it as:
-1. One paragraph "Who You Are" — a confident character sketch
-2. Key Strengths (2-3 bullet points)
-3. Growth Areas (1-2 bullet points)  
-4. One concrete Next Step
-
-Be specific, reference actual test names and scores. Write in second person ("You show...", "Your results indicate..."). No markdown headers, use plain text with line breaks.
-
-ASSESSMENT DATA:
-${testData}`;
+Write a warm, professional summary in second person. Include strengths, growth areas, and one actionable next step. Keep under 280 words.`;
 
     try {
-        const apiKey = window.GEMINI_API_KEY;
-        if (!apiKey) throw new Error("Gemini API key not found in config.js");
-
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { maxOutputTokens: 500, temperature: 0.7 }
-                })
-            }
-        );
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
+        });
 
         const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-        if (!text) throw new Error("Empty response from Gemini");
-
-        const paragraphs = text.trim().split(/\n\n+/).filter(Boolean);
-        summaryEl.innerHTML = `
-            <div style="border-left:3px solid #6366f1; padding-left:20px; margin-bottom:16px;">
-                ${paragraphs.map(p => `<p style="margin:0 0 14px; font-size:0.95rem; line-height:1.75; color:#1e293b;">${p.replace(/\n/g, '<br>')}</p>`).join("")}
-            </div>
-            <p style="font-size:0.72rem; color:#94a3b8; margin:0;">Generated from ${results.length} assessment${results.length > 1 ? "s" : ""} · Retake tests to update</p>
-        `;
-
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Summary is being generated...";
     } catch (err) {
-        console.error("Gemini error:", err);
-        summaryEl.innerHTML = `<p style="color:#ef4444; font-size:0.9rem;">Could not generate summary. Check your Gemini API key in config.js</p>`;
+        console.error("Gemini Error:", err);
+        return "Your personalized AI summary is being prepared based on your assessments.";
     }
 }
 
-// Make functions globally available
-window.renderProfilePage = renderProfilePage;
+// ====================== UPDATED AI SUMMARY LOADER ======================
+async function loadAISummary(email, userName) {
+    const summaryEl = document.getElementById("summary-content");
+    if (!summaryEl) return;
+
+    summaryEl.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
+            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            <span>Generating your personalized summary...</span>
+        </div>
+    `;
+
+    try {
+        const { data: results } = await _supabase
+            .from('test_results')
+            .select('*')
+            .eq('email', email)
+            .order('created_at', { ascending: false });
+
+        if (!results || results.length === 0) {
+            summaryEl.innerHTML = `<p>No assessments found yet.</p>`;
+            return;
+        }
+
+        const summaryText = await callGeminiForSummary(results, userName);
+
+        summaryEl.innerHTML = `
+            <div style="line-height:1.85; color:#1e293b; font-size:0.98rem;">
+                ${summaryText.replace(/\n/g, '<br><br>')}
+            </div>
+            <p style="margin-top:24px; font-size:0.8rem; color:#64748b;">
+                Generated from ${results.length} assessments • Updated just now
+            </p>
+        `;
+
+    } catch (e) {
+        console.error(e);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to generate summary. Please refresh.</p>`;
+    }
+}
+
+// Make global
 window.loadAISummary = loadAISummary;
+window.renderProfilePage = renderProfilePage;
