@@ -1434,27 +1434,31 @@ async function callGeminiForSummary(results, userName) {
     }
 
     try {
-        const response = await fetch(
-            "https://jgozwnygkuuxkwxhrhqk.supabase.co/functions/v1/generate-profile-summary", 
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`   // Use your anon key
-                },
-                body: JSON.stringify({
-                    results: results,
-                    userName: userName
-                })
-            }
-        );
+        const SUPABASE_URL = "https://jgozwnygkuuxkwxhrhqk.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH";
+
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/generate-profile-summary`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({
+                results: results,
+                userName: userName
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Edge function returned ${response.status}`);
+        }
 
         const data = await response.json();
         return data.summary || "Summary is being generated...";
 
     } catch (err) {
         console.error("Edge Function Error:", err);
-        return "AI summary is being prepared. Please try refreshing.";
+        return "Your personalized AI summary is being prepared. Please refresh in a moment.";
     }
 }
 
