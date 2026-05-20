@@ -988,22 +988,29 @@ async function syncToDatabase(testResult) {
         breakdown: testResult.sectionResults || []
     };
 
+    // First check if this exact result already exists (prevent duplicates)
+    const { data: existing } = await _supabase
+        .from('test_results')
+        .select('id')
+        .eq('email', email)
+        .eq('test_title', payload.test_title)
+        .eq('overall_score', payload.overall_score)
+        .limit(1);
+
+    if (existing && existing.length > 0) {
+        console.log("⚠️ Duplicate result skipped");
+        return;
+    }
+
     try {
         const { error } = await _supabase
             .from('test_results')
-            .insert(payload)
-            .select()
-            .eq('email', email)
-            .eq('test_title', payload.test_title)
-            .eq('overall_score', payload.overall_score)
-            .eq('result_label', payload.result_label)
-            .limit(1)
-            .single();
+            .insert(payload);
 
         if (error) {
-            console.error("Save Error:", error);
+            console.error("Save Error:", error.message);
         } else {
-            console.log("✅ Result saved successfully (no duplicate)");
+            console.log("✅ Result saved successfully");
         }
     } catch (err) {
         console.error("Sync failed:", err);
