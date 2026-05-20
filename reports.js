@@ -1817,6 +1817,50 @@ async function generateReport() {
     document.getElementById("report-page-content").innerHTML = `<div class="container">${html}</div>`;
 }
 
+
+
+
+async function syncToDatabase(testResult) {
+    const { data: { user } } = await _supabase.auth.getUser();
+    const email = userEmail || user?.email;
+    if (!email) return;
+
+    await _supabase.from('test_results').insert({
+        email: email,
+        test_title: currentTest?.title || "Unknown Test",
+        overall_score: testResult.overall || testResult.score || 0,
+        result_label: testResult.overallLabel || testResult.label || "Completed",
+        breakdown: testResult.sectionResults || []
+    });
+}
+
+
+async function sendReportEmail() {
+    const emailInput = document.getElementById("report-email-input");
+    const statusEl = document.getElementById("email-report-status");
+    const btn = document.getElementById("send-report-btn");
+    const email = emailInput ? emailInput.value.trim() : "";
+
+    if (!email || !email.includes("@")) {
+        statusEl.style.display = "block"; statusEl.style.color = "red"; statusEl.textContent = "Enter valid email."; return;
+    }
+
+    btn.disabled = true; btn.textContent = "Sending...";
+    
+    try {
+        await emailjs.send("service_u11zlzf", "template_zpcklyu", {
+            to_email: email, user_name: userName, test_name: currentTest.title,
+            report_html: document.getElementById("report-page-content").innerHTML
+        });
+        statusEl.style.display = "block"; statusEl.style.color = "green"; statusEl.textContent = "✓ Sent successfully!";
+        btn.textContent = "Sent ✓";
+    } catch (e) {
+        statusEl.style.display = "block"; statusEl.style.color = "red"; statusEl.textContent = "Failed to send.";
+        btn.disabled = false; btn.textContent = "Try Again";
+    }
+}
+
+
 window.generateReport = generateReport;
 window.buildEmailReportSection = buildEmailReportSection;
 window.handleFollowUp = handleFollowUp;
