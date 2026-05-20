@@ -10,6 +10,361 @@ const SUPABASE_ANON_KEY = "sb_publishable_nF2FaubTOihhXqSYyETQzA_iv5huqqH"; // y
 
 
 /* ============================================================
+   PROFILE PAGE — MAIN RENDERER
+   ============================================================ */
+async function renderProfilePage() {
+    const section = document.getElementById("profile");
+    if (!section) return;
+
+    // Auth check
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) {
+        section.innerHTML = `
+            <div style="min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; padding:40px;">
+                <div style="font-size:3rem;">🔒</div>
+                <h2 style="font-weight:800; color:var(--text-primary);">Sign in to view your profile</h2>
+                <p style="color:var(--text-muted); text-align:center; max-width:380px;">Your test history, reports, and AI-powered profile summary are waiting for you.</p>
+                <button class="btn-primary" onclick="signInWithGoogle()">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" style="width:18px; height:18px; vertical-align:middle; margin-right:8px;">
+                    Sign in with Google
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    const userName = user.user_metadata?.full_name || "Learner";
+    const userAvatar = user.user_metadata?.avatar_url || "";
+    const userEmail = user.email || "";
+
+    // Loading skeleton
+    section.innerHTML = `
+        <div class="container" style="padding-top:60px; padding-bottom:80px; max-width:960px;">
+            <div style="text-align:center; padding:60px 0; color:var(--text-muted);">
+                <div style="width:40px; height:40px; border:3px solid var(--brand-indigo); border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 20px;"></div>
+                <p style="font-weight:600;">Loading your profile…</p>
+            </div>
+        </div>
+        <style>
+            @keyframes spin { to { transform: rotate(360deg); } }
+        </style>
+    `;
+
+    // Fetch all results for this user
+    let results = [];
+    try {
+        const { data: { user: currentUser } } = await _supabase.auth.getUser();
+        if (!currentUser) {
+            section.innerHTML = `<div style="text-align:center;padding:80px 20px;">
+                <p style="color:var(--text-muted);">Please sign in to view your profile.</p>
+            </div>`;
+            return;
+        }
+ 
+        const { data, error } = await _supabase
+            .from('test_results')
+            .select('*')
+            .eq('email', currentUser.email)
+            .order('created_at', { ascending: false });
+ 
+        if (error) {
+            console.error("Profile fetch error:", error);
+        } else {
+            results = data || [];
+        }
+    } catch (e) {
+        console.error("Profile fetch exception:", e);
+    }
+
+    // Render full profile
+    section.innerHTML = buildProfileHTML(user, userName, userAvatar, userEmail, results);
+
+    // Inject spinner style
+    const spinStyle = document.createElement('style');
+    spinStyle.textContent = `@keyframes spin { to { transform: rotate(360deg); } }`;
+    document.head.appendChild(spinStyle);
+
+    // Auto-generate AI summary if there are results
+    if (results.length > 0) {
+        generateProfileSummary(results, userName);
+    }
+}
+
+
+/* ============================================================
+   HTML BUILDER
+   ============================================================ */
+function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
+    const firstName = userName.split(" ")[0];
+    const totalTests = results.length;
+    const uniqueTests = [...new Set(results.map(r => r.test_title))].length;
+    const avgScore = totalTests > 0
+        ? Math.round(results.reduce((a, r) => a + (r.overall_score || 0), 0) / totalTests)
+        : null;
+
+    // Group results by test title — keep latest per test for summary
+    const latestByTest = {};
+    results.forEach(r => {
+        if (!latestByTest[r.test_title]) latestByTest[r.test_title] = r;
+    });
+
+    return `
+    <div style="
+        background: linear-gradient(135deg, #6366f1 0%, #d946ef 60%, #f59e0b 100%);
+        padding: 60px 20px 100px;
+        position: relative;
+        overflow: hidden;
+    ">
+        <!-- Decorative blobs -->
+        <div style="position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
+        <div style="position:absolute;bottom:-80px;left:-40px;width:200px;height:200px;background:rgba(255,255,255,0.05);border-radius:50%;"></div>
+
+        <div class="container" style="max-width:960px; position:relative; z-index:1;">
+            <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+                ${userAvatar
+                    ? `<img src="${userAvatar}" alt="${userName}" style="width:80px;height:80px;border-radius:50%;border:4px solid rgba(255,255,255,0.6);box-shadow:0 8px 30px rgba(0,0,0,0.2);">`
+                    : `<div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:2rem;border:4px solid rgba(255,255,255,0.4);">👤</div>`
+                }
+                <div>
+                    <p style="color:rgba(255,255,255,0.75);font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Your Growth Dashboard</p>
+                    <h1 style="color:white;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin:0 0 4px;">${userName}</h1>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin:0;">${userEmail}</p>
+                </div>
+            </div>
+
+            <!-- Stats strip -->
+            <div style="display:flex;gap:20px;margin-top:36px;flex-wrap:wrap;">
+                ${[
+                    { label: "Tests Taken", value: totalTests, icon: "📋" },
+                    { label: "Unique Assessments", value: uniqueTests, icon: "🧩" },
+                    { label: "Avg Score", value: avgScore !== null ? avgScore + "%" : "—", icon: "📊" },
+                ].map(s => `
+                    <div style="background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:16px;padding:18px 24px;min-width:140px;">
+                        <div style="font-size:1.5rem;margin-bottom:4px;">${s.icon}</div>
+                        <div style="font-size:1.6rem;font-weight:900;color:white;">${s.value}</div>
+                        <div style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.06em;">${s.label}</div>
+                    </div>
+                `).join("")}
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width:960px; margin-top:-40px; position:relative; z-index:2; padding-bottom:80px;">
+
+        <!-- AI PROFILE SUMMARY CARD -->
+        <div id="profile-summary-card" style="
+            background:white;
+            border-radius:24px;
+            box-shadow:0 20px 60px rgba(99,102,241,0.12);
+            padding:36px;
+            margin-bottom:32px;
+            border:1px solid #e8e6ff;
+        ">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                <div style="width:40px;height:40px;background:linear-gradient(135deg,#6366f1,#d946ef);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">✨</div>
+                <div>
+                    <h2 style="margin:0;font-size:1.1rem;font-weight:800;color:var(--text-primary);">AI Profile Summary</h2>
+                    <p style="margin:0;font-size:0.75rem;color:var(--text-muted);">Synthesized from all your assessments</p>
+                </div>
+                ${results.length > 0 ? `
+                <button onclick="generateProfileSummary(null, '${userName}')" id="regen-summary-btn"
+                    style="margin-left:auto;background:linear-gradient(135deg,#6366f1,#d946ef);color:white;border:none;padding:8px 16px;border-radius:10px;font-size:0.75rem;font-weight:700;cursor:pointer;">
+                    ↻ Refresh
+                </button>` : ""}
+            </div>
+            ${results.length === 0
+                ? `<div style="text-align:center;padding:30px;color:var(--text-muted);">
+                    <div style="font-size:2.5rem;margin-bottom:12px;">🌱</div>
+                    <p style="font-weight:600;">Take your first assessment to unlock your AI Profile Summary.</p>
+                    <button class="btn-primary" onclick="showPage('tests')" style="margin-top:16px;">Browse Assessments →</button>
+                   </div>`
+                : `<div id="summary-content">
+                    <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
+                        <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;"></div>
+                        <span style="font-size:0.9rem;font-weight:600;">Generating your personalized summary…</span>
+                    </div>
+                   </div>`
+            }
+        </div>
+
+        <!-- TEST HISTORY -->
+        <h2 style="font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:20px;">Test History</h2>
+
+        ${results.length === 0
+            ? `<div style="background:white;border-radius:20px;padding:50px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+                <div style="font-size:3rem;margin-bottom:16px;">📭</div>
+                <h3 style="color:var(--text-primary);">No tests taken yet</h3>
+                <p style="color:var(--text-muted);margin-bottom:20px;">Your completed assessments will appear here.</p>
+                <button class="btn-primary" onclick="showPage('tests')">Start an Assessment →</button>
+               </div>`
+            : results.map((r, i) => buildTestResultCard(r, i)).join("")
+        }
+    </div>
+    `;
+}
+
+
+/* ============================================================
+   INDIVIDUAL TEST RESULT CARD
+   ============================================================ */
+function buildTestResultCard(r, index) {
+    const date = new Date(r.created_at);
+    const dateStr = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const score = r.overall_score ?? null;
+    const scoreColor = score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : score !== null ? "#ef4444" : "#6366f1";
+    const breakdown = r.breakdown || [];
+    const hasBreakdown = Array.isArray(breakdown) && breakdown.length > 0;
+    const cardId = `result-card-${index}`;
+    const detailId = `result-detail-${index}`;
+
+    // Find test icon
+    const testDef = TESTS.find(t => t.title === r.test_title);
+    const icon = testDef?.icon || "📋";
+
+    return `
+    <div id="${cardId}" style="
+        background:white;
+        border-radius:20px;
+        box-shadow:0 4px 20px rgba(0,0,0,0.06);
+        margin-bottom:16px;
+        overflow:hidden;
+        border:1px solid #f0eeff;
+        transition: box-shadow 0.2s;
+    " onmouseenter="this.style.boxShadow='0 8px 32px rgba(99,102,241,0.15)'" onmouseleave="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.06)'">
+
+        <!-- Card Header — always visible -->
+        <div style="padding:24px 28px; display:flex; align-items:center; gap:16px; cursor:pointer;"
+             onclick="toggleResultDetail('${detailId}', '${cardId}')">
+            <div style="font-size:1.8rem;flex-shrink:0;">${icon}</div>
+            <div style="flex:1;min-width:0;">
+                <h3 style="margin:0 0 4px;font-size:1rem;font-weight:800;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.test_title}</h3>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                    <span style="font-size:0.75rem;color:var(--text-muted);">📅 ${dateStr}</span>
+                    ${r.result_label ? `<span style="font-size:0.75rem;background:#f3f0ff;color:var(--brand-indigo);padding:2px 10px;border-radius:20px;font-weight:700;">${r.result_label}</span>` : ""}
+                </div>
+            </div>
+
+            <!-- Score Badge -->
+            ${score !== null ? `
+            <div style="text-align:center;flex-shrink:0;">
+                <div style="
+                    width:56px;height:56px;
+                    border-radius:50%;
+                    border:3px solid ${scoreColor};
+                    display:flex;align-items:center;justify-content:center;
+                    flex-direction:column;
+                ">
+                    <span style="font-size:1rem;font-weight:900;color:${scoreColor};">${score}</span>
+                    <span style="font-size:0.55rem;color:${scoreColor};font-weight:700;">%</span>
+                </div>
+            </div>` : ""}
+
+            <!-- Chevron -->
+            <div id="chevron-${index}" style="font-size:1.1rem;color:var(--text-muted);transition:transform 0.2s;flex-shrink:0;">▾</div>
+        </div>
+
+        <!-- Expandable Detail -->
+        <div id="${detailId}" style="display:none; border-top:1px solid #f0eeff; padding:24px 28px; background:#faf9ff;">
+
+            ${hasBreakdown ? `
+            <h4 style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:16px;">Section Scores</h4>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+                ${breakdown.map(sec => {
+                    const secScore = sec.score ?? 0;
+                    const secColor = secScore >= 70 ? "#10b981" : secScore >= 40 ? "#f59e0b" : "#ef4444";
+                    return `
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                            <span style="font-size:0.85rem;font-weight:700;color:var(--text-primary);">${sec.name}</span>
+                            <span style="font-size:0.85rem;font-weight:800;color:${secColor};">${secScore}%</span>
+                        </div>
+                        <div style="height:8px;background:#ede9ff;border-radius:99px;overflow:hidden;">
+                            <div style="height:100%;width:${secScore}%;background:${secColor};border-radius:99px;transition:width 0.6s ease;"></div>
+                        </div>
+                        ${sec.description ? `<p style="font-size:0.78rem;color:var(--text-muted);margin-top:5px;line-height:1.5;">${sec.description}</p>` : ""}
+                    </div>`;
+                }).join("")}
+            </div>` : ""}
+
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                ${testDef ? `
+                <button class="btn-secondary" onclick="openTestLanding('${testDef.id}')"
+                    style="font-size:0.8rem;padding:8px 16px;">
+                    Retake Test →
+                </button>` : ""}
+                <button onclick="showPage('coaching')"
+                    style="background:linear-gradient(135deg,#6366f1,#d946ef);color:white;border:none;padding:8px 18px;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;">
+                    💬 Talk to a Coach
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+
+/* ============================================================
+   TOGGLE CARD DETAIL
+   ============================================================ */
+function toggleResultDetail(detailId, cardId) {
+    const detail = document.getElementById(detailId);
+    const index = detailId.replace("result-detail-", "");
+    const chevron = document.getElementById(`chevron-${index}`);
+    if (!detail) return;
+
+    const isOpen = detail.style.display !== "none";
+    detail.style.display = isOpen ? "none" : "block";
+    if (chevron) chevron.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
+
+
+// ============================================
+// AI PROFILE SUMMARY - USING GEMINI (Safe Version)
+// ============================================
+
+async function generateProfileSummary(results, userName) {
+    let summaryEl = document.getElementById("summary-content");
+    
+    if (!summaryEl) {
+        console.error("❌ summary-content element NOT found");
+        return;
+    }
+
+    console.log("🔄 Starting summary render...");
+
+    // Force loading state
+    summaryEl.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;color:var(--brand-indigo);">
+            <div style="width:20px;height:20px;border:2px solid var(--brand-indigo);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            <span>Analyzing your assessments…</span>
+        </div>
+    `;
+
+    try {
+        const summaryText = await callGeminiForSummary(results, userName);
+
+        console.log("📝 Summary received:", summaryText ? summaryText.substring(0, 120) + "..." : "EMPTY");
+
+        if (summaryText && summaryText.length > 10) {
+            summaryEl.innerHTML = `
+                <div style="line-height:1.85; font-size:0.97rem; color:#1e293b;">
+                    ${summaryText.replace(/\n/g, '<br><br>')}
+                </div>
+                <p style="margin-top:24px; font-size:0.8rem; color:#64748b;">
+                    Generated from ${results.length} assessments • Updated just now
+                </p>
+            `;
+            console.log("✅ Summary displayed on page");
+        } else {
+            summaryEl.innerHTML = `<p style="color:#f59e0b;">Summary received but empty. Try Refresh.</p>`;
+        }
+
+    } catch (err) {
+        console.error("Render error:", err);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to show summary. Please refresh.</p>`;
+    }
+}
+/* ============================================================
    UPDATE AUTH DROPDOWN — call this inside onAuthStateChange
    to add a "My Profile" link in the dropdown.
 
@@ -623,7 +978,7 @@ async function syncToDatabase(testResult) {
         const { data: { user } } = await _supabase.auth.getUser();
         email = user?.email;
     }
-    if (!email) return console.warn("No email");
+    if (!email) return console.warn("No email for sync");
 
     const payload = {
         email: email,
@@ -633,35 +988,20 @@ async function syncToDatabase(testResult) {
         breakdown: testResult.sectionResults || []
     };
 
-    // First check if this exact result already exists (prevent duplicates)
-    const { data: existing } = await _supabase
-        .from('test_results')
-        .select('id')
-        .eq('email', email)
-        .eq('test_title', payload.test_title)
-        .eq('overall_score', payload.overall_score)
-        .limit(1);
-
-    if (existing && existing.length > 0) {
-        console.log("⚠️ Duplicate result skipped");
-        return;
-    }
-
     try {
         const { error } = await _supabase
             .from('test_results')
-            .insert(payload);
+            .upsert(payload, { onConflict: 'email,test_title' });
 
         if (error) {
-            console.error("Save Error:", error.message);
+            console.error("Save Error:", error);
         } else {
-            console.log("✅ Result saved successfully");
+            console.log("✅ Test saved successfully");
         }
     } catch (err) {
         console.error("Sync failed:", err);
     }
 }
-
 // ============================================
 // SEND REPORT EMAIL
 // ============================================
@@ -1027,23 +1367,135 @@ window.addEventListener('click', () => {
 // ============================================
 
 // Long-term AI Summary Updater (using Gemini)
-// AI summary handled by profile.js
+// ============================================
+// AUTO UPDATE AI SUMMARY AFTER EACH TEST
+// ============================================
+
+async function updateAIProfileSummary() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) return;
+
+    console.log("🔄 Updating AI Profile Summary...");
+
+    // Get all user results
+    const { data: results, error } = await _supabase
+        .from('test_results')
+        .select('*')
+        .eq('email', user.email)
+        .order('created_at', { ascending: false });
+
+    if (error || !results || results.length === 0) {
+        console.log("No results yet for AI summary");
+        return;
+    }
+
+    const userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
+
+    // Generate new summary
+    const summaryText = await callGeminiForSummary(results, userName);
+
+    // Save to user_profiles table
+    const { error: saveError } = await _supabase
+        .from('user_profiles')
+        .upsert({
+            email: user.email,
+            ai_summary: summaryText,
+            summary_updated_at: new Date().toISOString()
+        });
+
+    if (saveError) {
+        console.error("Failed to save AI summary:", saveError);
+    } else {
+        console.log("✅ AI Profile Summary updated and saved");
+    }
+}
+// ============================================
+// GEMINI AI SUMMARY (Free + Long-term)
+// ============================================
+
+// Temporary AI Summary (No API Key Exposure)
+// ============================================
+// GEMINI AI SUMMARY - SAFE VERSION
+// ============================================
 
 // ============================================
-// AI summary handled by profile.js
+// AI SUMMARY - LONG TERM SOLUTION (Edge Function)
+// ============================================
 
-// Start the app
+async function callGeminiForSummary(results, userName) {
+    if (!window.GEMINI_API_KEY) {
+        console.error("❌ GEMINI_API_KEY not found in config.js");
+        return "AI summary configuration is missing. Please check config.js";
+    }
+
+    const testData = results.map(r => `• ${r.test_title}: ${r.overall_score || "N/A"}% (${r.result_label || "Completed"})`).join("\n");
+
+    const prompt = `You are an expert executive coach at People Assets.
+
+User: ${userName}
+
+Recent Assessments:
+${testData}
+
+Write a warm, professional summary in second person. Include 2-3 key strengths, 1-2 growth areas, and one actionable next step. Keep under 280 words. Be encouraging but honest.`;
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
+        });
+
+        const data = await response.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Your summary is being prepared...";
+    } catch (err) {
+        console.error("Gemini Error:", err);
+        return "Your personalized AI summary is being prepared based on your assessments.";
+    }
+}
+
+
+async function updateAIProfileSummary() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: results } = await _supabase
+        .from('test_results')
+        .select('*')
+        .eq('email', user.email)
+        .order('created_at', { ascending: false });
+
+    if (!results || results.length === 0) return;
+
+    const userName = user.user_metadata?.full_name?.split(" ")[0] || "User";
+
+    const summaryText = await callGeminiForSummary(results, userName);
+
+    await _supabase
+        .from('user_profiles')
+        .upsert({
+            email: user.email,
+            ai_summary: summaryText,
+            summary_updated_at: new Date().toISOString()
+        });
+
+    console.log("✅ AI Profile Summary updated and saved");
+}
+
+// Start the app using the router instead of just showPage('home')
 initRouter();
 
-// Back/forward button support
+// Ensure the back/forward buttons work
 window.onpopstate = function() {
     initRouter();
-};
-
-// Global exports
-window.showPage = showPage;
+    window.showPage = showPage;
 window.toggleMobileNav = toggleMobileNav;
 window.closeModal = closeModal;
 window.signInWithGoogle = signInWithGoogle;
 window.handleLogout = handleLogout;
+window.renderProfilePage = renderProfilePage;
+window.generateProfileSummary = generateProfileSummary;
 window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
+};
