@@ -120,24 +120,29 @@ async function loadAISummary(results, userName) {
     const summaryEl = document.getElementById("summary-content");
     if (!summaryEl) return;
 
-    summaryEl.innerHTML = `<p style="color:var(--brand-indigo);">Generating your personalized summary...</p>`;
+    summaryEl.innerHTML = `<p style="text-align:center; color:var(--brand-indigo);">Analyzing your growth...</p>`;
 
     try {
-        // CALL THE EDGE FUNCTION
+        // This invokes your Edge Function securely
+        console.log(_supabase);
         const { data, error } = await _supabase.functions.invoke('generate-profile-summary', {
             body: { results, userName }
         });
 
         if (error) throw error;
 
-        // Render the summary from the backend response
+        // Render the result with your Refresh button
         summaryEl.innerHTML = `
-            <div style="line-height:1.8; color:#1e293b;">
+            <div style="line-height:1.8; color:#1e293b; margin-bottom: 20px; text-align:left;">
                 ${data.summary.replace(/\n/g, '<br><br>')}
             </div>
+            <button onclick="loadAISummary(${JSON.stringify(results).replace(/"/g, '&quot;')}, '${userName}')" 
+                    style="background:none; border:1px solid var(--brand-indigo); color:var(--brand-indigo); padding:8px 16px; border-radius:8px; cursor:pointer;">
+                🔄 Refresh Summary
+            </button>
         `;
-    } catch (e) {
-        console.error("AI Summary Error:", e);
-        summaryEl.innerHTML = `<p style="color:#ef4444;">Could not load AI summary. Please refresh.</p>`;
+    } catch (err) {
+        console.error("Edge Function Error:", err);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Summary service is busy. Please try again.</p>`;
     }
 }
