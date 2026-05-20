@@ -991,9 +991,14 @@ async function syncToDatabase(testResult) {
     try {
         const { error } = await _supabase
             .from('test_results')
-            .upsert(payload, { 
-                onConflict: 'email,test_title' 
-            });
+            .insert(payload)
+            .select()
+            .eq('email', email)
+            .eq('test_title', payload.test_title)
+            .eq('overall_score', payload.overall_score)
+            .eq('result_label', payload.result_label)
+            .limit(1)
+            .single();
 
         if (error) {
             console.error("Save Error:", error);
