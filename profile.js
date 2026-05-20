@@ -126,7 +126,10 @@ async function loadAISummary(results, userName) {
         // This invokes your Edge Function securely
         console.log(_supabase);
         const { data, error } = await _supabase.functions.invoke('generate-profile-summary', {
-            body: { results, userName }
+            body: { results, userName },
+            headers: {
+        Authorization: '' // This clears the token and fixes the malfunctioning error!
+    }
         });
 
         if (error) throw error;
