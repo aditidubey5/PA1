@@ -118,23 +118,26 @@ function toggleResultDetail(detailId) {
 
 async function loadAISummary(results, userName) {
     const summaryEl = document.getElementById("summary-content");
-    if (!window.GEMINI_API_KEY) {
-        summaryEl.innerHTML = `<p style="color:#ef4444;">API Key missing in config.js.</p>`;
-        return;
-    }
+    if (!summaryEl) return;
 
-    const testData = results.map(r => `• ${r.test_title}: ${r.overall_score || "N/A"}%`).join("\n");
-    const prompt = `You are an expert executive coach. User: ${userName}. Assessments: ${testData}. Write a warm, professional summary in second person. Include 2 key strengths, 1 growth area, and 1 actionable next step. Keep under 200 words.`;
+    summaryEl.innerHTML = `<p style="color:var(--brand-indigo);">Generating your personalized summary...</p>`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_API_KEY}`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        // CALL THE EDGE FUNCTION
+        const { data, error } = await _supabase.functions.invoke('generate-profile-summary', {
+            body: { results, userName }
         });
-        const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Failed to generate.";
-        summaryEl.innerHTML = `<div style="line-height:1.8; color:#1e293b;">${text.replace(/\n/g, '<br>')}</div>`;
-    } catch (err) {
-        summaryEl.innerHTML = `<p style="color:#ef4444;">Failed to fetch AI summary.</p>`;
+
+        if (error) throw error;
+
+        // Render the summary from the backend response
+        summaryEl.innerHTML = `
+            <div style="line-height:1.8; color:#1e293b;">
+                ${data.summary.replace(/\n/g, '<br><br>')}
+            </div>
+        `;
+    } catch (e) {
+        console.error("AI Summary Error:", e);
+        summaryEl.innerHTML = `<p style="color:#ef4444;">Could not load AI summary. Please refresh.</p>`;
     }
 }
