@@ -833,3 +833,22 @@ nav {
     }
 }
 
+/* Styling for the dynamically injected AI Summary */
+.ai-summary-content h3.profile-heading {
+    color: #1e293b; /* Or your brand-indigo color */
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.ai-summary-content h3.profile-heading:first-child {
+    margin-top: 0; /* Prevents awkward gap at the very top */
+}
+
+.ai-summary-content p.profile-text {
+    font-size: 1rem;
+    color: #475569;
+    margin-bottom: 1rem;
+}

@@ -227,13 +227,17 @@ async function loadAISummary(results, userName) {
         const text = data.summary || "";
         const paragraphs = text.trim().split(/\n\n+/).filter(Boolean);
 
-        summaryEl.innerHTML = `
-            <div style="border-left:3px solid #6366f1;padding-left:20px;margin-bottom:20px;">
-                ${paragraphs.map(p => `
-                    <p style="margin:0 0 14px;font-size:0.95rem;line-height:1.8;color:#1e293b;text-align:left;">
-                        ${p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>")}
-                    </p>`).join("")}
-            </div>
+        // NEW SEMANTIC WAY
+    const semanticHTML = formatSemanticSummary(data.summary);
+
+    summaryEl.innerHTML = `
+        <div class="ai-summary-content" style="line-height:1.8; color:#1e293b; margin-bottom: 20px; text-align:left;">
+            ${semanticHTML}
+        </div>
+        <button onclick="loadAISummary(${JSON.stringify(results).replace(/"/g, '&quot;')}, '${userName}')" 
+                style="background:none; border:1px solid var(--brand-indigo); color:var(--brand-indigo); padding:8px 16px; border-radius:8px; cursor:pointer; margin-top: 15px;">
+            🔄 Refresh Summary
+        </button>
             <p style="font-size:0.72rem;color:#94a3b8;margin:0;">
                 Generated from ${results.length} assessment${results.length > 1 ? "s" : ""} · Retake tests to update
             </p>`;
@@ -253,6 +257,51 @@ async function refreshSummary(userName) {
         .eq('email', user.email)
         .order('created_at', { ascending: false });
     loadAISummary(results || [], userName);
+}
+
+function formatSemanticSummary(rawText) {
+    let formattedText = rawText;
+
+    // 1. Array of the exact headings we instructed Gemini to generate
+    const targetHeadings = [
+        "Who You Are", 
+        "Strengths", 
+        "Growth Areas", 
+        "Your Next Step"
+    ];
+
+    // 2. Loop through each heading and wrap it in an <h3> tag
+    targetHeadings.forEach(heading => {
+        // This regex looks for the heading on its own line (case-insensitive, multiline)
+        const regex = new RegExp(`^${heading}:?\\s*$`, 'gim');
+        formattedText = formattedText.replace(regex, `<h3 class="profile-heading">${heading}</h3>`);
+    });
+
+    // 3. Clean up the spacing and wrap paragraphs
+    // Split the text by double line breaks (which Gemini uses to separate sections)
+    const blocks = formattedText.split(/\n\s*\n/);
+    
+    const htmlBlocks = blocks.map(block => {
+        const trimmedBlock = block.trim();
+        if (!trimmedBlock) return '';
+        
+        // If the block already contains our injected <h3>, return it as-is
+        if (trimmedBlock.startsWith('<h3')) {
+            return trimmedBlock;
+        }
+        
+        // If the block contains our "→" bullets, replace single newlines with <br> 
+        // so the bullets stack neatly inside the paragraph
+        if (trimmedBlock.includes('→')) {
+            return `<p class="profile-text">${trimmedBlock.replace(/\n/g, '<br>')}</p>`;
+        }
+        
+        // Otherwise, it's a standard paragraph
+        return `<p class="profile-text">${trimmedBlock}</p>`;
+    });
+
+    // Join everything back together into a single HTML string
+    return htmlBlocks.join('\n');
 }
 
 // ============================================
