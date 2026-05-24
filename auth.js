@@ -45,7 +45,10 @@ _supabase.auth.onAuthStateChange(async (event, sessionStorage) => {
             `;
     }
   } else {
-    sessionStorage.removeItem("toast_shown");
+    if (typeof sessionStorage !== "undefined" && sessionStorage) {
+      sessionStorage.removeItem("toast_shown");
+    }
+
     if (authContainer) {
       authContainer.innerHTML = `
                 <button class="login-google-btn" onclick="signInWithGoogle()">
@@ -66,7 +69,9 @@ async function signInWithGoogle() {
 
 async function handleLogout() {
   await _supabase.auth.signOut();
-  sessionStorage.removeItem("login_notified");
+  if (typeof sessionStorage !== "undefined" && sessionStorage) {
+    sessionStorage.removeItem("login_notified");
+  }
   window.location.reload();
 }
 

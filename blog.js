@@ -3,10 +3,17 @@ let allPosts = [];
 
 // Change this at the top of your blog.js file
 document.addEventListener("DOMContentLoaded", () => {
-  setupCategoryFilters(); // Initialize the buttons
+  // Safe initialization of category filters
+  if (typeof setupCategoryFilters === "function") {
+    setupCategoryFilters();
+  }
 
-  // Only auto-fetch if we are natively initializing on the blog routing state
-  if (currentPage === "blog") {
+  // Safe execution of data fetching
+  // Instead of checking 'currentPage', check if the blog sections exist on the page
+  const featuredContainer = document.querySelector(".featured-section");
+  const gridContainer = document.querySelector(".article-grid");
+
+  if (featuredContainer || gridContainer) {
     fetchBlogPosts();
   }
 });
