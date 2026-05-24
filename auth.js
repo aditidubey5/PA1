@@ -3,51 +3,58 @@
 // ============================================
 
 _supabase.auth.onAuthStateChange(async (event, session) => {
-  // 1. SAFEGUARD: If the URL contains an authentication error, clean it instantly
+  console.log("📍 3. Auth State Change detected!");
+  console.log("   - Event type:", event);
+  console.log("   - Session data:", session);
+
+  // 1. SAFEGUARD: If the URL contains an authentication error...
   if (
     window.location.hash &&
     (window.location.hash.includes("error") ||
       window.location.hash.includes("unsupported_otp"))
   ) {
-    window.history.replaceState(
-      null,
-      null,
-      window.location.origin + window.location.pathname,
-    );
-    window.location.reload();
-    return;
-  }
+    console.error("🚨 4. Caught a URL error hash:", window.location.hash);
+    // ... rest of your error cleaning code// 1. SAFEGUARD: If the URL contains an authentication error, clean it instantly
+    {
+      window.history.replaceState(
+        null,
+        null,
+        window.location.origin + window.location.pathname,
+      );
+      window.location.reload();
+      return;
+    }
 
-  const user = session?.user;
-  const authContainer = document.getElementById("auth-container");
-  const authModal = document.getElementById("auth-modal");
-  if (user) {
-    // Hide the Welcome Modal
-    if (authModal) authModal.style.display = "none";
+    const user = session?.user;
+    const authContainer = document.getElementById("auth-container");
+    const authModal = document.getElementById("auth-modal");
+    if (user) {
+      // Hide the Welcome Modal
+      if (authModal) authModal.style.display = "none";
 
-    // Success Toast
-    if (event === "SIGNED_IN" && !sessionStorage.getItem("toast_shown")) {
-      const toast = document.getElementById("login-toast");
-      if (toast) {
-        toast.classList.add("show");
-        sessionStorage.setItem("toast_shown", "true");
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 4000);
+      // Success Toast
+      if (event === "SIGNED_IN" && !sessionStorage.getItem("toast_shown")) {
+        const toast = document.getElementById("login-toast");
+        if (toast) {
+          toast.classList.add("show");
+          sessionStorage.setItem("toast_shown", "true");
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 4000);
+        }
       }
-    }
 
-    // Clean URL tokens
-    if (window.location.hash) {
-      window.history.replaceState(null, null, window.location.pathname);
-    }
+      // Clean URL tokens
+      if (window.location.hash) {
+        window.history.replaceState(null, null, window.location.pathname);
+      }
 
-    // Show Profile Icon
-    const userImage = user.user_metadata.avatar_url;
-    const userName = user.user_metadata.full_name;
+      // Show Profile Icon
+      const userImage = user.user_metadata.avatar_url;
+      const userName = user.user_metadata.full_name;
 
-    if (authContainer) {
-      authContainer.innerHTML = `
+      if (authContainer) {
+        authContainer.innerHTML = `
                 <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
                     <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
                     <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:8px; min-width:120px; z-index:100;">
@@ -55,26 +62,38 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
                     </div>
                 </div>
             `;
-    }
-  } else {
-    // Safely clear your toast indicator
-    sessionStorage.removeItem("toast_shown");
-    if (authContainer) {
-      authContainer.innerHTML = `
+      }
+    } else {
+      // Safely clear your toast indicator
+      sessionStorage.removeItem("toast_shown");
+      if (authContainer) {
+        authContainer.innerHTML = `
                 <button class="login-google-btn" onclick="signInWithGoogle()">
                     <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
                     Sign in
                 </button>
             `;
+      }
     }
   }
 });
 
 async function signInWithGoogle() {
-  await _supabase.auth.signInWithOAuth({
+  console.log("📍 1. Google Sign-In button was clicked!");
+
+  const { data, error } = await _supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: window.location.origin },
   });
+
+  if (error) {
+    console.error("🚨 2. Supabase threw an error:", error.message);
+  } else {
+    console.log(
+      "✅ 2. Supabase sign-in triggered successfully. Redirecting...",
+      data,
+    );
+  }
 }
 
 async function handleLogout() {
