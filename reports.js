@@ -3068,8 +3068,8 @@ async function generateReport() {
   reportActionContainer.appendChild(reportExploreBtn);
 
   // 2. "Go to My Profile" Button (Visible ONLY if signed in)
-  supabase.auth.getSession().then(({ data: { session } }) => {
-    if (session) {
+  supabase.auth.getSession().then(({ data: { sessionStorage } }) => {
+    if (sessionStorage) {
       const goToProfileBtn = document.createElement("button");
       goToProfileBtn.className = "btn-primary";
       goToProfileBtn.textContent = "Go to My Profile";

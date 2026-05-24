@@ -171,11 +171,11 @@ function submitCoachingForm(e) {
 document.addEventListener("DOMContentLoaded", async () => {
   // Check if the user is signed in via Supabase
   const {
-    data: { session },
+    data: { sessionStorage },
   } = await _supabase.auth.getSession();
 
   // If they are NOT signed in, inject and show your styled pop-up
-  if (!session) {
+  if (!sessionStorage) {
     const popup = document.createElement("div");
     popup.id = "cta-popup-nudge";
 

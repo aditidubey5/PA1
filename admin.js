@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Optional but recommended: Check if already logged in when page loads
   document.addEventListener("DOMContentLoaded", async () => {
     const {
-      data: { session },
+      data: { sessionStorage },
     } = await supabase.auth.getSession();
 
-    if (session) {
+    if (sessionStorage) {
       // If already logged in from a previous visit, skip the login screen
       document.getElementById("login-section").style.display = "none";
       document.getElementById("publish-form").style.display = "block";
