@@ -2,8 +2,8 @@
 // IDENTITY & AUTHENTICATION MODULE (auth.js)
 // ============================================
 
-_supabase.auth.onAuthStateChange(async (event, session) => {
-  const user = session?.user;
+_supabase.auth.onAuthStateChange(async (event, sessionStorage) => {
+  const user = sessionStorage?.user;
   const authContainer = document.getElementById("auth-container");
   const authModal = document.getElementById("auth-modal");
 
