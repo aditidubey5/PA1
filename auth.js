@@ -3,10 +3,24 @@
 // ============================================
 
 _supabase.auth.onAuthStateChange(async (event, session) => {
+  // 1. SAFEGUARD: If the URL contains an authentication error, clean it instantly
+  if (
+    window.location.hash &&
+    (window.location.hash.includes("error") ||
+      window.location.hash.includes("unsupported_otp"))
+  ) {
+    window.history.replaceState(
+      null,
+      null,
+      window.location.origin + window.location.pathname,
+    );
+    window.location.reload();
+    return;
+  }
+
   const user = session?.user;
   const authContainer = document.getElementById("auth-container");
   const authModal = document.getElementById("auth-modal");
-
   if (user) {
     // Hide the Welcome Modal
     if (authModal) authModal.style.display = "none";
