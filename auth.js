@@ -34,17 +34,16 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
 
     if (authContainer) {
       authContainer.innerHTML = `
-                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center; margin-left:15px;">
-                    <img src="${userImage}" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--brand-indigo); display:block;" alt="Profile">
-                    <div id="signout-dropdown" style="display:none; position:absolute; top:48px; right:0; background:white; padding:14px; border-radius:14px; box-shadow:var(--shadow-card); min-width:180px; z-index:10000;">
-                        <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">${userName}</p>
-                        <button onclick="showPage('profile')" style="color:var(--brand-indigo); background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:4px 0; display:block;">👤 My Profile</button>
-                        <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:4px 0; display:block; margin-top:4px;">Sign Out</button>
+                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                    <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
+                    <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:8px; min-width:120px; z-index:100;">
+                        <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; display:block; margin-top:4px; cursor:pointer;">Sign Out</button>
                     </div>
                 </div>
             `;
     }
   } else {
+    // Safely clear your toast indicator
     sessionStorage.removeItem("toast_shown");
     if (authContainer) {
       authContainer.innerHTML = `
