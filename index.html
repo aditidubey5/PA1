@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-width=1.0">
   
   <title>People Assets | AI-Powered Executive Coaching Profiles</title>
   <meta name="title" content="People Assets | AI-Powered Executive Coaching Profiles">
@@ -25,7 +25,6 @@
 </script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/favicon.jpeg">
 </head>
 <body>
 
@@ -36,7 +35,6 @@
         <span class="toast-message">Logged in successfully</span>
     </div>
 </div>
-
 
 <!-- ============ NAVIGATION ============ -->
 <nav>
@@ -56,7 +54,6 @@
         <!-- Desktop links -->
         <div class="nav-links">
             <span id="nav-home"     class="nav-item" onclick="showPage('home')">Home</span>
-            <span id="nav-blog"     class="nav-item" onclick="showPage('blog')">Insights</span>
             <span id="nav-tests"    class="nav-item" onclick="showPage('tests')">Assessments</span>
             <!-- AUTH CONTAINER: This allows JS to swap the button for your profile photo -->
             <div id="auth-container">
@@ -77,7 +74,6 @@
     <!-- Mobile drawer -->
     <div class="nav-mobile-drawer" id="mobile-drawer">
         <span class="nav-item" onclick="showPage('home');    toggleMobileNav()">Home</span>
-        <span class="nav-item" onclick="showPage('blog');    toggleMobileNav()">Insights</span>
         <span class="nav-item" onclick="showPage('tests');   toggleMobileNav()">Assessments</span>
         <span class="nav-cta"  onclick="showPage('coaching');toggleMobileNav()">Coaching</span>
     </div>
@@ -96,42 +92,6 @@
                 How our framework works &rarr;
             </span>
         </div>
-    </div>
-</section>
-
-<!-- ============ NEW FEED/BLOG HUB SECTION ============ -->
-<section id="blog" class="page" style="display:none;">
-    <div class="container">
-        <div class="page-header">
-            <p class="section-label">Self-Discovery Hub</p>
-            <div class="filter-bar">
-                <span class="filter-pill active category-btn">All Explorations</span>
-                <span class="filter-pill category-btn">Personality Patterns</span>
-                <span class="filter-pill category-btn">Understanding Your Scores</span>
-                <span class="filter-pill category-btn">Personal Growth</span>
-                <span class="filter-pill category-btn">Mindset & Motivation</span>
-            </div>
-        </div>
-        
-        <!-- Featured Slot (Newest Post) -->
-        <div class="featured-section"></div>
-        
-        <h2 class="section-title" style="margin-top: 60px; margin-bottom: 24px; font-weight: 800; color: var(--slate-dark);">Deep Dive Articles</h2>
-        
-        <!-- Grid Collection -->
-        <div class="article-grid"></div>
-    </div>
-</section>
-
-<!-- ============ NEW SINGLE INSIGHT ARTICLE VIEW ============ -->
-<section id="blog-single" class="page" style="display:none;">
-    <div class="container">
-        <button class="btn-primary" style="background:#64748b; margin-bottom: 30px;" onclick="showPage('blog')">&larr; Back to Hub</button>
-        <article class="single-article-view">
-            <!-- Programmatically Injected via logic engine -->
-            <div id="article-view-loading" style="text-align: center; padding: 40px; color: var(--slate-gray);">Loading insight...</div>
-            <div id="article-view-content"></div>
-        </article>
     </div>
 </section>
 
@@ -219,7 +179,6 @@
     </div>
 </div>
 
-
 <!-- PDF Generation Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
@@ -228,19 +187,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- 1. Core Services & Configurations (Must load first) -->
-<script src="supabase.js" defer></script>
-<script src="auth.js" defer></script> 
-
-<!-- 2. UI Modules & Page Features (Independent components) -->
-<script src="tests.js" defer></script>
-<script src="reports.js" defer></script>
-<script src="engine.js" defer></script>     
-<script src="profile.js" defer></script> 
-<script src="blog.js" defer></script>   
-
-<!-- 3. Orchestration & Router Engine (Must load LAST) -->
-<script src="app.js" defer></script> 
-</body>
+<script src="supabase.js"></script>
+<script src="tests.js"></script>
+<script src="reports.js"></script>
+<script src="auth.js"></script>       <script src="engine.js"></script>     <script src="profile.js"></script>    <script src="app.js"></script>        </body>
 </body>
 </html>
