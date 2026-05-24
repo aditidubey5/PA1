@@ -98,8 +98,8 @@ function renderFeaturedPost(post, container) {
   container.innerHTML = `
         <article class="featured-card" onclick="window.location.href='/blog-single.html?id=${post.id}'" style="cursor: pointer;">
             <div class="featured-image">
-                <img src="${post.image_url || "https://images.unsplash.com/photo-1506126613408-eca07ce68773"}" alt="${post.title}">
-            </div>
+            <img src="${(post.image_url ? post.image_url.replace(/\[|\]/g, "") : null) || "https://images.unsplash.com/photo-1506126613408-eca07ce68773"}" alt="${post.title}">
+                </div>
             <div class="featured-content">
                 <span class="post-category">${post.category}</span>
                 <h2>${post.title}</h2>
@@ -127,8 +127,8 @@ function renderGridPosts(posts, container) {
       (post) => `
         <article class="article-card" onclick="window.location.href='/blog-single.html?id=${post.id}'">
             <div class="card-image">
-                <img src="${post.image_url || "https://images.unsplash.com/photo-1518495973542-4542c06a5843"}" alt="${post.title}">
-            </div>
+            <img src="${(post.image_url ? post.image_url.replace(/\[|\]/g, "") : null) || "https://images.unsplash.com/photo-1518495973542-4542c06a5843"}" alt="${post.title}">
+                </div>
             <div class="card-content">
                 <span class="post-category">${post.category}</span>
                 <h3>${post.title}</h3>

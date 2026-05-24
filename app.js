@@ -58,7 +58,7 @@ function renderTestGrid() {
   document.querySelectorAll(".filter-pill").forEach((pill) => {
     pill.classList.toggle(
       "active",
-      pill.getAttribute("onclick").includes(`'${activeCategory}'`),
+      (pill.getAttribute("onclick") || "").includes(`'${activeCategory}'`),
     );
   });
 
