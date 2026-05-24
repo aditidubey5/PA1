@@ -3051,42 +3051,6 @@ async function generateReport() {
 
   document.getElementById("report-page-content").innerHTML =
     `<div class="container">${html}</div>`;
-  // === PASTE THIS AT THE BOTTOM OF YOUR REPORT RENDERING FUNCTION ===
-  const reportActionContainer = document.createElement("div");
-  reportActionContainer.className = "report-buttons-wrapper";
-  reportActionContainer.style.display = "flex";
-  reportActionContainer.style.gap = "10px";
-  reportActionContainer.style.marginTop = "20px";
-
-  // 1. "Explore Further" Button (Visible to EVERYONE)
-  const reportExploreBtn = document.createElement("button");
-  reportExploreBtn.className = "btn-secondary";
-  reportExploreBtn.textContent = "Explore Further";
-  reportExploreBtn.onclick = () => {
-    window.location.href = "/blog";
-  };
-  reportActionContainer.appendChild(reportExploreBtn);
-
-  // 2. "Go to My Profile" Button (Visible ONLY if signed in)
-  _supabase.auth.getSession().then(({ data: { sessionStorage } }) => {
-    if (sessionStorage) {
-      const goToProfileBtn = document.createElement("button");
-      goToProfileBtn.className = "btn-primary";
-      goToProfileBtn.textContent = "Go to My Profile";
-      goToProfileBtn.onclick = () => {
-        window.location.href = "/profile"; // Links directly to your profile.js dashboard
-      };
-      reportActionContainer.appendChild(goToProfileBtn);
-    }
-  });
-
-  // Appends this button container to the bottom of your main report element
-  const primaryReportDiv =
-    document.getElementById("report-output-container") ||
-    document.querySelector(".report-card");
-  if (primaryReportDiv) {
-    primaryReportDiv.appendChild(reportActionContainer);
-  }
 }
 
 async function syncToDatabase(testResult) {

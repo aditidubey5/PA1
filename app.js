@@ -33,32 +33,14 @@ function showPage(page, testId = null, shouldPush = true) {
   if (page === "coaching") renderCoachingPage();
   if (page === "profile" && typeof renderProfilePage === "function")
     renderProfilePage();
-  if (page === "blog" && typeof fetchBlogPosts === "function") {
-    fetchBlogPosts();
-  }
 }
 
-async function initRouter() {
-  // === EXACT FIX FOR GOOGLE SIGN IN ===
-  // If returning from Google OAuth, pause routing so auth.js can parse the token
-  if (
-    window.location.hash.includes("access_token=") ||
-    window.location.search.includes("code=")
-  ) {
-    console.log("OAuth redirect detected. Handling authentication...");
-    // Let Supabase process the token, then route to home
-    const { data } = await _supabase.auth.getSession();
-    window.history.replaceState(null, null, "/");
-    showPage("home", null, false);
-    return;
-  }
-  // =====================================
-
+function initRouter() {
   const path = window.location.pathname.replace(/\/$/, "").split("/").pop();
   const isTest = TESTS.find((t) => t.id === path);
 
   if (isTest) openTestLanding(path, false);
-  else if (["tests", "coaching", "profile", "blog"].includes(path))
+  else if (["tests", "coaching", "profile"].includes(path))
     showPage(path, null, false);
   else showPage("home", null, false);
 }
@@ -76,7 +58,7 @@ function renderTestGrid() {
   document.querySelectorAll(".filter-pill").forEach((pill) => {
     pill.classList.toggle(
       "active",
-      (pill.getAttribute("onclick") || "").includes(`'${activeCategory}'`),
+      pill.getAttribute("onclick").includes(`'${activeCategory}'`),
     );
   });
 

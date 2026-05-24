@@ -126,20 +126,6 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
                 }
             </div>
         </div>
-        // === PASTE THIS BELOW YOUR AI SUMMARY TEXT GENERATION ===
-const exploreFurtherBtn = document.createElement('button');
-exploreFurtherBtn.className = 'explore-further-btn'; // Uses your dashboard's styling
-exploreFurtherBtn.textContent = 'Explore Further';
-exploreFurtherBtn.style.marginTop = '15px'; // Gives it some spacing below the text
-exploreFurtherBtn.onclick = () => {
-    window.location.href = '/blog'; // Directs users to your blog page
-};
-
-// Finds the AI summary card block and drops the button right at the bottom of it
-const aiSummaryCard = document.querySelector('.ai-summary-card') || document.getElementById('ai-summary-container');
-if (aiSummaryCard) {
-    aiSummaryCard.appendChild(exploreFurtherBtn);
-}
 
         <!-- TEST HISTORY -->
         <h2 style="font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.09em;color:#94a3b8;margin-bottom:18px;">Assessment History</h2>
