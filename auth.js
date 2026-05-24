@@ -34,16 +34,19 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
       window.history.replaceState(null, null, window.location.pathname);
     }
 
-    const userImage = user.user_metadata?.avatar_url || "";
+    const userImage =
+      user.user_metadata?.avatar_url || "https://ui-avatars.com/api/?name=User";
     const userName = user.user_metadata?.full_name || "User";
 
-    // Inject the profile menu into EVERY container found
+    // Inject profile dropdown with ACTUAL user info
     authContainers.forEach((container) => {
       container.innerHTML = `
         <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
             <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
-            <div class="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:8px; min-width:120px; z-index:100;">
-                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; display:block; margin-top:4px; cursor:pointer;">Sign Out</button>
+            <span style="font-size: 0.9rem; font-weight: 600;">${userName}</span>
+            <div class="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:12px; min-width:140px; z-index:100;">
+                <div style="font-weight:bold; margin-bottom:5px;">${userName}</div>
+                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; cursor:pointer;">Sign Out</button>
             </div>
         </div>
       `;
