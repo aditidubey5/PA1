@@ -38,7 +38,7 @@ function showPage(page, testId = null, shouldPush = true) {
   }
 }
 
-function initRouter() {
+async function initRouter() {
   // === EXACT FIX FOR GOOGLE SIGN IN ===
   // If returning from Google OAuth, pause routing so auth.js can parse the token
   if (
@@ -46,6 +46,10 @@ function initRouter() {
     window.location.search.includes("code=")
   ) {
     console.log("OAuth redirect detected. Handling authentication...");
+    // Let Supabase process the token, then route to home
+    const { data } = await _supabase.auth.getSession();
+    window.history.replaceState(null, null, "/");
+    showPage("home", null, false);
     return;
   }
   // =====================================
