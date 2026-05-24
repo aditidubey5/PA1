@@ -33,17 +33,38 @@ function showPage(page, testId = null, shouldPush = true) {
   if (page === "coaching") renderCoachingPage();
   if (page === "profile" && typeof renderProfilePage === "function")
     renderProfilePage();
+  if (page === "blog" && typeof fetchBlogPosts === "function") {
+    fetchBlogPosts();
+  }
 }
 
 function initRouter() {
+  // === EXACT FIX FOR GOOGLE SIGN IN ===
+  // If returning from Google OAuth, pause routing so auth.js can parse the token
+  if (
+    window.location.hash.includes("access_token=") ||
+    window.location.search.includes("code=")
+  ) {
+    console.log("OAuth redirect detected. Handling authentication...");
+    return;
+  }
+  // =====================================
+
   const path = window.location.pathname.replace(/\/$/, "").split("/").pop();
   const isTest = TESTS.find((t) => t.id === path);
 
   if (isTest) openTestLanding(path, false);
-  else if (["tests", "coaching", "profile"].includes(path))
+  else if (["tests", "coaching", "profile", "blog"].includes(path))
     showPage(path, null, false);
   else showPage("home", null, false);
 }
+const path = window.location.pathname.replace(/\/$/, "").split("/").pop();
+const isTest = TESTS.find((t) => t.id === path);
+
+if (isTest) openTestLanding(path, false);
+else if (["tests", "coaching", "profile"].includes(path))
+  showPage(path, null, false);
+else showPage("home", null, false);
 
 // 2. Library & Grid
 function filterTests(catId) {

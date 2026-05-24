@@ -1,9 +1,14 @@
 // 1. Global variable to hold our data so we don't have to re-fetch from Supabase
 let allPosts = [];
 
+// Change this at the top of your blog.js file
 document.addEventListener("DOMContentLoaded", () => {
-  fetchBlogPosts();
   setupCategoryFilters(); // Initialize the buttons
+
+  // Only auto-fetch if we are natively initializing on the blog routing state
+  if (currentPage === "blog") {
+    fetchBlogPosts();
+  }
 });
 
 async function fetchBlogPosts() {
