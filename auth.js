@@ -2,8 +2,8 @@
 // IDENTITY & AUTHENTICATION MODULE (auth.js)
 // ============================================
 
-_supabase.auth.onAuthStateChange(async (event, sessionStorage) => {
-  const user = sessionStorage?.user;
+_supabase.auth.onAuthStateChange(async (event, session) => {
+  const user = session?.user;
   const authContainer = document.getElementById("auth-container");
   const authModal = document.getElementById("auth-modal");
 
@@ -29,12 +29,12 @@ _supabase.auth.onAuthStateChange(async (event, sessionStorage) => {
     }
 
     // Show Profile Icon
-    const userImage = user.user_metadata.avatar_url;
-    const userName = user.user_metadata.full_name;
+    const userImage = user.user_metadata?.avatar_url || "";
+    const userName = user.user_metadata?.full_name || "User";
 
     if (authContainer) {
       authContainer.innerHTML = `
-                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center; margin-left:15px;">
+                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
                     <img src="${userImage}" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--brand-indigo); display:block;" alt="Profile">
                     <div id="signout-dropdown" style="display:none; position:absolute; top:48px; right:0; background:white; padding:14px; border-radius:14px; box-shadow:var(--shadow-card); min-width:180px; z-index:10000;">
                         <p style="font-size:0.75rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">${userName}</p>
