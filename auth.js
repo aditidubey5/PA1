@@ -3,25 +3,18 @@
 // ============================================
 
 _supabase.auth.onAuthStateChange(async (event, session) => {
-  console.log("AUTH EVENT:", event, session?.user?.email); // ADD THIS LINE
-
-  // SAFEGUARD: If the URL contains an authentication error, clean it instantly
-  if (
-    window.location.hash &&
-    (window.location.hash.includes("error") ||
-      window.location.hash.includes("unsupported_otp"))
-  ) {
+  // 1. Catch BOTH query parameters (?) and hashes (#) to stop the infinite loop
+  const url = new URL(window.location.href);
+  if (url.searchParams.has("error") || window.location.hash.includes("error")) {
     window.history.replaceState(
       null,
       null,
       window.location.origin + window.location.pathname,
     );
-    window.location.reload();
-    return;
+    // We wipe the URL cleanly, but DO NOT return/reload so the buttons still render below!
   }
 
   const user = session?.user;
-  // Target ALL auth containers (desktop AND hamburger mobile menu)
   const authContainers = document.querySelectorAll(".auth-container");
   const authModal = document.getElementById("auth-modal");
 
