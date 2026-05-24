@@ -3,80 +3,74 @@
 // ============================================
 
 _supabase.auth.onAuthStateChange(async (event, session) => {
-  console.log("📍 3. Auth State Change detected!");
-  console.log("   - Event type:", event);
-  console.log("   - Session data:", session);
+  console.log("AUTH EVENT:", event, session?.user?.email); // ADD THIS LINE
 
-  // 1. SAFEGUARD: If the URL contains an authentication error...
+  // SAFEGUARD: If the URL contains an authentication error, clean it instantly
   if (
     window.location.hash &&
     (window.location.hash.includes("error") ||
       window.location.hash.includes("unsupported_otp"))
   ) {
-    console.error("🚨 4. Caught a URL error hash:", window.location.hash);
-    // ... rest of your error cleaning code// 1. SAFEGUARD: If the URL contains an authentication error, clean it instantly
-    {
-      window.history.replaceState(
-        null,
-        null,
-        window.location.origin + window.location.pathname,
-      );
-      window.location.reload();
-      return;
-    }
+    window.history.replaceState(
+      null,
+      null,
+      window.location.origin + window.location.pathname,
+    );
+    window.location.reload();
+    return;
+  }
 
-    const user = session?.user;
-    const authContainer = document.getElementById("auth-container");
-    const authModal = document.getElementById("auth-modal");
-    if (user) {
-      // Hide the Welcome Modal
-      if (authModal) authModal.style.display = "none";
+  const user = session?.user;
+  // Target ALL auth containers (desktop AND hamburger mobile menu)
+  const authContainers = document.querySelectorAll(".auth-container");
+  const authModal = document.getElementById("auth-modal");
 
-      // Success Toast
-      if (event === "SIGNED_IN" && !sessionStorage.getItem("toast_shown")) {
-        const toast = document.getElementById("login-toast");
-        if (toast) {
-          toast.classList.add("show");
-          sessionStorage.setItem("toast_shown", "true");
-          setTimeout(() => {
-            toast.classList.remove("show");
-          }, 4000);
-        }
-      }
+  if (user) {
+    if (authModal) authModal.style.display = "none";
 
-      // Clean URL tokens
-      if (window.location.hash) {
-        window.history.replaceState(null, null, window.location.pathname);
-      }
-
-      // Show Profile Icon
-      const userImage = user.user_metadata.avatar_url;
-      const userName = user.user_metadata.full_name;
-
-      if (authContainer) {
-        authContainer.innerHTML = `
-                <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
-                    <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
-                    <div id="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:8px; min-width:120px; z-index:100;">
-                        <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; display:block; margin-top:4px; cursor:pointer;">Sign Out</button>
-                    </div>
-                </div>
-            `;
-      }
-    } else {
-      // Safely clear your toast indicator
-      sessionStorage.removeItem("toast_shown");
-      if (authContainer) {
-        authContainer.innerHTML = `
-                <button class="login-google-btn" onclick="signInWithGoogle()">
-                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
-                    Sign in
-                </button>
-            `;
+    if (event === "SIGNED_IN" && !sessionStorage.getItem("toast_shown")) {
+      const toast = document.getElementById("login-toast");
+      if (toast) {
+        toast.classList.add("show");
+        sessionStorage.setItem("toast_shown", "true");
+        setTimeout(() => toast.classList.remove("show"), 4000);
       }
     }
+
+    if (window.location.hash) {
+      window.history.replaceState(null, null, window.location.pathname);
+    }
+
+    const userImage = user.user_metadata?.avatar_url || "";
+    const userName = user.user_metadata?.full_name || "User";
+
+    // Inject the profile menu into EVERY container found
+    authContainers.forEach((container) => {
+      container.innerHTML = `
+        <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
+            <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
+            <div class="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:8px; min-width:120px; z-index:100;">
+                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; display:block; margin-top:4px; cursor:pointer;">Sign Out</button>
+            </div>
+        </div>
+      `;
+    });
+  } else {
+    sessionStorage.removeItem("toast_shown");
+
+    // Inject the Google Sign-In button into EVERY container found
+    authContainers.forEach((container) => {
+      container.innerHTML = `
+        <button class="login-google-btn" onclick="signInWithGoogle()">
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+            Sign in
+        </button>
+      `;
+    });
   }
 });
+
+// Update the toggle function to handle multiple dropdowns cleanly
 
 async function signInWithGoogle() {
   console.log("📍 1. Google Sign-In button was clicked!");
@@ -104,7 +98,8 @@ async function handleLogout() {
 
 function toggleSignOut(event) {
   if (event) event.stopPropagation();
-  const dd = document.getElementById("signout-dropdown");
+  const clickedMenu = event.currentTarget;
+  const dd = clickedMenu.querySelector(".signout-dropdown");
   if (dd) dd.style.display = dd.style.display === "none" ? "block" : "none";
 }
 
