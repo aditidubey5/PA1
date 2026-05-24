@@ -58,13 +58,6 @@ function initRouter() {
     showPage(path, null, false);
   else showPage("home", null, false);
 }
-const path = window.location.pathname.replace(/\/$/, "").split("/").pop();
-const isTest = TESTS.find((t) => t.id === path);
-
-if (isTest) openTestLanding(path, false);
-else if (["tests", "coaching", "profile"].includes(path))
-  showPage(path, null, false);
-else showPage("home", null, false);
 
 // 2. Library & Grid
 function filterTests(catId) {
@@ -188,55 +181,6 @@ function submitCoachingForm(e) {
       btn.textContent = "Request Coaching";
     });
 }
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // Check if the user is signed in via Supabase
-  const {
-    data: { sessionStorage },
-  } = await _supabase.auth.getSession();
-
-  // If they are NOT signed in, inject and show your styled pop-up
-  if (!sessionStorage) {
-    const popup = document.createElement("div");
-    popup.id = "cta-popup-nudge";
-
-    // Uses your exact styling from the HTML template
-    Object.assign(popup.style, {
-      position: "fixed",
-      bottom: "24px",
-      right: "24px",
-      maxWidth: "320px",
-      background: "white",
-      borderRadius: "16px",
-      padding: "20px",
-      boxShadow:
-        "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
-      border: "1px solid #f1f5f9",
-      zIndex: "9999",
-      animation: "slideUpIn 0.4s ease-out",
-    });
-
-    // Uses your exact layout, including the close button and modal trigger
-    popup.innerHTML = `
-            <button onclick="this.parentElement.style.display='none'" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 0.9rem; cursor: pointer; color: #94a3b8;">✕</button>
-            <p style="margin: 0 0 12px 0; font-size: 0.95rem; font-weight: 600; color: #1e293b; line-height: 1.4;">
-                Sign in and take a test to unlock your professional AI development summary!
-            </p>
-            <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;">
-                Get Started
-            </button>
-        `;
-
-    document.body.appendChild(popup);
-
-    // Triggers your exact auth modal when clicked
-    popup.querySelector(".btn-primary").onclick = function () {
-      const authModal = document.getElementById("auth-modal");
-      if (authModal) authModal.style.display = "flex";
-      popup.style.display = "none";
-    };
-  }
-});
 
 // 5. Initialize
 window.onpopstate = initRouter;
