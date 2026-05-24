@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchBlogPosts() {
   try {
     // Fetch all blog posts from Supabase ordered by newest first
-    const { data: posts, error } = await supabase
+    const { data: posts, error } = await _supabase
       .from("blogs")
       .select("*")
       .order("created_at", { ascending: false });

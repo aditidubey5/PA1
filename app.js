@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Check if the user is signed in via Supabase
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await _supabase.auth.getSession();
 
   // If they are NOT signed in, inject and show your styled pop-up
   if (!session) {
