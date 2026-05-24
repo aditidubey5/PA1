@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     errorMsg.style.display = "none";
 
     // Call Supabase to authenticate
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await _supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("DOMContentLoaded", async () => {
     const {
       data: { sessionStorage },
-    } = await supabase.auth.getSession();
+    } = await _supabase.auth.getSession();
 
     if (sessionStorage) {
       // If already logged in from a previous visit, skip the login screen
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         // 3. Send the data payload directly to the Supabase 'blogs' table
-        const { data, error } = await supabase.from("blogs").insert([
+        const { data, error } = await _supabase.from("blogs").insert([
           {
             title: title,
             slug: slug,

@@ -15,7 +15,7 @@ async function loadSingleArticle() {
 
   try {
     // 2. Ask Supabase for exactly one row matching this ID
-    const { data: post, error } = await supabase
+    const { data: post, error } = await _supabase
       .from("blogs")
       .select("*")
       .eq("id", articleId)
