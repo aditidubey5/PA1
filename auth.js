@@ -39,14 +39,19 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
     const userName = user.user_metadata?.full_name || "User";
 
     // Inject profile dropdown with ACTUAL user info
+    // Inject profile dropdown with ACTUAL user info and the Profile link
     authContainers.forEach((container) => {
       container.innerHTML = `
         <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
             <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
             <span style="font-size: 0.9rem; font-weight: 600;">${userName}</span>
+            
             <div class="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:12px; min-width:140px; z-index:100;">
-                <div style="font-weight:bold; margin-bottom:5px;">${userName}</div>
-                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:4px 0; cursor:pointer;">Sign Out</button>
+                <div style="font-weight:bold; margin-bottom:10px;">${userName}</div>
+                
+                <a onclick="showPage('profile')" style="display:block; padding:5px 0; color:var(--primary); cursor:pointer; text-decoration:none; font-size:0.9rem;">My Profile</a>
+                
+                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:5px 0; cursor:pointer; font-size:0.9rem;">Sign Out</button>
             </div>
         </div>
       `;
