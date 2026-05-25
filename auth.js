@@ -42,16 +42,12 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
     // Inject profile dropdown with ACTUAL user info and the Profile link
     authContainers.forEach((container) => {
       container.innerHTML = `
-        <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; gap:8px;">
-            <img src="${userImage}" alt="${userName}" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--primary);">
-            <span style="font-size: 0.9rem; font-weight: 600;">${userName}</span>
-            
-            <div class="signout-dropdown" style="display:none; position:absolute; top:40px; right:0; background:white; box-shadow:var(--shadow-card); border-radius:8px; padding:12px; min-width:140px; z-index:100;">
-                <div style="font-weight:bold; margin-bottom:10px;">${userName}</div>
-                
-                <a onclick="showPage('profile')" style="display:block; padding:5px 0; color:var(--primary); cursor:pointer; text-decoration:none; font-size:0.9rem;">My Profile</a>
-                
-                <button onclick="handleLogout()" style="background:none; border:none; color:red; width:100%; text-align:left; padding:5px 0; cursor:pointer; font-size:0.9rem;">Sign Out</button>
+        <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+            <img src="${userImage}" alt="${userName}" style="width:36px; height:36px; border-radius:50%; border:2px solid #6366f1; display:block; object-fit:cover;">
+            <div class="signout-dropdown" style="display:none; position:absolute; top:48px; right:0; background:white; box-shadow:0 8px 32px rgba(0,0,0,0.12); border-radius:14px; padding:14px; min-width:180px; z-index:10000; border:1px solid #f0eeff;">
+                <p style="font-size:0.75rem; font-weight:800; color:#1e293b; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid #eee;">${userName}</p>
+                <button onclick="showPage('profile')" style="color:#6366f1; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:5px 0; display:block;">👤 My Profile</button>
+                <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:5px 0; display:block; margin-top:4px;">Sign Out</button>
             </div>
         </div>
       `;

@@ -79,8 +79,11 @@
           >
           <span id="nav-tests" class="nav-item" onclick="showPage('tests')"
             >Assessments</span
+          >
 
-            <a href="/blog.html" class="nav-item" style="text-decoration:none;">Insights</a>
+          <span class="nav-item" onclick="window.location.href = '/blog.html'"
+            >Insights</span
+          >
           >
           <!-- AUTH CONTAINER: This allows JS to swap the button for your profile photo -->
           <div class="auth-container" id="auth-container">
@@ -127,21 +130,37 @@
           >Assessments</span
         >
 
-        <a href="/blog.html" class="nav-item" style="text-decoration:none;" onclick="toggleMobileNav();">Insights</a> 
+        <a
+          href="/blog.html"
+          class="nav-item"
+          style="text-decoration: none"
+          onclick="toggleMobileNav()"
+          >Insights</a
+        >
         <span
           class="nav-cta"
           onclick="
             showPage('coaching');
             toggleMobileNav();
           "
-          >Coaching</span>
+          >Coaching</span
+        >
 
-        <div id="mobile-auth-container" style="margin-top:12px;">
-        <button class="login-google-btn" onclick="signInWithGoogle(); toggleMobileNav();">
-            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+        <div id="mobile-auth-container" style="margin-top: 12px">
+          <button
+            class="login-google-btn"
+            onclick="
+              signInWithGoogle();
+              toggleMobileNav();
+            "
+          >
+            <img
+              src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+              alt="Google"
+            />
             Sign in
-        </button>
-    </div>
+          </button>
+        </div>
       </div>
     </nav>
 
