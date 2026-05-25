@@ -1,202 +1,149 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insights | People Assets</title>
-    <meta
-      name="description"
-      content="Explore articles on personality, mindset, leadership and self-discovery. Science-backed insights to help you understand yourself better."
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="blog.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XRBZK7F8HK"
-    ></script>
+    <meta name="description" content="Explore articles on personality, mindset, leadership, and self-discovery. Science-backed insights to help you understand yourself better.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRBZK7F8HK"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-XRBZK7F8HK");
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XRBZK7F8HK');
     </script>
-  </head>
-  <body class="blog-body">
-    <!-- NAV -->
-    <nav class="blog-nav">
-      <div class="blog-nav-inner">
-        <a href="/" class="blog-logo">
-          <span class="blog-logo-text">People<span>Assets</span></span>
-        </a>
-        <div class="blog-nav-links">
-          <a href="/">Home</a>
-          <a
-            href="/tests"
-            onclick="
-              event.preventDefault();
-              window.location.href = '/';
-            "
-            >Assessments</a
-          >
-          <a href="/blog.html" class="active">Insights</a>
-          <a href="/" class="blog-nav-cta">Take a Test →</a>
+</head>
+<body class="blog-body">
+
+    <!-- GLOBAL UTILITY NAVIGATION -->
+    <nav class="global-nav">
+        <div class="nav-container">
+            <a href="/" class="brand-logo">
+                <span class="logo-text">People<span class="gradient-accent">Assets</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#tests" class="nav-link">Assessments</a>
+                <a href="blog.html" class="nav-link active">Insights</a>
+                <a href="/#coaching" class="nav-btn">Take a Test →</a>
+            </div>
         </div>
-      </div>
     </nav>
 
-    <!-- HERO -->
-    <header class="blog-hero">
-      <div class="blog-hero-bg"></div>
-      <div class="blog-hero-content">
-        <div class="blog-hero-tag">Self-Discovery Hub</div>
-        <h1 class="blog-hero-title">
-          Understand<br />
-          <em>Who You Are</em>
-        </h1>
-        <p class="blog-hero-sub">
-          Psychological insights, assessment breakdowns, and growth frameworks —
-          written for people who take their development seriously.
-        </p>
-
-        <!-- SEARCH -->
-        <div class="blog-search-wrap">
-          <input
-            type="text"
-            id="blog-search"
-            placeholder="Search articles..."
-            class="blog-search-input"
-            oninput="searchPosts(this.value)"
-          />
-          <span class="blog-search-icon">⌕</span>
+    <!-- HUB HERO COMPONENT -->
+    <header class="hub-hero">
+        <div class="hub-hero-inner">
+            <div class="context-badge">Self-Discovery Hub</div>
+            <h1 class="hub-title">Understand <br><span class="italic-gradient">Who You Are</span></h1>
+            <p class="hub-subtitle">Psychological insights, assessment breakdowns, and growth frameworks — written for people who take their development seriously.</p>
+            
+            <!-- SEARCH CONTEXT ENGINE -->
+            <div class="search-bar-wrapper">
+                <span class="search-indicator">🔍</span>
+                <input type="text" id="engine-search" placeholder="Search articles by title, tags, or content..." autocomplete="off">
+            </div>
         </div>
-      </div>
 
-      <!-- FLOATING TOPIC PILLS -->
-      <div class="blog-topics">
-        <button
-          class="topic-pill active"
-          onclick="filterByCategory('all', this)"
-        >
-          All
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Personality Patterns', this)"
-        >
-          🧠 Personality
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Mindset & Motivation', this)"
-        >
-          🔥 Mindset
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Leadership', this)"
-        >
-          🧭 Leadership
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Understanding Your Scores', this)"
-        >
-          📊 Score Guides
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Personal Growth', this)"
-        >
-          🌱 Growth
-        </button>
-        <button
-          class="topic-pill"
-          onclick="filterByCategory('Workplace', this)"
-        >
-          💼 Workplace
-        </button>
-      </div>
+        <!-- CATEGORY PILL FILTER NAVIGATION -->
+        <div class="filter-navigation-wrapper">
+            <div class="pill-container" id="category-pill-box">
+                <button class="filter-pill active" data-category="all">All Perspectives</button>
+                <button class="filter-pill" data-category="Personality Patterns">🧠 Personality</button>
+                <button class="filter-pill" data-category="Mindset & Motivation">🔥 Mindset</button>
+                <button class="filter-pill" data-category="Leadership">🧭 Leadership</button>
+                <button class="filter-pill" data-category="Understanding Your Scores">📊 Score Guides</button>
+                <button class="filter-pill" data-category="Personal Growth">🌱 Growth</button>
+                <button class="filter-pill" data-category="Workplace">💼 Workplace</button>
+            </div>
+        </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="blog-main">
-      <!-- FEATURED POST -->
-      <section class="blog-featured-section" id="featured-section">
-        <div class="blog-featured-skeleton">
-          <div class="skeleton-img"></div>
-          <div class="skeleton-text">
-            <div class="skeleton-line w-20"></div>
-            <div class="skeleton-line w-80"></div>
-            <div class="skeleton-line w-60"></div>
-            <div class="skeleton-line w-40"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- GRID -->
-      <section class="blog-grid-section">
-        <div class="blog-grid-header">
-          <h2 class="blog-section-title" id="grid-title">Latest Insights</h2>
-          <span class="blog-post-count" id="post-count"></span>
-        </div>
-        <div class="blog-grid" id="blog-grid">
-          <!-- Skeletons -->
-          ${[1,2,3,4,5,6].map(() => `
-          <div class="blog-card-skeleton">
-            <div class="skeleton-img"></div>
-            <div style="padding: 20px">
-              <div class="skeleton-line w-30"></div>
-              <div class="skeleton-line w-90"></div>
-              <div class="skeleton-line w-70"></div>
-              <div class="skeleton-line w-50"></div>
+    <!-- MAIN ARTICLES ARCHITECTURE CONTAINER -->
+    <main class="hub-viewport">
+        
+        <!-- FEATURED POST LAYOUT BLOCK -->
+        <section class="featured-showcase-container" id="featured-placement-target">
+            <!-- Render Target: Featured Post Template / Shimmer Skeleton Wrapper -->
+            <div class="shimmer-featured-wrapper">
+                <div class="shimmer-graphic"></div>
+                <div class="shimmer-content-block">
+                    <div class="shimmer-stripe stripe-sm"></div>
+                    <div class="shimmer-stripe stripe-lg"></div>
+                    <div class="shimmer-stripe stripe-md"></div>
+                </div>
             </div>
-          </div>
-          `).join('')}
-        </div>
-      </section>
+        </section>
 
-      <!-- EMPTY STATE -->
-      <div id="empty-state" style="display: none" class="blog-empty">
-        <div class="blog-empty-icon">🔍</div>
-        <h3>No articles found</h3>
-        <p>Try a different search or category</p>
-        <button
-          class="blog-empty-btn"
-          onclick="
-            filterByCategory('all', document.querySelector('.topic-pill'))
-          "
-        >
-          Show all articles
-        </button>
-      </div>
+        <!-- STREAM SEPARATOR VIEWPORT HEADER -->
+        <div class="stream-header-bar">
+            <h2 class="stream-heading" id="stream-title-text">Latest Insights</h2>
+            <div class="stream-counter-badge" id="stream-total-count">0 Articles</div>
+        </div>
+
+        <!-- RECONSTRUCTED CLEAN GRID COMPONENT -->
+        <section class="grid-viewport">
+            <div class="articles-layout-grid" id="main-articles-grid-target">
+                <!-- Fallback Render Initial State: Shimmer Card Iteration Group -->
+                <div class="shimmer-card">
+                    <div class="shimmer-graphic"></div>
+                    <div class="shimmer-content-block">
+                        <div class="shimmer-stripe stripe-sm"></div>
+                        <div class="shimmer-stripe stripe-lg"></div>
+                    </div>
+                </div>
+                <div class="shimmer-card">
+                    <div class="shimmer-graphic"></div>
+                    <div class="shimmer-content-block">
+                        <div class="shimmer-stripe stripe-sm"></div>
+                        <div class="shimmer-stripe stripe-lg"></div>
+                    </div>
+                </div>
+                <div class="shimmer-card">
+                    <div class="shimmer-graphic"></div>
+                    <div class="shimmer-content-block">
+                        <div class="shimmer-stripe stripe-sm"></div>
+                        <div class="shimmer-stripe stripe-lg"></div>
+                    </div>
+                </div>
+            </ajax>
+        </section>
+
+        <!-- STANDARDIZED CENTRALIZED EMPTY STATE ENGINE -->
+        <div class="viewport-empty-state" id="hub-empty-state-card" style="display: none;">
+            <div class="empty-graphic">📭</div>
+            <h3>No matching insights found</h3>
+            <p>We couldn't find any articles matching your current search terms or active filters.</p>
+            <button class="reset-hub-btn" id="empty-state-reset-trigger">Clear Search & Filter Settings</button>
+        </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="blog-footer">
-      <div class="blog-footer-inner">
-        <div class="blog-footer-brand">
-          <span class="blog-logo-text">People<span>Assets</span></span>
-          <p>Science-backed assessments for professional growth.</p>
+    <!-- BRAND COMPLIANT CLEAN SYSTEM FOOTER -->
+    <footer class="global-footer">
+        <div class="footer-inner-wrapper">
+            <div class="footer-identity-block">
+                <span class="logo-text">People<span class="gradient-accent">Assets</span></span>
+                <p>Science-backed psychometric profiling and adaptive executive coaching architecture built for sustainable organizational growth.</p>
+            </div>
+            <div class="footer-navigation-links">
+                <a href="/">Take an Assessment</a>
+                <a href="blog.html">All Insights</a>
+                <a href="/#coaching">Work with a Coach</a>
+            </div>
         </div>
-        <div class="blog-footer-links">
-          <a href="/">Take an Assessment</a>
-          <a href="/blog.html">All Insights</a>
-          <a href="/#coaching">Work with a Coach</a>
+        <div class="footer-sub-bar">
+            <p>&copy; 2026 People Assets. All rights reserved.</p>
         </div>
-      </div>
-      <div class="blog-footer-bottom">
-        <p>© 2026 People Assets. All rights reserved.</p>
-      </div>
     </footer>
 
+    <!-- Supabase Core Driver Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
     <script src="blog.js"></script>
-  </body>
+</body>
 </html>

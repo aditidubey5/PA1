@@ -1,158 +1,229 @@
-// 1. Global variable to hold our data so we don't have to re-fetch from Supabase
-let allPosts = [];
+/**
+ * PEOPLE ASSETS INSIGHTS PLATFORM ENGINE — ARCHITECTURE CORE
+ * Unified Lifecycle Driver Framework
+ */
 
-// Change this at the top of your blog.js file
+let baseArticleCollection = [];
+let operationalActiveCategory = "all";
+let searchThrottleTimer = null;
+
+// Target System Selectors Mapping
+const DOM_UI = {
+  searchField: document.getElementById("engine-search"),
+  pillBox: document.getElementById("category-pill-box"),
+  featuredSlot: document.getElementById("featured-placement-target"),
+  articlesGrid: document.getElementById("main-articles-grid-target"),
+  counterElement: document.getElementById("stream-total-count"),
+  emptyFrame: document.getElementById("hub-empty-state-card"),
+  resetTrigger: document.getElementById("empty-state-reset-trigger"),
+};
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Safe initialization of category filters
-  if (typeof setupCategoryFilters === "function") {
-    setupCategoryFilters();
-  }
-
-  // Safe execution of data fetching
-  // Instead of checking 'currentPage', check if the blog sections exist on the page
-  const featuredContainer = document.querySelector(".featured-section");
-  const gridContainer = document.querySelector(".article-grid");
-
-  if (featuredContainer || gridContainer) {
-    fetchBlogPosts();
-  }
+  initializePlatformComponents();
+  fetchPlatformArticles();
 });
 
-async function fetchBlogPosts() {
+function initializePlatformComponents() {
+  // Input Observer Binding
+  if (DOM_UI.searchField) {
+    DOM_UI.searchField.addEventListener("input", (e) => {
+      clearTimeout(searchThrottleTimer);
+      searchThrottleTimer = setTimeout(() => {
+        evaluateLifecyclePipeline();
+      }, 150);
+    });
+  }
+
+  // Tab Group Delegated Controller Hook
+  if (DOM_UI.pillBox) {
+    DOM_UI.pillBox.addEventListener("click", (e) => {
+      const structuralButton = e.target.closest(".filter-pill");
+      if (!structuralButton) return;
+
+      document
+        .querySelectorAll(".filter-pill")
+        .forEach((btn) => btn.classList.remove("active"));
+      structuralButton.classList.add("active");
+
+      operationalActiveCategory =
+        structuralButton.getAttribute("data-category") || "all";
+      evaluateLifecyclePipeline();
+    });
+  }
+
+  // Resets Event Handlers
+  if (DOM_UI.resetTrigger) {
+    DOM_UI.resetTrigger.addEventListener("click", () => {
+      if (DOM_UI.searchField) DOM_UI.searchField.value = "";
+      operationalActiveCategory = "all";
+
+      if (DOM_UI.pillBox) {
+        document.querySelectorAll(".filter-pill").forEach((btn) => {
+          btn.classList.toggle(
+            "active",
+            btn.getAttribute("data-category") === "all",
+          );
+        });
+      }
+      evaluateLifecyclePipeline();
+    });
+  }
+}
+
+async function fetchPlatformArticles() {
   try {
-    // Fetch all blog posts from Supabase ordered by newest first
-    const { data: posts, error } = await _supabase
-      .from("blogs")
+    // Query database table 'posts' sorting by publication date structural descending order
+    const { data, error } = await window.supabaseClient
+      .from("posts")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("published_at", { ascending: false });
 
     if (error) throw error;
 
-    // Save the posts into our global variable
-    allPosts = posts || [];
-
-    // Run the initial render to show everything
-    renderPosts(allPosts);
-  } catch (err) {
-    console.error("Error fetching blog assets:", err.message);
+    baseArticleCollection = data || [];
+    evaluateLifecyclePipeline();
+  } catch (criticalError) {
+    console.error("Critical Platform Fetch Failure:", criticalError);
+    renderFaultUIState();
   }
 }
 
-// 2. New Master Render Function to handle UI updates cleanly
-function renderPosts(postsToRender) {
-  const featuredContainer = document.querySelector(".featured-section");
-  const gridContainer = document.querySelector(".article-grid");
-  const sectionTitle = document.querySelector(".section-title");
+function evaluateLifecyclePipeline() {
+  const rawSearchToken = DOM_UI.searchField
+    ? DOM_UI.searchField.value.toLowerCase().trim()
+    : "";
 
-  // Clear the current layout
-  featuredContainer.innerHTML = "";
-  gridContainer.innerHTML = "";
+  // Core Pipeline Filter Matrix Logic
+  const matchingOutput = baseArticleCollection.filter((article) => {
+    const matchesCategory =
+      operationalActiveCategory === "all" ||
+      article.category === operationalActiveCategory;
 
-  // Handle empty states (if a category has no posts yet)
-  if (!postsToRender || postsToRender.length === 0) {
-    featuredContainer.innerHTML = `
-            <div style="text-align:center; padding: 60px 20px; width: 100%; color: var(--slate-gray); border: 1px dashed var(--border-color); border-radius: 16px;">
-                <span style="font-size: 2rem;">🌱</span>
-                <h3 style="margin-top: 15px; color: var(--slate-dark);">No insights in this category yet</h3>
-                <p>Check back soon. We are continually curating new explorations.</p>
-            </div>`;
-    gridContainer.style.display = "none";
-    sectionTitle.style.display = "none";
+    const matchesSearch =
+      !rawSearchToken ||
+      (article.title && article.title.toLowerCase().includes(rawSearchToken)) ||
+      (article.excerpt &&
+        article.excerpt.toLowerCase().includes(rawSearchToken)) ||
+      (article.tags &&
+        JSON.stringify(article.tags).toLowerCase().includes(rawSearchToken));
+
+    return matchesCategory && matchesSearch;
+  });
+
+  renderPlatformViewport(matchingOutput);
+}
+
+function renderPlatformViewport(processedArticles) {
+  // Total Count Badge Update
+  if (DOM_UI.counterElement) {
+    DOM_UI.counterElement.textContent = `${processedArticles.length} ${processedArticles.length === 1 ? "Article" : "Articles"}`;
+  }
+
+  // Viewport Empty State Assertions
+  if (processedArticles.length === 0) {
+    if (DOM_UI.featuredSlot) DOM_UI.featuredSlot.style.display = "none";
+    if (DOM_UI.articlesGrid) DOM_UI.articlesGrid.innerHTML = "";
+    if (DOM_UI.emptyFrame) DOM_UI.emptyFrame.style.display = "block";
     return;
   }
 
-  // Ensure the grid is visible in case it was previously hidden by an empty state
-  gridContainer.style.display = "grid";
-  sectionTitle.style.display = "block";
+  if (DOM_UI.emptyFrame) DOM_UI.emptyFrame.style.display = "none";
 
-  // Separate the newest post for the Featured Spot
-  const featuredPost = postsToRender[0];
-  renderFeaturedPost(featuredPost, featuredContainer);
+  // Segment Collection: Isolate primary element for layout position mapping
+  const trackingFeaturedItem = processedArticles[0];
+  const structuralGridGroup = processedArticles.slice(1);
 
-  // Render the rest into the Grid
-  const remainingPosts = postsToRender.slice(1);
-  renderGridPosts(remainingPosts, gridContainer);
+  // Render Featured Display Block Only If Searching / Filtering System State is Default
+  if (operationalActiveCategory === "all" && !DOM_UI.searchField.value.trim()) {
+    if (DOM_UI.featuredSlot) {
+      DOM_UI.featuredSlot.style.display = "block";
+      DOM_UI.featuredSlot.innerHTML =
+        generateFeaturedMarkupTemplate(trackingFeaturedItem);
+    }
+    renderGridSystemContent(structuralGridGroup);
+  } else {
+    if (DOM_UI.featuredSlot) DOM_UI.featuredSlot.style.display = "none";
+    renderGridSystemContent(processedArticles);
+  }
 }
 
-// 3. The Filter Logic
-function setupCategoryFilters() {
-  const filterButtons = document.querySelectorAll(".category-btn");
+function renderGridSystemContent(groupCollection) {
+  if (!DOM_UI.articlesGrid) return;
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      // A. Remove the 'active' indigo styling from ALL buttons
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
+  if (groupCollection.length === 0) {
+    DOM_UI.articlesGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--color-slate-body); font-weight: 500;">Viewing filtered primary selection framework.</div>`;
+    return;
+  }
 
-      // B. Add the 'active' styling to the exact button the user just clicked
-      const clickedBtn = e.target;
-      clickedBtn.classList.add("active");
-
-      // C. Read the text on the button (e.g., "Personality Patterns")
-      const selectedCategory = clickedBtn.textContent.trim();
-
-      // D. Filter our data
-      if (selectedCategory === "All Explorations") {
-        // If they clicked "All", pass the entire saved array
-        renderPosts(allPosts);
-      } else {
-        // Otherwise, create a new array with only posts matching that category
-        const filteredPosts = allPosts.filter(
-          (post) => post.category === selectedCategory,
-        );
-        renderPosts(filteredPosts);
-      }
-    });
-  });
+  DOM_UI.articlesGrid.innerHTML = groupCollection
+    .map((article) => generateGridCardMarkupTemplate(article))
+    .join("");
 }
 
-// --- Keep your existing renderFeaturedPost and renderGridPosts below ---
-function renderFeaturedPost(post, container) {
-  container.innerHTML = `
-        <article class="featured-card" onclick="window.location.href='/blog-single.html?id=${post.id}'" style="cursor: pointer;">
-            <div class="featured-image">
-            <img src="${(post.image_url ? post.image_url.replace(/\[|\]/g, "") : null) || "https://images.unsplash.com/photo-1506126613408-eca07ce68773"}" alt="${post.title}">
+function generateFeaturedMarkupTemplate(item) {
+  const visualBannerAsset =
+    item.cover_image || "assets/placeholder-fallback.jpg";
+  const computedTimestamp = item.published_at
+    ? new Date(item.published_at).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Recent Perspective";
+
+  return `
+        <a href="blog-single.html?id=${item.id}" class="showcase-anchor">
+            <article class="featured-card-wrapper">
+                <div class="featured-canvas">
+                    <img src="${visualBannerAsset}" alt="Featured Illustration: ${item.title || ""}" loading="eager">
                 </div>
-            <div class="featured-content">
-                <span class="post-category">${post.category}</span>
-                <h2>${post.title}</h2>
-                <p class="post-excerpt">${post.excerpt}</p>
-                <div class="post-meta">
-                    <span class="post-date">${new Date(post.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-                    <span class="meta-divider">•</span>
-                    <span class="read-time">${post.read_time}</span>
+                <div class="featured-text-wrapper">
+                    <span class="meta-category-tag">${item.category || "Insight"}</span>
+                    <h2>${item.title || "Untitled Professional Insight"}</h2>
+                    <p>${item.excerpt || "Explore advanced research analysis data points and professional strategic execution modules within this development overview."}</p>
+                    <div class="meta-timestamp">Published ${computedTimestamp}</div>
                 </div>
-                <a href="/blog-single.html?id=${post.id}" class="read-more-btn">Explore Article →</a>
-            </div>
-        </article>
+            </article>
+        </a>
     `;
 }
 
-function renderGridPosts(posts, container) {
-  if (posts.length === 0) {
-    container.style.display = "none";
-    document.querySelector(".section-title").style.display = "none";
-    return;
-  }
+function generateGridCardMarkupTemplate(item) {
+  const visualThumbAsset =
+    item.cover_image || "assets/placeholder-fallback.jpg";
+  const computedTimestamp = item.published_at
+    ? new Date(item.published_at).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Recent Update";
 
-  container.innerHTML = posts
-    .map(
-      (post) => `
-        <article class="article-card" onclick="window.location.href='/blog-single.html?id=${post.id}'">
-            <div class="card-image">
-            <img src="${(post.image_url ? post.image_url.replace(/\[|\]/g, "") : null) || "https://images.unsplash.com/photo-1518495973542-4542c06a5843"}" alt="${post.title}">
+  return `
+        <a href="blog-single.html?id=${item.id}" class="item-card-anchor">
+            <article class="editorial-card-wrapper">
+                <div class="card-canvas">
+                    <img src="${visualThumbAsset}" alt="Article Thumbnail: ${item.title || ""}" loading="lazy">
                 </div>
-            <div class="card-content">
-                <span class="post-category">${post.category}</span>
-                <h3>${post.title}</h3>
-                <p>${post.excerpt}</p>
-                <div class="post-meta">
-                    <span>${new Date(post.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-                    <span class="meta-divider">•</span>
-                    <span>${post.read_time}</span>
+                <div class="card-text-wrapper">
+                    <span class="meta-category-tag">${item.category || "Perspective"}</span>
+                    <h3>${item.title || "Untitled Context Resource"}</h3>
+                    <p>${item.excerpt || "Review structural concept documentation details mapping core metrics inside our framework ecosystem."}</p>
+                    <div class="meta-timestamp">${computedTimestamp}</div>
                 </div>
+            </article>
+        </a>
+    `;
+}
+
+function renderFaultUIState() {
+  if (DOM_UI.articlesGrid) {
+    DOM_UI.articlesGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 24px; background: #ffffff; border-radius: 16px; border: 1px solid rgba(239,68,68,0.2);">
+                <div style="font-size: 2rem; margin-bottom: 12px;">⚠️</div>
+                <h4 style="color: var(--color-slate-headline); font-size: 1.15rem; margin-bottom: 6px;">Connection Sync Interrupted</h4>
+                <p style="color: var(--color-slate-body); font-size: 0.9rem;">Unable to process database resource allocations at this time. Please verify cloud routing structures or reload workspace portals.</p>
             </div>
-        </article>
-    `,
-    )
-    .join("");
+        `;
+  }
 }

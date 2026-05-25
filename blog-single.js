@@ -1,58 +1,118 @@
+/**
+ * PEOPLE ASSETS INSIGHTS PLATFORM ENGINE — SINGLE READ VIEW DRIVER
+ * Rebuilt lifecycle sync router mapping core records down to rich layouts
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
-  loadSingleArticle();
+  executeArticleLifecycleRetrieval();
 });
 
-async function loadSingleArticle() {
-  // 1. Grab the ID from the URL (e.g., website.com/blog-single.html?id=123-abc)
-  const urlParams = new URLSearchParams(window.location.search);
-  const articleId = urlParams.get("id");
-
-  // If there is no ID in the URL, send them back to the main blog page
-  if (!articleId) {
-    window.location.href = "/blog.html";
-    return;
-  }
+async function executeArticleLifecycleRetrieval() {
+  const renderLoadingState = document.getElementById(
+    "article-loading-container",
+  );
+  const renderProductionState = document.getElementById(
+    "article-production-content",
+  );
 
   try {
-    // 2. Ask Supabase for exactly one row matching this ID
-    const { data: post, error } = await _supabase
-      .from("blogs")
-      .select("*")
-      .eq("id", articleId)
-      .single();
+    // Parse current platform routing variables safely via query parameters
+    const windowSearchSchema = new URLSearchParams(window.location.search);
+    const articleIdentificationToken = windowSearchSchema.get("id");
 
-    if (error) throw error;
-    if (!post) throw new Error("Article not found.");
+    if (!articleIdentificationToken) {
+      throw new Error(
+        "Invalid cloud query signature sequence missing reference ID routing context.",
+      );
+    }
 
-    // 3. Map the database values to our HTML shell
-    document.title = `${post.title} | People Assets`;
-    document.getElementById("render-category").textContent = post.category;
-    document.getElementById("render-title").textContent = post.title;
-    document.getElementById("render-read-time").textContent = post.read_time;
+    // Issue singular target identification pull against table collection 'posts'
+    const { data: structuralPostItem, error: databaseSyncFault } =
+      await window.supabaseClient
+        .from("posts")
+        .select("*")
+        .eq("id", articleIdentificationToken)
+        .single();
 
-    // Format the date nicely
-    document.getElementById("render-date").textContent = new Date(
-      post.created_at,
-    ).toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
+    if (databaseSyncFault || !structuralPostItem) {
+      throw new Error(
+        databaseSyncFault
+          ? databaseSyncFault.message
+          : "Requested insight model not found inside active clusters.",
+      );
+    }
 
-    // Set the image
-    const imgEl = document.getElementById("render-image");
-    imgEl.src = post.image_url;
-    imgEl.alt = post.title;
+    // Pass retrieved record directly down into view injection pipeline
+    populateProductionViewportDOM(structuralPostItem);
 
-    // Set the main article content (using innerHTML because our mock data uses <p> and <h3> tags)
-    document.getElementById("render-body").innerHTML = post.content;
+    // Transition presentation elements cleanly
+    if (renderLoadingState) renderLoadingState.style.display = "none";
+    if (renderProductionState) renderProductionState.style.display = "block";
+  } catch (criticalRoutingFault) {
+    console.error(
+      "Core Lifecycle Sync Exception Handled:",
+      criticalRoutingFault,
+    );
+    renderReaderFaultState(criticalRoutingFault.message);
+  }
+}
 
-    // 4. Hide the loader and show the completed article
-    document.getElementById("loading-state").style.display = "none";
-    document.getElementById("article-content").style.display = "block";
-  } catch (err) {
-    console.error("Error fetching article:", err.message);
-    document.getElementById("loading-state").textContent =
-      "⚠️ Sorry, we couldn't load this article. It may have been moved.";
+function populateProductionViewportDOM(record) {
+  // Dynamic Frame Title Context Update
+  document.title = `${record.title || "Insight Perspective"} | People Assets`;
+
+  // DOM Assignment Targets Definition
+  const uiCategory = document.getElementById("render-category");
+  const uiReadTime = document.getElementById("render-read-time");
+  const uiTitle = document.getElementById("render-title");
+  const uiDate = document.getElementById("render-date");
+  const uiImage = document.getElementById("render-image");
+  const uiBody = document.getElementById("render-body");
+
+  // Structural Variable Assignments
+  if (uiCategory) uiCategory.textContent = record.category || "Insight";
+  if (uiReadTime) uiReadTime.textContent = record.read_time || "General Read";
+  if (uiTitle)
+    uiTitle.textContent = record.title || "Untitled Professional Insight";
+
+  if (uiDate && record.published_at) {
+    uiDate.textContent = new Date(record.published_at).toLocaleDateString(
+      "en-US",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      },
+    );
+  } else if (uiDate) {
+    uiDate.textContent = "Recent Matrix Release";
+  }
+
+  if (uiImage) {
+    uiImage.src = record.cover_image || "assets/placeholder-fallback.jpg";
+    uiImage.alt = `Illustration Canvas: ${record.title || "Context Platform Graphic"}`;
+  }
+
+  // Dynamic inner HTML injection mapping complex block sections safely
+  if (uiBody) {
+    uiBody.innerHTML =
+      record.content ||
+      `<p style="color: var(--color-slate-body)">No content metrics are populated within this active record profile block.</p>`;
+  }
+}
+
+function renderReaderFaultState(diagnosticString) {
+  const renderLoadingState = document.getElementById(
+    "article-loading-container",
+  );
+  if (renderLoadingState) {
+    renderLoadingState.innerHTML = `
+            <div style="text-align: center; padding: 80px 24px; background: #ffffff; border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.15); max-width: 600px; margin: 40px auto;">
+                <div style="font-size: 2.5rem; margin-bottom: 16px;">🔍</div>
+                <h3 style="color: var(--color-slate-headline); font-size: 1.4rem; margin-bottom: 10px; font-weight:800;">Insight Route Terminated</h3>
+                <p style="color: var(--color-slate-body); font-size: 0.95rem; line-height:1.6; margin-bottom: 24px;">The article you are attempting to review cannot be mapped. It may have been archived, unlisted, or restricted to admin nodes.</p>
+                <a href="blog.html" style="display:inline-block; text-decoration:none; background: var(--color-brand-indigo); color:#ffffff; padding:12px 24px; border-radius:30px; font-weight:700; font-size:0.9rem; box-shadow:0 4px 15px rgba(99,102,241,0.2);">Return to Dashboard Insights</a>
+            </div>
+        `;
   }
 }

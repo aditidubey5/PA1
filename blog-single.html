@@ -3,258 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article | People Assets</title>
+    <title>Insight | People Assets</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="blog.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .article-wrap {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 100px 24px 80px;
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XRBZK7F8HK"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-      .article-back {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        color: #64748b;
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 700;
-        margin-bottom: 40px;
-        transition: color 0.2s;
-      }
-      .article-back:hover {
-        color: #6366f1;
-      }
-      .article-cat {
-        font-size: 0.72rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #6366f1;
-        margin-bottom: 14px;
-      }
-      .article-title {
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
-        font-weight: 900;
-        color: #0f0e17;
-        line-height: 1.15;
-        letter-spacing: -0.03em;
-        margin-bottom: 20px;
-      }
-      .article-meta {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        color: #64748b;
-        font-size: 0.82rem;
-        font-weight: 600;
-        margin-bottom: 36px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid #e8e6ff;
-        flex-wrap: wrap;
-      }
-      .article-cover {
-        width: 100%;
-        height: 420px;
-        object-fit: cover;
-        border-radius: 20px;
-        margin-bottom: 48px;
-      }
-      .article-body {
-        font-size: 1.08rem;
-        line-height: 1.85;
-        color: #334155;
-      }
-      .article-body h2 {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: #0f0e17;
-        margin: 40px 0 16px;
-        letter-spacing: -0.02em;
-      }
-      .article-body h3 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 32px 0 12px;
-      }
-      .article-body p {
-        margin-bottom: 20px;
-      }
-      .article-body ul,
-      .article-body ol {
-        margin: 0 0 20px 24px;
-      }
-      .article-body li {
-        margin-bottom: 8px;
-      }
-      .article-body blockquote {
-        border-left: 3px solid #6366f1;
-        padding: 16px 24px;
-        background: #f8f7ff;
-        border-radius: 0 12px 12px 0;
-        margin: 28px 0;
-        font-style: italic;
-        color: #475569;
-      }
-      .article-body strong {
-        color: #1e293b;
-        font-weight: 700;
-      }
-      .article-cta {
-        background: linear-gradient(135deg, #6366f1, #d946ef);
-        border-radius: 20px;
-        padding: 40px;
-        text-align: center;
-        margin: 60px 0 0;
-        color: white;
-      }
-      .article-cta h3 {
-        font-size: 1.4rem;
-        font-weight: 800;
-        margin-bottom: 8px;
-      }
-      .article-cta p {
-        opacity: 0.85;
-        margin-bottom: 20px;
-        font-size: 0.95rem;
-      }
-      .article-cta a {
-        background: white;
-        color: #6366f1;
-        padding: 12px 28px;
-        border-radius: 12px;
-        font-weight: 800;
-        text-decoration: none;
-        font-size: 0.9rem;
-        display: inline-block;
-        transition: transform 0.2s;
-      }
-      .article-cta a:hover {
-        transform: translateY(-2px);
-      }
-      #loading-state {
-        text-align: center;
-        padding: 120px 24px;
-        color: #64748b;
-        font-size: 1rem;
-      }
-    </style>
+      gtag("js", new Date());
+      gtag("config", "G-XRBZK7F8HK");
+    </script>
   </head>
   <body class="blog-body">
-    <nav class="blog-nav">
-      <div class="blog-nav-inner">
-        <a href="/" class="blog-logo">
-          <span class="blog-logo-text">People<span>Assets</span></span>
+    <nav class="global-nav">
+      <div class="nav-container">
+        <a href="/" class="brand-logo">
+          <span class="logo-text"
+            >People<span class="gradient-accent">Assets</span></span
+          >
         </a>
-        <div class="blog-nav-links">
-          <a href="/blog.html">← All Insights</a>
-          <a href="/" class="blog-nav-cta">Take a Test →</a>
+        <div class="nav-menu">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/#tests" class="nav-link">Assessments</a>
+          <a href="blog.html" class="nav-link active">Insights</a>
+          <a href="/#coaching" class="nav-btn">Take a Test →</a>
         </div>
       </div>
     </nav>
 
-    <div id="loading-state">
-      <div
-        style="
-          width: 32px;
-          height: 32px;
-          border: 3px solid #6366f1;
-          border-top-color: transparent;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-          margin: 0 auto 16px;
-        "
-      ></div>
-      Loading article...
-    </div>
-
-    <div class="article-wrap" id="article-content" style="display: none">
-      <a href="/blog.html" class="article-back">← Back to Insights</a>
-      <div class="article-cat" id="render-category"></div>
-      <h1 class="article-title" id="render-title"></h1>
-      <div class="article-meta">
-        <span>📅 <span id="render-date"></span></span>
-        <span>·</span>
-        <span>⏱ <span id="render-read-time"></span></span>
+    <main class="article-viewport">
+      <div id="article-loading-container" class="reader-skeleton-wrapper">
+        <div class="skeleton-back-btn"></div>
+        <div class="skeleton-meta-stripe"></div>
+        <div class="skeleton-title-block"></div>
+        <div class="skeleton-hero-canvas"></div>
+        <div class="skeleton-body-block">
+          <div class="shimmer-stripe stripe-lg"></div>
+          <div class="shimmer-stripe stripe-md"></div>
+          <div class="shimmer-stripe stripe-lg"></div>
+          <div class="shimmer-stripe stripe-sm"></div>
+        </div>
       </div>
-      <img class="article-cover" id="render-image" src="" alt="" />
-      <div class="article-body" id="render-body"></div>
 
-      <!-- CTA at bottom of every article -->
-      <div class="article-cta">
-        <h3>Curious about your own profile?</h3>
-        <p>
-          Take one of our science-backed assessments and discover your
-          strengths, blind spots, and growth areas.
-        </p>
-        <a href="/">Start Your Assessment →</a>
+      <article
+        id="article-production-content"
+        class="reader-container"
+        style="display: none"
+      >
+        <a href="blog.html" class="reader-back-link">
+          <span class="arrow-glyph">←</span> Back to all insights
+        </a>
+
+        <header class="reader-header">
+          <div class="reader-meta-row">
+            <span id="render-category" class="meta-category-tag"
+              >Perspective</span
+            >
+            <span class="meta-divider">•</span>
+            <span id="render-read-time" class="reader-time-badge"
+              >5 min read</span
+            >
+          </div>
+          <h1 id="render-title" class="reader-headline">
+            Loading insight article...
+          </h1>
+          <div id="render-date" class="reader-timestamp-label">
+            Published Date
+          </div>
+        </header>
+
+        <div class="reader-banner-frame">
+          <img id="render-image" src="" alt="Insight Feature Illustration" />
+        </div>
+
+        <div id="render-body" class="reader-rich-content-flow"></div>
+
+        <div class="reader-end-cta">
+          <div class="cta-mini-badge">Take Action</div>
+          <h3>Apply this insight directly to your professional profile</h3>
+          <p>
+            Discover your execution patterns, mental frameworks, and behavioral
+            blindspots with our validated diagnostics.
+          </p>
+          <a href="/#tests" class="cta-embedded-btn"
+            >Begin Assessment Routine</a
+          >
+        </div>
+      </article>
+    </main>
+
+    <footer class="global-footer">
+      <div class="footer-inner-wrapper">
+        <div class="footer-identity-block">
+          <span class="logo-text"
+            >People<span class="gradient-accent">Assets</span></span
+          >
+          <p>
+            Science-backed psychometric profiling and adaptive executive
+            coaching architecture built for sustainable organizational growth.
+          </p>
+        </div>
+        <div class="footer-navigation-links">
+          <a href="/">Take an Assessment</a>
+          <a href="blog.html">All Insights</a>
+          <a href="/#coaching">Work with a Coach</a>
+        </div>
       </div>
-    </div>
-
-    <style>
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
+      <div class="footer-sub-bar">
+        <p>&copy; 2026 People Assets. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
-        if (!id) {
-          window.location.href = "/blog.html";
-          return;
-        }
-
-        try {
-          const { data: post, error } = await _supabase
-            .from("blogs")
-            .select("*")
-            .eq("id", id)
-            .single();
-
-          if (error || !post) throw new Error("Not found");
-
-          document.title = `${post.title} | People Assets`;
-          document.getElementById("render-category").textContent =
-            post.category;
-          document.getElementById("render-title").textContent = post.title;
-          document.getElementById("render-read-time").textContent =
-            post.read_time;
-          document.getElementById("render-date").textContent = new Date(
-            post.created_at,
-          ).toLocaleDateString("en-IN", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          });
-
-          const img = document.getElementById("render-image");
-          img.src =
-            post.image_url ||
-            "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80";
-          img.alt = post.title;
-
-          document.getElementById("render-body").innerHTML = post.content;
-
-          document.getElementById("loading-state").style.display = "none";
-          document.getElementById("article-content").style.display = "block";
-        } catch (err) {
-          document.getElementById("loading-state").innerHTML = `
-                <div style="font-size:2rem;margin-bottom:16px;">😕</div>
-                <p>Article not found. <a href="/blog.html" style="color:#6366f1;font-weight:700;">Go back →</a></p>`;
-        }
-      });
-    </script>
+    <script src="blog-single.js"></script>
   </body>
 </html>
