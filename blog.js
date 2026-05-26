@@ -1,229 +1,149 @@
-/**
- * PEOPLE ASSETS INSIGHTS PLATFORM ENGINE — ARCHITECTURE CORE
- * Unified Lifecycle Driver Framework
- */
+// ============================================
+// BLOG ENGINE (blog.js)
+// ============================================
 
-let baseArticleCollection = [];
-let operationalActiveCategory = "all";
-let searchThrottleTimer = null;
+let allPosts = [];
+let activeCategory = "all";
 
-// Target System Selectors Mapping
-const DOM_UI = {
-  searchField: document.getElementById("engine-search"),
-  pillBox: document.getElementById("category-pill-box"),
-  featuredSlot: document.getElementById("featured-placement-target"),
-  articlesGrid: document.getElementById("main-articles-grid-target"),
-  counterElement: document.getElementById("stream-total-count"),
-  emptyFrame: document.getElementById("hub-empty-state-card"),
-  resetTrigger: document.getElementById("empty-state-reset-trigger"),
+const categoryImages = {
+  "Personality Patterns":
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+  "Mindset & Motivation":
+    "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80",
+  Leadership:
+    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+  "Understanding Your Scores":
+    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+  "Personal Growth":
+    "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80",
+  Workplace:
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+  default:
+    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  initializePlatformComponents();
-  fetchPlatformArticles();
-});
-
-function initializePlatformComponents() {
-  // Input Observer Binding
-  if (DOM_UI.searchField) {
-    DOM_UI.searchField.addEventListener("input", (e) => {
-      clearTimeout(searchThrottleTimer);
-      searchThrottleTimer = setTimeout(() => {
-        evaluateLifecyclePipeline();
-      }, 150);
-    });
-  }
-
-  // Tab Group Delegated Controller Hook
-  if (DOM_UI.pillBox) {
-    DOM_UI.pillBox.addEventListener("click", (e) => {
-      const structuralButton = e.target.closest(".filter-pill");
-      if (!structuralButton) return;
-
-      document
-        .querySelectorAll(".filter-pill")
-        .forEach((btn) => btn.classList.remove("active"));
-      structuralButton.classList.add("active");
-
-      operationalActiveCategory =
-        structuralButton.getAttribute("data-category") || "all";
-      evaluateLifecyclePipeline();
-    });
-  }
-
-  // Resets Event Handlers
-  if (DOM_UI.resetTrigger) {
-    DOM_UI.resetTrigger.addEventListener("click", () => {
-      if (DOM_UI.searchField) DOM_UI.searchField.value = "";
-      operationalActiveCategory = "all";
-
-      if (DOM_UI.pillBox) {
-        document.querySelectorAll(".filter-pill").forEach((btn) => {
-          btn.classList.toggle(
-            "active",
-            btn.getAttribute("data-category") === "all",
-          );
-        });
-      }
-      evaluateLifecyclePipeline();
-    });
-  }
+function getImage(post) {
+  if (post.image_url) return post.image_url.replace(/\[|\]/g, "");
+  return categoryImages[post.category] || categoryImages["default"];
 }
 
-async function fetchPlatformArticles() {
-  try {
-    // Query database table 'posts' sorting by publication date structural descending order
-    const { data, error } = await window.supabaseClient
-      .from("posts")
-      .select("*")
-      .order("published_at", { ascending: false });
-
-    if (error) throw error;
-
-    baseArticleCollection = data || [];
-    evaluateLifecyclePipeline();
-  } catch (criticalError) {
-    console.error("Critical Platform Fetch Failure:", criticalError);
-    renderFaultUIState();
-  }
-}
-
-function evaluateLifecyclePipeline() {
-  const rawSearchToken = DOM_UI.searchField
-    ? DOM_UI.searchField.value.toLowerCase().trim()
-    : "";
-
-  // Core Pipeline Filter Matrix Logic
-  const matchingOutput = baseArticleCollection.filter((article) => {
-    const matchesCategory =
-      operationalActiveCategory === "all" ||
-      article.category === operationalActiveCategory;
-
-    const matchesSearch =
-      !rawSearchToken ||
-      (article.title && article.title.toLowerCase().includes(rawSearchToken)) ||
-      (article.excerpt &&
-        article.excerpt.toLowerCase().includes(rawSearchToken)) ||
-      (article.tags &&
-        JSON.stringify(article.tags).toLowerCase().includes(rawSearchToken));
-
-    return matchesCategory && matchesSearch;
+function formatDate(d) {
+  return new Date(d).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
   });
-
-  renderPlatformViewport(matchingOutput);
 }
 
-function renderPlatformViewport(processedArticles) {
-  // Total Count Badge Update
-  if (DOM_UI.counterElement) {
-    DOM_UI.counterElement.textContent = `${processedArticles.length} ${processedArticles.length === 1 ? "Article" : "Articles"}`;
-  }
+document.addEventListener("DOMContentLoaded", fetchBlogPosts);
 
-  // Viewport Empty State Assertions
-  if (processedArticles.length === 0) {
-    if (DOM_UI.featuredSlot) DOM_UI.featuredSlot.style.display = "none";
-    if (DOM_UI.articlesGrid) DOM_UI.articlesGrid.innerHTML = "";
-    if (DOM_UI.emptyFrame) DOM_UI.emptyFrame.style.display = "block";
-    return;
-  }
-
-  if (DOM_UI.emptyFrame) DOM_UI.emptyFrame.style.display = "none";
-
-  // Segment Collection: Isolate primary element for layout position mapping
-  const trackingFeaturedItem = processedArticles[0];
-  const structuralGridGroup = processedArticles.slice(1);
-
-  // Render Featured Display Block Only If Searching / Filtering System State is Default
-  if (operationalActiveCategory === "all" && !DOM_UI.searchField.value.trim()) {
-    if (DOM_UI.featuredSlot) {
-      DOM_UI.featuredSlot.style.display = "block";
-      DOM_UI.featuredSlot.innerHTML =
-        generateFeaturedMarkupTemplate(trackingFeaturedItem);
-    }
-    renderGridSystemContent(structuralGridGroup);
-  } else {
-    if (DOM_UI.featuredSlot) DOM_UI.featuredSlot.style.display = "none";
-    renderGridSystemContent(processedArticles);
+async function fetchBlogPosts() {
+  try {
+    const { data: posts, error } = await _supabase
+      .from("blogs")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    allPosts = posts || [];
+    renderAll(allPosts);
+  } catch (err) {
+    console.error("Blog fetch error:", err.message);
+    document.getElementById("blog-grid").innerHTML =
+      `<div style="grid-column:1/-1;text-align:center;padding:60px;color:#64748b;"><p>Could not load articles. Please refresh.</p></div>`;
+    document.getElementById("featured-section").innerHTML = "";
   }
 }
 
-function renderGridSystemContent(groupCollection) {
-  if (!DOM_UI.articlesGrid) return;
-
-  if (groupCollection.length === 0) {
-    DOM_UI.articlesGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--color-slate-body); font-weight: 500;">Viewing filtered primary selection framework.</div>`;
+function renderAll(posts) {
+  if (!posts || posts.length === 0) {
+    document.getElementById("featured-section").innerHTML = "";
+    document.getElementById("blog-grid").innerHTML = "";
+    document.getElementById("grid-header").style.display = "none";
+    document.getElementById("empty-state").style.display = "block";
+    document.getElementById("post-count").textContent = "";
     return;
   }
 
-  DOM_UI.articlesGrid.innerHTML = groupCollection
-    .map((article) => generateGridCardMarkupTemplate(article))
+  document.getElementById("empty-state").style.display = "none";
+  document.getElementById("grid-header").style.display = "flex";
+  renderFeatured(posts[0]);
+  renderGrid(posts.slice(1));
+  document.getElementById("post-count").textContent =
+    posts.length + " article" + (posts.length !== 1 ? "s" : "");
+}
+
+function renderFeatured(post) {
+  document.getElementById("featured-section").innerHTML = `
+    <a href="blog-single.html?id=${post.id}" class="blog-featured">
+        <div class="blog-featured-img">
+            <img src="${getImage(post)}" alt="${post.title}" loading="lazy">
+            <span class="blog-featured-badge">✦ Featured</span>
+        </div>
+        <div class="blog-featured-body">
+            <div class="blog-featured-cat">${post.category}</div>
+            <h2 class="blog-featured-title">${post.title}</h2>
+            <p class="blog-featured-excerpt">${post.excerpt}</p>
+            <div class="blog-featured-meta">📅 ${formatDate(post.created_at)} &nbsp;·&nbsp; ⏱ ${post.read_time}</div>
+            <span class="blog-read-btn">Read Article →</span>
+        </div>
+    </a>`;
+}
+
+function renderGrid(posts) {
+  if (posts.length === 0) {
+    document.getElementById("blog-grid").innerHTML = "";
+    return;
+  }
+  document.getElementById("blog-grid").innerHTML = posts
+    .map(
+      (post) => `
+    <a href="blog-single.html?id=${post.id}" class="blog-card">
+        <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="${getImage(post)}" alt="${post.title}" loading="lazy">
+        </div>
+        <div class="blog-card-body">
+            <div class="blog-card-cat">${post.category}</div>
+            <h3 class="blog-card-title">${post.title}</h3>
+            <p class="blog-card-excerpt">${post.excerpt}</p>
+            <div class="blog-card-footer">
+                <span>${formatDate(post.created_at)} · ${post.read_time}</span>
+                <span class="blog-card-arrow">→</span>
+            </div>
+        </div>
+    </a>`,
+    )
     .join("");
 }
 
-function generateFeaturedMarkupTemplate(item) {
-  const visualBannerAsset =
-    item.cover_image || "assets/placeholder-fallback.jpg";
-  const computedTimestamp = item.published_at
-    ? new Date(item.published_at).toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "Recent Perspective";
-
-  return `
-        <a href="blog-single.html?id=${item.id}" class="showcase-anchor">
-            <article class="featured-card-wrapper">
-                <div class="featured-canvas">
-                    <img src="${visualBannerAsset}" alt="Featured Illustration: ${item.title || ""}" loading="eager">
-                </div>
-                <div class="featured-text-wrapper">
-                    <span class="meta-category-tag">${item.category || "Insight"}</span>
-                    <h2>${item.title || "Untitled Professional Insight"}</h2>
-                    <p>${item.excerpt || "Explore advanced research analysis data points and professional strategic execution modules within this development overview."}</p>
-                    <div class="meta-timestamp">Published ${computedTimestamp}</div>
-                </div>
-            </article>
-        </a>
-    `;
+function filterByCategory(cat, btn) {
+  activeCategory = cat;
+  document
+    .querySelectorAll(".blog-pill")
+    .forEach((p) => p.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  document.getElementById("blog-search").value = "";
+  const filtered =
+    cat === "all" ? allPosts : allPosts.filter((p) => p.category === cat);
+  document.getElementById("grid-title").textContent =
+    cat === "all" ? "Latest Insights" : cat;
+  renderAll(filtered);
 }
 
-function generateGridCardMarkupTemplate(item) {
-  const visualThumbAsset =
-    item.cover_image || "assets/placeholder-fallback.jpg";
-  const computedTimestamp = item.published_at
-    ? new Date(item.published_at).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "Recent Update";
-
-  return `
-        <a href="blog-single.html?id=${item.id}" class="item-card-anchor">
-            <article class="editorial-card-wrapper">
-                <div class="card-canvas">
-                    <img src="${visualThumbAsset}" alt="Article Thumbnail: ${item.title || ""}" loading="lazy">
-                </div>
-                <div class="card-text-wrapper">
-                    <span class="meta-category-tag">${item.category || "Perspective"}</span>
-                    <h3>${item.title || "Untitled Context Resource"}</h3>
-                    <p>${item.excerpt || "Review structural concept documentation details mapping core metrics inside our framework ecosystem."}</p>
-                    <div class="meta-timestamp">${computedTimestamp}</div>
-                </div>
-            </article>
-        </a>
-    `;
-}
-
-function renderFaultUIState() {
-  if (DOM_UI.articlesGrid) {
-    DOM_UI.articlesGrid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 60px 24px; background: #ffffff; border-radius: 16px; border: 1px solid rgba(239,68,68,0.2);">
-                <div style="font-size: 2rem; margin-bottom: 12px;">⚠️</div>
-                <h4 style="color: var(--color-slate-headline); font-size: 1.15rem; margin-bottom: 6px;">Connection Sync Interrupted</h4>
-                <p style="color: var(--color-slate-body); font-size: 0.9rem;">Unable to process database resource allocations at this time. Please verify cloud routing structures or reload workspace portals.</p>
-            </div>
-        `;
+function searchPosts(query) {
+  if (!query.trim()) {
+    filterByCategory(activeCategory, null);
+    return;
   }
+  const q = query.toLowerCase();
+  const filtered = allPosts.filter(
+    (p) =>
+      p.title.toLowerCase().includes(q) ||
+      p.excerpt.toLowerCase().includes(q) ||
+      (p.category || "").toLowerCase().includes(q),
+  );
+  document.getElementById("grid-title").textContent = `Results for "${query}"`;
+  renderAll(filtered);
 }
+
+window.filterByCategory = filterByCategory;
+window.searchPosts = searchPosts;

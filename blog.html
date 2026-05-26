@@ -1,149 +1,722 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Insights | People Assets</title>
-    <meta name="description" content="Explore articles on personality, mindset, leadership, and self-discovery. Science-backed insights to help you understand yourself better.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="blog.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRBZK7F8HK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XRBZK7F8HK');
-    </script>
-</head>
-<body class="blog-body">
+    <meta
+      name="description"
+      content="Explore articles on personality, mindset, leadership and self-discovery. Science-backed insights to help you understand yourself better."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ---- BLOG-SPECIFIC OVERRIDES ---- */
+      body {
+        background-color: var(--bg-lavender);
+      }
 
-    <!-- GLOBAL UTILITY NAVIGATION -->
-    <nav class="global-nav">
-        <div class="nav-container">
-            <a href="/" class="brand-logo">
-                <span class="logo-text">People<span class="gradient-accent">Assets</span></span>
-            </a>
-            <div class="nav-menu">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/#tests" class="nav-link">Assessments</a>
-                <a href="blog.html" class="nav-link active">Insights</a>
-                <a href="/#coaching" class="nav-btn">Take a Test →</a>
-            </div>
+      .blog-hero {
+        background: linear-gradient(
+          135deg,
+          #6366f1 0%,
+          #a855f7 50%,
+          #ec4899 100%
+        );
+        padding: 60px 24px 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .blog-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 60% 80% at 50% 120%,
+          rgba(255, 255, 255, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .blog-hero-tag {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding: 6px 16px;
+        border-radius: 99px;
+        margin-bottom: 20px;
+      }
+      .blog-hero-title {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 900;
+        color: white;
+        margin: 0 0 16px;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+      .blog-hero-sub {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 520px;
+        margin: 0 auto 32px;
+      }
+      .blog-search-wrap {
+        position: relative;
+        max-width: 420px;
+        margin: 0 auto 40px;
+      }
+      .blog-search-input {
+        width: 100%;
+        padding: 14px 20px 14px 46px;
+        border-radius: 99px;
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        color: white;
+        font-family: var(--font-family, "Plus Jakarta Sans", sans-serif);
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.2s;
+      }
+      .blog-search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .blog-search-input:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .blog-search-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 1.1rem;
+        pointer-events: none;
+      }
+      .blog-pills {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .blog-pill {
+        padding: 7px 16px;
+        border-radius: 99px;
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.75);
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .blog-pill:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .blog-pill.active {
+        background: white;
+        color: #6366f1;
+        border-color: white;
+      }
+
+      /* ---- MAIN CONTENT ---- */
+      .blog-main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 50px 24px 80px;
+      }
+
+      /* ---- FEATURED CARD ---- */
+      .blog-featured {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-radius: 24px;
+        overflow: hidden;
+        background: white;
+        box-shadow: var(--shadow-card);
+        margin-bottom: 60px;
+        cursor: pointer;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+        text-decoration: none;
+        color: inherit;
+      }
+      .blog-featured:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+      }
+      .blog-featured-img {
+        position: relative;
+        min-height: 360px;
+        overflow: hidden;
+      }
+      .blog-featured-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+      .blog-featured:hover .blog-featured-img img {
+        transform: scale(1.04);
+      }
+      .blog-featured-badge {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        background: var(--brand-grad);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 4px 12px;
+        border-radius: 99px;
+      }
+      .blog-featured-body {
+        padding: 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .blog-featured-cat {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--brand-indigo);
+        margin-bottom: 12px;
+      }
+      .blog-featured-title {
+        font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.25;
+        margin: 0 0 14px;
+        letter-spacing: -0.02em;
+      }
+      .blog-featured-excerpt {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.75;
+        margin-bottom: 24px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .blog-featured-meta {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+      .blog-read-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--brand-grad);
+        color: white;
+        padding: 11px 22px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-decoration: none;
+        width: fit-content;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+      }
+      .blog-read-btn:hover {
+        opacity: 0.9;
+        transform: translateX(2px);
+      }
+
+      /* ---- GRID ---- */
+      .blog-grid-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+      }
+      .blog-grid-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+      }
+      .blog-post-count {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        font-weight: 700;
+        background: white;
+        padding: 4px 12px;
+        border-radius: 99px;
+        box-shadow: var(--shadow-card);
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+      }
+      .blog-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        cursor: pointer;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+      .blog-card-img-wrap {
+        overflow: hidden;
+        height: 190px;
+      }
+      .blog-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+      .blog-card:hover .blog-card-img {
+        transform: scale(1.04);
+      }
+      .blog-card-body {
+        padding: 22px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card-cat {
+        font-size: 0.66rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--brand-indigo);
+        margin-bottom: 8px;
+      }
+      .blog-card-title {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.35;
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .blog-card-excerpt {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        flex: 1;
+        margin-bottom: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .blog-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+        border-top: 1px solid #f0eeff;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .blog-card-arrow {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #f3f0ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        color: var(--brand-indigo);
+      }
+      .blog-card:hover .blog-card-arrow {
+        background: var(--brand-indigo);
+        color: white;
+        transform: translateX(2px);
+      }
+
+      /* ---- SKELETON ---- */
+      @keyframes shimmer {
+        0% {
+          background-position: -600px 0;
+        }
+        100% {
+          background-position: 600px 0;
+        }
+      }
+      .skel {
+        background: linear-gradient(
+          90deg,
+          #ede9fb 25%,
+          #e0dbf5 50%,
+          #ede9fb 75%
+        );
+        background-size: 600px 100%;
+        animation: shimmer 1.4s infinite;
+        border-radius: 8px;
+      }
+      .skel-img {
+        height: 190px;
+        border-radius: 0;
+      }
+      .skel-line {
+        height: 13px;
+        margin-bottom: 9px;
+      }
+      .w20 {
+        width: 20%;
+      }
+      .w40 {
+        width: 40%;
+      }
+      .w60 {
+        width: 60%;
+      }
+      .w80 {
+        width: 80%;
+      }
+      .w90 {
+        width: 90%;
+      }
+
+      /* ---- EMPTY ---- */
+      .blog-empty {
+        text-align: center;
+        padding: 80px 20px;
+      }
+      .blog-empty-icon {
+        font-size: 3rem;
+        margin-bottom: 14px;
+      }
+      .blog-empty h3 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 8px;
+      }
+      .blog-empty p {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      /* ---- FOOTER ---- */
+      .blog-footer {
+        background: #0f172a;
+        padding: 52px 24px 24px;
+        margin-top: 40px;
+      }
+      .blog-footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 32px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .blog-footer-brand p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.82rem;
+        margin-top: 8px;
+        max-width: 220px;
+        line-height: 1.6;
+      }
+      .blog-footer-name {
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: white;
+        letter-spacing: -0.02em;
+      }
+      .blog-footer-name span {
+        color: #a855f7;
+      }
+      .blog-footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .blog-footer-links a {
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .blog-footer-links a:hover {
+        color: white;
+      }
+      .blog-footer-bottom {
+        max-width: 1100px;
+        margin: 18px auto 0;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.75rem;
+      }
+
+      @media (max-width: 768px) {
+        .blog-featured {
+          grid-template-columns: 1fr;
+        }
+        .blog-featured-img {
+          min-height: 220px;
+        }
+        .blog-featured-body {
+          padding: 28px;
+        }
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- YOUR EXACT NAV FROM index.html -->
+    <nav>
+      <div class="nav-container">
+        <div class="nav-logo" onclick="window.location.href = '/'">
+          <div
+            style="
+              background-image: url(&quot;logo.jpeg&quot;);
+              background-size: auto 290%;
+              background-position: center -46px;
+              background-repeat: no-repeat;
+              width: 175px;
+              height: 52px;
+              flex-shrink: 0;
+            "
+          ></div>
         </div>
+        <div class="nav-links">
+          <span class="nav-item" onclick="window.location.href = '/'"
+            >Home</span
+          >
+          <span class="nav-item" onclick="window.location.href = '/#tests'"
+            >Assessments</span
+          >
+          <span class="nav-item active">Insights</span>
+          <span class="nav-cta" onclick="window.location.href = '/#coaching'"
+            >Coaching</span
+          >
+        </div>
+        <div
+          class="nav-hamburger"
+          onclick="
+            document
+              .getElementById('blog-mobile-drawer')
+              .classList.toggle('open')
+          "
+        >
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="nav-mobile-drawer" id="blog-mobile-drawer">
+        <span class="nav-item" onclick="window.location.href = '/'">Home</span>
+        <span class="nav-item" onclick="window.location.href = '/#tests'"
+          >Assessments</span
+        >
+        <span class="nav-item active">Insights</span>
+        <span class="nav-cta" onclick="window.location.href = '/#coaching'"
+          >Coaching</span
+        >
+      </div>
     </nav>
 
-    <!-- HUB HERO COMPONENT -->
-    <header class="hub-hero">
-        <div class="hub-hero-inner">
-            <div class="context-badge">Self-Discovery Hub</div>
-            <h1 class="hub-title">Understand <br><span class="italic-gradient">Who You Are</span></h1>
-            <p class="hub-subtitle">Psychological insights, assessment breakdowns, and growth frameworks — written for people who take their development seriously.</p>
-            
-            <!-- SEARCH CONTEXT ENGINE -->
-            <div class="search-bar-wrapper">
-                <span class="search-indicator">🔍</span>
-                <input type="text" id="engine-search" placeholder="Search articles by title, tags, or content..." autocomplete="off">
-            </div>
-        </div>
-
-        <!-- CATEGORY PILL FILTER NAVIGATION -->
-        <div class="filter-navigation-wrapper">
-            <div class="pill-container" id="category-pill-box">
-                <button class="filter-pill active" data-category="all">All Perspectives</button>
-                <button class="filter-pill" data-category="Personality Patterns">🧠 Personality</button>
-                <button class="filter-pill" data-category="Mindset & Motivation">🔥 Mindset</button>
-                <button class="filter-pill" data-category="Leadership">🧭 Leadership</button>
-                <button class="filter-pill" data-category="Understanding Your Scores">📊 Score Guides</button>
-                <button class="filter-pill" data-category="Personal Growth">🌱 Growth</button>
-                <button class="filter-pill" data-category="Workplace">💼 Workplace</button>
-            </div>
-        </div>
+    <!-- HERO -->
+    <header class="blog-hero">
+      <div class="blog-hero-tag">Self-Discovery Hub</div>
+      <h1 class="blog-hero-title">Understand Who You Are</h1>
+      <p class="blog-hero-sub">
+        Psychological insights, assessment breakdowns, and growth frameworks —
+        written for people who take their development seriously.
+      </p>
+      <div class="blog-search-wrap">
+        <span class="blog-search-icon">⌕</span>
+        <input
+          type="text"
+          id="blog-search"
+          class="blog-search-input"
+          placeholder="Search articles..."
+          oninput="searchPosts(this.value)"
+        />
+      </div>
+      <div class="blog-pills">
+        <button
+          class="blog-pill active"
+          onclick="filterByCategory('all', this)"
+        >
+          All
+        </button>
+        <button
+          class="blog-pill"
+          onclick="filterByCategory('Personality Patterns', this)"
+        >
+          Personality
+        </button>
+        <button
+          class="blog-pill"
+          onclick="filterByCategory('Mindset & Motivation', this)"
+        >
+          Mindset
+        </button>
+        <button
+          class="blog-pill"
+          onclick="filterByCategory('Leadership', this)"
+        >
+          Leadership
+        </button>
+        <button
+          class="blog-pill"
+          onclick="filterByCategory('Understanding Your Scores', this)"
+        >
+          Score Guides
+        </button>
+        <button
+          class="blog-pill"
+          onclick="filterByCategory('Personal Growth', this)"
+        >
+          Growth
+        </button>
+        <button class="blog-pill" onclick="filterByCategory('Workplace', this)">
+          Workplace
+        </button>
+      </div>
     </header>
 
-    <!-- MAIN ARTICLES ARCHITECTURE CONTAINER -->
-    <main class="hub-viewport">
-        
-        <!-- FEATURED POST LAYOUT BLOCK -->
-        <section class="featured-showcase-container" id="featured-placement-target">
-            <!-- Render Target: Featured Post Template / Shimmer Skeleton Wrapper -->
-            <div class="shimmer-featured-wrapper">
-                <div class="shimmer-graphic"></div>
-                <div class="shimmer-content-block">
-                    <div class="shimmer-stripe stripe-sm"></div>
-                    <div class="shimmer-stripe stripe-lg"></div>
-                    <div class="shimmer-stripe stripe-md"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STREAM SEPARATOR VIEWPORT HEADER -->
-        <div class="stream-header-bar">
-            <h2 class="stream-heading" id="stream-title-text">Latest Insights</h2>
-            <div class="stream-counter-badge" id="stream-total-count">0 Articles</div>
+    <!-- MAIN -->
+    <main class="blog-main">
+      <!-- FEATURED -->
+      <section id="featured-section">
+        <!-- Skeleton -->
+        <div
+          class="blog-featured"
+          style="cursor: default; pointer-events: none"
+        >
+          <div
+            style="background: #ede9fb; min-height: 360px"
+            class="skel skel-img"
+            style="border-radius: 0; height: auto"
+          ></div>
+          <div
+            style="
+              padding: 44px;
+              background: white;
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              justify-content: center;
+            "
+          >
+            <div class="skel skel-line w20"></div>
+            <div class="skel skel-line w80"></div>
+            <div class="skel skel-line w60"></div>
+            <div class="skel skel-line w40"></div>
+          </div>
         </div>
+      </section>
 
-        <!-- RECONSTRUCTED CLEAN GRID COMPONENT -->
-        <section class="grid-viewport">
-            <div class="articles-layout-grid" id="main-articles-grid-target">
-                <!-- Fallback Render Initial State: Shimmer Card Iteration Group -->
-                <div class="shimmer-card">
-                    <div class="shimmer-graphic"></div>
-                    <div class="shimmer-content-block">
-                        <div class="shimmer-stripe stripe-sm"></div>
-                        <div class="shimmer-stripe stripe-lg"></div>
-                    </div>
-                </div>
-                <div class="shimmer-card">
-                    <div class="shimmer-graphic"></div>
-                    <div class="shimmer-content-block">
-                        <div class="shimmer-stripe stripe-sm"></div>
-                        <div class="shimmer-stripe stripe-lg"></div>
-                    </div>
-                </div>
-                <div class="shimmer-card">
-                    <div class="shimmer-graphic"></div>
-                    <div class="shimmer-content-block">
-                        <div class="shimmer-stripe stripe-sm"></div>
-                        <div class="shimmer-stripe stripe-lg"></div>
-                    </div>
-                </div>
-            </ajax>
-        </section>
-
-        <!-- STANDARDIZED CENTRALIZED EMPTY STATE ENGINE -->
-        <div class="viewport-empty-state" id="hub-empty-state-card" style="display: none;">
-            <div class="empty-graphic">📭</div>
-            <h3>No matching insights found</h3>
-            <p>We couldn't find any articles matching your current search terms or active filters.</p>
-            <button class="reset-hub-btn" id="empty-state-reset-trigger">Clear Search & Filter Settings</button>
+      <!-- GRID -->
+      <div class="blog-grid-header" id="grid-header">
+        <h2 class="blog-grid-title" id="grid-title">Latest Insights</h2>
+        <span class="blog-post-count" id="post-count"></span>
+      </div>
+      <div class="blog-grid" id="blog-grid">
+        <div class="blog-card" style="pointer-events: none">
+          <div class="skel skel-img"></div>
+          <div style="padding: 22px">
+            <div class="skel skel-line w20"></div>
+            <div class="skel skel-line w90"></div>
+            <div class="skel skel-line w60"></div>
+          </div>
         </div>
+        <div class="blog-card" style="pointer-events: none">
+          <div class="skel skel-img"></div>
+          <div style="padding: 22px">
+            <div class="skel skel-line w20"></div>
+            <div class="skel skel-line w80"></div>
+            <div class="skel skel-line w70"></div>
+          </div>
+        </div>
+        <div class="blog-card" style="pointer-events: none">
+          <div class="skel skel-img"></div>
+          <div style="padding: 22px">
+            <div class="skel skel-line w20"></div>
+            <div class="skel skel-line w90"></div>
+            <div class="skel skel-line w50"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPTY -->
+      <div id="empty-state" style="display: none" class="blog-empty">
+        <div class="blog-empty-icon">🔍</div>
+        <h3>No articles found</h3>
+        <p>Try a different search or category</p>
+        <button
+          class="btn-primary"
+          onclick="
+            filterByCategory('all', document.querySelector('.blog-pill'))
+          "
+        >
+          Show all articles
+        </button>
+      </div>
     </main>
 
-    <!-- BRAND COMPLIANT CLEAN SYSTEM FOOTER -->
-    <footer class="global-footer">
-        <div class="footer-inner-wrapper">
-            <div class="footer-identity-block">
-                <span class="logo-text">People<span class="gradient-accent">Assets</span></span>
-                <p>Science-backed psychometric profiling and adaptive executive coaching architecture built for sustainable organizational growth.</p>
-            </div>
-            <div class="footer-navigation-links">
-                <a href="/">Take an Assessment</a>
-                <a href="blog.html">All Insights</a>
-                <a href="/#coaching">Work with a Coach</a>
-            </div>
+    <!-- FOOTER -->
+    <footer class="blog-footer">
+      <div class="blog-footer-inner">
+        <div class="blog-footer-brand">
+          <div class="blog-footer-name">People<span>Assets</span></div>
+          <p>Science-backed assessments for professional growth.</p>
         </div>
-        <div class="footer-sub-bar">
-            <p>&copy; 2026 People Assets. All rights reserved.</p>
+        <div class="blog-footer-links">
+          <a href="/">Take an Assessment</a>
+          <a href="/blog.html">All Insights</a>
+          <a href="/#coaching">Work with a Coach</a>
         </div>
+      </div>
+      <div class="blog-footer-bottom">
+        <p>© 2026 People Assets. All rights reserved.</p>
+      </div>
     </footer>
 
-    <!-- Supabase Core Driver Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
     <script src="blog.js"></script>
-</body>
+  </body>
 </html>
