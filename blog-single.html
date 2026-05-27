@@ -3,130 +3,413 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Insight | People Assets</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="blog.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Article | People Assets</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XRBZK7F8HK"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background-color: var(--bg-lavender);
       }
-      gtag("js", new Date());
-      gtag("config", "G-XRBZK7F8HK");
-    </script>
+
+      /* NAV */
+      .blog-nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* LOADING */
+      #loading-state {
+        text-align: center;
+        padding: 120px 24px;
+      }
+      .loading-spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid #6366f1;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 16px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ARTICLE LAYOUT */
+      .article-outer {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 60px 24px 100px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--brand-indigo);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-bottom: 40px;
+        transition: transform 0.2s;
+      }
+      .back-link:hover {
+        transform: translateX(-3px);
+      }
+
+      .article-cat {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--brand-indigo);
+        margin-bottom: 14px;
+      }
+      .article-title {
+        font-size: clamp(1.8rem, 5vw, 2.8rem);
+        font-weight: 900;
+        color: #0f172a;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        margin: 0 0 20px;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+        flex-wrap: wrap;
+      }
+      .article-meta-dot {
+        color: #cbd5e1;
+      }
+
+      .article-cover {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+        margin-bottom: 48px;
+        box-shadow: 0 12px 40px rgba(99, 102, 241, 0.12);
+      }
+
+      /* ARTICLE BODY TYPOGRAPHY */
+      .article-body {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: #334155;
+      }
+      .article-body p {
+        margin-bottom: 24px;
+      }
+      .article-body h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 44px 0 14px;
+        letter-spacing: -0.02em;
+      }
+      .article-body h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 32px 0 10px;
+      }
+      .article-body ul,
+      .article-body ol {
+        margin: 0 0 24px 20px;
+      }
+      .article-body li {
+        margin-bottom: 8px;
+      }
+      .article-body strong {
+        color: #1e293b;
+        font-weight: 700;
+      }
+      .article-body blockquote {
+        border-left: 3px solid var(--brand-indigo);
+        padding: 16px 24px;
+        background: rgba(99, 102, 241, 0.05);
+        border-radius: 0 12px 12px 0;
+        margin: 28px 0;
+        font-style: italic;
+        color: #475569;
+      }
+
+      /* CTA AT BOTTOM */
+      .article-cta {
+        background: var(--brand-grad);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        margin-top: 60px;
+        color: white;
+      }
+      .article-cta h3 {
+        font-size: 1.4rem;
+        font-weight: 900;
+        margin: 0 0 8px;
+      }
+      .article-cta p {
+        opacity: 0.85;
+        margin: 0 0 24px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      .article-cta a {
+        background: white;
+        color: var(--brand-indigo);
+        padding: 13px 28px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .article-cta a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ERROR STATE */
+      .article-error {
+        text-align: center;
+        padding: 80px 24px;
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
+      }
+      .article-error-icon {
+        font-size: 3rem;
+        margin-bottom: 16px;
+      }
+      .article-error h2 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 8px;
+      }
+      .article-error p {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 640px) {
+        .article-cover {
+          height: 220px;
+        }
+        .article-outer {
+          padding: 40px 20px 80px;
+        }
+      }
+    </style>
   </head>
-  <body class="blog-body">
-    <nav class="global-nav">
+  <body>
+    <!-- NAV — matches your site exactly -->
+    <nav class="blog-nav">
       <div class="nav-container">
-        <a href="/" class="brand-logo">
-          <span class="logo-text"
-            >People<span class="gradient-accent">Assets</span></span
-          >
-        </a>
-        <div class="nav-menu">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/#tests" class="nav-link">Assessments</a>
-          <a href="blog.html" class="nav-link active">Insights</a>
-          <a href="/#coaching" class="nav-btn">Take a Test →</a>
+        <div
+          class="nav-logo"
+          onclick="window.location.href = '/'"
+          style="cursor: pointer"
+        >
+          <div
+            style="
+              background-image: url(&quot;logo.jpeg&quot;);
+              background-size: auto 290%;
+              background-position: center -46px;
+              background-repeat: no-repeat;
+              width: 175px;
+              height: 52px;
+              flex-shrink: 0;
+            "
+          ></div>
         </div>
+        <div class="nav-links">
+          <span class="nav-item" onclick="window.location.href = '/'"
+            >Home</span
+          >
+          <span class="nav-item" onclick="window.location.href = '/#tests'"
+            >Assessments</span
+          >
+          <span
+            class="nav-item active"
+            onclick="window.location.href = '/blog.html'"
+            >Insights</span
+          >
+          <span class="nav-cta" onclick="window.location.href = '/#coaching'"
+            >Coaching</span
+          >
+        </div>
+        <div
+          class="nav-hamburger"
+          onclick="
+            document.getElementById('single-drawer').classList.toggle('open')
+          "
+        >
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="nav-mobile-drawer" id="single-drawer">
+        <span class="nav-item" onclick="window.location.href = '/'">Home</span>
+        <span class="nav-item" onclick="window.location.href = '/#tests'"
+          >Assessments</span
+        >
+        <span
+          class="nav-item active"
+          onclick="window.location.href = '/blog.html'"
+          >Insights</span
+        >
+        <span class="nav-cta" onclick="window.location.href = '/#coaching'"
+          >Coaching</span
+        >
       </div>
     </nav>
 
-    <main class="article-viewport">
-      <div id="article-loading-container" class="reader-skeleton-wrapper">
-        <div class="skeleton-back-btn"></div>
-        <div class="skeleton-meta-stripe"></div>
-        <div class="skeleton-title-block"></div>
-        <div class="skeleton-hero-canvas"></div>
-        <div class="skeleton-body-block">
-          <div class="shimmer-stripe stripe-lg"></div>
-          <div class="shimmer-stripe stripe-md"></div>
-          <div class="shimmer-stripe stripe-lg"></div>
-          <div class="shimmer-stripe stripe-sm"></div>
-        </div>
+    <!-- LOADING -->
+    <div id="loading-state">
+      <div class="loading-spinner"></div>
+      <p style="color: var(--text-muted); font-weight: 600">Loading article…</p>
+    </div>
+
+    <!-- ARTICLE (hidden until loaded) -->
+    <div class="article-outer" id="article-content" style="display: none">
+      <a href="/blog.html" class="back-link">← Back to Insights</a>
+
+      <div class="article-cat" id="art-category"></div>
+      <h1 class="article-title" id="art-title"></h1>
+      <div class="article-meta">
+        <span>📅 <span id="art-date"></span></span>
+        <span class="article-meta-dot">·</span>
+        <span>⏱ <span id="art-read-time"></span></span>
       </div>
 
-      <article
-        id="article-production-content"
-        class="reader-container"
-        style="display: none"
-      >
-        <a href="blog.html" class="reader-back-link">
-          <span class="arrow-glyph">←</span> Back to all insights
-        </a>
+      <img class="article-cover" id="art-cover" src="" alt="" />
 
-        <header class="reader-header">
-          <div class="reader-meta-row">
-            <span id="render-category" class="meta-category-tag"
-              >Perspective</span
-            >
-            <span class="meta-divider">•</span>
-            <span id="render-read-time" class="reader-time-badge"
-              >5 min read</span
-            >
-          </div>
-          <h1 id="render-title" class="reader-headline">
-            Loading insight article...
-          </h1>
-          <div id="render-date" class="reader-timestamp-label">
-            Published Date
-          </div>
-        </header>
+      <div class="article-body" id="art-body"></div>
 
-        <div class="reader-banner-frame">
-          <img id="render-image" src="" alt="Insight Feature Illustration" />
-        </div>
-
-        <div id="render-body" class="reader-rich-content-flow"></div>
-
-        <div class="reader-end-cta">
-          <div class="cta-mini-badge">Take Action</div>
-          <h3>Apply this insight directly to your professional profile</h3>
-          <p>
-            Discover your execution patterns, mental frameworks, and behavioral
-            blindspots with our validated diagnostics.
-          </p>
-          <a href="/#tests" class="cta-embedded-btn"
-            >Begin Assessment Routine</a
-          >
-        </div>
-      </article>
-    </main>
-
-    <footer class="global-footer">
-      <div class="footer-inner-wrapper">
-        <div class="footer-identity-block">
-          <span class="logo-text"
-            >People<span class="gradient-accent">Assets</span></span
-          >
-          <p>
-            Science-backed psychometric profiling and adaptive executive
-            coaching architecture built for sustainable organizational growth.
-          </p>
-        </div>
-        <div class="footer-navigation-links">
-          <a href="/">Take an Assessment</a>
-          <a href="blog.html">All Insights</a>
-          <a href="/#coaching">Work with a Coach</a>
-        </div>
+      <div class="article-cta">
+        <h3>Curious about your own profile?</h3>
+        <p>
+          Take one of our science-backed assessments and discover your
+          strengths, blind spots, and growth areas.
+        </p>
+        <a href="/">Start Your Assessment →</a>
       </div>
-      <div class="footer-sub-bar">
-        <p>&copy; 2026 People Assets. All rights reserved.</p>
+    </div>
+
+    <!-- ERROR (hidden until needed) -->
+    <div class="article-outer" id="error-state" style="display: none">
+      <a href="/blog.html" class="back-link">← Back to Insights</a>
+      <div class="article-error">
+        <div class="article-error-icon">😕</div>
+        <h2>Article not found</h2>
+        <p>This article may have been moved or removed.</p>
+        <a href="/blog.html" class="btn-primary" style="text-decoration: none"
+          >Browse all articles →</a
+        >
       </div>
-    </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
-    <script src="blog-single.js"></script>
+    <script>
+      const categoryImages = {
+        "Personality Patterns":
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+        "Mindset & Motivation":
+          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80",
+        Leadership:
+          "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80",
+        "Understanding Your Scores":
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+        "Personal Growth":
+          "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200&q=80",
+        Workplace:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
+        default:
+          "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+      };
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+          showError();
+          return;
+        }
+
+        try {
+          const { data: post, error } = await _supabase
+            .from("blogs")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+          if (error || !post) {
+            showError();
+            return;
+          }
+
+          // Set page title
+          document.title = post.title + " | People Assets";
+
+          // Populate fields
+          document.getElementById("art-category").textContent =
+            post.category || "";
+          document.getElementById("art-title").textContent = post.title || "";
+          document.getElementById("art-read-time").textContent =
+            post.read_time || "";
+          document.getElementById("art-date").textContent = new Date(
+            post.created_at,
+          ).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+
+          // Cover image
+          const cover = document.getElementById("art-cover");
+          const img = post.image_url
+            ? post.image_url.replace(/\[|\]/g, "")
+            : categoryImages[post.category] || categoryImages["default"];
+          cover.src = img;
+          cover.alt = post.title;
+
+          // Article body — rendered as HTML
+          document.getElementById("art-body").innerHTML = post.content || "";
+
+          // Show article, hide loader
+          document.getElementById("loading-state").style.display = "none";
+          document.getElementById("article-content").style.display = "block";
+        } catch (err) {
+          console.error("Article load error:", err);
+          showError();
+        }
+      });
+
+      function showError() {
+        document.getElementById("loading-state").style.display = "none";
+        document.getElementById("error-state").style.display = "block";
+      }
+    </script>
   </body>
 </html>
