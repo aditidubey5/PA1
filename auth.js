@@ -72,7 +72,7 @@ function goToProfile() {
   if (typeof showPage === "function") {
     showPage("profile");
   } else {
-    window.location.href = "/#profile";
+    window.location.href = "/?page=profile";
   }
 }
 
