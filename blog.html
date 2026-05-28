@@ -525,11 +525,24 @@
           <span class="nav-item" onclick="window.location.href = '/'"
             >Home</span
           >
-          <span class="nav-item" onclick="window.location.href = '/#tests'"
+          <span
+            class="nav-item"
+            onclick="window.location.href = '/index.html#tests'"
             >Assessments</span
           >
           <span class="nav-item active">Insights</span>
-          <span class="nav-cta" onclick="window.location.href = '/#coaching'"
+          <div class="auth-container" id="auth-container">
+            <button class="login-google-btn" onclick="signInWithGoogle()">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+                alt="Google"
+              />
+              Sign in
+            </button>
+          </div>
+          <span
+            class="nav-cta"
+            onclick="window.location.href = '/index.html#coaching'"
             >Coaching</span
           >
         </div>
@@ -552,7 +565,7 @@
           >Assessments</span
         >
         <span class="nav-item active">Insights</span>
-        <div class="auth-container" id="auth-container">
+        <div id="mobile-auth-container" style="margin-top: 12px">
           <button class="login-google-btn" onclick="signInWithGoogle()">
             <img
               src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
