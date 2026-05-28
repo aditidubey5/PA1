@@ -36,6 +36,15 @@ function showPage(page, testId = null, shouldPush = true) {
 }
 
 function initRouter() {
+  // Handle ?page= query param (from blog.html links)
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageParam = urlParams.get("page");
+  if (pageParam) {
+    window.history.replaceState(null, null, window.location.pathname);
+    showPage(pageParam, null, false);
+    return;
+  }
+
   const path = window.location.pathname.replace(/\/$/, "").split("/").pop();
   const isTest = TESTS.find((t) => t.id === path);
 

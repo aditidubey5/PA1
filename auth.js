@@ -38,15 +38,13 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
       user.user_metadata?.avatar_url || "https://ui-avatars.com/api/?name=User";
     const userName = user.user_metadata?.full_name || "User";
 
-    // Inject profile dropdown with ACTUAL user info
-    // Inject profile dropdown with ACTUAL user info and the Profile link
     authContainers.forEach((container) => {
       container.innerHTML = `
         <div class="user-profile-menu" onclick="toggleSignOut(event)" style="position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center;">
             <img src="${userImage}" alt="${userName}" style="width:36px; height:36px; border-radius:50%; border:2px solid #6366f1; display:block; object-fit:cover;">
             <div class="signout-dropdown" style="display:none; position:absolute; top:48px; right:0; background:white; box-shadow:0 8px 32px rgba(0,0,0,0.12); border-radius:14px; padding:14px; min-width:180px; z-index:10000; border:1px solid #f0eeff;">
                 <p style="font-size:0.75rem; font-weight:800; color:#1e293b; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid #eee;">${userName}</p>
-                <button onclick="showPage('profile')" style="color:#6366f1; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:5px 0; display:block;">👤 My Profile</button>
+                <button onclick="goToProfile()" style="color:#6366f1; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:5px 0; display:block;">👤 My Profile</button>
                 <button onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; width:100%; text-align:left; font-size:0.82rem; padding:5px 0; display:block; margin-top:4px;">Sign Out</button>
             </div>
         </div>
@@ -68,6 +66,15 @@ _supabase.auth.onAuthStateChange(async (event, session) => {
 });
 
 // Update the toggle function to handle multiple dropdowns cleanly
+
+// Works on both index.html (SPA) and blog.html (separate page)
+function goToProfile() {
+  if (typeof showPage === "function") {
+    showPage("profile");
+  } else {
+    window.location.href = "/#profile";
+  }
+}
 
 async function signInWithGoogle() {
   console.log("📍 1. Google Sign-In button was clicked!");
