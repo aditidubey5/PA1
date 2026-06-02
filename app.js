@@ -177,6 +177,70 @@ function submitCoachingForm(e) {
     });
 }
 
+function downloadSectionAsPDF(elementId, filename) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const opt = {
+    margin: 15,
+    filename: filename + ".pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+
+async function shareSectionAsImage(elementId, filename) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const originalCursor = document.body.style.cursor;
+  document.body.style.cursor = "wait";
+
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    });
+
+    canvas.toBlob(
+      async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], `${filename}.png`, { type: "image/png" });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "People Assets Result",
+            text: "Check out my behavioral insights profile!",
+            files: [file],
+          });
+        } else {
+          alert(
+            "Native app sharing isn't supported on this device. Downloading the image so you can post it!",
+          );
+          const link = document.createElement("a");
+          link.download = `${filename}.png`;
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        }
+      },
+      "image/png",
+      1.0,
+    );
+  } catch (error) {
+    console.error("Error generating shareable image:", error);
+  } finally {
+    document.body.style.cursor = originalCursor;
+  }
+}
+
+// Ensure the buttons in your HTML can "see" these functions
+window.downloadSectionAsPDF = downloadSectionAsPDF;
+window.shareSectionAsImage = shareSectionAsImage;
+
 // 5. Initialize
 window.onpopstate = initRouter;
 window.addEventListener("DOMContentLoaded", initRouter);

@@ -97,8 +97,8 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
     <!-- CONTENT AREA -->
     <div class="container" style="max-width:960px;margin-top:-44px;position:relative;z-index:2;padding-bottom:80px;">
 
-        <!-- AI SUMMARY CARD -->
-        <div style="background:white;border-radius:24px;box-shadow:0 20px 60px rgba(99,102,241,0.13);padding:36px;margin-bottom:32px;border:1px solid #ede9ff;">
+        <!-- AI SUMMARY CARD EXPORT WRAPPER -->
+        <div id="ai-summary-export-target" style="background:white;border-radius:24px;box-shadow:0 20px 60px rgba(99,102,241,0.13);padding:36px;margin-bottom:16px;border:1px solid #ede9ff;">
             <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;">
                 <div style="width:44px;height:44px;background:linear-gradient(135deg,#6366f1,#d946ef);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">✨</div>
                 <div style="flex:1;">
@@ -115,6 +115,7 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
                     : ""
                 }
             </div>
+            
             <div id="summary-content">
                 ${
                   results.length === 0
@@ -125,6 +126,16 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
                        </div>`
                 }
             </div>
+        </div>
+
+        <!-- AI SUMMARY BUTTONS (Placed outside the capture target) -->
+        <div id="ai-summary-actions" style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="shareSectionAsImage('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                📤 Share to Socials
+            </button>
+            <button class="btn-secondary" onclick="downloadSectionAsPDF('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; margin-bottom: 0;">
+                ⬇️ Download PDF
+            </button>
         </div>
 
         <!-- TEST HISTORY -->
@@ -168,7 +179,11 @@ function buildTestResultCard(r, index) {
           ? "#ef4444"
           : "#6366f1";
   const breakdown = Array.isArray(r.breakdown) ? r.breakdown : [];
+
+  // Set up unique IDs for sharing targets
+  const cardId = `test-card-${index}`;
   const detailId = `result-detail-${index}`;
+  const safeFileName = (r.test_title || "Assessment").replace(/\s+/g, "_");
 
   const icon = r.test_title?.includes("Mindset")
     ? "🌱"
@@ -187,59 +202,76 @@ function buildTestResultCard(r, index) {
                 : "📋";
 
   return `
-    <div style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-bottom:16px;border:1px solid #f0eeff;overflow:hidden;transition:box-shadow 0.2s;"
-         onmouseenter="this.style.boxShadow='0 8px 32px rgba(99,102,241,0.15)'"
-         onmouseleave="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.06)'">
+    <div style="margin-bottom: 24px;">
+        <!-- EXPORT WRAPPER (This is what gets turned into a PDF/Image) -->
+        <div id="${cardId}" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);border:1px solid #f0eeff;overflow:hidden;transition:box-shadow 0.2s;"
+             onmouseenter="this.style.boxShadow='0 8px 32px rgba(99,102,241,0.15)'"
+             onmouseleave="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.06)'">
 
-        <!-- CARD HEADER -->
-        <div style="padding:22px 28px;display:flex;align-items:center;gap:16px;cursor:pointer;"
-             onclick="toggleResultDetail('${detailId}','chevron-${index}')">
-            <div style="font-size:1.8rem;flex-shrink:0;">${icon}</div>
-            <div style="flex:1;min-width:0;">
-                <div style="font-weight:800;font-size:1rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.test_title}</div>
-                <div style="display:flex;gap:10px;align-items:center;margin-top:4px;flex-wrap:wrap;">
-                    <span style="font-size:0.74rem;color:#94a3b8;">📅 ${date}</span>
-                    ${r.result_label ? `<span style="font-size:0.72rem;background:#f3f0ff;color:#6366f1;padding:2px 10px;border-radius:20px;font-weight:700;">${r.result_label}</span>` : ""}
+            <!-- CARD HEADER -->
+            <div style="padding:22px 28px;display:flex;align-items:center;gap:16px;cursor:pointer;"
+                 onclick="toggleResultDetail('${detailId}','chevron-${index}')">
+                <div style="font-size:1.8rem;flex-shrink:0;">${icon}</div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-weight:800;font-size:1rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.test_title}</div>
+                    <div style="display:flex;gap:10px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+                        <span style="font-size:0.74rem;color:#94a3b8;">📅 ${date}</span>
+                        ${r.result_label ? `<span style="font-size:0.72rem;background:#f3f0ff;color:#6366f1;padding:2px 10px;border-radius:20px;font-weight:700;">${r.result_label}</span>` : ""}
+                    </div>
                 </div>
+                ${
+                  score !== null
+                    ? `
+                <div style="width:54px;height:54px;border-radius:50%;border:3px solid ${scoreColor};display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0;">
+                    <span style="font-size:0.95rem;font-weight:900;color:${scoreColor};line-height:1;">${score}</span>
+                    <span style="font-size:0.52rem;color:${scoreColor};font-weight:700;">%</span>
+                </div>`
+                    : ""
+                }
+                ${breakdown.length > 0 ? `<div id="chevron-${index}" style="color:#94a3b8;font-size:1rem;transition:transform 0.25s;flex-shrink:0;">▾</div>` : ""}
             </div>
+
+            <!-- EXPANDABLE BREAKDOWN -->
             ${
-              score !== null
+              breakdown.length > 0
                 ? `
-            <div style="width:54px;height:54px;border-radius:50%;border:3px solid ${scoreColor};display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0;">
-                <span style="font-size:0.95rem;font-weight:900;color:${scoreColor};line-height:1;">${score}</span>
-                <span style="font-size:0.52rem;color:${scoreColor};font-weight:700;">%</span>
+            <div id="${detailId}" style="display:none;border-top:1px solid #f0eeff;padding:20px 28px 24px;background:#fafaff;">
+                <p style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin:0 0 16px;">Section Breakdown</p>
+                ${breakdown
+                  .map((sec) => {
+                    const s = sec.score ?? 0;
+                    const c =
+                      s >= 70 ? "#10b981" : s >= 40 ? "#f59e0b" : "#ef4444";
+                    return `
+                    <div style="margin-bottom:18px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                            <span style="font-size:0.87rem;font-weight:700;color:#334155;">${sec.name}</span>
+                            <span style="font-size:0.87rem;font-weight:800;color:${c};">${s}%</span>
+                        </div>
+                        <div style="height:8px;background:#ede9ff;border-radius:99px;overflow:hidden;margin-bottom:7px;">
+                            <div style="height:100%;width:${s}%;background:${c};border-radius:99px;transition:width 0.5s ease;"></div>
+                        </div>
+                        ${sec.description ? `<p style="margin:0;font-size:0.8rem;color:#64748b;line-height:1.65;">${sec.description}</p>` : ""}
+                    </div>`;
+                  })
+                  .join("")}
             </div>`
                 : ""
             }
-            ${breakdown.length > 0 ? `<div id="chevron-${index}" style="color:#94a3b8;font-size:1rem;transition:transform 0.25s;flex-shrink:0;">▾</div>` : ""}
+            
+            <!-- BRANDING (Visible when exported) -->
+            <div style="padding: 0 28px 16px; font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">PEOPLE ASSETS</div>
         </div>
 
-        <!-- EXPANDABLE BREAKDOWN -->
-        ${
-          breakdown.length > 0
-            ? `
-        <div id="${detailId}" style="display:none;border-top:1px solid #f0eeff;padding:20px 28px 24px;background:#fafaff;">
-            <p style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin:0 0 16px;">Section Breakdown</p>
-            ${breakdown
-              .map((sec) => {
-                const s = sec.score ?? 0;
-                const c = s >= 70 ? "#10b981" : s >= 40 ? "#f59e0b" : "#ef4444";
-                return `
-                <div style="margin-bottom:18px;">
-                    <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                        <span style="font-size:0.87rem;font-weight:700;color:#334155;">${sec.name}</span>
-                        <span style="font-size:0.87rem;font-weight:800;color:${c};">${s}%</span>
-                    </div>
-                    <div style="height:8px;background:#ede9ff;border-radius:99px;overflow:hidden;margin-bottom:7px;">
-                        <div style="height:100%;width:${s}%;background:${c};border-radius:99px;transition:width 0.5s ease;"></div>
-                    </div>
-                    ${sec.description ? `<p style="margin:0;font-size:0.8rem;color:#64748b;line-height:1.65;">${sec.description}</p>` : ""}
-                </div>`;
-              })
-              .join("")}
-        </div>`
-            : ""
-        }
+        <!-- SHARE & DOWNLOAD BUTTONS (Placed outside the capture target) -->
+        <div style="display: flex; gap: 10px; margin-top: 12px; padding: 0 10px;">
+            <button class="btn-primary" onclick="shareSectionAsImage('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                📤 Share Card
+            </button>
+            <button class="btn-secondary" onclick="downloadSectionAsPDF('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; margin-bottom: 0;">
+                ⬇️ Save PDF
+            </button>
+        </div>
     </div>`;
 }
 
