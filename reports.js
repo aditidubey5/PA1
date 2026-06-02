@@ -2901,9 +2901,84 @@ function handleFollowUp(isYes, keyword) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 3. MAIN GENERATE REPORT FUNCTION (Cleaned)
-// ─────────────────────────────────────────────
+function buildLoggedOutSection(testId, testTitle) {
+  const testToBlog = {
+    "growth-mindset": {
+      cat: "Mindset & Motivation",
+      msg: "Understand the science behind your mindset score",
+    },
+    procrastination: {
+      cat: "Mindset & Motivation",
+      msg: "Learn why you procrastinate — and how to stop",
+    },
+    "martyr-index": {
+      cat: "Personality Patterns",
+      msg: "Discover what drives your self-sacrifice patterns",
+    },
+    disc: {
+      cat: "Personality Patterns",
+      msg: "Deep-dive into your communication style",
+    },
+    "ai-usage": { cat: "Workplace", msg: "See how AI literacy shapes careers" },
+    leadership: {
+      cat: "Leadership",
+      msg: "Explore what your leadership style costs others",
+    },
+    "emotional-intelligence": {
+      cat: "Personality Patterns",
+      msg: "Understand your emotional intelligence profile",
+    },
+  };
+
+  const blogInfo = testToBlog[testId] || {
+    cat: "Personal Growth",
+    msg: "Explore insights related to your results",
+  };
+  const blogUrl = "/blog.html?cat=" + encodeURIComponent(blogInfo.cat);
+
+  return `
+    <div style="background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(217,70,239,0.08)); border:1.5px solid rgba(99,102,241,0.2); border-radius:20px; padding:28px 32px; margin-top:28px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+        <div style="font-size:2rem; flex-shrink:0;">⚠️</div>
+        <div style="flex:1; min-width:200px;">
+            <h4 style="margin:0 0 4px; font-size:0.95rem; font-weight:800; color:#1e293b;">Your results won't be saved</h4>
+            <p style="margin:0; font-size:0.82rem; color:#64748b; line-height:1.5;">Sign in to track your progress, compare scores over time, and get your AI profile summary.</p>
+        </div>
+        <button onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#d946ef); color:white; border:none; padding:11px 22px; border-radius:12px; font-weight:700; font-size:0.85rem; cursor:pointer; white-space:nowrap; flex-shrink:0;">
+            Sign In to Save →
+        </button>
+    </div>
+ 
+    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:24px; box-shadow:var(--shadow-card);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+            <div>
+                <p style="margin:0 0 4px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-indigo);">Related Insights</p>
+                <h3 style="margin:0; font-size:1rem; font-weight:800; color:#1e293b;">${blogInfo.msg}</h3>
+            </div>
+            <a href="${blogUrl}" style="background:var(--brand-grad); color:white; text-decoration:none; padding:9px 18px; border-radius:10px; font-size:0.78rem; font-weight:700; white-space:nowrap;">
+                Read Articles →
+            </a>
+        </div>
+        <div style="background:#f8f7ff; border-radius:12px; padding:16px 20px; display:flex; align-items:center; gap:14px; cursor:pointer;" onclick="window.location.href='${blogUrl}'">
+            <div style="width:44px; height:44px; background:linear-gradient(135deg,#6366f1,#d946ef); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">📖</div>
+            <div>
+                <p style="margin:0 0 2px; font-size:0.85rem; font-weight:700; color:#1e293b;">${blogInfo.cat} articles on People Assets Insights</p>
+                <p style="margin:0; font-size:0.78rem; color:#64748b;">Science-backed articles to help you understand your results</p>
+            </div>
+            <span style="margin-left:auto; color:var(--brand-indigo); font-size:1.1rem; flex-shrink:0;">→</span>
+        </div>
+    </div>
+ 
+    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:24px; box-shadow:var(--shadow-card);">
+        <p style="margin:0 0 4px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-indigo);">Keep Exploring</p>
+        <h3 style="margin:0 0 18px; font-size:1rem; font-weight:800; color:#1e293b;">Discover more about yourself</h3>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button onclick="showPage('tests')" style="background:#f3f0ff; color:#6366f1; border:none; padding:10px 18px; border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer;">Browse All Assessments →</button>
+            <button onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#d946ef); color:white; border:none; padding:10px 18px; border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer;">Sign In to Track Progress</button>
+        </div>
+    </div>
+    `;
+}
+
 // ─────────────────────────────────────────────
 // MAIN GENERATE REPORT FUNCTION (Unified Buttons for All Users)
 // ─────────────────────────────────────────────
@@ -3016,10 +3091,17 @@ async function generateReport() {
     // Single Metric Profile Layout Style View (e.g., DISC, Procrastination)
     const activeScore = result.score || result.overall || 0;
     const targetColor = result.color || "var(--brand-indigo)";
+
+    // Safely mapping the strengths and watch points arrays back into HTML lists
     const strengthsHtml =
-      typeof window.strengthsHtml !== "undefined" ? window.strengthsHtml : "";
+      result.strengths && result.strengths.length > 0
+        ? `<ul style="list-style: none; padding: 0; margin: 0;">${result.strengths.map((s) => `<li style="padding: 8px 0; border-bottom: 1px solid #f1f5f9; position: relative; padding-left: 20px; text-align: left;"><span style="position: absolute; left: 0; color: var(--brand-magenta);">•</span>${s}</li>`).join("")}</ul>`
+        : "";
+
     const watchHtml =
-      typeof window.watchHtml !== "undefined" ? window.watchHtml : "";
+      result.watch && result.watch.length > 0
+        ? `<ul style="list-style: none; padding: 0; margin: 0;">${result.watch.map((w) => `<li style="padding: 8px 0; border-bottom: 1px solid #f1f5f9; position: relative; padding-left: 20px; text-align: left;"><span style="position: absolute; left: 0; color: var(--brand-magenta);">•</span>${w}</li>`).join("")}</ul>`
+        : "";
 
     html = `
         <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
@@ -3080,6 +3162,7 @@ async function generateReport() {
   document.getElementById("report-page-content").innerHTML =
     `<div class="container">${html}</div>`;
 }
+
 async function syncToDatabase(testResult) {
   const {
     data: { user },
