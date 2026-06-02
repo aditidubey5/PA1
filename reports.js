@@ -2904,6 +2904,9 @@ function handleFollowUp(isYes, keyword) {
 // ─────────────────────────────────────────────
 // 3. MAIN GENERATE REPORT FUNCTION (Cleaned)
 // ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// MAIN GENERATE REPORT FUNCTION (Unified Buttons for All Users)
+// ─────────────────────────────────────────────
 async function generateReport() {
   if (!currentTest || !answers) {
     console.error("Missing test data for report");
@@ -2918,33 +2921,33 @@ async function generateReport() {
 
   const result = logic(answers);
 
-  // Store globally
+  // Store globally safely
   lastReportResult = result;
   window.lastReportResult = result;
 
-  // Save to database
+  // Save to database asynchronously in background
   try {
     await syncToDatabase(result);
   } catch (e) {
-    console.error("Failed to save:", e);
+    console.error("Failed to save to cloud:", e);
   }
 
   showPage("report");
-  // Auto-update AI Profile Summary
+
+  // Auto-update UI panels via safe timers
   setTimeout(() => {
-    if (typeof updateAIProfileSummary === "function") {
-      updateAIProfileSummary();
-    }
+    if (typeof updateAIProfileSummary === "function") updateAIProfileSummary();
   }, 1200);
+
   setTimeout(() => {
-    if (typeof renderProfilePage === "function") {
-      renderProfilePage();
-    }
+    if (typeof renderProfilePage === "function") renderProfilePage();
   }, 1000);
 
-  // === Render Report (you can expand this later) ===
-  const greeting = `Hi ${userName}, `;
-  const personalizedTitle = userName ? `${userName}, ` : "";
+  // Fallbacks for layout metrics definitions
+  const targetUserName =
+    typeof userName !== "undefined" && userName ? userName : "Guest";
+  const personalizedTitle =
+    targetUserName !== "Guest" ? `${targetUserName}, ` : "";
 
   const followUpHtml = `
     <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
@@ -2959,16 +2962,19 @@ async function generateReport() {
     </div>
   `;
 
+  const {
+    data: { user: loggedInUser },
+  } = await _supabase.auth.getUser();
   let html = "";
 
   if (result.sectionResults) {
-    // Sectioned Report (Growth Mindset, Martyr, etc.)
+    // Sectioned Layout Style View (e.g., Growth Mindset, Martyr Index)
     const sectionCardsHtml = result.sectionResults
       .map(
         (sec) => `
             <div style="background:#f8fafc; border-radius:16px; padding:20px; margin-bottom:16px; border-left:4px solid ${sec.color || "#6366f1"};">
-                <h4 style="margin:0 0 8px 0;">${sec.name}</h4>
-                <p style="color:var(--text-muted);">${sec.description}</p>
+                <h4 style="margin:0 0 8px 0; text-align: left;">${sec.name}</h4>
+                <p style="color:var(--text-muted); text-align: left;">${sec.description}</p>
             </div>
         `,
       )
@@ -2976,83 +2982,104 @@ async function generateReport() {
 
     html = `
             <div style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
-                <p style="opacity:0.8;">Analysis for ${userName}</p>
-                <div style="font-size:4.5rem; font-weight:900;">${result.overall}<span style="font-size:1.8rem;">/100</span></div>
-                <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel}</h1>
+                <p style="opacity:0.8;">Analysis for ${targetUserName}</p>
+                <div style="font-size:4.5rem; font-weight:900;">${result.overall || result.score || 0}<span style="font-size:1.8rem;">/100</span></div>
+                <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
             </div>
-
+ 
             <div style="background:white; padding:40px; border-radius:24px; margin-top:30px;">
-                <h3>Overall Summary</h3>
-                <p>${result.overallDescription}</p>
-                <h3 style="margin-top:30px;">Section Breakdown</h3>
+                <h3 style="text-align: left;">Overall Summary</h3>
+                <p style="text-align: left;">${result.overallDescription || result.description || ""}</p>
+                <h3 style="margin-top:30px; text-align: left;">Section Breakdown</h3>
                 ${sectionCardsHtml}
             </div>
-
+ 
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
                 <button class="btn-primary" onclick="window.print()">Download Report</button>
+                
+                ${
+                  loggedInUser
+                    ? `<button class="btn-primary" onclick="showPage('profile')" style="background:linear-gradient(135deg,#6366f1,#a855f7);">👤 View My Profile</button>`
+                    : `<button class="btn-primary" onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#a855f7);">📥 Sign In to Save</button>`
+                }
+                
                 <button class="btn-primary" onclick="showPage('coaching')">Book Coaching</button>
             </div>
-            ${buildEmailReportSection()}
+            
+            ${typeof buildEmailReportSection === "function" ? buildEmailReportSection() : ""}
             ${followUpHtml}
+            
+            ${!loggedInUser ? buildLoggedOutSection(currentTest.id, currentTest.title) : ""}
         `;
   } else {
-    document.getElementById("report-page-content").innerHTML = `
-      <div>
+    // Single Metric Profile Layout Style View (e.g., DISC, Procrastination)
+    const activeScore = result.score || result.overall || 0;
+    const targetColor = result.color || "var(--brand-indigo)";
+    const strengthsHtml =
+      typeof window.strengthsHtml !== "undefined" ? window.strengthsHtml : "";
+    const watchHtml =
+      typeof window.watchHtml !== "undefined" ? window.watchHtml : "";
+
+    html = `
         <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
-            Analysis Result for ${userName}
+            Analysis Result for ${targetUserName}
           </p>
-          <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${result.score}<span style="font-size:1.5rem;">/100</span></div>
-          
-          <!-- PERSONALIZED TITLE ADDED HERE -->
+          <div style="font-size:clamp(3rem,8vw,5.5rem); font-weight:800; color:white; line-height:1; margin-bottom:8px;">${activeScore}<span style="font-size:1.5rem;">/100</span></div>
           <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
-            ${personalizedTitle}your result is ${result.label}
+            ${personalizedTitle}your result is ${result.label || result.overallLabel || "Processed"}
           </h1>
-          
           <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
         </div>
-
+ 
         <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
           <div class="report-inner-grid" style="display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:start;">
-            <div>
+            <div style="text-align: left;">
               <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; color:var(--text-primary);">Your Profile Summary</h3>
-              <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description}</p>
-              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3>
-              <div style="margin-bottom:28px;">${strengthsHtml}</div>
-              <h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3>
-              <div>${watchHtml}</div>
+              <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">${result.description || result.overallDescription || ""}</p>
+              ${strengthsHtml ? `<h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Your Strengths</h3><div style="margin-bottom:28px;">${strengthsHtml}</div>` : ""}
+              ${watchHtml ? `<h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3><div>${watchHtml}</div>` : ""}
             </div>
             <div>
               <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
                 <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
-                <div style="font-size:4rem; font-weight:800; color:${result.color}; line-height:1;">${result.score}</div>
+                <div style="font-size:4rem; font-weight:800; color:${targetColor}; line-height:1;">${activeScore}</div>
                 <div style="font-size:0.8rem; color:var(--text-muted);">out of 100</div>
                 <div style="margin-top:16px; background:#e2e8f0; border-radius:50px; height:8px; overflow:hidden;">
-                  <div style="height:100%; width:${result.score}%; background:${result.color}; border-radius:50px; transition:width 1s ease;"></div>
+                  <div style="height:100%; width:${activeScore}%; background:${targetColor}; border-radius:50px; transition:width 1s ease;"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+ 
         <div class="report-actions" style="margin-top: 28px;">
           <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
           <button class="btn-primary" onclick="window.print()">Download Report</button>
+          
+          ${
+            loggedInUser
+              ? `<button class="btn-primary" onclick="showPage('profile')" style="background:linear-gradient(135deg,#6366f1,#a855f7);">👤 View My Profile</button>`
+              : `<button class="btn-primary" onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#a855f7);">📥 Sign In to Save</button>`
+          }
+          
           <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
         </div>
-        ${buildEmailReportSection()}
+        
+        ${typeof buildEmailReportSection === "function" ? buildEmailReportSection() : ""}
         ${followUpHtml}
-      </div>
+        
+        ${!loggedInUser ? buildLoggedOutSection(currentTest.id, currentTest.title) : ""}
     `;
   }
 
+  // Inject back to main viewport layout node
   document.getElementById("report-page-content").innerHTML =
     `<div class="container">${html}</div>`;
 }
-
 async function syncToDatabase(testResult) {
   const {
     data: { user },
