@@ -2901,7 +2901,10 @@ function handleFollowUp(isYes, keyword) {
   }
 }
 
-function buildLoggedOutSection(testId, testTitle) {
+// ─────────────────────────────────────────────
+// ENGAGEMENT & BLOG NUDGE (Visible to ALL users)
+// ─────────────────────────────────────────────
+function buildEngagementSection(testId, testTitle) {
   const testToBlog = {
     "growth-mindset": {
       cat: "Mindset & Motivation",
@@ -2937,18 +2940,7 @@ function buildLoggedOutSection(testId, testTitle) {
   const blogUrl = "/blog.html?cat=" + encodeURIComponent(blogInfo.cat);
 
   return `
-    <div style="background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(217,70,239,0.08)); border:1.5px solid rgba(99,102,241,0.2); border-radius:20px; padding:28px 32px; margin-top:28px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
-        <div style="font-size:2rem; flex-shrink:0;">⚠️</div>
-        <div style="flex:1; min-width:200px;">
-            <h4 style="margin:0 0 4px; font-size:0.95rem; font-weight:800; color:#1e293b;">Your results won't be saved</h4>
-            <p style="margin:0; font-size:0.82rem; color:#64748b; line-height:1.5;">Sign in to track your progress, compare scores over time, and get your AI profile summary.</p>
-        </div>
-        <button onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#d946ef); color:white; border:none; padding:11px 22px; border-radius:12px; font-weight:700; font-size:0.85rem; cursor:pointer; white-space:nowrap; flex-shrink:0;">
-            Sign In to Save →
-        </button>
-    </div>
- 
-    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:24px; box-shadow:var(--shadow-card);">
+    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:32px; box-shadow:var(--shadow-card);">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
             <div>
                 <p style="margin:0 0 4px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-indigo);">Related Insights</p>
@@ -2961,24 +2953,14 @@ function buildLoggedOutSection(testId, testTitle) {
         <div style="background:#f8f7ff; border-radius:12px; padding:16px 20px; display:flex; align-items:center; gap:14px; cursor:pointer;" onclick="window.location.href='${blogUrl}'">
             <div style="width:44px; height:44px; background:linear-gradient(135deg,#6366f1,#d946ef); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">📖</div>
             <div>
-                <p style="margin:0 0 2px; font-size:0.85rem; font-weight:700; color:#1e293b;">${blogInfo.cat} articles on People Assets Insights</p>
+                <p style="margin:0 0 2px; font-size:0.85rem; font-weight:700; color:#1e293b;">${blogInfo.cat} articles on People Assets</p>
                 <p style="margin:0; font-size:0.78rem; color:#64748b;">Science-backed articles to help you understand your results</p>
             </div>
             <span style="margin-left:auto; color:var(--brand-indigo); font-size:1.1rem; flex-shrink:0;">→</span>
         </div>
     </div>
- 
-    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:24px; box-shadow:var(--shadow-card);">
-        <p style="margin:0 0 4px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-indigo);">Keep Exploring</p>
-        <h3 style="margin:0 0 18px; font-size:1rem; font-weight:800; color:#1e293b;">Discover more about yourself</h3>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button onclick="showPage('tests')" style="background:#f3f0ff; color:#6366f1; border:none; padding:10px 18px; border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer;">Browse All Assessments →</button>
-            <button onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#d946ef); color:white; border:none; padding:10px 18px; border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer;">Sign In to Track Progress</button>
-        </div>
-    </div>
     `;
 }
-
 // ─────────────────────────────────────────────
 // MAIN GENERATE REPORT FUNCTION (Unified Buttons for All Users)
 // ─────────────────────────────────────────────
@@ -3138,23 +3120,21 @@ async function generateReport() {
           </div>
         </div>
  
-        <div class="report-actions" style="margin-top: 28px;">
-          <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another Assessment</button>
-          <button class="btn-primary" onclick="window.print()">Download Report</button>
-          
-          ${
-            loggedInUser
-              ? `<button class="btn-primary" onclick="showPage('profile')" style="background:linear-gradient(135deg,#6366f1,#a855f7);">👤 View My Profile</button>`
-              : `<button class="btn-primary" onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#a855f7);">📥 Sign In to Save</button>`
-          }
-          
-          <button class="btn-primary" onclick="showPage('coaching')">Book Coaching →</button>
+        <div class="report-actions" style="margin-top:32px;">
+            <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
+            <button class="btn-primary" onclick="window.print()">Download PDF</button>
+            ${
+              loggedInUser
+                ? `<button class="btn-primary" onclick="showPage('profile')" style="background:linear-gradient(135deg,#6366f1,#a855f7);">👤 View My Profile</button>`
+                : `<button class="btn-primary" onclick="signInWithGoogle()" style="background:linear-gradient(135deg,#6366f1,#a855f7);">📥 Sign In to Save</button>`
+            }
+            <button class="btn-primary" onclick="showPage('coaching')">Book Coaching</button>
         </div>
         
         ${typeof buildEmailReportSection === "function" ? buildEmailReportSection() : ""}
         ${followUpHtml}
         
-        ${!loggedInUser ? buildLoggedOutSection(currentTest.id, currentTest.title) : ""}
+        ${buildEngagementSection(currentTest.id, currentTest.title)}
     `;
   }
 

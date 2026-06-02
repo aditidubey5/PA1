@@ -145,20 +145,61 @@
           >Coaching</span
         >
 
-        <div id="mobile-auth-container" style="margin-top: 12px">
-          <button
-            class="login-google-btn"
-            onclick="
-              signInWithGoogle();
-              toggleMobileNav();
-            "
-          >
+        <div
+          class="auth-container"
+          id="auth-container"
+          style="position: relative"
+        >
+          <button class="login-google-btn" onclick="signInWithGoogle()">
             <img
               src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
               alt="Google"
             />
             Sign in
           </button>
+
+          <div
+            id="login-nudge"
+            style="
+              position: absolute;
+              top: 130%;
+              right: 0;
+              background: var(--brand-indigo);
+              color: white;
+              padding: 8px 16px;
+              border-radius: 8px;
+              font-size: 0.8rem;
+              font-weight: 700;
+              white-space: nowrap;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              animation: nudgeBounce 2s infinite;
+              pointer-events: none;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -4px;
+                right: 20px;
+                width: 10px;
+                height: 10px;
+                background: var(--brand-indigo);
+                transform: rotate(45deg);
+              "
+            ></div>
+            Sign in to save your results and view your customised profile!
+          </div>
+          <style>
+            @keyframes nudgeBounce {
+              0%,
+              100% {
+                transform: translateY(0);
+              }
+              50% {
+                transform: translateY(-5px);
+              }
+            }
+          </style>
         </div>
       </div>
     </nav>

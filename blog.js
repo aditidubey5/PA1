@@ -45,11 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchBlogPosts() {
   try {
     // Connects using your global instance client token
-    // NOTE: If your table is named 'posts', change 'blogs' to 'posts' here
     const { data: posts, error } = await _supabase
       .from("blogs")
       .select("*")
-      // Uses created_at timestamp fields mapping newest records to featured view templates
       .order("created_at", { ascending: false });
 
     if (error) throw error;
@@ -105,7 +103,6 @@ function renderPosts(postsToRender) {
 }
 
 function setupCategoryFilters() {
-  // Supports selector tags across your platform layout configurations
   const filterButtons = document.querySelectorAll(
     ".category-btn, .filter-pill",
   );
@@ -119,7 +116,6 @@ function setupCategoryFilters() {
 
       const selectedCategory = clickedBtn.textContent.trim();
 
-      // Normalize condition parameters safely
       if (
         selectedCategory === "All Explorations" ||
         selectedCategory === "All"
@@ -136,13 +132,12 @@ function setupCategoryFilters() {
 }
 
 function renderFeaturedPost(post, container) {
-  // Fallback pattern matching optimization for images
   const targetImage =
     post.image_url ||
     post.cover_image ||
     "https://images.unsplash.com/photo-1506126613408-eca07ce68773";
 
-  // NOTE: Changed parameter query from post.id to post.slug to align with admin database records
+  // NOTE: Links mapped to post.slug to align with your database
   container.innerHTML = `
         <article class="featured-card" onclick="window.location.href='/blog-single.html?id=${post.slug}'" style="cursor: pointer; display: grid; grid-template-columns: 1.2fr 1fr; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-card); margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.7);">
             <div class="featured-image" style="height: 380px; overflow: hidden;">
@@ -170,7 +165,6 @@ function renderGridPosts(posts, container) {
         post.cover_image ||
         "https://images.unsplash.com/photo-1518495973542-4542c06a5843";
 
-      // NOTE: Changed parameter query from post.id to post.slug to prevent broken routing loops
       return `
         <article class="article-card insight-card" onclick="window.location.href='/blog-single.html?id=${post.slug}'" style="cursor: pointer; background: #ffffff; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.7); height: 100%;">
             <div class="card-image" style="height: 200px; overflow: hidden;">
