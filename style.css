@@ -445,6 +445,34 @@ nav {
   flex-wrap: wrap;
 }
 
+/* --- Assessment Selectable Options --- */
+.option {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  width: 100%;
+}
+
+.option:hover {
+  border-color: var(--brand-indigo);
+  background: #fdf8ff;
+  transform: translateY(-1px);
+}
+
+.option.selected {
+  background: var(--brand-grad);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+}
 /* ============================================ MODAL ============================================ */
 .modal-overlay {
   display: none;
