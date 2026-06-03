@@ -69,11 +69,10 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
   return `
     <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 
-    <!-- HERO BANNER -->
     <div style="background:linear-gradient(135deg,#6366f1 0%,#d946ef 60%,#f59e0b 100%);padding:60px 20px 100px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:rgba(255,255,255,0.06);border-radius:50%;"></div>
         <div style="position:absolute;bottom:-80px;left:-40px;width:200px;height:200px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
-        <div class="container" style="max-width:960px;position:relative;z-index:1;">
+        <div class="container" style="max-width:800px;position:relative;z-index:1;">
             <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
                 ${
                   userAvatar
@@ -94,10 +93,8 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
         </div>
     </div>
 
-    <!-- CONTENT AREA -->
-    <div class="container" style="max-width:960px;margin-top:-44px;position:relative;z-index:2;padding-bottom:80px;">
+    <div class="container" style="max-width:800px;margin-top:-44px;position:relative;z-index:2;padding-bottom:80px;">
 
-        <!-- AI SUMMARY CARD EXPORT WRAPPER -->
         <div id="ai-summary-export-target" style="background:white;border-radius:24px;box-shadow:0 20px 60px rgba(99,102,241,0.13);padding:36px;margin-bottom:16px;border:1px solid #ede9ff;">
             <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;">
                 <div style="width:44px;height:44px;background:linear-gradient(135deg,#6366f1,#d946ef);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">✨</div>
@@ -126,14 +123,15 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
                        </div>`
                 }
             </div>
+            
             <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #ede9ff; display: flex; justify-content: flex-end;">
-                 <img src="logo.png" alt="People Assets" style="height: 28px; object-fit: contain; mix-blend-mode: multiply;">
+                 <div style="height: 30px; display: flex; align-items: center; overflow: hidden;">
+                     <img src="logo.png" alt="People Assets" style="height: 90px; mix-blend-mode: multiply; margin-right: -10px;">
+                 </div>
             </div>
-        </div> <!-- End of ai-summary-export-target -->
         </div>
 
-        <!-- AI SUMMARY BUTTONS (Placed outside the capture target) -->
-        <div id="ai-summary-actions" style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
+        <div id="ai-summary-actions" style="display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center;">
             <button class="btn-primary" onclick="shareSectionAsImage('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
                 📤 Share to Socials
             </button>
@@ -142,7 +140,6 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
             </button>
         </div>
 
-        <!-- TEST HISTORY -->
         <h2 style="font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.09em;color:#94a3b8;margin-bottom:18px;">Assessment History</h2>
         ${
           results.length === 0
@@ -163,7 +160,9 @@ function heroBadge(value, label, icon) {
         <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.07em;">${label}</div>
     </div>`;
 }
-
+// ============================================
+// TEST RESULT CARD
+// ============================================
 // ============================================
 // TEST RESULT CARD
 // ============================================
@@ -207,12 +206,10 @@ function buildTestResultCard(r, index) {
 
   return `
     <div style="margin-bottom: 24px;">
-        <!-- EXPORT WRAPPER (This is what gets turned into a PDF/Image) -->
         <div id="${cardId}" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);border:1px solid #f0eeff;overflow:hidden;transition:box-shadow 0.2s;"
              onmouseenter="this.style.boxShadow='0 8px 32px rgba(99,102,241,0.15)'"
              onmouseleave="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.06)'">
 
-            <!-- CARD HEADER -->
             <div style="padding:22px 28px;display:flex;align-items:center;gap:16px;cursor:pointer;"
                  onclick="toggleResultDetail('${detailId}','chevron-${index}')">
                 <div style="font-size:1.8rem;flex-shrink:0;">${icon}</div>
@@ -235,7 +232,6 @@ function buildTestResultCard(r, index) {
                 ${breakdown.length > 0 ? `<div id="chevron-${index}" style="color:#94a3b8;font-size:1rem;transition:transform 0.25s;flex-shrink:0;">▾</div>` : ""}
             </div>
 
-            <!-- EXPANDABLE BREAKDOWN -->
             ${
               breakdown.length > 0
                 ? `
@@ -263,14 +259,14 @@ function buildTestResultCard(r, index) {
                 : ""
             }
             
-            <!-- BRANDING (Visible when exported) -->
             <div style="padding: 0 28px 16px; display: flex; justify-content: space-between; align-items: center;">
                 <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">PEOPLE ASSETS</div>
-                <img src="logo.png" alt="People Assets" style="height: 20px; object-fit: contain; mix-blend-mode: multiply;">
+                <div style="height: 24px; display: flex; align-items: center; overflow: hidden;">
+                    <img src="logo.png" alt="People Assets" style="height: 75px; mix-blend-mode: multiply; margin-right: -8px;">
+                </div>
             </div>
         </div>
 
-        <!-- SHARE & DOWNLOAD BUTTONS (Placed outside the capture target) -->
         <div style="display: flex; gap: 10px; margin-top: 12px; padding: 0 10px;">
             <button class="btn-primary" onclick="shareSectionAsImage('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
                 📤 Share Card
@@ -281,7 +277,6 @@ function buildTestResultCard(r, index) {
         </div>
     </div>`;
 }
-
 function toggleResultDetail(detailId, chevronId) {
   const el = document.getElementById(detailId);
   const ch = document.getElementById(chevronId);
