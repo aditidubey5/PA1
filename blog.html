@@ -508,18 +508,28 @@
     <!-- YOUR EXACT NAV FROM index.html -->
     <nav>
       <div class="nav-container">
-        <div class="nav-logo" onclick="window.location.href = '/'">
-          <div
+        <div
+          class="nav-logo"
+          onclick="window.location.href = '/'"
+          style="
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            overflow: hidden;
+          "
+        >
+          <img
+            src="logo.png"
+            alt="People Assets"
             style="
-              background-image: url(&quot;logo.jpeg&quot;);
-              background-size: auto 290%;
-              background-position: center -46px;
-              background-repeat: no-repeat;
-              width: 175px;
-              height: 52px;
-              flex-shrink: 0;
+              height: 150px;
+              max-width: none;
+              mix-blend-mode: multiply;
+              margin-left: -10px;
             "
-          ></div>
+          />
         </div>
         <div class="nav-links">
           <span class="nav-item" onclick="window.location.href = '/'"
