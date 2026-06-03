@@ -3044,13 +3044,18 @@ async function generateReport() {
                 <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
             </div>
  
-            <div style="background:white; padding:40px; border-radius:24px; margin-top:30px;">
+            <div style="background:white; padding:40px; border-radius:24px; margin-top:30px; box-shadow:var(--shadow-card);">
                 <h3 style="text-align: left;">Overall Summary</h3>
                 <p style="text-align: left;">${result.overallDescription || result.description || ""}</p>
                 <h3 style="margin-top:30px; text-align: left;">Section Breakdown</h3>
                 ${sectionCardsHtml}
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center;">
+                     <div style="height: 35px; display: flex; align-items: center; overflow: hidden;">
+                         <img src="logo.png" alt="People Assets" style="height: 105px; max-width: none; mix-blend-mode: multiply;">
+                     </div>
+                </div>
             </div>
- 
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
                 <button class="btn-primary" onclick="window.print()">Download Report</button>
@@ -3120,7 +3125,9 @@ async function generateReport() {
             </div>
           </div>
           <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center;">
-               <img src="logo.png" alt="People Assets" style="height: 36px; object-fit: contain; mix-blend-mode: multiply;">
+               <div style="height: 35px; display: flex; align-items: center; overflow: hidden;">
+                   <img src="logo.png" alt="People Assets" style="height: 105px; max-width: none; mix-blend-mode: multiply;">
+               </div>
           </div>
         </div>
  
