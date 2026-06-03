@@ -3108,6 +3108,7 @@ async function generateReport() {
               ${watchHtml ? `<h3 style="font-size:1rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);">Watch Points & Growth Areas</h3><div>${watchHtml}</div>` : ""}
             </div>
             <div>
+            
               <div style="background:#f8fafc; border-radius:16px; padding:24px; margin-bottom:20px; text-align:center;">
                 <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Score Breakdown</div>
                 <div style="font-size:4rem; font-weight:800; color:${targetColor}; line-height:1;">${activeScore}</div>
@@ -3117,6 +3118,9 @@ async function generateReport() {
                 </div>
               </div>
             </div>
+          </div>
+          <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center;">
+               <img src="logo.png" alt="People Assets" style="height: 36px; object-fit: contain; mix-blend-mode: multiply;">
           </div>
         </div>
  

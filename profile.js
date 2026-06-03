@@ -126,6 +126,10 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
                        </div>`
                 }
             </div>
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #ede9ff; display: flex; justify-content: flex-end;">
+                 <img src="logo.png" alt="People Assets" style="height: 28px; object-fit: contain; mix-blend-mode: multiply;">
+            </div>
+        </div> <!-- End of ai-summary-export-target -->
         </div>
 
         <!-- AI SUMMARY BUTTONS (Placed outside the capture target) -->
@@ -260,7 +264,10 @@ function buildTestResultCard(r, index) {
             }
             
             <!-- BRANDING (Visible when exported) -->
-            <div style="padding: 0 28px 16px; font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">PEOPLE ASSETS</div>
+            <div style="padding: 0 28px 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">PEOPLE ASSETS</div>
+                <img src="logo.png" alt="People Assets" style="height: 20px; object-fit: contain; mix-blend-mode: multiply;">
+            </div>
         </div>
 
         <!-- SHARE & DOWNLOAD BUTTONS (Placed outside the capture target) -->

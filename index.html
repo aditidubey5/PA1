@@ -59,16 +59,20 @@
     <nav>
       <div class="nav-container">
         <div class="nav-logo" onclick="showPage('home')">
+          <!-- YOUR NEW CLEAN LOGO -->
           <div
             class="nav-logo"
             onclick="window.location.href = 'index.html'"
-            style="cursor: pointer"
+            style="cursor: pointer; display: flex; align-items: center"
           >
             <img
               src="logo.png"
               alt="People Assets"
-              class="nav-logo-img"
-              style="mix-blend-mode: multiply"
+              style="
+                height: 65px;
+                object-fit: contain;
+                mix-blend-mode: multiply;
+              "
             />
           </div>
         </div>
