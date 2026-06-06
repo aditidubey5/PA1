@@ -78,8 +78,8 @@ function renderTestGrid() {
 
   grid.innerHTML = filteredTests
     .map(
-      (t) => `
-        <div class="card">
+      (t, index) => `
+        <div class="card" style="animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: ${index * 0.08}s; opacity: 0;">
             <div style="font-size: 2rem; margin-bottom: 12px;">${t.icon}</div>
             <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--brand-indigo); margin-bottom: 8px;">${t.category}</div>
             <h3>${t.title}</h3>
@@ -225,6 +225,82 @@ async function shareSectionAsImage(elementId, filename) {
           link.download = `${filename}.png`;
           link.href = URL.createObjectURL(blob);
           link.click();
+        }
+      },
+      "image/png",
+      1.0,
+    );
+  } catch (error) {
+    console.error("Error generating shareable image:", error);
+  } finally {
+    document.body.style.cursor = originalCursor;
+  }
+}
+
+async function shareSectionAsImage(elementId, filename) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const originalCursor = document.body.style.cursor;
+  document.body.style.cursor = "wait";
+
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    });
+
+    canvas.toBlob(
+      async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], `${filename}.png`, { type: "image/png" });
+
+        // Helper to force download
+        const forceDownload = () => {
+          const link = document.createElement("a");
+          link.download = `${filename}.png`;
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        };
+
+        // Detect if user is on a mobile device
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent,
+          );
+
+        if (
+          isMobile &&
+          navigator.canShare &&
+          navigator.canShare({ files: [file] })
+        ) {
+          // Mobile: Use Native Share Sheet
+          try {
+            await navigator.share({
+              title: "People Assets Result",
+              text: "Check out my behavioral insights profile!",
+              files: [file],
+            });
+          } catch (e) {
+            forceDownload(); // Fallback if they cancel or it fails
+          }
+        } else {
+          // Desktop/Laptop: Copy to Clipboard + Download
+          try {
+            // Try to write the image directly to the clipboard
+            await navigator.clipboard.write([
+              new ClipboardItem({ "image/png": blob }),
+            ]);
+            alert(
+              "✓ Image copied to clipboard!\n\nYou can now paste (CTRL+V) it directly into WhatsApp, LinkedIn, or Email. A backup file will also download.",
+            );
+            forceDownload();
+          } catch (err) {
+            // If clipboard fails (browser permissions), just download
+            alert("Downloading your image so you can share it!");
+            forceDownload();
+          }
         }
       },
       "image/png",
