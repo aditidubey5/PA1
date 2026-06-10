@@ -89,6 +89,42 @@
               />
               Sign in
             </button>
+            <div
+              id="desktop-login-nudge"
+              style="
+                position: absolute;
+                top: 130%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--brand-indigo);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 8px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-align: center;
+                width: max-content;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                animation:
+                  gentleBounce 2s infinite,
+                  fadeOutNudge 0.5s ease-out 6s forwards;
+                pointer-events: none;
+                z-index: 10;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -4px;
+                  left: 50%;
+                  width: 10px;
+                  height: 10px;
+                  background: var(--brand-indigo);
+                  transform: translateX(-50%) rotate(45deg);
+                "
+              ></div>
+              Sign in to get an AI customised profile!
+            </div>
           </div>
           <span id="nav-coaching" class="nav-cta" onclick="showPage('coaching')"
             >Coaching</span
@@ -116,22 +152,9 @@
         </div>
       </div>
       <div class="nav-mobile-drawer" id="mobile-drawer">
-        <span
-          class="nav-item"
-          onclick="
-            showPage('home');
-            toggleMobileNav();
-          "
-          >Home</span
-        >
-        <span
-          class="nav-item"
-          onclick="
-            showPage('tests');
-            toggleMobileNav();
-          "
-          >Assessments</span
-        >
+        <span class="nav-item" onclick="showPage('home')">Home</span>
+        <span class="nav-item" onclick="showPage('tests')">Assessments</span>
+
         <a
           href="/blog.html"
           class="nav-item"
@@ -145,7 +168,7 @@
           id="auth-mobile-container"
           style="
             position: relative;
-            margin: 15px 0;
+            margin: 4px 0;
             display: flex;
             justify-content: center;
           "
@@ -156,6 +179,7 @@
               signInWithGoogle();
               toggleMobileNav();
             "
+            style="margin: 0"
           >
             <img
               src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
@@ -183,7 +207,7 @@
               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
               animation:
                 nudgeBounce 2s infinite,
-                fadeOutNudge 0.5s ease-out 4s forwards;
+                fadeOutNudge 0.5s ease-out 8s forwards;
               pointer-events: none;
               z-index: 10;
             "
@@ -199,18 +223,11 @@
                 transform: translateX(-50%) rotate(45deg);
               "
             ></div>
-            Sign in to save your results!
+            Sign in to get an AI customised profile!
           </div>
         </div>
 
-        <span
-          class="nav-cta"
-          onclick="
-            showPage('coaching');
-            toggleMobileNav();
-          "
-          >Coaching</span
-        >
+        <span class="nav-cta" onclick="showPage('coaching')">Coaching</span>
       </div>
     </nav>
     <!-- ============ HOME PAGE ============ -->
