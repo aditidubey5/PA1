@@ -106,94 +106,114 @@
         </div>
 
         <!-- Hamburger (mobile) -->
-        <div
-          class="nav-hamburger"
-          id="hamburger"
-          onclick="toggleMobileNav()"
-          aria-label="Menu"
-        >
-          <span></span><span></span><span></span>
-        </div>
-      </div>
-
-      <!-- Mobile drawer -->
-      <div class="nav-mobile-drawer" id="mobile-drawer">
-        <span
-          class="nav-item"
-          onclick="
-            showPage('home');
-            toggleMobileNav();
-          "
-          >Home</span
-        >
-        <span
-          class="nav-item"
-          onclick="
-            showPage('tests');
-            toggleMobileNav();
-          "
-          >Assessments</span
-        >
-
-        <a
-          href="/blog.html"
-          class="nav-item"
-          style="text-decoration: none"
-          onclick="toggleMobileNav()"
-          >Insights</a
-        >
-        <span
-          class="nav-cta"
-          onclick="
-            showPage('coaching');
-            toggleMobileNav();
-          "
-          >Coaching</span
-        >
-
-        <div
-          class="auth-container"
-          id="auth-container"
-          style="position: relative"
-        >
-          <button class="login-google-btn" onclick="signInWithGoogle()">
-            <img
-              src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
-              alt="Google"
-            />
-            Sign in
-          </button>
-
+        <div style="position: relative">
           <div
-            id="login-nudge"
+            class="nav-hamburger"
+            id="hamburger"
+            onclick="toggleMobileNav()"
+            aria-label="Menu"
             style="
-              position: absolute;
-              top: 130%;
-              right: 0;
-              background: var(--brand-indigo);
-              color: white;
-              padding: 8px 16px;
-              border-radius: 8px;
-              font-size: 0.8rem;
-              font-weight: 700;
-              white-space: nowrap;
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-              animation: nudgeBounce 2s infinite;
-              pointer-events: none;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              cursor: pointer;
+              color: var(--brand-indigo);
             "
           >
-            <div
-              style="
-                position: absolute;
-                top: -4px;
-                right: 20px;
-                width: 10px;
-                height: 10px;
-                background: var(--brand-indigo);
-                transform: rotate(45deg);
+            <span style="font-size: 1.8rem; line-height: 1">☰</span>
+            <span style="font-size: 0.95rem; font-weight: 700">Menu</span>
+          </div>
+          <div id="menu-tooltip" class="click-me-tooltip">Click me! 👋</div>
+
+          <div class="nav-mobile-drawer" id="mobile-drawer">
+            <span
+              class="nav-item"
+              onclick="
+                showPage('home');
+                toggleMobileNav();
               "
-            ></div>
-            Sign in to save your results and view your customised profile!
+              >Home</span
+            >
+            <span
+              class="nav-item"
+              onclick="
+                showPage('tests');
+                toggleMobileNav();
+              "
+              >Assessments</span
+            >
+            <a
+              href="/blog.html"
+              class="nav-item"
+              style="text-decoration: none"
+              onclick="toggleMobileNav()"
+              >Insights</a
+            >
+
+            <div
+              class="auth-container"
+              id="auth-container"
+              style="position: relative; margin: 15px 0"
+            >
+              <button
+                class="login-google-btn"
+                onclick="
+                  signInWithGoogle();
+                  toggleMobileNav();
+                "
+              >
+                <img
+                  src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+                  alt="Google"
+                />
+                Sign in
+              </button>
+
+              <div
+                id="login-nudge"
+                style="
+                  position: absolute;
+                  top: 130%;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  background: var(--brand-indigo);
+                  color: white;
+                  padding: 8px 16px;
+                  border-radius: 8px;
+                  font-size: 0.8rem;
+                  font-weight: 700;
+                  text-align: center;
+                  width: max-content;
+                  max-width: 250px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                  animation: nudgeBounce 2s infinite;
+                  pointer-events: none;
+                  z-index: 10;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -4px;
+                    left: 50%;
+                    width: 10px;
+                    height: 10px;
+                    background: var(--brand-indigo);
+                    transform: translateX(-50%) rotate(45deg);
+                  "
+                ></div>
+                Sign in to save your results and view your customised profile!
+              </div>
+            </div>
+
+            <span
+              class="nav-cta"
+              onclick="
+                showPage('coaching');
+                toggleMobileNav();
+              "
+              >Coaching</span
+            >
           </div>
           <style>
             @keyframes nudgeBounce {

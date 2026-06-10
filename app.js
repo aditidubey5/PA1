@@ -28,6 +28,11 @@ function showPage(page, testId = null, shouldPush = true) {
     window.history.pushState({ page, testId }, "", path);
   }
 
+  const mobileDrawer = document.getElementById("mobile-drawer");
+  if (mobileDrawer) {
+    mobileDrawer.classList.remove("open");
+  }
+
   // Trigger Page-Specific Renders
   if (page === "tests") renderTestGrid();
   if (page === "coaching") renderCoachingPage();
@@ -122,6 +127,11 @@ function openTestLanding(testId, shouldPush = true) {
 // 3. UI Helpers
 function toggleMobileNav() {
   document.getElementById("mobile-drawer").classList.toggle("open");
+
+  const tooltip = document.getElementById("menu-tooltip");
+  if (tooltip) {
+    tooltip.style.display = "none";
+  }
 }
 function closeModal() {
   document.getElementById("method-modal").style.display = "none";
