@@ -1206,3 +1206,37 @@ nav {
     transform: translateX(-50%) translateY(-5px);
   }
 }
+/* ==========================================================================
+   STRICT MOBILE MENU RULES
+   ========================================================================== */
+
+/* 1. Completely hide the mobile menu button and tooltip on Desktop */
+.mobile-menu-wrapper {
+  display: none;
+  position: relative;
+}
+
+/* 2. Lock the mobile drawer to the full width of the screen */
+#mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%; /* Now spans the full screen width */
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  z-index: 999;
+}
+
+/* 3. Show mobile elements ONLY on mobile screens */
+@media (max-width: 640px) {
+  .mobile-menu-wrapper {
+    display: block;
+  }
+  .nav-links {
+    display: none !important; /* Protect mobile layout from desktop links */
+  }
+}

@@ -59,26 +59,18 @@
     <!-- ============ NAVIGATION ============ -->
     <nav>
       <div class="nav-container">
-        <div class="nav-logo" onclick="showPage('home')">
-          <!-- YOUR NEW CLEAN LOGO -->
-          <div
-            class="nav-logo"
-            onclick="window.location.href = 'index.html'"
-            style="cursor: pointer; display: flex; align-items: center"
-          >
-            <img
-              src="logo.png"
-              alt="People Assets"
-              style="
-                height: 150px;
-                object-fit: contain;
-                mix-blend-mode: multiply;
-              "
-            />
-          </div>
+        <div
+          class="nav-logo"
+          onclick="window.location.href = 'index.html'"
+          style="cursor: pointer; display: flex; align-items: center"
+        >
+          <img
+            src="logo.png"
+            alt="People Assets"
+            style="height: 150px; object-fit: contain; mix-blend-mode: multiply"
+          />
         </div>
 
-        <!-- Desktop links -->
         <div class="nav-links">
           <span id="nav-home" class="nav-item" onclick="showPage('home')"
             >Home</span
@@ -86,16 +78,14 @@
           <span id="nav-tests" class="nav-item" onclick="showPage('tests')"
             >Assessments</span
           >
-
           <span class="nav-item" onclick="window.location.href = '/blog.html'"
             >Insights</span
           >
-          <!-- AUTH CONTAINER: This allows JS to swap the button for your profile photo -->
-          <div class="auth-container" id="auth-container">
+          <div class="auth-container" id="auth-desktop-container">
             <button class="login-google-btn" onclick="signInWithGoogle()">
               <img
                 src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
-                alt="WiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADGoogle"
+                alt="Google"
               />
               Sign in
             </button>
@@ -105,13 +95,11 @@
           >
         </div>
 
-        <!-- Hamburger (mobile) -->
-        <div style="position: relative">
+        <div class="mobile-menu-wrapper">
           <div
             class="nav-hamburger"
             id="hamburger"
             onclick="toggleMobileNav()"
-            aria-label="Menu"
             style="
               display: flex;
               align-items: center;
@@ -124,112 +112,104 @@
             <span style="font-size: 0.95rem; font-weight: 700">Menu</span>
           </div>
           <div id="menu-tooltip" class="click-me-tooltip">Click me! 👋</div>
-
-          <div class="nav-mobile-drawer" id="mobile-drawer">
-            <span
-              class="nav-item"
-              onclick="
-                showPage('home');
-                toggleMobileNav();
-              "
-              >Home</span
-            >
-            <span
-              class="nav-item"
-              onclick="
-                showPage('tests');
-                toggleMobileNav();
-              "
-              >Assessments</span
-            >
-            <a
-              href="/blog.html"
-              class="nav-item"
-              style="text-decoration: none"
-              onclick="toggleMobileNav()"
-              >Insights</a
-            >
-
-            <div
-              class="auth-container"
-              id="auth-container"
-              style="position: relative; margin: 15px 0"
-            >
-              <button
-                class="login-google-btn"
-                onclick="
-                  signInWithGoogle();
-                  toggleMobileNav();
-                "
-              >
-                <img
-                  src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
-                  alt="Google"
-                />
-                Sign in
-              </button>
-
-              <div
-                id="login-nudge"
-                style="
-                  position: absolute;
-                  top: 130%;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  background: var(--brand-indigo);
-                  color: white;
-                  padding: 8px 16px;
-                  border-radius: 8px;
-                  font-size: 0.8rem;
-                  font-weight: 700;
-                  text-align: center;
-                  width: max-content;
-                  max-width: 250px;
-                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                  animation: nudgeBounce 2s infinite;
-                  pointer-events: none;
-                  z-index: 10;
-                "
-              >
-                <div
-                  style="
-                    position: absolute;
-                    top: -4px;
-                    left: 50%;
-                    width: 10px;
-                    height: 10px;
-                    background: var(--brand-indigo);
-                    transform: translateX(-50%) rotate(45deg);
-                  "
-                ></div>
-                Sign in to save your results and view your customised profile!
-              </div>
-            </div>
-
-            <span
-              class="nav-cta"
-              onclick="
-                showPage('coaching');
-                toggleMobileNav();
-              "
-              >Coaching</span
-            >
-          </div>
-          <style>
-            @keyframes nudgeBounce {
-              0%,
-              100% {
-                transform: translateY(0);
-              }
-              50% {
-                transform: translateY(-5px);
-              }
-            }
-          </style>
         </div>
       </div>
-    </nav>
+      <div class="nav-mobile-drawer" id="mobile-drawer">
+        <span
+          class="nav-item"
+          onclick="
+            showPage('home');
+            toggleMobileNav();
+          "
+          >Home</span
+        >
+        <span
+          class="nav-item"
+          onclick="
+            showPage('tests');
+            toggleMobileNav();
+          "
+          >Assessments</span
+        >
+        <a
+          href="/blog.html"
+          class="nav-item"
+          style="text-decoration: none"
+          onclick="toggleMobileNav()"
+          >Insights</a
+        >
 
+        <div
+          class="auth-container"
+          id="auth-mobile-container"
+          style="
+            position: relative;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <button
+            class="login-google-btn"
+            onclick="
+              signInWithGoogle();
+              toggleMobileNav();
+            "
+          >
+            <img
+              src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+              alt="Google"
+            />
+            Sign in
+          </button>
+
+          <div
+            id="login-nudge"
+            style="
+              position: absolute;
+              top: 130%;
+              left: 50%;
+              transform: translateX(-50%);
+              background: var(--brand-indigo);
+              color: white;
+              padding: 8px 16px;
+              border-radius: 8px;
+              font-size: 0.8rem;
+              font-weight: 700;
+              text-align: center;
+              width: max-content;
+              max-width: 250px;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              animation: nudgeBounce 2s infinite;
+              pointer-events: none;
+              z-index: 10;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -4px;
+                left: 50%;
+                width: 10px;
+                height: 10px;
+                background: var(--brand-indigo);
+                transform: translateX(-50%) rotate(45deg);
+              "
+            ></div>
+            Sign in to save your results and view your customised profile!
+          </div>
+        </div>
+
+        <span
+          class="nav-cta"
+          onclick="
+            showPage('coaching');
+            toggleMobileNav();
+          "
+          >Coaching</span
+        >
+      </div>
+    </nav>
     <!-- ============ HOME PAGE ============ -->
     <section id="home" class="page">
       <div class="hero">
