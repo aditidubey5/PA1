@@ -28,9 +28,10 @@ function showPage(page, testId = null, shouldPush = true) {
     window.history.pushState({ page, testId }, "", path);
   }
 
-  const mobileDrawer = document.getElementById("mobile-drawer");
-  if (mobileDrawer) {
-    mobileDrawer.classList.remove("open");
+  // GUARANTEED MENU CLOSE
+  const drawer = document.getElementById("mobile-drawer");
+  if (drawer) {
+    drawer.classList.remove("open");
   }
 
   // Trigger Page-Specific Renders
@@ -322,7 +323,22 @@ async function shareSectionAsImage(elementId, filename) {
     document.body.style.cursor = originalCursor;
   }
 }
+// Close mobile menu if the user taps anywhere outside of it
+document.addEventListener("click", function (event) {
+  const drawer = document.getElementById("mobile-drawer");
+  const hamburger = document.getElementById("hamburger");
 
+  // If the drawer is open, and they clicked outside both the drawer and the menu button
+  if (drawer && drawer.classList.contains("open")) {
+    if (
+      !drawer.contains(event.target) &&
+      hamburger &&
+      !hamburger.contains(event.target)
+    ) {
+      drawer.classList.remove("open");
+    }
+  }
+});
 // Ensure the buttons in your HTML can "see" these functions
 window.downloadSectionAsPDF = downloadSectionAsPDF;
 window.shareSectionAsImage = shareSectionAsImage;
