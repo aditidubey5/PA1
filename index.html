@@ -95,17 +95,18 @@
           >
         </div>
 
-        <div class="mobile-menu-wrapper">
+        <div class="mobile-menu-wrapper" style="position: relative">
           <div
-            class="nav-hamburger"
             id="hamburger"
             onclick="toggleMobileNav()"
             style="
               display: flex;
+              flex-direction: row;
               align-items: center;
               gap: 6px;
               cursor: pointer;
               color: var(--brand-indigo);
+              padding: 8px;
             "
           >
             <span style="font-size: 1.8rem; line-height: 1">☰</span>
@@ -180,7 +181,9 @@
               width: max-content;
               max-width: 250px;
               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-              animation: nudgeBounce 2s infinite;
+              animation:
+                nudgeBounce 2s infinite,
+                fadeOutNudge 0.5s ease-out 4s forwards;
               pointer-events: none;
               z-index: 10;
             "
@@ -196,7 +199,7 @@
                 transform: translateX(-50%) rotate(45deg);
               "
             ></div>
-            Sign in to save your results and view your customised profile!
+            Sign in to save your results!
           </div>
         </div>
 

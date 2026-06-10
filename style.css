@@ -1240,3 +1240,105 @@ nav {
     display: none !important; /* Protect mobile layout from desktop links */
   }
 }
+/* ==========================================================================
+   STRICT MOBILE MENU & TOOLTIP FIXES
+   ========================================================================== */
+
+/* 1. Completely hide the mobile menu wrapper on Desktop */
+.mobile-menu-wrapper {
+  display: none;
+}
+
+/* 2. Fix the Drawer - STRICTLY HIDDEN BY DEFAULT! */
+#mobile-drawer {
+  display: none; /* This fixes the desktop bug! */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  z-index: 999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Only show the drawer when the JS toggles it open */
+#mobile-drawer.open {
+  display: flex;
+}
+
+/* 3. Tooltip & Nudge Animations */
+.click-me-tooltip {
+  position: absolute;
+  top: 130%;
+  right: 0;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+  animation: gentleBounce 2s infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.click-me-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 20px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #a855f7 transparent;
+}
+
+@keyframes gentleBounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes nudgeBounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* Makes the sign-in nudge vanish after 7 seconds */
+@keyframes fadeOutNudge {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+
+/* 4. Show mobile elements ONLY on mobile screens */
+@media (max-width: 640px) {
+  .mobile-menu-wrapper {
+    display: block;
+  }
+  .nav-links {
+    display: none !important; /* Protects mobile from desktop links */
+  }
+}
