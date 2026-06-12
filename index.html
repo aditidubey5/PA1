@@ -81,7 +81,11 @@
           <span class="nav-item" onclick="window.location.href = '/blog.html'"
             >Insights</span
           >
-          <div class="auth-container" id="auth-desktop-container">
+          <div
+            class="auth-container"
+            id="auth-desktop-container"
+            style="position: relative; margin: 0 8px"
+          >
             <button class="login-google-btn" onclick="signInWithGoogle()">
               <img
                 src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
@@ -89,6 +93,7 @@
               />
               Sign in
             </button>
+
             <div
               id="desktop-login-nudge"
               style="
@@ -106,8 +111,8 @@
                 width: max-content;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 animation:
-                  gentleBounce 2s infinite,
-                  fadeOutNudge 0.5s ease-out 6s forwards;
+                  nudgeBounce 2s infinite,
+                  fadeOutNudge 0.5s ease-out 8s forwards;
                 pointer-events: none;
                 z-index: 10;
               "
