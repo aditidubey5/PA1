@@ -1344,3 +1344,14 @@ nav {
     display: none !important; /* Protects mobile from desktop links */
   }
 }
+
+/* Simple up-and-down bounce that won't interfere with centering or fading */
+@keyframes simpleBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
