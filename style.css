@@ -1324,15 +1324,17 @@ nav {
   }
 }
 
-/* Makes the sign-in nudge vanish after 7 seconds */
-/* Makes the sign-in nudge vanish gracefully after 8 seconds */
 @keyframes fadeOutNudge {
-  to {
+  0%,
+  90% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
     opacity: 0;
     visibility: hidden;
   }
 }
-
 /* 4. Show mobile elements ONLY on mobile screens */
 @media (max-width: 640px) {
   .mobile-menu-wrapper {
