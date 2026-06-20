@@ -532,6 +532,7 @@
             "
           />
         </div>
+
         <div class="nav-links">
           <span class="nav-item" onclick="window.location.href = '/'"
             >Home</span
@@ -540,7 +541,12 @@
             >Assessments</span
           >
           <span class="nav-item active">Insights</span>
-          <div class="auth-container" id="auth-container">
+
+          <div
+            class="auth-container"
+            id="auth-container"
+            style="position: relative; margin: 0 8px"
+          >
             <button class="login-google-btn" onclick="signInWithGoogle()">
               <img
                 src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
@@ -549,21 +555,35 @@
               Sign in
             </button>
           </div>
+
           <span
             class="nav-cta"
             onclick="window.location.href = '/?page=coaching'"
             >Coaching</span
           >
         </div>
-        <div
-          class="nav-hamburger"
-          onclick="
-            document
-              .getElementById('blog-mobile-drawer')
-              .classList.toggle('open')
-          "
-        >
-          <span></span><span></span><span></span>
+
+        <div class="mobile-menu-wrapper" style="position: relative">
+          <div
+            class="nav-hamburger"
+            onclick="
+              document
+                .getElementById('blog-mobile-drawer')
+                .classList.toggle('open')
+            "
+            style="
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              gap: 6px;
+              cursor: pointer;
+              color: var(--brand-indigo);
+              padding: 8px;
+            "
+          >
+            <span style="font-size: 1.8rem; line-height: 1">☰</span>
+            <span style="font-size: 0.95rem; font-weight: 700">Menu</span>
+          </div>
         </div>
       </div>
       <div class="nav-mobile-drawer" id="blog-mobile-drawer">
@@ -572,8 +592,26 @@
           >Assessments</span
         >
         <span class="nav-item active">Insights</span>
-        <div id="mobile-auth-container" style="margin-top: 12px">
-          <button class="login-google-btn" onclick="signInWithGoogle()">
+
+        <div
+          id="mobile-auth-container"
+          style="
+            position: relative;
+            margin: 4px 0;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <button
+            class="login-google-btn"
+            onclick="
+              signInWithGoogle();
+              document
+                .getElementById('blog-mobile-drawer')
+                .classList.remove('open');
+            "
+            style="margin: 0"
+          >
             <img
               src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
               alt="Google"
@@ -581,12 +619,12 @@
             Sign in
           </button>
         </div>
+
         <span class="nav-cta" onclick="window.location.href = '/?page=coaching'"
           >Coaching</span
         >
       </div>
     </nav>
-
     <!-- HERO -->
     <header class="blog-hero">
       <div class="blog-hero-tag">Self-Discovery Hub</div>
