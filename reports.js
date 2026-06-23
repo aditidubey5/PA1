@@ -3072,8 +3072,7 @@ async function generateReport() {
             ${typeof buildEmailReportSection === "function" ? buildEmailReportSection() : ""}
             ${followUpHtml}
             
-            ${!loggedInUser ? buildLoggedOutSection(currentTest.id, currentTest.title) : ""}
-        `;
+            `;
   } else {
     // Single Metric Profile Layout Style View (e.g., DISC, Procrastination)
     const activeScore = result.score || result.overall || 0;
