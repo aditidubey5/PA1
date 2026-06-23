@@ -3038,11 +3038,10 @@ async function generateReport() {
       .join("");
 
     html = `
-            <div id="share-card-sectioned" style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
+            <div style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
                 <p style="opacity:0.8;">Analysis for ${targetUserName}</p>
                 <div style="font-size:4.5rem; font-weight:900;">${result.overall || result.score || 0}<span style="font-size:1.8rem;">/100</span></div>
                 <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
-                <p style="opacity:0.85; font-size:0.85rem; margin-top:6px;">${currentTest.title} · peopleassets.in</p>
             </div>
  
             <div style="background:white; padding:40px; border-radius:24px; margin-top:30px; box-shadow:var(--shadow-card);">
@@ -3059,7 +3058,6 @@ async function generateReport() {
             </div>
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-                <button class="btn-primary" onclick="shareSectionAsImage('share-card-sectioned', '${currentTest.id}-result')" style="background:linear-gradient(135deg,#ec4899,#f59e0b);">📤 Share My Result</button>
                 <button class="btn-primary" onclick="window.print()">Download Report</button>
                 
                 ${
@@ -3093,7 +3091,7 @@ async function generateReport() {
         : "";
 
     html = `
-        <div id="share-card-single" class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
+        <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
@@ -3103,8 +3101,7 @@ async function generateReport() {
           <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
             ${personalizedTitle}your result is ${result.label || result.overallLabel || "Processed"}
           </h1>
-          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto 12px;"></div>
-          <p style="font-size:0.8rem; color:rgba(255,255,255,0.75);">${currentTest.title} · peopleassets.in</p>
+          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
         </div>
  
         <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
@@ -3136,7 +3133,6 @@ async function generateReport() {
  
         <div class="report-actions" style="margin-top:32px;">
             <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-            <button class="btn-primary" onclick="shareSectionAsImage('share-card-single', '${currentTest.id}-result')" style="background:linear-gradient(135deg,#ec4899,#f59e0b);">📤 Share My Result</button>
             <button class="btn-primary" onclick="window.print()">Download PDF</button>
             ${
               loggedInUser
