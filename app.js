@@ -222,51 +222,6 @@ async function shareSectionAsImage(elementId, filename) {
         if (!blob) return;
         const file = new File([blob], `${filename}.png`, { type: "image/png" });
 
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: "People Assets Result",
-            text: "Check out my behavioral insights profile!",
-            files: [file],
-          });
-        } else {
-          alert(
-            "Native app sharing isn't supported on this device. Downloading the image so you can post it!",
-          );
-          const link = document.createElement("a");
-          link.download = `${filename}.png`;
-          link.href = URL.createObjectURL(blob);
-          link.click();
-        }
-      },
-      "image/png",
-      1.0,
-    );
-  } catch (error) {
-    console.error("Error generating shareable image:", error);
-  } finally {
-    document.body.style.cursor = originalCursor;
-  }
-}
-
-async function shareSectionAsImage(elementId, filename) {
-  const element = document.getElementById(elementId);
-  if (!element) return;
-
-  const originalCursor = document.body.style.cursor;
-  document.body.style.cursor = "wait";
-
-  try {
-    const canvas = await html2canvas(element, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
-
-    canvas.toBlob(
-      async (blob) => {
-        if (!blob) return;
-        const file = new File([blob], `${filename}.png`, { type: "image/png" });
-
         // Helper to force download
         const forceDownload = () => {
           const link = document.createElement("a");
@@ -293,6 +248,7 @@ async function shareSectionAsImage(elementId, filename) {
               text: "Check out my behavioral insights profile!",
               files: [file],
             });
+            showShareFollowUpNudge();
           } catch (e) {
             forceDownload(); // Fallback if they cancel or it fails
           }
@@ -307,6 +263,7 @@ async function shareSectionAsImage(elementId, filename) {
               "✓ Image copied to clipboard!\n\nYou can now paste (CTRL+V) it directly into WhatsApp, LinkedIn, or Email. A backup file will also download.",
             );
             forceDownload();
+            showShareFollowUpNudge();
           } catch (err) {
             // If clipboard fails (browser permissions), just download
             alert("Downloading your image so you can share it!");
@@ -323,6 +280,61 @@ async function shareSectionAsImage(elementId, filename) {
     document.body.style.cursor = originalCursor;
   }
 }
+
+// Small dismissible nudge shown right after a successful share/copy,
+// inviting the person to bring a friend back — this is the loop that
+// turns one share into the next signup.
+function showShareFollowUpNudge() {
+  const existing = document.getElementById("share-followup-nudge");
+  if (existing) existing.remove();
+
+  const nudge = document.createElement("div");
+  nudge.id = "share-followup-nudge";
+  nudge.style.cssText = `
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: white; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    padding: 16px 20px; display: flex; align-items: center; gap: 14px; z-index: 10001;
+    max-width: 92vw; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+  `;
+  nudge.innerHTML = `
+    <span style="font-size:1.4rem;">🎯</span>
+    <span style="font-size:0.85rem; font-weight:600; color:#1e293b;">Curious how a friend scores? Send them your link.</span>
+    <button onclick="copyReferralLink(this)" style="background:linear-gradient(135deg,#6366f1,#a855f7); color:white; border:none; border-radius:10px; padding:8px 14px; font-size:0.8rem; font-weight:700; cursor:pointer; white-space:nowrap;">Copy Link</button>
+    <button onclick="this.closest('#share-followup-nudge').remove()" style="background:none; border:none; color:#94a3b8; font-size:1.1rem; cursor:pointer; padding:0 4px;">✕</button>
+  `;
+  document.body.appendChild(nudge);
+
+  requestAnimationFrame(() => {
+    nudge.style.opacity = "1";
+    nudge.style.transform = "translateX(-50%) translateY(0)";
+  });
+
+  setTimeout(() => {
+    if (document.getElementById("share-followup-nudge")) {
+      nudge.style.opacity = "0";
+      setTimeout(() => nudge.remove(), 300);
+    }
+  }, 8000);
+}
+
+function copyReferralLink(btn) {
+  const testId = currentTest?.id || "";
+  const link = `${window.location.origin}/${testId}`;
+  navigator.clipboard
+    .writeText(link)
+    .then(() => {
+      btn.textContent = "Copied ✓";
+      setTimeout(() => {
+        const n = document.getElementById("share-followup-nudge");
+        if (n) n.remove();
+      }, 1200);
+    })
+    .catch(() => {
+      btn.textContent = link;
+    });
+}
+window.showShareFollowUpNudge = showShareFollowUpNudge;
+window.copyReferralLink = copyReferralLink;
 // Close mobile menu if the user taps anywhere outside of it
 document.addEventListener("click", function (event) {
   const drawer = document.getElementById("mobile-drawer");
