@@ -2902,6 +2902,45 @@ function handleFollowUp(isYes, keyword) {
 }
 
 // ─────────────────────────────────────────────
+// LOGGED-OUT VALUE TEASER (Shown only to signed-out users)
+// Note: the page already has a "Sign In to Save" button in the
+// action row above this — so this section does NOT repeat that CTA.
+// Instead it shows what they'd actually unlock, with sign-in as a
+// single inline link rather than a second competing button.
+// ─────────────────────────────────────────────
+function buildLoggedOutSection(testId, testTitle) {
+  return `
+    <div style="background:white; border-radius:20px; padding:28px 32px; margin-top:32px; box-shadow:var(--shadow-card);">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px; flex-wrap:wrap;">
+            <div style="width:44px; height:44px; background:linear-gradient(135deg,#6366f1 0%,#d946ef 60%,#f59e0b 100%); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">📊</div>
+            <div>
+                <p style="margin:0 0 2px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-indigo);">This result isn't saved yet</p>
+                <h3 style="margin:0; font-size:1rem; font-weight:800; color:#1e293b;">Your Growth Dashboard is waiting</h3>
+            </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:20px;">
+            <div style="background:#f8f7ff; border-radius:12px; padding:16px; text-align:center;">
+                <div style="font-size:1.5rem; margin-bottom:6px;">🧩</div>
+                <p style="margin:0; font-size:0.78rem; font-weight:700; color:#1e293b;">Track every assessment</p>
+            </div>
+            <div style="background:#f8f7ff; border-radius:12px; padding:16px; text-align:center;">
+                <div style="font-size:1.5rem; margin-bottom:6px;">📈</div>
+                <p style="margin:0; font-size:0.78rem; font-weight:700; color:#1e293b;">See your scores over time</p>
+            </div>
+            <div style="background:#f8f7ff; border-radius:12px; padding:16px; text-align:center;">
+                <div style="font-size:1.5rem; margin-bottom:6px;">🤖</div>
+                <p style="margin:0; font-size:0.78rem; font-weight:700; color:#1e293b;">Unlock your AI Profile Summary</p>
+            </div>
+        </div>
+        <p style="margin:0; font-size:0.85rem; color:#64748b; text-align:center;">
+            Right now, ${testTitle ? `your ${testTitle} result` : "this result"} only lives in this browser tab.
+            <a href="#" onclick="signInWithGoogle(); return false;" style="color:var(--brand-indigo); font-weight:700; text-decoration:underline; white-space:nowrap;">Sign in</a> to keep it permanently and build your full profile as you take more assessments.
+        </p>
+    </div>
+    `;
+}
+
+// ─────────────────────────────────────────────
 // ENGAGEMENT & BLOG NUDGE (Visible to ALL users)
 // ─────────────────────────────────────────────
 function buildEngagementSection(testId, testTitle) {
@@ -3038,10 +3077,11 @@ async function generateReport() {
       .join("");
 
     html = `
-            <div style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
+            <div id="share-card-sectioned" style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
                 <p style="opacity:0.8;">Analysis for ${targetUserName}</p>
                 <div style="font-size:4.5rem; font-weight:900;">${result.overall || result.score || 0}<span style="font-size:1.8rem;">/100</span></div>
                 <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
+                <p style="opacity:0.85; font-size:0.85rem; margin-top:6px;">${currentTest.title} · peopleassets.in</p>
             </div>
  
             <div style="background:white; padding:40px; border-radius:24px; margin-top:30px; box-shadow:var(--shadow-card);">
@@ -3058,6 +3098,7 @@ async function generateReport() {
             </div>
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
+                <button class="btn-primary" onclick="shareSectionAsImage('share-card-sectioned', '${currentTest.id}-result')" style="background:linear-gradient(135deg,#ec4899,#f59e0b);">📤 Share My Result</button>
                 <button class="btn-primary" onclick="window.print()">Download Report</button>
                 
                 ${
@@ -3091,7 +3132,7 @@ async function generateReport() {
         : "";
 
     html = `
-        <div class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
+        <div id="share-card-single" class="report-header" style="background: var(--brand-grad); border-radius: 24px; padding: clamp(40px,6vw,70px) clamp(24px,5vw,56px); text-align: center; margin-bottom: 28px; position:relative; overflow:hidden;">
           <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
           <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;">
@@ -3101,7 +3142,8 @@ async function generateReport() {
           <h1 style="font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; color:white; margin-bottom:16px;">
             ${personalizedTitle}your result is ${result.label || result.overallLabel || "Processed"}
           </h1>
-          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto;"></div>
+          <div style="width:60px;height:4px;background:rgba(255,255,255,0.4);border-radius:50px;margin:0 auto 12px;"></div>
+          <p style="font-size:0.8rem; color:rgba(255,255,255,0.75);">${currentTest.title} · peopleassets.in</p>
         </div>
  
         <div class="report-body" style="background:white; border-radius:24px; padding:clamp(28px,5vw,48px); box-shadow:var(--shadow-card);">
@@ -3133,6 +3175,7 @@ async function generateReport() {
  
         <div class="report-actions" style="margin-top:32px;">
             <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
+            <button class="btn-primary" onclick="shareSectionAsImage('share-card-single', '${currentTest.id}-result')" style="background:linear-gradient(135deg,#ec4899,#f59e0b);">📤 Share My Result</button>
             <button class="btn-primary" onclick="window.print()">Download PDF</button>
             ${
               loggedInUser
@@ -3208,5 +3251,6 @@ async function sendReportEmail() {
 
 window.generateReport = generateReport;
 window.buildEmailReportSection = buildEmailReportSection;
+window.buildLoggedOutSection = buildLoggedOutSection;
 window.handleFollowUp = handleFollowUp;
 window.REPORT_LOGIC = REPORT_LOGIC;
