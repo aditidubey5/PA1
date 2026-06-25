@@ -339,9 +339,88 @@ document.addEventListener("click", function (event) {
     }
   }
 });
+
+async function generateAndShareImage() {
+  const shareBtn = document.getElementById("main-share-btn");
+  if (!shareBtn) return;
+
+  shareBtn.textContent = "Generating Card...";
+  shareBtn.disabled = true;
+
+  // 1. Pull dynamic data from the active session state
+  const result = window.lastReportResult;
+  const testTitle = window.currentTest?.title || "Assessment Profile";
+
+  if (!result) {
+    alert("No report data found to share.");
+    shareBtn.textContent = "Share Profile";
+    shareBtn.disabled = false;
+    return;
+  }
+
+  // 2. Overwrite the HTML text placeholders with your live data variables
+  document.getElementById("share-card-test-type").textContent = testTitle;
+  document.getElementById("share-card-title").textContent =
+    result.label || result.overallLabel || "Analysis Complete";
+  document.getElementById("share-card-score").textContent =
+    result.overall || result.score || "0";
+
+  // 3. Target the hidden visual node container
+  const cardElement = document.getElementById("share-card-container");
+
+  try {
+    // 4. Render the screenshot array
+    const canvas = await html2canvas(cardElement, {
+      scale: 2, // Forces crisp, high-res graphics (retina display ready)
+      backgroundColor: null,
+      useCORS: true, // Prevents image security blocking from cross-origins
+      logging: false,
+    });
+
+    // 5. Convert the graphic canvas grid into a raw binary image blob file
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        throw new Error("Canvas generation failed.");
+      }
+
+      const file = new File([blob], "people-assets-profile.png", {
+        type: "image/png",
+      });
+
+      // 6. Execute Native System Web Share Sheet API Level 2 (Mobile Apps Ecosystem)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: `My ${testTitle} Results`,
+          text: `I just mapped my behaviors on People Assets. Check out my profile!`,
+        });
+      } else {
+        // Fallback Strategy: Auto-download for desktop viewports
+        const link = document.createElement("a");
+        link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-score.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+        alert(
+          "Share card downloaded! You can now upload it directly to LinkedIn or your Instagram Story.",
+        );
+      }
+
+      shareBtn.textContent = "Share Profile";
+      shareBtn.disabled = false;
+    }, "image/png");
+  } catch (error) {
+    console.error("Error executing system share array:", error);
+    shareBtn.textContent = "Share Profile";
+    shareBtn.disabled = false;
+    alert(
+      "Something went wrong compiling the file. You can still print or save the raw page directly!",
+    );
+  }
+}
 // Ensure the buttons in your HTML can "see" these functions
 window.downloadSectionAsPDF = downloadSectionAsPDF;
 window.shareSectionAsImage = shareSectionAsImage;
+window.generateAndShareImage = generateAndShareImage;
 
 // 5. Initialize
 window.onpopstate = initRouter;

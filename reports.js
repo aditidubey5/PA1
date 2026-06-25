@@ -3059,6 +3059,7 @@ async function generateReport() {
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
                 <button class="btn-primary" onclick="window.print()">Download Report</button>
+                <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
                 
                 ${
                   loggedInUser
@@ -3133,6 +3134,7 @@ async function generateReport() {
         <div class="report-actions" style="margin-top:32px;">
             <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
             <button class="btn-primary" onclick="window.print()">Download PDF</button>
+            <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
             ${
               loggedInUser
                 ? `<button class="btn-primary" onclick="showPage('profile')" style="background:linear-gradient(135deg,#6366f1,#a855f7);">👤 View My Profile</button>`
