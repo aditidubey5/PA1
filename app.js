@@ -222,51 +222,6 @@ async function shareSectionAsImage(elementId, filename) {
         if (!blob) return;
         const file = new File([blob], `${filename}.png`, { type: "image/png" });
 
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: "People Assets Result",
-            text: "Check out my behavioral insights profile!",
-            files: [file],
-          });
-        } else {
-          alert(
-            "Native app sharing isn't supported on this device. Downloading the image so you can post it!",
-          );
-          const link = document.createElement("a");
-          link.download = `${filename}.png`;
-          link.href = URL.createObjectURL(blob);
-          link.click();
-        }
-      },
-      "image/png",
-      1.0,
-    );
-  } catch (error) {
-    console.error("Error generating shareable image:", error);
-  } finally {
-    document.body.style.cursor = originalCursor;
-  }
-}
-
-async function shareSectionAsImage(elementId, filename) {
-  const element = document.getElementById(elementId);
-  if (!element) return;
-
-  const originalCursor = document.body.style.cursor;
-  document.body.style.cursor = "wait";
-
-  try {
-    const canvas = await html2canvas(element, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
-
-    canvas.toBlob(
-      async (blob) => {
-        if (!blob) return;
-        const file = new File([blob], `${filename}.png`, { type: "image/png" });
-
         // Helper to force download
         const forceDownload = () => {
           const link = document.createElement("a");
@@ -360,13 +315,12 @@ async function generateAndShareImage() {
 
   // 2. Automated Summary Parsing Logic: Grabs the profile description
   const fullDescription = result.description || result.overallDescription || "";
-  // Programmatically isolates just the first sentence for a high-impact social media hook
   const firstSentence = fullDescription.split(/[.!?]/)[0];
   const summaryBrief = firstSentence
     ? firstSentence.trim() + "."
     : "Tap the link to check your custom leadership profile dynamics.";
 
-  // 3. Synchronous HTML placeholder updates
+  // 3. Synchronous HTML placeholder text modifications
   document.getElementById("share-card-test-type").textContent = testTitle;
   document.getElementById("share-card-title").textContent =
     result.label || result.overallLabel || "Analysis Complete";
@@ -374,14 +328,14 @@ async function generateAndShareImage() {
     result.overall || result.score || "0";
   document.getElementById("share-card-summary").textContent = summaryBrief;
 
-  // 4. Focus tracking on hidden canvas target node
+  // 4. Target layout node tracking
   const cardElement = document.getElementById("share-card-container");
 
   try {
-    // 5. Force compilation processing check pass
+    // 5. Force canvas snapshot processing
     const canvas = await html2canvas(cardElement, {
       scale: 2,
-      backgroundColor: null,
+      backgroundColor: "#0f172a", // Solid foundation hex layer targets blank image errors
       useCORS: true,
       logging: false,
       allowTaint: true,
@@ -392,7 +346,7 @@ async function generateAndShareImage() {
       async (blob) => {
         if (!blob) {
           throw new Error(
-            "Device engine failed compiling graphic canvas coordinates.",
+            "Device engine failed compiling graphic canvas parameters.",
           );
         }
 
@@ -400,7 +354,7 @@ async function generateAndShareImage() {
           type: "image/png",
         });
 
-        // 7. Execute Native smartphone system share window sheet handler
+        // 7. Execute Native smartphone system share tray overlay
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
@@ -414,17 +368,17 @@ async function generateAndShareImage() {
             );
           }
         } else {
-          // Desktop Browser Alternative Download Pipeline Flow
+          // Desktop Alternative Download Stream
           const link = document.createElement("a");
           link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
           link.href = canvas.toDataURL("image/png");
           link.click();
           alert(
-            "Sleek share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed or your Instagram Story.",
+            "Share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed.",
           );
         }
 
-        // Reset baseline structural text properties
+        // Reset button layout state
         shareBtn.innerHTML = originalText;
         shareBtn.disabled = false;
       },
@@ -432,7 +386,7 @@ async function generateAndShareImage() {
       0.95,
     );
   } catch (error) {
-    console.error("Critical crash tracing system canvas parameters:", error);
+    console.error("Critical crash tracing system canvas snapshot data:", error);
     alert(
       "Could not render custom card stream natively. Try taking a screenshot directly!",
     );
@@ -440,9 +394,26 @@ async function generateAndShareImage() {
     shareBtn.disabled = false;
   }
 }
+// ============================================
+// UI EXPERIENCES: TOOLTIP TEMPORARY LIFE-CYCLE
+// ============================================
+window.addEventListener("DOMContentLoaded", () => {
+  // Sets a 4-second delay before hiding the landing tooltip nudge element
+  setTimeout(() => {
+    const tooltip = document.getElementById("menu-tooltip");
+    if (tooltip) {
+      tooltip.style.transition =
+        "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s ease";
+      tooltip.style.opacity = "0";
+      tooltip.style.transform = "translateY(-8px)";
 
-// Map check back to window context architecture
-window.generateAndShareImage = generateAndShareImage;
+      // Completely wipes the layout footprint from layout interaction trees after transition wraps up
+      setTimeout(() => {
+        tooltip.style.display = "none";
+      }, 600);
+    }
+  }, 4000);
+});
 // Ensure the buttons in your HTML can "see" these functions
 window.downloadSectionAsPDF = downloadSectionAsPDF;
 window.shareSectionAsImage = shareSectionAsImage;
