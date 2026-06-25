@@ -278,6 +278,7 @@ async function shareSectionAsImage(elementId, filename) {
     document.body.style.cursor = originalCursor;
   }
 }
+
 // Close mobile menu if the user taps anywhere outside of it
 document.addEventListener("click", function (event) {
   const drawer = document.getElementById("mobile-drawer");
@@ -294,6 +295,8 @@ document.addEventListener("click", function (event) {
     }
   }
 });
+
+// 5. Executive White Share Card Engine
 async function generateAndShareImage() {
   const shareBtn = document.getElementById("main-share-btn");
   if (!shareBtn) return;
@@ -302,7 +305,7 @@ async function generateAndShareImage() {
   shareBtn.textContent = "Generating Card...";
   shareBtn.disabled = true;
 
-  // 1. Safe extraction of target report state data properties
+  // Extraction of target report state data properties
   const result = window.lastReportResult;
   const testTitle = window.currentTest?.title || "Assessment Profile";
 
@@ -313,35 +316,31 @@ async function generateAndShareImage() {
     return;
   }
 
-  // 2. Automated Summary Parsing Logic: Grabs the profile description
-  const fullDescription = result.description || result.overallDescription || "";
-  const firstSentence = fullDescription.split(/[.!?]/)[0];
-  const summaryBrief = firstSentence
-    ? firstSentence.trim() + "."
-    : "Tap the link to check your custom leadership profile dynamics.";
+  // Captures the FULL overall summary brief
+  const fullSummaryText =
+    result.description ||
+    result.overallDescription ||
+    "Explore your custom behavioral profile dynamics.";
 
-  // 3. Synchronous HTML placeholder text modifications
-  document.getElementById("share-card-test-type").textContent = testTitle;
+  // Dynamic DOM placeholder modifications before canvas capture
   document.getElementById("share-card-title").textContent =
     result.label || result.overallLabel || "Analysis Complete";
   document.getElementById("share-card-score").textContent =
     result.overall || result.score || "0";
-  document.getElementById("share-card-summary").textContent = summaryBrief;
+  document.getElementById("share-card-summary").textContent =
+    fullSummaryText.trim();
 
-  // 4. Target layout node tracking
   const cardElement = document.getElementById("share-card-container");
 
   try {
-    // 5. Force canvas snapshot processing
     const canvas = await html2canvas(cardElement, {
       scale: 2,
-      backgroundColor: "#0f172a", // Solid foundation hex layer targets blank image errors
+      backgroundColor: "#ffffff", // Pure white card foundation hex layer sets strict canvas boundaries
       useCORS: true,
       logging: false,
       allowTaint: true,
     });
 
-    // 6. Binary file generation routing pipeline block
     canvas.toBlob(
       async (blob) => {
         if (!blob) {
@@ -354,7 +353,7 @@ async function generateAndShareImage() {
           type: "image/png",
         });
 
-        // 7. Execute Native smartphone system share tray overlay
+        // Native smartphone system share sheets targeting mobile viewports
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
@@ -368,7 +367,7 @@ async function generateAndShareImage() {
             );
           }
         } else {
-          // Desktop Alternative Download Stream
+          // Desktop Alternative Download routing path
           const link = document.createElement("a");
           link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
           link.href = canvas.toDataURL("image/png");
@@ -378,7 +377,7 @@ async function generateAndShareImage() {
           );
         }
 
-        // Reset button layout state
+        // Reset baseline button properties cleanly
         shareBtn.innerHTML = originalText;
         shareBtn.disabled = false;
       },
@@ -394,6 +393,7 @@ async function generateAndShareImage() {
     shareBtn.disabled = false;
   }
 }
+
 // ============================================
 // UI EXPERIENCES: TOOLTIP TEMPORARY LIFE-CYCLE
 // ============================================
@@ -407,19 +407,20 @@ window.addEventListener("DOMContentLoaded", () => {
       tooltip.style.opacity = "0";
       tooltip.style.transform = "translateY(-8px)";
 
-      // Completely wipes the layout footprint from layout interaction trees after transition wraps up
+      // Completely wipes the layout footprint from interaction trees after transition wraps up
       setTimeout(() => {
         tooltip.style.display = "none";
       }, 600);
     }
   }, 4000);
 });
+
 // Ensure the buttons in your HTML can "see" these functions
 window.downloadSectionAsPDF = downloadSectionAsPDF;
 window.shareSectionAsImage = shareSectionAsImage;
 window.generateAndShareImage = generateAndShareImage;
 
-// 5. Initialize
+// 6. Initialize
 window.onpopstate = initRouter;
 window.addEventListener("DOMContentLoaded", initRouter);
 
