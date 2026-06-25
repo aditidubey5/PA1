@@ -322,11 +322,45 @@ async function generateAndShareImage() {
     result.overallDescription ||
     "Explore your custom behavioral profile dynamics.";
 
+  // Numeric score, clamped to a sane 0-100 range for the gauge math
+  const rawScore = Number(result.overall ?? result.score ?? 0);
+  const safeScore = Math.max(0, Math.min(100, isNaN(rawScore) ? 0 : rawScore));
+
+  // Simple 3-band classification for the pill + gauge color.
+  // This does NOT assume which direction is "good" for this particular
+  // test - it just gives a consistent visual scale from low to high.
+  let bandLabel, bandBg, bandColor, gaugeColor;
+  if (safeScore >= 67) {
+    bandLabel = "High Range";
+    bandBg = "#ede9fe";
+    bandColor = "#5b21b6";
+    gaugeColor = "linear-gradient(135deg, #6366f1 0%, #d946ef 100%)";
+  } else if (safeScore >= 34) {
+    bandLabel = "Mid Range";
+    bandBg = "#fef3c7";
+    bandColor = "#92400e";
+    gaugeColor = "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)";
+  } else {
+    bandLabel = "Developing";
+    bandBg = "#fee2e2";
+    bandColor = "#991b1b";
+    gaugeColor = "linear-gradient(135deg, #f87171 0%, #fb923c 100%)";
+  }
+
   // Dynamic DOM placeholder modifications before canvas capture
-  document.getElementById("share-card-title").textContent =
-    result.label || result.overallLabel || "Analysis Complete";
-  document.getElementById("share-card-score").textContent =
-    result.overall || result.score || "0";
+  document.getElementById("share-card-title").textContent = testTitle;
+  document.getElementById("share-card-name").textContent = window.userName
+    ? `${window.userName}'s Result`
+    : "Assessment Result";
+  document.getElementById("share-card-score").textContent = safeScore;
+  document.getElementById("share-card-gauge-fill").style.width =
+    safeScore + "%";
+  document.getElementById("share-card-gauge-fill").style.background =
+    gaugeColor;
+  const bandEl = document.getElementById("share-card-band");
+  bandEl.textContent = result.label || result.overallLabel || bandLabel;
+  bandEl.style.background = bandBg;
+  bandEl.style.color = bandColor;
   document.getElementById("share-card-summary").textContent =
     fullSummaryText.trim();
 
@@ -343,43 +377,55 @@ async function generateAndShareImage() {
 
     canvas.toBlob(
       async (blob) => {
-        if (!blob) {
-          throw new Error(
-            "Device engine failed compiling graphic canvas parameters.",
-          );
-        }
-
-        const file = new File([blob], "people-assets-profile.png", {
-          type: "image/png",
-        });
-
-        // Native smartphone system share sheets targeting mobile viewports
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({
-              files: [file],
-              title: `My ${testTitle} Score Profile`,
-              text: `I just mapped my behaviors on People Assets. Take a look at my profile!`,
-            });
-          } catch (shareError) {
-            console.log(
-              "System native share operation aborted by client step.",
+        try {
+          if (!blob) {
+            throw new Error(
+              "Device engine failed compiling graphic canvas parameters.",
             );
           }
-        } else {
-          // Desktop Alternative Download routing path
-          const link = document.createElement("a");
-          link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
-          link.href = canvas.toDataURL("image/png");
-          link.click();
-          alert(
-            "Share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed.",
-          );
-        }
 
-        // Reset baseline button properties cleanly
-        shareBtn.innerHTML = originalText;
-        shareBtn.disabled = false;
+          const file = new File([blob], "people-assets-profile.png", {
+            type: "image/png",
+          });
+
+          // Native smartphone system share sheets targeting mobile viewports
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                files: [file],
+                title: `My ${testTitle} Score Profile`,
+                text: `I just mapped my behaviors on People Assets. Take a look at my profile!`,
+              });
+            } catch (shareError) {
+              console.log(
+                "System native share operation aborted by client step.",
+              );
+            }
+          } else {
+            // Desktop Alternative Download routing path
+            const link = document.createElement("a");
+            link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            alert(
+              "Share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed.",
+            );
+          }
+        } catch (blobError) {
+          console.error(
+            "Critical crash tracing system canvas blob data:",
+            blobError,
+          );
+          alert(
+            "Could not generate the share image on this device. Try taking a screenshot directly!",
+          );
+        } finally {
+          // Reset baseline button properties cleanly - this now ALWAYS
+          // runs, even if the share/download step above failed, so the
+          // button never gets stuck on "Generating Card..." again.
+          shareBtn.innerHTML = originalText;
+          shareBtn.disabled = false;
+        }
       },
       "image/png",
       0.95,

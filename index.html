@@ -448,15 +448,16 @@
       </div>
     </div>
     <!-- ============ PREMIUM WHITE EXECUTIVE SHARE CARD (V3) ============ -->
-    <!-- Invisible Vault Container: Structural block keeps card hidden from viewports but fully accessible to engines -->
+    <!-- Off-screen Vault Container: kept fully out of the visible viewport
+         using a large negative offset, NOT a zero-size box. html2canvas
+         needs the source element to have real, non-zero rendered
+         dimensions to capture reliably - a 0x0 container with overflow:hidden
+         is what was causing the blank/failed capture on mobile browsers. -->
     <div
       style="
-        position: absolute;
+        position: fixed;
         top: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        overflow: hidden;
+        left: -9999px;
         pointer-events: none;
         z-index: -9999;
       "
@@ -572,6 +573,16 @@
               letter-spacing: -0.02em;
             "
           ></h1>
+          <!-- Personalized name line -->
+          <p
+            id="share-card-name"
+            style="
+              font-size: 0.95rem;
+              font-weight: 600;
+              color: #64748b;
+              margin: 4px 0 0 0;
+            "
+          ></p>
         </div>
 
         <!-- Metric Tracker Layout (Clean Inline Number Grid Format) -->
@@ -581,7 +592,7 @@
             align-items: baseline;
             justify-content: center;
             gap: 2px;
-            margin: 15px 0;
+            margin: 15px 0 0;
           "
         >
           <!-- Large Dynamic Primary Score Integer Output -->
@@ -606,6 +617,51 @@
             >/100</span
           >
         </div>
+
+        <!-- Gauge Bar: visual fill showing the score at a glance -->
+        <div
+          style="
+            width: 100%;
+            max-width: 320px;
+            margin: 4px 0 14px;
+            box-sizing: border-box;
+          "
+        >
+          <div
+            style="
+              height: 12px;
+              border-radius: 50px;
+              background: #e2e8f0;
+              overflow: hidden;
+            "
+          >
+            <div
+              id="share-card-gauge-fill"
+              style="
+                height: 100%;
+                border-radius: 50px;
+                width: 0%;
+                background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
+              "
+            ></div>
+          </div>
+        </div>
+
+        <!-- Band Pill: short qualitative label (e.g. Strong / Developing) -->
+        <span
+          id="share-card-band"
+          style="
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            letter-spacing: 0.02em;
+            background: #ede9fe;
+            color: #5b21b6;
+          "
+        ></span>
 
         <!-- Dynamic Overall Summary Content Box Container -->
         <div
