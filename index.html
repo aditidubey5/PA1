@@ -462,13 +462,7 @@
         z-index: -9999;
       "
     >
-      <!-- Share Card: Option B — top gradient line + left accent stripe -->
-      <!-- White card, no heavy header block. Brand colours appear as:
-           1) a 6px rainbow top line
-           2) a 6px purple-to-pink left stripe
-           3) the People Assets logo image in the footer bottom-left
-           This keeps the card clean and legible while staying unmistakably
-           on-brand when shared on LinkedIn, WhatsApp, or Instagram. -->
+      <!-- Main Visual Container (100% White Background Below Header Banner) -->
       <div
         id="share-card-container"
         style="
@@ -483,67 +477,91 @@
           align-items: center;
           position: relative;
           border: 1px solid #e2e8f0;
-          overflow: hidden;
         "
       >
-        <!-- 6px rainbow top line -->
-        <div
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(
-              90deg,
-              #6366f1 0%,
-              #d946ef 50%,
-              #f59e0b 100%
-            );
-            flex-shrink: 0;
-          "
-        ></div>
-
-        <!-- 6px purple-to-pink left stripe -->
-        <div
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(180deg, #6366f1 0%, #d946ef 100%);
-          "
-        ></div>
-
-        <!-- Main content: left-padded to clear the left stripe -->
+        <!-- Top Bar Header Section: Coated in your exact signature purplish brand gradient -->
         <div
           style="
             width: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
+            padding: 30px 20px;
             box-sizing: border-box;
-            padding: 60px 52px 0 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+          "
+        >
+          <!-- Top Border Accent Trim Line -->
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 6px;
+              background: linear-gradient(90deg, #6366f1, #d946ef);
+            "
+          ></div>
+
+          <!-- Crisply Framed Logo Card Shield Container -->
+          <div
+            style="
+              background: #ffffff;
+              padding: 0 25px;
+              border-radius: 14px;
+              box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 60px;
+              width: 200px;
+              overflow: hidden;
+            "
+          >
+            <img
+              src="logo.png"
+              alt="People Assets Logo"
+              style="
+                height: 170px;
+                max-width: none;
+                mix-blend-mode: multiply;
+                margin-left: -12px;
+                margin-top: 2px;
+              "
+            />
+          </div>
+        </div>
+
+        <!-- Typography Context Section -->
+        <div
+          style="
+            width: 100%;
+            text-align: center;
+            padding: 0 40px;
+            margin-top: 20px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex: 1;
+            gap: 6px;
           "
         >
-          <!-- Kicker label -->
+          <!-- Purplish Assessment Label -->
           <span
             style="
-              font-size: 0.75rem;
+              font-size: 0.8rem;
               font-weight: 800;
               letter-spacing: 0.18em;
               text-transform: uppercase;
               color: #a855f7;
               display: block;
               line-height: 1;
-              margin-bottom: 14px;
             "
             >Assessment Profile</span
           >
-
-          <!-- Test name — populated by generateAndShareImage() -->
+          <!-- Pitch Black Test Name Header -->
           <h1
             id="share-card-title"
             style="
@@ -551,162 +569,158 @@
               font-weight: 800;
               color: #0f172a;
               line-height: 1.2;
-              margin: 0 0 8px 0;
+              margin: 8px 0 0 0;
               letter-spacing: -0.02em;
-              text-align: center;
             "
           ></h1>
-
-          <!-- Personalised name line — populated by generateAndShareImage() -->
+          <!-- Personalized name line -->
           <p
             id="share-card-name"
             style="
               font-size: 0.95rem;
               font-weight: 600;
               color: #64748b;
-              margin: 0 0 30px 0;
+              margin: 4px 0 0 0;
             "
           ></p>
-
-          <!-- Big score number -->
-          <div
-            style="
-              display: flex;
-              align-items: baseline;
-              justify-content: center;
-              gap: 2px;
-              margin-bottom: 0;
-            "
-          >
-            <span
-              id="share-card-score"
-              style="
-                font-size: 7rem;
-                font-weight: 800;
-                color: #0f172a;
-                line-height: 1;
-                letter-spacing: -0.04em;
-              "
-            ></span>
-            <span
-              style="
-                font-size: 2.8rem;
-                font-weight: 700;
-                color: #94a3b8;
-                letter-spacing: -0.02em;
-              "
-              >/100</span
-            >
-          </div>
-
-          <!-- Gauge bar -->
-          <div style="width: 320px; margin: 10px 0 14px">
-            <div
-              style="
-                height: 12px;
-                border-radius: 50px;
-                background: #e2e8f0;
-                overflow: hidden;
-              "
-            >
-              <div
-                id="share-card-gauge-fill"
-                style="
-                  height: 100%;
-                  border-radius: 50px;
-                  width: 0%;
-                  background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
-                "
-              ></div>
-            </div>
-          </div>
-
-          <!-- Band pill -->
-          <span
-            id="share-card-band"
-            style="
-              display: inline-block;
-              font-size: 0.75rem;
-              font-weight: 800;
-              padding: 6px 18px;
-              border-radius: 50px;
-              margin-bottom: 28px;
-              letter-spacing: 0.02em;
-              background: #ede9fe;
-              color: #5b21b6;
-            "
-          ></span>
-
-          <!-- Summary description box -->
-          <div
-            style="
-              width: 100%;
-              background: #f8fafc;
-              border: 1px solid #e2e8f0;
-              border-radius: 20px;
-              padding: 24px 28px;
-              box-sizing: border-box;
-            "
-          >
-            <p
-              id="share-card-summary"
-              style="
-                font-size: 0.95rem;
-                line-height: 1.65;
-                color: #334155;
-                margin: 0;
-                font-weight: 500;
-                text-align: center;
-              "
-            ></p>
-          </div>
         </div>
 
-        <!-- Footer: logo image bottom-left + domain bottom-right -->
+        <!-- Metric Tracker Layout (Clean Inline Number Grid Format) -->
+        <div
+          style="
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 2px;
+            margin: 15px 0 0;
+          "
+        >
+          <!-- Large Dynamic Primary Score Integer Output -->
+          <span
+            id="share-card-score"
+            style="
+              font-size: 7rem;
+              font-weight: 800;
+              color: #0f172a;
+              line-height: 1;
+              letter-spacing: -0.04em;
+            "
+          ></span>
+          <!-- Muted Clean Slash 100 Anchor Node Label -->
+          <span
+            style="
+              font-size: 2.8rem;
+              font-weight: 700;
+              color: #64748b;
+              letter-spacing: -0.02em;
+            "
+            >/100</span
+          >
+        </div>
+
+        <!-- Gauge Bar: visual fill showing the score at a glance -->
         <div
           style="
             width: 100%;
+            max-width: 320px;
+            margin: 4px 0 14px;
             box-sizing: border-box;
-            border-top: 1px solid #e2e8f0;
-            padding: 20px 32px 28px 46px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
           "
         >
           <div
             style="
-              height: 40px;
+              height: 12px;
+              border-radius: 50px;
+              background: #e2e8f0;
               overflow: hidden;
-              display: flex;
-              align-items: center;
             "
           >
-            <img
-              src="logo.png"
-              alt="People Assets"
+            <div
+              id="share-card-gauge-fill"
               style="
-                height: 120px;
-                max-width: none;
-                mix-blend-mode: multiply;
-                margin-top: 4px;
-                margin-left: -8px;
+                height: 100%;
+                border-radius: 50px;
+                width: 0%;
+                background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
               "
-            />
+            ></div>
           </div>
+        </div>
 
-          <!-- Domain -->
+        <!-- Band Pill: short qualitative label (e.g. Strong / Developing) -->
+        <span
+          id="share-card-band"
+          style="
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            letter-spacing: 0.02em;
+            background: #ede9fe;
+            color: #5b21b6;
+          "
+        ></span>
+
+        <!-- Dynamic Overall Summary Content Box Container -->
+        <div
+          style="
+            width: 100%;
+            max-width: 520px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 24px 28px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+          "
+        >
+          <!-- Injects the entire overall description text block safely with high legibility -->
           <p
+            id="share-card-summary"
             style="
               font-size: 0.95rem;
+              line-height: 1.6;
+              color: #334155;
+              margin: 0;
+              font-weight: 500;
+              text-align: center;
+            "
+          ></p>
+        </div>
+
+        <!-- Professional Footer Domain Node -->
+        <div
+          style="
+            width: 100%;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-bottom: 35px;
+            padding-top: 25px;
+            box-sizing: border-box;
+          "
+        >
+          <p
+            style="
+              font-size: 1.05rem;
               font-weight: 600;
               color: #64748b;
               margin: 0;
-              letter-spacing: 0.01em;
+              letter-spacing: 0.02em;
             "
           >
-            peopleassets.in
+            Discover your professional edge at
+            <span
+              style="
+                color: #0f172a;
+                font-weight: 700;
+                border-bottom: 2px solid #6366f1;
+                padding-bottom: 1px;
+              "
+              >peopleassets.in</span
+            >
           </p>
         </div>
       </div>

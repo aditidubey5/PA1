@@ -305,84 +305,71 @@ async function generateAndShareImage() {
   shareBtn.textContent = "Generating Card...";
   shareBtn.disabled = true;
 
+  // Extraction of target report state data properties
   const result = window.lastReportResult;
-
-  // Use the test's actual title (e.g. "Growth Mindset Diagnostic"),
-  // NOT result.label (e.g. "Fixed Mindset Tendencies") — the label goes
-  // in the band pill below the score, not in the headline.
   const testTitle = window.currentTest?.title || "Assessment Profile";
 
   if (!result) {
-    alert("No report found. Please complete an assessment first.");
+    alert("No assessment report found to compile.");
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
     return;
   }
 
-  // Score — clamped to 0-100, safe against NaN/undefined
+  // Captures the FULL overall summary brief
+  const fullSummaryText =
+    result.description ||
+    result.overallDescription ||
+    "Explore your custom behavioral profile dynamics.";
+
+  // Numeric score, clamped to a sane 0-100 range for the gauge math
   const rawScore = Number(result.overall ?? result.score ?? 0);
   const safeScore = Math.max(0, Math.min(100, isNaN(rawScore) ? 0 : rawScore));
 
-  // Band label + colours — 3-tier scale
-  // (does not assume which direction is "good" for a given test —
-  //  that per-test inversion can be added later if needed)
-  let bandBg, bandColor, gaugeColor;
+  // Simple 3-band classification for the pill + gauge color.
+  // This does NOT assume which direction is "good" for this particular
+  // test - it just gives a consistent visual scale from low to high.
+  let bandLabel, bandBg, bandColor, gaugeColor;
   if (safeScore >= 67) {
+    bandLabel = "High Range";
     bandBg = "#ede9fe";
     bandColor = "#5b21b6";
     gaugeColor = "linear-gradient(135deg, #6366f1 0%, #d946ef 100%)";
   } else if (safeScore >= 34) {
+    bandLabel = "Mid Range";
     bandBg = "#fef3c7";
     bandColor = "#92400e";
     gaugeColor = "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)";
   } else {
+    bandLabel = "Developing";
     bandBg = "#fee2e2";
     bandColor = "#991b1b";
     gaugeColor = "linear-gradient(135deg, #f87171 0%, #fb923c 100%)";
   }
 
-  // Populate the card DOM before capture
+  // Dynamic DOM placeholder modifications before canvas capture
   document.getElementById("share-card-title").textContent = testTitle;
-
-  // Name line: "Sarah's Result" if we have a first name, else blank
-  const nameEl = document.getElementById("share-card-name");
-  if (nameEl) {
-    const name =
-      typeof window.userName !== "undefined" && window.userName
-        ? window.userName
-        : "";
-    nameEl.textContent = name ? `${name}'s Result` : "";
-  }
-
+  document.getElementById("share-card-name").textContent = window.userName
+    ? `${window.userName}'s Result`
+    : "Assessment Result";
   document.getElementById("share-card-score").textContent = safeScore;
-
-  const gaugeEl = document.getElementById("share-card-gauge-fill");
-  if (gaugeEl) {
-    gaugeEl.style.width = safeScore + "%";
-    gaugeEl.style.background = gaugeColor;
-  }
-
+  document.getElementById("share-card-gauge-fill").style.width =
+    safeScore + "%";
+  document.getElementById("share-card-gauge-fill").style.background =
+    gaugeColor;
   const bandEl = document.getElementById("share-card-band");
-  if (bandEl) {
-    // Band pill shows the qualitative label (e.g. "Fixed Mindset Tendencies")
-    bandEl.textContent = result.label || result.overallLabel || "";
-    bandEl.style.background = bandBg;
-    bandEl.style.color = bandColor;
-  }
-
-  const summaryText =
-    result.description ||
-    result.overallDescription ||
-    "Explore your custom behavioral profile dynamics.";
+  bandEl.textContent = result.label || result.overallLabel || bandLabel;
+  bandEl.style.background = bandBg;
+  bandEl.style.color = bandColor;
   document.getElementById("share-card-summary").textContent =
-    summaryText.trim();
+    fullSummaryText.trim();
 
   const cardElement = document.getElementById("share-card-container");
 
   try {
     const canvas = await html2canvas(cardElement, {
       scale: 2,
-      backgroundColor: "#ffffff",
+      backgroundColor: "#ffffff", // Pure white card foundation hex layer sets strict canvas boundaries
       useCORS: true,
       logging: false,
       allowTaint: true,
@@ -392,42 +379,50 @@ async function generateAndShareImage() {
       async (blob) => {
         try {
           if (!blob) {
-            throw new Error("Canvas produced no image data.");
+            throw new Error(
+              "Device engine failed compiling graphic canvas parameters.",
+            );
           }
 
           const file = new File([blob], "people-assets-profile.png", {
             type: "image/png",
           });
 
-          // Mobile: native share sheet (WhatsApp, Instagram, etc.)
+          // Native smartphone system share sheets targeting mobile viewports
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
               await navigator.share({
                 files: [file],
-                title: `My ${testTitle} Profile`,
-                text: `I just assessed my ${testTitle} on People Assets. Take a look!`,
+                title: `My ${testTitle} Score Profile`,
+                text: `I just mapped my behaviors on People Assets. Take a look at my profile!`,
               });
             } catch (shareError) {
-              // User cancelled the share sheet — no alert needed
-              console.log("Share sheet closed.", shareError?.message);
+              console.log(
+                "System native share operation aborted by client step.",
+              );
             }
           } else {
-            // Desktop: download the image file
+            // Desktop Alternative Download routing path
             const link = document.createElement("a");
             link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
             link.href = canvas.toDataURL("image/png");
             link.click();
             alert(
-              "Your share card has been saved to your downloads folder.\n\nYou can now attach it to a LinkedIn post, WhatsApp message, or email.",
+              "Share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed.",
             );
           }
         } catch (blobError) {
-          console.error("Share card generation failed:", blobError);
+          console.error(
+            "Critical crash tracing system canvas blob data:",
+            blobError,
+          );
           alert(
-            "Could not generate the share card on this device. Try taking a screenshot instead.",
+            "Could not generate the share image on this device. Try taking a screenshot directly!",
           );
         } finally {
-          // Always reset the button — even if share/download failed
+          // Reset baseline button properties cleanly - this now ALWAYS
+          // runs, even if the share/download step above failed, so the
+          // button never gets stuck on "Generating Card..." again.
           shareBtn.innerHTML = originalText;
           shareBtn.disabled = false;
         }
@@ -436,8 +431,10 @@ async function generateAndShareImage() {
       0.95,
     );
   } catch (error) {
-    console.error("html2canvas failed:", error);
-    alert("Could not render the share card. Try taking a screenshot instead.");
+    console.error("Critical crash tracing system canvas snapshot data:", error);
+    alert(
+      "Could not render custom card stream natively. Try taking a screenshot directly!",
+    );
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
   }
