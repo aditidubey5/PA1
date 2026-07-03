@@ -348,11 +348,20 @@ async function generateAndShareImage() {
   }
 
   // Dynamic DOM placeholder modifications before canvas capture
+  // Dynamic DOM placeholder modifications before canvas capture
   document.getElementById("share-card-title").textContent = testTitle;
   document.getElementById("share-card-name").textContent = window.userName
     ? `${window.userName}'s Result`
     : "Assessment Result";
+
+  // Inject the user's name below the result text
+  const userOnlyEl = document.getElementById("share-card-user-only");
+  if (userOnlyEl) {
+    userOnlyEl.textContent = window.userName ? window.userName : "Guest User";
+  }
+
   document.getElementById("share-card-score").textContent = safeScore;
+
   document.getElementById("share-card-gauge-fill").style.width =
     safeScore + "%";
   document.getElementById("share-card-gauge-fill").style.background =
