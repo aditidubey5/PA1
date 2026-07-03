@@ -2982,6 +2982,18 @@ async function generateReport() {
   lastReportResult = result;
   window.lastReportResult = result;
 
+  // Write the test title and user name directly into the share card NOW,
+  // while currentTest and userName are guaranteed correct.
+  // This is more reliable than reading them later inside generateAndShareImage.
+  const _shareTitle = document.getElementById("share-card-title");
+  const _shareName = document.getElementById("share-card-name");
+  if (_shareTitle) _shareTitle.textContent = currentTest.title;
+  if (_shareName)
+    _shareName.textContent =
+      typeof userName !== "undefined" && userName && userName !== "there"
+        ? userName + "'s Result"
+        : "";
+
   // Save to database asynchronously in background
   try {
     await syncToDatabase(result);
