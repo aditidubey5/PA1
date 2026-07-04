@@ -2982,17 +2982,29 @@ async function generateReport() {
   lastReportResult = result;
   window.lastReportResult = result;
 
-  // Write the test title and user name directly into the share card NOW,
-  // while currentTest and userName are guaranteed correct.
-  // This is more reliable than reading them later inside generateAndShareImage.
-  const _shareTitle = document.getElementById("share-card-title");
-  const _shareName = document.getElementById("share-card-name");
-  if (_shareTitle) _shareTitle.textContent = currentTest.title;
-  if (_shareName)
-    _shareName.textContent =
+  // === SHARE CARD POPULATION ===
+  // Write title + name directly here while currentTest and userName are
+  // guaranteed correct — more reliable than reading them later in app.js.
+  (function () {
+    var titleEl = document.getElementById("share-card-title");
+    var nameEl = document.getElementById("share-card-name");
+    var testName =
+      typeof currentTest !== "undefined" && currentTest && currentTest.title
+        ? currentTest.title
+        : null;
+    var uName =
       typeof userName !== "undefined" && userName && userName !== "there"
-        ? userName + "'s Result"
-        : "";
+        ? userName
+        : null;
+
+    console.log("[ShareCard] currentTest.title =", testName);
+    console.log("[ShareCard] userName =", uName);
+    console.log("[ShareCard] share-card-title el found =", !!titleEl);
+    console.log("[ShareCard] share-card-name el found =", !!nameEl);
+
+    if (titleEl) titleEl.textContent = testName || "Assessment Profile";
+    if (nameEl) nameEl.textContent = uName ? uName + "'s Result" : "";
+  })();
 
   // Save to database asynchronously in background
   try {

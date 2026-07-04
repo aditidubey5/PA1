@@ -309,6 +309,23 @@ async function generateAndShareImage() {
   const result = window.lastReportResult;
   const testTitle = window.currentTest?.title || "Assessment Profile";
 
+  // === DIAGNOSTIC LOGGING — open browser console (F12) to see these ===
+  console.log("[ShareBtn] window.lastReportResult =", result);
+  console.log("[ShareBtn] window.currentTest =", window.currentTest);
+  console.log(
+    "[ShareBtn] window.currentTest?.title =",
+    window.currentTest?.title,
+  );
+  console.log(
+    "[ShareBtn] share-card-title el =",
+    document.getElementById("share-card-title"),
+  );
+  console.log(
+    "[ShareBtn] share-card-title current text =",
+    document.getElementById("share-card-title")?.textContent,
+  );
+  // =====================================================================
+
   if (!result) {
     alert("No assessment report found to compile.");
     shareBtn.innerHTML = originalText;
