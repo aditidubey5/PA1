@@ -297,158 +297,238 @@ document.addEventListener("click", function (event) {
 });
 
 // 5. Executive White Share Card Engine
+
+// Builds the full share card DOM in JS each time Share is clicked.
+// This means zero dependency on index.html card markup — only app.js
+// needs to be updated when the card design changes.
+function buildShareCard(
+  testTitle,
+  displayName,
+  safeScore,
+  bandText,
+  bandBg,
+  bandColor,
+  gaugeColor,
+  summaryText,
+) {
+  var vault = document.getElementById("share-card-vault");
+  if (!vault) {
+    console.error("[ShareCard] vault not found");
+    return null;
+  }
+
+  vault.innerHTML =
+    '<div id="share-card-container" style="' +
+    "width:600px;height:auto;min-height:820px;background:#ffffff;" +
+    "font-family:'Plus Jakarta Sans',system-ui,sans-serif;" +
+    "box-sizing:border-box;display:flex;flex-direction:column;" +
+    'position:relative;border:1px solid #e2e8f0;overflow:hidden;">' +
+    // Rainbow top line
+    '<div style="position:absolute;top:0;left:0;width:100%;height:6px;' +
+    'background:linear-gradient(90deg,#6366f1 0%,#d946ef 50%,#f59e0b 100%);"></div>' +
+    // Purple left stripe
+    '<div style="position:absolute;top:0;left:0;width:6px;height:100%;' +
+    'background:linear-gradient(180deg,#6366f1 0%,#d946ef 100%);"></div>' +
+    // Main content
+    '<div style="flex:1;display:flex;flex-direction:column;align-items:center;' +
+    'text-align:center;padding:56px 52px 32px 58px;box-sizing:border-box;">' +
+    // Kicker
+    '<span style="font-size:0.72rem;font-weight:800;letter-spacing:0.18em;' +
+    'text-transform:uppercase;color:#a855f7;display:block;margin-bottom:14px;">' +
+    "Assessment Profile</span>" +
+    // Test name
+    '<h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;line-height:1.2;' +
+    'margin:0 0 8px;letter-spacing:-0.02em;">' +
+    testTitle +
+    "</h1>" +
+    // User name
+    '<p style="font-size:0.95rem;font-weight:600;color:#64748b;margin:0 0 28px;">' +
+    displayName +
+    "</p>" +
+    // Score number
+    '<div style="display:flex;align-items:baseline;justify-content:center;' +
+    'gap:2px;margin-bottom:4px;">' +
+    '<span style="font-size:7rem;font-weight:800;color:#0f172a;line-height:1;' +
+    'letter-spacing:-0.04em;">' +
+    safeScore +
+    "</span>" +
+    '<span style="font-size:2.8rem;font-weight:700;color:#94a3b8;' +
+    'letter-spacing:-0.02em;">/100</span>' +
+    "</div>" +
+    // Gauge bar
+    '<div style="width:320px;margin:8px 0 14px;">' +
+    '<div style="height:12px;border-radius:50px;background:#e2e8f0;overflow:hidden;">' +
+    '<div style="height:100%;border-radius:50px;width:' +
+    safeScore +
+    "%;" +
+    "background:" +
+    gaugeColor +
+    ';"></div>' +
+    "</div>" +
+    "</div>" +
+    // Band pill
+    '<span style="display:inline-block;font-size:0.75rem;font-weight:800;' +
+    "padding:6px 18px;border-radius:50px;margin-bottom:28px;letter-spacing:0.02em;" +
+    "background:" +
+    bandBg +
+    ";color:" +
+    bandColor +
+    ';">' +
+    bandText +
+    "</span>" +
+    // Summary box
+    '<div style="width:100%;background:#f8fafc;border:1px solid #e2e8f0;' +
+    'border-radius:20px;padding:22px 26px;box-sizing:border-box;">' +
+    '<p style="font-size:0.93rem;line-height:1.65;color:#334155;' +
+    'margin:0;font-weight:500;text-align:center;">' +
+    summaryText +
+    "</p>" +
+    "</div>" +
+    "</div>" + // end main content
+    // Footer
+    '<div style="width:100%;border-top:1px solid #e2e8f0;' +
+    "padding:20px 32px 26px 46px;box-sizing:border-box;" +
+    'display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">' +
+    '<div style="height:38px;overflow:hidden;display:flex;align-items:center;">' +
+    '<img src="logo.png" alt="People Assets" style="height:115px;max-width:none;' +
+    'mix-blend-mode:multiply;margin-top:4px;margin-left:-6px;" />' +
+    "</div>" +
+    '<p style="font-size:0.9rem;font-weight:600;color:#64748b;margin:0;">' +
+    "peopleassets.in</p>" +
+    "</div>" +
+    "</div>";
+
+  return document.getElementById("share-card-container");
+}
+
 async function generateAndShareImage() {
-  const shareBtn = document.getElementById("main-share-btn");
+  var shareBtn = document.getElementById("main-share-btn");
   if (!shareBtn) return;
 
-  const originalText = shareBtn.innerHTML;
+  var originalText = shareBtn.innerHTML;
   shareBtn.textContent = "Generating Card...";
   shareBtn.disabled = true;
 
-  // Extraction of target report state data properties
-  const result = window.lastReportResult;
-  const testTitle = window.currentTest?.title || "Assessment Profile";
+  var result = lastReportResult;
+  var testTitle =
+    currentTest && currentTest.title ? currentTest.title : "Assessment Profile";
+  var rawName =
+    typeof userName !== "undefined" && userName && userName !== "there"
+      ? userName
+      : "";
+  var displayName = rawName ? rawName + "'s Result" : "";
 
-  // === DIAGNOSTIC LOGGING — open browser console (F12) to see these ===
-  console.log("[ShareBtn] window.lastReportResult =", result);
-  console.log("[ShareBtn] window.currentTest =", window.currentTest);
+  console.log("[ShareBtn] currentTest        =", currentTest);
   console.log(
-    "[ShareBtn] window.currentTest?.title =",
-    window.currentTest?.title,
+    "[ShareBtn] currentTest.title  =",
+    currentTest && currentTest.title,
   );
-  console.log(
-    "[ShareBtn] share-card-title el =",
-    document.getElementById("share-card-title"),
-  );
-  console.log(
-    "[ShareBtn] share-card-title current text =",
-    document.getElementById("share-card-title")?.textContent,
-  );
-  // =====================================================================
+  console.log("[ShareBtn] userName           =", userName);
+  console.log("[ShareBtn] lastReportResult   =", result);
 
   if (!result) {
-    alert("No assessment report found to compile.");
+    alert("No report found. Please complete an assessment first.");
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
     return;
   }
 
-  // Captures the FULL overall summary brief
-  const fullSummaryText =
-    result.description ||
-    result.overallDescription ||
-    "Explore your custom behavioral profile dynamics.";
+  var rawScore = Number(
+    result.overall != null
+      ? result.overall
+      : result.score != null
+        ? result.score
+        : 0,
+  );
+  var safeScore = Math.max(0, Math.min(100, isNaN(rawScore) ? 0 : rawScore));
 
-  // Numeric score, clamped to a sane 0-100 range for the gauge math
-  const rawScore = Number(result.overall ?? result.score ?? 0);
-  const safeScore = Math.max(0, Math.min(100, isNaN(rawScore) ? 0 : rawScore));
-
-  // Simple 3-band classification for the pill + gauge color.
-  // This does NOT assume which direction is "good" for this particular
-  // test - it just gives a consistent visual scale from low to high.
-  let bandLabel, bandBg, bandColor, gaugeColor;
+  var bandBg, bandColor, gaugeColor;
   if (safeScore >= 67) {
-    bandLabel = "High Range";
     bandBg = "#ede9fe";
     bandColor = "#5b21b6";
-    gaugeColor = "linear-gradient(135deg, #6366f1 0%, #d946ef 100%)";
+    gaugeColor = "linear-gradient(135deg,#6366f1 0%,#d946ef 100%)";
   } else if (safeScore >= 34) {
-    bandLabel = "Mid Range";
     bandBg = "#fef3c7";
     bandColor = "#92400e";
-    gaugeColor = "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)";
+    gaugeColor = "linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%)";
   } else {
-    bandLabel = "Developing";
     bandBg = "#fee2e2";
     bandColor = "#991b1b";
-    gaugeColor = "linear-gradient(135deg, #f87171 0%, #fb923c 100%)";
+    gaugeColor = "linear-gradient(135deg,#f87171 0%,#fb923c 100%)";
   }
 
-  // Dynamic DOM placeholder modifications before canvas capture
-  // Dynamic DOM placeholder modifications before canvas capture
-  document.getElementById("share-card-title").textContent = testTitle;
-  document.getElementById("share-card-name").textContent = window.userName
-    ? `${window.userName}'s Result`
-    : "Assessment Result";
+  var bandText = result.label || result.overallLabel || "";
+  var summaryText = (
+    result.description ||
+    result.overallDescription ||
+    ""
+  ).trim();
 
-  // Inject the user's name below the result text
-  const userOnlyEl = document.getElementById("share-card-user-only");
-  if (userOnlyEl) {
-    userOnlyEl.textContent = window.userName ? window.userName : "Guest User";
+  var cardElement = buildShareCard(
+    testTitle,
+    displayName,
+    safeScore,
+    bandText,
+    bandBg,
+    bandColor,
+    gaugeColor,
+    summaryText,
+  );
+  if (!cardElement) {
+    alert("Share card could not be built. Please refresh and try again.");
+    shareBtn.innerHTML = originalText;
+    shareBtn.disabled = false;
+    return;
   }
 
-  document.getElementById("share-card-score").textContent = safeScore;
-
-  document.getElementById("share-card-gauge-fill").style.width =
-    safeScore + "%";
-  document.getElementById("share-card-gauge-fill").style.background =
-    gaugeColor;
-  const bandEl = document.getElementById("share-card-band");
-  bandEl.textContent = result.label || result.overallLabel || bandLabel;
-  bandEl.style.background = bandBg;
-  bandEl.style.color = bandColor;
-  document.getElementById("share-card-summary").textContent =
-    fullSummaryText.trim();
-
-  const cardElement = document.getElementById("share-card-container");
+  // One frame so the browser renders the new DOM before capture
+  await new Promise(function (r) {
+    requestAnimationFrame(r);
+  });
 
   try {
-    const canvas = await html2canvas(cardElement, {
+    var canvas = await html2canvas(cardElement, {
       scale: 2,
-      backgroundColor: "#ffffff", // Pure white card foundation hex layer sets strict canvas boundaries
+      backgroundColor: "#ffffff",
       useCORS: true,
       logging: false,
       allowTaint: true,
     });
 
     canvas.toBlob(
-      async (blob) => {
+      async function (blob) {
         try {
-          if (!blob) {
-            throw new Error(
-              "Device engine failed compiling graphic canvas parameters.",
-            );
-          }
-
-          const file = new File([blob], "people-assets-profile.png", {
+          if (!blob) throw new Error("Canvas produced no image data.");
+          var file = new File([blob], "people-assets-profile.png", {
             type: "image/png",
           });
 
-          // Native smartphone system share sheets targeting mobile viewports
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
               await navigator.share({
                 files: [file],
-                title: `My ${testTitle} Score Profile`,
-                text: `I just mapped my behaviors on People Assets. Take a look at my profile!`,
+                title: "My " + testTitle + " Profile",
+                text: "I just assessed my " + testTitle + " on People Assets!",
               });
-            } catch (shareError) {
-              console.log(
-                "System native share operation aborted by client step.",
-              );
+            } catch (e) {
+              /* user cancelled */
             }
           } else {
-            // Desktop Alternative Download routing path
-            const link = document.createElement("a");
-            link.download = `${testTitle.replace(/\s+/g, "-").toLowerCase()}-profile.png`;
+            var link = document.createElement("a");
+            link.download =
+              testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
             link.href = canvas.toDataURL("image/png");
             link.click();
             alert(
-              "Share card compiled and saved to downloads! You can now load it directly onto your LinkedIn feed.",
+              "Share card saved to your downloads folder.\nAttach it to LinkedIn, WhatsApp, or email.",
             );
           }
-        } catch (blobError) {
-          console.error(
-            "Critical crash tracing system canvas blob data:",
-            blobError,
-          );
+        } catch (err) {
+          console.error("Share card error:", err);
           alert(
-            "Could not generate the share image on this device. Try taking a screenshot directly!",
+            "Could not generate the share card. Try taking a screenshot instead.",
           );
         } finally {
-          // Reset baseline button properties cleanly - this now ALWAYS
-          // runs, even if the share/download step above failed, so the
-          // button never gets stuck on "Generating Card..." again.
           shareBtn.innerHTML = originalText;
           shareBtn.disabled = false;
         }
@@ -456,16 +536,13 @@ async function generateAndShareImage() {
       "image/png",
       0.95,
     );
-  } catch (error) {
-    console.error("Critical crash tracing system canvas snapshot data:", error);
-    alert(
-      "Could not render custom card stream natively. Try taking a screenshot directly!",
-    );
+  } catch (err) {
+    console.error("html2canvas failed:", err);
+    alert("Could not render the share card. Try taking a screenshot instead.");
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
   }
 }
-
 // ============================================
 // UI EXPERIENCES: TOOLTIP TEMPORARY LIFE-CYCLE
 // ============================================
