@@ -192,15 +192,18 @@ function downloadSectionAsPDF(elementId, filename) {
   const element = document.getElementById(elementId);
   if (!element) return;
 
-  const opt = {
-    margin: 15,
-    filename: filename + ".pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-  };
+  setTimeout(() => {
+    const isMobile = window.innerWidth <= 768;
+    const opt = {
+      margin: 15,
+      filename: filename + ".pdf",
+      image: { type: "jpeg", quality: 0.95 },
+      html2canvas: { scale: isMobile ? 1 : 2, useCORS: true },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    };
 
-  html2pdf().set(opt).from(element).save();
+    html2pdf().set(opt).from(element).save();
+  });
 }
 
 async function shareSectionAsImage(elementId, filename) {
@@ -211,8 +214,9 @@ async function shareSectionAsImage(elementId, filename) {
   document.body.style.cursor = "wait";
 
   try {
+    var isMobile = window.innerWidth <= 768;
     const canvas = await html2canvas(element, {
-      scale: 3,
+      scale: isMobile ? 1.5 : 2,
       useCORS: true,
       backgroundColor: "#ffffff",
     });
@@ -488,7 +492,7 @@ async function generateAndShareImage() {
 
   try {
     var canvas = await html2canvas(cardElement, {
-      scale: 2,
+      scale: isMobile ? 1.5 : 2,
       backgroundColor: "#ffffff",
       useCORS: true,
       logging: false,
@@ -511,6 +515,17 @@ async function generateAndShareImage() {
                 text: "I just assessed my " + testTitle + " on People Assets!",
               });
             } catch (e) {
+              if (e.name === "NotAllowedError") {
+                var link = document.createElement("a");
+                link.download =
+                  testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                alert(
+                  "Share card saved to your downloads folder!\nAttach it directly to LinkedIn or Instagram.",
+                );
+              }
+
               /* user cancelled */
             }
           } else {
