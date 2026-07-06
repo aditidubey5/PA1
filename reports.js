@@ -2877,9 +2877,9 @@ function buildEmailReportSection() {
             <div style="font-size:1.6rem; margin-bottom:10px;">📬</div>
             <h3 style="font-size:1rem; font-weight:800; margin-bottom:6px;">Get this report in your inbox</h3>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">We'll send your full results and growth tips.</p>
-            <div style="display:flex; gap:10px; max-width:420px; margin:0 auto; flex-wrap:wrap;">
-                <input id="report-email-input" type="email" placeholder="your@email.com" class="main-input" style="flex:1; margin-bottom:0;">
-                <button class="btn-primary" onclick="sendReportEmail()" id="send-report-btn">Email My Report →</button>
+            <div style="display:flex; flex-direction:column; gap:10px; max-width:420px; margin:0 auto;">
+                <input id="report-email-input" type="email" placeholder="your@email.com" class="main-input" style="width:100%; margin-bottom:0; box-sizing:border-box;">
+                <button class="btn-primary btn-full" onclick="sendReportEmail()" id="send-report-btn">Email My Report →</button>
             </div>
             <p id="email-report-status" style="margin-top:14px; font-size:0.85rem; font-weight:600; display:none;"></p>
         </div>
@@ -3062,19 +3062,19 @@ async function generateReport() {
       .join("");
 
     html = `
-            <div style="background:var(--brand-grad); border-radius:24px; padding:50px 30px; text-align:center; color:white;">
-                <p style="opacity:0.8;">Analysis for ${targetUserName}</p>
-                <div style="font-size:4.5rem; font-weight:900;">${result.overall || result.score || 0}<span style="font-size:1.8rem;">/100</span></div>
-                <h1 style="color:white;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
+            <div style="background:var(--brand-grad); border-radius:24px; padding:clamp(32px,6vw,50px) clamp(20px,5vw,30px); text-align:center; color:white;">
+                <p style="opacity:0.8; font-size:0.85rem;">Analysis for ${targetUserName}</p>
+                <div style="font-size:clamp(3rem,15vw,4.5rem); font-weight:900; line-height:1; margin:8px 0;">${result.overall || result.score || 0}<span style="font-size:clamp(1.2rem,4vw,1.8rem);">/100</span></div>
+                <h1 style="color:white; font-size:clamp(1.2rem,4.5vw,2rem); line-height:1.3; margin:12px 0 0;">${personalizedTitle}you are a ${result.overallLabel || result.label || "Completed Operator"}</h1>
             </div>
  
-            <div style="background:white; padding:40px; border-radius:24px; margin-top:30px; box-shadow:var(--shadow-card);">
+            <div style="background:white; padding:clamp(24px,5vw,40px); border-radius:24px; margin-top:20px; box-shadow:var(--shadow-card);">
                 <h3 style="text-align: left;">Overall Summary</h3>
                 <p style="text-align: left;">${result.overallDescription || result.description || ""}</p>
-                <h3 style="margin-top:30px; text-align: left;">Section Breakdown</h3>
+                <h3 style="margin-top:24px; text-align: left;">Section Breakdown</h3>
                 ${sectionCardsHtml}
                 
-                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center;">
+                <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center;">
                      <div style="height: 35px; display: flex; align-items: center; overflow: hidden;">
                          <img src="logo.png" alt="People Assets" style="height: 105px; max-width: none; mix-blend-mode: multiply;">
                      </div>
