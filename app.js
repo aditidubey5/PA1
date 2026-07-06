@@ -192,6 +192,8 @@ function downloadSectionAsPDF(elementId, filename) {
   const element = document.getElementById(elementId);
   if (!element) return;
 
+  document.body.style.cursor = "wait";
+
   setTimeout(() => {
     const isMobile = window.innerWidth <= 768;
     const opt = {
@@ -202,8 +204,45 @@ function downloadSectionAsPDF(elementId, filename) {
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
 
-    html2pdf().set(opt).from(element).save();
-  });
+    // iOS In-App Browser Bypass: Create a Blob and force it through the native Share Sheet
+    html2pdf()
+      .set(opt)
+      .from(element)
+      .outputPdf("blob")
+      .then((pdfBlob) => {
+        const file = new File([pdfBlob], filename + ".pdf", {
+          type: "application/pdf",
+        });
+
+        if (
+          isMobile &&
+          navigator.canShare &&
+          navigator.canShare({ files: [file] })
+        ) {
+          navigator
+            .share({
+              files: [file],
+              title: "Assessment Report",
+              text: "Here is my behavioral profile report.",
+            })
+            .catch(() => {
+              // Fallback to standard download if user cancels the share sheet
+              html2pdf().set(opt).from(element).save();
+            });
+        } else {
+          // Standard Desktop/Android download
+          html2pdf().set(opt).from(element).save();
+        }
+        document.body.style.cursor = "default";
+      })
+      .catch((err) => {
+        console.error("PDF generation failed:", err);
+        alert(
+          "Could not generate PDF. Please open this site in Safari instead of the Google App.",
+        );
+        document.body.style.cursor = "default";
+      });
+  }, 100);
 }
 
 async function shareSectionAsImage(elementId, filename) {
@@ -486,11 +525,12 @@ async function generateAndShareImage() {
   }
 
   // One frame so the browser renders the new DOM before capture
-  await new Promise(function (r) {
-    requestAnimationFrame(r);
+  await new Promise(function (resolve) {
+    setTimeout(resolve, 300);
   });
 
   try {
+    var isMobile = window.innerWidth <= 768;
     var canvas = await html2canvas(cardElement, {
       scale: isMobile ? 1.5 : 2,
       backgroundColor: "#ffffff",
@@ -515,18 +555,15 @@ async function generateAndShareImage() {
                 text: "I just assessed my " + testTitle + " on People Assets!",
               });
             } catch (e) {
+              // Fallback if the user cancels or the browser blocks it
               if (e.name === "NotAllowedError") {
                 var link = document.createElement("a");
                 link.download =
                   testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
                 link.href = canvas.toDataURL("image/png");
                 link.click();
-                alert(
-                  "Share card saved to your downloads folder!\nAttach it directly to LinkedIn or Instagram.",
-                );
+                alert("Share card saved to your downloads folder.");
               }
-
-              /* user cancelled */
             }
           } else {
             var link = document.createElement("a");
@@ -534,14 +571,12 @@ async function generateAndShareImage() {
               testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
             link.href = canvas.toDataURL("image/png");
             link.click();
-            alert(
-              "Share card saved to your downloads folder.\nAttach it to LinkedIn, WhatsApp, or email.",
-            );
+            alert("Share card saved to your downloads folder.");
           }
         } catch (err) {
           console.error("Share card error:", err);
           alert(
-            "Could not generate the share card. Try taking a screenshot instead.",
+            "Could not generate the share card. Try opening the site in Safari.",
           );
         } finally {
           shareBtn.innerHTML = originalText;
@@ -553,7 +588,7 @@ async function generateAndShareImage() {
     );
   } catch (err) {
     console.error("html2canvas failed:", err);
-    alert("Could not render the share card. Try taking a screenshot instead.");
+    alert("Could not render the share card. Try opening the site in Safari.");
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
   }
