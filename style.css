@@ -1364,3 +1364,31 @@ nav {
     transform: translateY(-5px);
   }
 }
+
+/* ==========================================================================
+   LAPTOP VIEWPORT OPTIMIZATION FOR TEST ENGINE
+   ========================================================================== */
+@media (min-width: 901px) {
+  #engine .container {
+    max-width: 640px; /* Prevents the card layout from blowing up horizontally */
+    padding-top: 24px !important; /* Pulls the card up closer to the navigation bar */
+    padding-bottom: 24px !important;
+  }
+
+  #engine h2#test-title {
+    margin-bottom: 12px !important; /* Pulls the question area up */
+  }
+
+  #question-area h3 {
+    margin-bottom: 16px !important; /* Reduces excessive space below the question text */
+  }
+
+  .answer-option {
+    padding: 12px 20px !important; /* Slims the vertical height of each option card */
+    margin-bottom: 8px !important; /* Tightens the stack gap between choices */
+  }
+
+  .engine-nav {
+    margin-top: 16px !important; /* Brings the navigation buttons into immediate view */
+  }
+}
