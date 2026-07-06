@@ -331,15 +331,24 @@ nav {
 }
 
 @media print {
-  #report-page-content {
-    background: white !important;
-    color: black !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-  }
+  nav,
+  .main-footer,
   .report-actions,
-  #email-report-box {
-    display: none !important; /* Hide buttons in the PDF */
+  #email-report-box,
+  #follow-up-card,
+  #follow-up-actions,
+  .click-me-tooltip {
+    display: none !important; /* Wipes out interactive blocks from downloading */
+  }
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  #report-page-content {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
 
@@ -668,17 +677,6 @@ nav {
   padding: clamp(24px, 5vw, 40px);
   box-shadow: var(--shadow-card);
   text-align: left;
-}
-
-/* ============================================ PRINT ============================================ */
-@media print {
-  nav,
-  .report-actions {
-    display: none !important;
-  }
-  body {
-    background: white;
-  }
 }
 
 /* ============================================ RESPONSIVE ============================================ */

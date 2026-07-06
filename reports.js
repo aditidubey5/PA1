@@ -2877,10 +2877,13 @@ function buildEmailReportSection() {
             <div style="font-size:1.6rem; margin-bottom:10px;">📬</div>
             <h3 style="font-size:1rem; font-weight:800; margin-bottom:6px;">Get this report in your inbox</h3>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">We'll send your full results and growth tips.</p>
-            <div style="display:flex; flex-direction:column; gap:10px; max-width:420px; margin:0 auto;">
-                <input id="report-email-input" type="email" placeholder="your@email.com" class="main-input" style="width:100%; margin-bottom:0; box-sizing:border-box;">
-                <button class="btn-primary btn-full" onclick="sendReportEmail()" id="send-report-btn">Email My Report →</button>
+            
+            <!-- FIXED: Stack input elements natively with box-sizing normalization -->
+            <div style="display:flex; flex-direction:column; gap:12px; max-width:420px; margin:0 auto; width:100%;">
+                <input id="report-email-input" type="email" placeholder="your@email.com" class="main-input" style="width:100%; margin:0; box-sizing:border-box; height:46px;">
+                <button class="btn-primary" onclick="sendReportEmail()" id="send-report-btn" style="width:100%; box-sizing:border-box; height:46px; margin:0;">Email My Report →</button>
             </div>
+            
             <p id="email-report-status" style="margin-top:14px; font-size:0.85rem; font-weight:600; display:none;"></p>
         </div>
     `;
@@ -3031,14 +3034,17 @@ async function generateReport() {
     targetUserName !== "Guest" ? `${targetUserName}, ` : "";
 
   const followUpHtml = `
-    <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center;">
-        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px;">
+    <div id="follow-up-card" style="margin-top: 40px; padding: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; text-align: center; box-sizing: border-box;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 24px; line-height: 1.4;">
             ${currentTest.followUp || "Ready to take the next step with your results?"}
         </h3>
-        <div id="follow-up-actions" style="display: flex; justify-content: center; gap: 15px;">
-            <button class="btn-secondary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(false)">No</button>
-            <button class="btn-primary" style="padding: 10px 30px; width: auto;" onclick="handleFollowUp(true, '${currentTest.keyword || "coaching"}')">Yes</button>
+        
+        <!-- FIXED: Balanced flex wrapper ensures identical bounding alignment boxes -->
+        <div id="follow-up-actions" style="display: flex; justify-content: center; align-items: center; gap: 16px; max-width: 340px; margin: 0 auto; width: 100%;">
+            <button class="btn-secondary" style="padding: 0; height: 44px; line-height: 40px; margin: 0; width: 100%; box-sizing: border-box; display: block;" onclick="handleFollowUp(false)">No</button>
+            <button class="btn-primary" style="padding: 0; height: 44px; line-height: 44px; margin: 0; width: 100%; box-sizing: border-box; display: block;" onclick="handleFollowUp(true, '${currentTest.keyword || "coaching"}')">Yes</button>
         </div>
+        
         <p id="follow-up-result" style="margin-top: 20px; font-weight: 700; color: var(--brand-indigo); display: none;"></p>
     </div>
   `;
@@ -3082,7 +3088,7 @@ async function generateReport() {
             </div>
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-                <button class="btn-primary" onclick="window.print()">Download Report</button>
+                <button class="btn-primary" onclick="downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">Download Report</button>
                 <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
                 
                 ${
@@ -3157,7 +3163,7 @@ async function generateReport() {
  
         <div class="report-actions" style="margin-top:32px;">
             <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-            <button class="btn-primary" onclick="window.print()">Download PDF</button>
+            <button class="btn-primary" onclick="downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">Download PDF</button>
             <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
             ${
               loggedInUser
