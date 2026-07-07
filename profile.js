@@ -132,14 +132,13 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
         </div>
 
         <div id="ai-summary-actions" style="display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center;">
-            <button class="btn-primary" onclick="shareSectionAsImage('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
-                📤 Share to Socials
+            <button class="btn-primary" onclick="shareSectionAsImage('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none;">
+                🔗 Share Summary
             </button>
-            <button class="btn-secondary" onclick="downloadSectionAsPDF('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; margin-bottom: 0;">
-                ⬇️ Download PDF
+            <button class="btn-primary" onclick="downloadSectionAsPDF('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; margin-bottom: 0; background: #64748b; color: white; border: none;">
+                📥 Download PDF
             </button>
         </div>
-
         <h2 style="font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.09em;color:#94a3b8;margin-bottom:18px;">Assessment History</h2>
         ${
           results.length === 0
@@ -268,11 +267,21 @@ function buildTestResultCard(r, index) {
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 12px; padding: 0 10px;">
-            <button class="btn-primary" onclick="shareSectionAsImage('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; background: linear-gradient(135deg, #ec4899, #8b5cf6);">
-                📤 Share Card
+            <button class="btn-primary" onclick="
+                window.lastReportResult = { 
+                    overall: ${score || 0}, 
+                    label: '${(r.result_label || "").replace(/'/g, "\\'")}', 
+                    description: 'Historical assessment profile extraction.' 
+                }; 
+                window.currentTest = { 
+                    title: '${(r.test_title || "Assessment").replace(/'/g, "\\'")}' 
+                }; 
+                generateAndShareImage();
+            " style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none;">
+                🔗 Share Card
             </button>
-            <button class="btn-secondary" onclick="downloadSectionAsPDF('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; margin-bottom: 0;">
-                ⬇️ Save PDF
+            <button class="btn-primary" onclick="downloadSectionAsPDF('${cardId}', '${safeFileName}_Result')" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; width: auto; margin-bottom: 0; background: #64748b; color: white; border: none;">
+                📥 Save PDF
             </button>
         </div>
     </div>`;
