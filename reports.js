@@ -3088,7 +3088,9 @@ async function generateReport() {
             </div>
             <div class="report-actions" style="margin-top:40px;">
                 <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-                <button class="btn-primary" onclick="downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">Download Report</button>
+                <button class="btn-primary" onclick="window.innerWidth <= 768 ? document.getElementById('email-report-box').scrollIntoView({behavior: 'smooth', block: 'center'}) : downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">
+  Download Report
+</button>
                 <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
                 
                 ${
@@ -3163,7 +3165,9 @@ async function generateReport() {
  
         <div class="report-actions" style="margin-top:32px;">
             <button class="btn-primary" onclick="showPage('tests')" style="background:#64748b;">← Try Another</button>
-            <button class="btn-primary" onclick="downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">Download PDF</button>
+            <button class="btn-primary" onclick="window.innerWidth <= 768 ? document.getElementById('email-report-box').scrollIntoView({behavior: 'smooth', block: 'center'}) : downloadSectionAsPDF('report-page-content', '${currentTest.id}-report')">
+  Download Report
+</button>
             <button class="btn-primary" id="main-share-btn" onclick="generateAndShareImage()" style="background: linear-gradient(135deg, #a855f7, #6366f1);">🔗 Share Profile</button>
             ${
               loggedInUser
