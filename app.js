@@ -194,6 +194,19 @@ function downloadSectionAsPDF(elementId, filename) {
 
   document.body.style.cursor = "wait";
 
+  // Detect iOS devices
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // iOS Escape Hatch: Open the window synchronously BEFORE the timeout to bypass popup blockers
+  let iosWindow = null;
+  if (isIOS) {
+    iosWindow = window.open("", "_blank");
+    if (iosWindow) {
+      iosWindow.document.write("Generating your PDF... Please wait.");
+    }
+  }
+
   setTimeout(() => {
     const isMobile = window.innerWidth <= 768;
     const opt = {
@@ -204,123 +217,144 @@ function downloadSectionAsPDF(elementId, filename) {
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
 
-    // iOS In-App Browser Bypass: Create a Blob and force it through the native Share Sheet
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .outputPdf("blob")
-      .then((pdfBlob) => {
-        const file = new File([pdfBlob], filename + ".pdf", {
-          type: "application/pdf",
-        });
-
-        if (
-          isMobile &&
-          navigator.canShare &&
-          navigator.canShare({ files: [file] })
-        ) {
-          navigator
-            .share({
-              files: [file],
-              title: "Assessment Report",
-              text: "Here is my behavioral profile report.",
-            })
-            .catch(() => {
-              // Fallback to standard download if user cancels the share sheet
-              html2pdf().set(opt).from(element).save();
-            });
-        } else {
-          // Standard Desktop/Android download
-          html2pdf().set(opt).from(element).save();
-        }
-        document.body.style.cursor = "default";
-      })
-      .catch((err) => {
-        console.error("PDF generation failed:", err);
-        alert(
-          "Could not generate PDF. Please open this site in Safari instead of the Google App.",
-        );
-        document.body.style.cursor = "default";
-      });
-  }, 100);
-}
-
-async function shareSectionAsImage(elementId, filename) {
-  const element = document.getElementById(elementId);
-  if (!element) return;
-
-  const originalCursor = document.body.style.cursor;
-  document.body.style.cursor = "wait";
-
-  try {
-    var isMobile = window.innerWidth <= 768;
-    const canvas = await html2canvas(element, {
-      scale: isMobile ? 1.5 : 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
-
-    canvas.toBlob(
-      async (blob) => {
-        if (!blob) return;
-        const file = new File([blob], `${filename}.png`, { type: "image/png" });
-
-        // Helper to force download
-        const forceDownload = () => {
-          const link = document.createElement("a");
-          link.download = `${filename}.png`;
-          link.href = URL.createObjectURL(blob);
-          link.click();
-        };
-
-        // Detect if user is on a mobile device
-        const isMobile =
-          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent,
+    if (isIOS) {
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .outputPdf("bloburl")
+        .then((pdfUrl) => {
+          if (iosWindow) {
+            iosWindow.location.href = pdfUrl; // Redirect the pre-opened tab
+          } else {
+            window.location.href = pdfUrl; // Final fallback if popup blocker is extremely strict
+          }
+          document.body.style.cursor = "default";
+        })
+        .catch((err) => {
+          console.error("PDF generation failed:", err);
+          if (iosWindow) iosWindow.close();
+          alert(
+            "Could not generate PDF. Please try opening the site directly in Safari.",
           );
-
-        if (
-          isMobile &&
-          navigator.canShare &&
-          navigator.canShare({ files: [file] })
-        ) {
-          // Mobile: Use Native Share Sheet
-          try {
-            await navigator.share({
-              title: "People Assets Result",
-              text: "Check out my behavioral insights profile!",
-              files: [file],
-            });
-          } catch (e) {
-            forceDownload(); // Fallback if they cancel or it fails
-          }
-        } else {
-          // Desktop/Laptop: Copy to Clipboard + Download
-          try {
-            // Try to write the image directly to the clipboard
-            await navigator.clipboard.write([
-              new ClipboardItem({ "image/png": blob }),
-            ]);
-            alert(
-              "✓ Image copied to clipboard!\n\nYou can now paste (CTRL+V) it directly into WhatsApp, LinkedIn, or Email. A backup file will also download.",
-            );
-            forceDownload();
-          } catch (err) {
-            // If clipboard fails (browser permissions), just download
-            alert("Downloading your image so you can share it!");
-            forceDownload();
-          }
-        }
-      },
-      "image/png",
-      1.0,
-    );
-  } catch (error) {
-    console.error("Error generating shareable image:", error);
-  } finally {
-    document.body.style.cursor = originalCursor;
-  }
+          document.body.style.cursor = "default";
+        });
+    } else {
+      // Standard Desktop/Android download
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .save()
+        .then(() => {
+          document.body.style.cursor = "default";
+        });
+    }
+  }, 50);
 }
+
+function showFallbackImageModal(dataUrl) {
+  const overlay = document.createElement("div");
+  overlay.style.cssText =
+    "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.95);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.innerText = "✕ Close";
+  closeBtn.style.cssText =
+    "position:absolute;top:20px;right:20px;background:#f1f5f9;color:#0f172a;border:none;padding:10px 20px;border-radius:20px;font-weight:800;cursor:pointer;font-family:inherit;";
+  closeBtn.onclick = () => document.body.removeChild(overlay);
+
+  const instruction = document.createElement("div");
+  instruction.innerHTML =
+    '<span style="font-size:1.8rem;display:block;margin-bottom:8px;">👆</span><strong>Tap and hold</strong> the image below to Share (AirDrop, WhatsApp, etc.) or Save to Photos.';
+  instruction.style.cssText =
+    "color:white;text-align:center;font-size:1.05rem;margin-bottom:24px;max-width:320px;line-height:1.5;font-family:inherit;";
+
+  const img = document.createElement("img");
+  img.src = dataUrl;
+  img.style.cssText =
+    "max-width:100%;max-height:65vh;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.5);";
+
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(instruction);
+  overlay.appendChild(img);
+  document.body.appendChild(overlay);
+}
+
+// async function shareSectionAsImage(elementId, filename) {
+//   const element = document.getElementById(elementId);
+//   if (!element) return;
+
+//   const originalCursor = document.body.style.cursor;
+//   document.body.style.cursor = "wait";
+
+//   try {
+//     var isMobile = window.innerWidth <= 768;
+//     const canvas = await html2canvas(element, {
+//       scale: isMobile ? 1.5 : 2,
+//       useCORS: true,
+//       backgroundColor: "#ffffff",
+//     });
+
+//     canvas.toBlob(
+//       async (blob) => {
+//         if (!blob) return;
+//         const file = new File([blob], `${filename}.png`, { type: "image/png" });
+
+//         // Helper to force download
+//         const forceDownload = () => {
+//           const link = document.createElement("a");
+//           link.download = `${filename}.png`;
+//           link.href = URL.createObjectURL(blob);
+//           link.click();
+//         };
+
+//         // Detect if user is on a mobile device
+//         const isMobile =
+//           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+//             navigator.userAgent,
+//           );
+
+//         if (
+//           isMobile &&
+//           navigator.canShare &&
+//           navigator.canShare({ files: [file] })
+//         ) {
+//           // Mobile: Use Native Share Sheet
+//           try {
+//             await navigator.share({
+//               title: "People Assets Result",
+//               text: "Check out my behavioral insights profile!",
+//               files: [file],
+//             });
+//           } catch (e) {
+//             forceDownload(); // Fallback if they cancel or it fails
+//           }
+//         } else {
+//           // Desktop/Laptop: Copy to Clipboard + Download
+//           try {
+//             // Try to write the image directly to the clipboard
+//             await navigator.clipboard.write([
+//               new ClipboardItem({ "image/png": blob }),
+//             ]);
+//             alert(
+//               "✓ Image copied to clipboard!\n\nYou can now paste (CTRL+V) it directly into WhatsApp, LinkedIn, or Email. A backup file will also download.",
+//             );
+//             forceDownload();
+//           } catch (err) {
+//             // If clipboard fails (browser permissions), just download
+//             alert("Downloading your image so you can share it!");
+//             forceDownload();
+//           }
+//         }
+//       },
+//       "image/png",
+//       1.0,
+//     );
+//   } catch (error) {
+//     console.error("Error generating shareable image:", error);
+//   } finally {
+//     document.body.style.cursor = originalCursor;
+//   }
+// }
 
 // Close mobile menu if the user taps anywhere outside of it
 document.addEventListener("click", function (event) {
@@ -461,14 +495,6 @@ async function generateAndShareImage() {
       : "";
   var displayName = rawName ? rawName + "'s Result" : "";
 
-  console.log("[ShareBtn] currentTest        =", currentTest);
-  console.log(
-    "[ShareBtn] currentTest.title  =",
-    currentTest && currentTest.title,
-  );
-  console.log("[ShareBtn] userName           =", userName);
-  console.log("[ShareBtn] lastReportResult   =", result);
-
   if (!result) {
     alert("No report found. Please complete an assessment first.");
     shareBtn.innerHTML = originalText;
@@ -524,7 +550,7 @@ async function generateAndShareImage() {
     return;
   }
 
-  // One frame so the browser renders the new DOM before capture
+  // Wait 300ms to guarantee the DOM is fully rendered before snapping the picture.
   await new Promise(function (resolve) {
     setTimeout(resolve, 300);
   });
@@ -538,6 +564,8 @@ async function generateAndShareImage() {
       logging: false,
       allowTaint: true,
     });
+
+    const dataUrl = canvas.toDataURL("image/png");
 
     canvas.toBlob(
       async function (blob) {
@@ -555,29 +583,27 @@ async function generateAndShareImage() {
                 text: "I just assessed my " + testTitle + " on People Assets!",
               });
             } catch (e) {
-              // Fallback if the user cancels or the browser blocks it
-              if (e.name === "NotAllowedError") {
-                var link = document.createElement("a");
-                link.download =
-                  testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-                alert("Share card saved to your downloads folder.");
+              // If Safari times out the request or the user cancels, deploy the fallback modal
+              if (e.name === "NotAllowedError" || e.name === "AbortError") {
+                showFallbackImageModal(dataUrl);
               }
             }
           } else {
-            var link = document.createElement("a");
-            link.download =
-              testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-            alert("Share card saved to your downloads folder.");
+            // IF DESKTOP: Auto-download. IF IN-APP BROWSER (Google/IG): Deploy the modal.
+            if (!isMobile) {
+              var link = document.createElement("a");
+              link.download =
+                testTitle.replace(/\s+/g, "-").toLowerCase() + "-profile.png";
+              link.href = dataUrl;
+              link.click();
+              alert("Share card saved to your downloads folder.");
+            } else {
+              showFallbackImageModal(dataUrl);
+            }
           }
         } catch (err) {
           console.error("Share card error:", err);
-          alert(
-            "Could not generate the share card. Try opening the site in Safari.",
-          );
+          showFallbackImageModal(dataUrl);
         } finally {
           shareBtn.innerHTML = originalText;
           shareBtn.disabled = false;
@@ -588,7 +614,9 @@ async function generateAndShareImage() {
     );
   } catch (err) {
     console.error("html2canvas failed:", err);
-    alert("Could not render the share card. Try opening the site in Safari.");
+    alert(
+      "Could not render the share card. Try opening the site directly in Safari.",
+    );
     shareBtn.innerHTML = originalText;
     shareBtn.disabled = false;
   }
