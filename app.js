@@ -191,7 +191,6 @@ function submitCoachingForm(e) {
 function downloadSectionAsPDF(elementId, filename) {
   const element = document.getElementById(elementId);
   if (!element) return;
-
   document.body.style.cursor = "wait";
 
   setTimeout(() => {
@@ -199,58 +198,48 @@ function downloadSectionAsPDF(elementId, filename) {
     const opt = {
       margin: 15,
       filename: filename + ".pdf",
-      image: { type: "jpeg", quality: 0.95 },
-      html2canvas: { scale: isMobile ? 1 : 2, useCORS: true },
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: isMobile ? 1.5 : 2,
+        useCORS: true,
+        allowTaint: true,
+      },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
 
-    if (isMobile) {
-      // Bypasses embedded app limitations by packaging the RAM data into an actual file stream
-      html2pdf()
-        .set(opt)
-        .from(element)
-        .output("blob")
-        .then((pdfBlob) => {
-          const file = new File([pdfBlob], filename + ".pdf", {
-            type: "application/pdf",
-          });
+    html2pdf()
+      .set(opt)
+      .from(element)
+      .output("blob")
+      .then((pdfBlob) => {
+        const file = new File([pdfBlob], filename + ".pdf", {
+          type: "application/pdf",
+        });
 
-          // Triggers the universal iOS file sheet directly from the button click
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            navigator
-              .share({
-                files: [file],
-                title: "Your Assessment Report",
-                text: "Here is your behavioral blueprint from People Assets.",
-              })
-              .then(() => {
-                document.body.style.cursor = "default";
-              })
-              .catch(() => {
-                document.body.style.cursor = "default";
-              });
-          } else {
-            // Fallback if system level sharing fails
-            html2pdf()
-              .set(opt)
-              .from(element)
-              .save()
-              .then(() => {
-                document.body.style.cursor = "default";
-              });
-          }
-        });
-    } else {
-      // Standard stable Desktop download mechanism
-      html2pdf()
-        .set(opt)
-        .from(element)
-        .save()
-        .then(() => {
-          document.body.style.cursor = "default";
-        });
-    }
-  }, 50);
+        if (
+          isMobile &&
+          navigator.canShare &&
+          navigator.canShare({ files: [file] })
+        ) {
+          navigator
+            .share({ files: [file], title: "Assessment Report" })
+            .then(() => (document.body.style.cursor = "default"))
+            .catch(() => {
+              html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => (document.body.style.cursor = "default"));
+            });
+        } else {
+          html2pdf()
+            .set(opt)
+            .from(element)
+            .save()
+            .then(() => (document.body.style.cursor = "default"));
+        }
+      });
+  }, 100);
 }
 
 function showFallbackImageModal(dataUrl) {

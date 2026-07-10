@@ -1,6 +1,15 @@
 // ============================================
 // PROFILE DASHBOARD & AI SUMMARY (profile.js)
 // ============================================
+function prepareShareContext(results) {
+  // Maps your historical profile data into the format the engine expects
+  window.lastReportResult = {
+    overall: results[0].overall_score,
+    label: results[0].result_label,
+    description: "Historical assessment profile extracted from dashboard.",
+  };
+  window.currentTest = { title: results[0].test_title };
+}
 
 async function renderProfilePage() {
   const section = document.getElementById("profile");
@@ -131,13 +140,14 @@ function buildProfileHTML(user, userName, userAvatar, userEmail, results) {
             </div>
         </div>
 
+        // Replace the ai-summary-actions div in profile.js with this:
         <div id="ai-summary-actions" style="display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center;">
-            <button class="btn-primary" onclick="shareSectionAsImage('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none;">
-                🔗 Share Summary
+            <button class="btn-primary" onclick="generateAndShareImage()" style="padding: 12px 24px; font-size: 0.9rem; background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none; border-radius: 12px;">
+            🔗 Share Profile
             </button>
-            <button class="btn-primary" onclick="downloadSectionAsPDF('ai-summary-export-target', 'My_AI_Profile')" style="padding: 8px 16px; font-size: 0.85rem; width: auto; margin-bottom: 0; background: #64748b; color: white; border: none;">
-                📥 Download PDF
-            </button>
+        <button class="btn-primary" onclick="downloadSectionAsPDF('ai-summary-export-target', 'My_AI_Profile')" style="padding: 12px 24px; font-size: 0.9rem; background: #64748b; color: white; border: none; border-radius: 12px;">
+            📥 Download PDF
+        </button>
         </div>
         <h2 style="font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.09em;color:#94a3b8;margin-bottom:18px;">Assessment History</h2>
         ${
