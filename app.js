@@ -194,19 +194,6 @@ function downloadSectionAsPDF(elementId, filename) {
 
   document.body.style.cursor = "wait";
 
-  // Detect iOS devices
-  const isIOS =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-  // iOS Escape Hatch: Open the window synchronously BEFORE the timeout to bypass popup blockers
-  let iosWindow = null;
-  if (isIOS) {
-    iosWindow = window.open("", "_blank");
-    if (iosWindow) {
-      iosWindow.document.write("Generating your PDF... Please wait.");
-    }
-  }
-
   setTimeout(() => {
     const isMobile = window.innerWidth <= 768;
     const opt = {
@@ -217,29 +204,44 @@ function downloadSectionAsPDF(elementId, filename) {
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
 
-    if (isIOS) {
+    if (isMobile) {
+      // Bypasses embedded app limitations by packaging the RAM data into an actual file stream
       html2pdf()
         .set(opt)
         .from(element)
-        .outputPdf("bloburl")
-        .then((pdfUrl) => {
-          if (iosWindow) {
-            iosWindow.location.href = pdfUrl; // Redirect the pre-opened tab
+        .output("blob")
+        .then((pdfBlob) => {
+          const file = new File([pdfBlob], filename + ".pdf", {
+            type: "application/pdf",
+          });
+
+          // Triggers the universal iOS file sheet directly from the button click
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator
+              .share({
+                files: [file],
+                title: "Your Assessment Report",
+                text: "Here is your behavioral blueprint from People Assets.",
+              })
+              .then(() => {
+                document.body.style.cursor = "default";
+              })
+              .catch(() => {
+                document.body.style.cursor = "default";
+              });
           } else {
-            window.location.href = pdfUrl; // Final fallback if popup blocker is extremely strict
+            // Fallback if system level sharing fails
+            html2pdf()
+              .set(opt)
+              .from(element)
+              .save()
+              .then(() => {
+                document.body.style.cursor = "default";
+              });
           }
-          document.body.style.cursor = "default";
-        })
-        .catch((err) => {
-          console.error("PDF generation failed:", err);
-          if (iosWindow) iosWindow.close();
-          alert(
-            "Could not generate PDF. Please try opening the site directly in Safari.",
-          );
-          document.body.style.cursor = "default";
         });
     } else {
-      // Standard Desktop/Android download
+      // Standard stable Desktop download mechanism
       html2pdf()
         .set(opt)
         .from(element)
@@ -279,83 +281,65 @@ function showFallbackImageModal(dataUrl) {
   document.body.appendChild(overlay);
 }
 
-// async function shareSectionAsImage(elementId, filename) {
-//   const element = document.getElementById(elementId);
-//   if (!element) return;
+async function shareSectionAsImage(elementId, filename) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
 
-//   const originalCursor = document.body.style.cursor;
-//   document.body.style.cursor = "wait";
+  const originalCursor = document.body.style.cursor;
+  document.body.style.cursor = "wait";
 
-//   try {
-//     var isMobile = window.innerWidth <= 768;
-//     const canvas = await html2canvas(element, {
-//       scale: isMobile ? 1.5 : 2,
-//       useCORS: true,
-//       backgroundColor: "#ffffff",
-//     });
+  // Yield thread for UI update
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
-//     canvas.toBlob(
-//       async (blob) => {
-//         if (!blob) return;
-//         const file = new File([blob], `${filename}.png`, { type: "image/png" });
+  try {
+    var isMobile = window.innerWidth <= 768;
+    const canvas = await html2canvas(element, {
+      scale: isMobile ? 1.5 : 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      allowTaint: true,
+    });
 
-//         // Helper to force download
-//         const forceDownload = () => {
-//           const link = document.createElement("a");
-//           link.download = `${filename}.png`;
-//           link.href = URL.createObjectURL(blob);
-//           link.click();
-//         };
+    const dataUrl = canvas.toDataURL("image/png");
 
-//         // Detect if user is on a mobile device
-//         const isMobile =
-//           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-//             navigator.userAgent,
-//           );
+    canvas.toBlob(
+      async (blob) => {
+        if (!blob) throw new Error("Canvas empty");
+        const file = new File([blob], `${filename}.png`, { type: "image/png" });
 
-//         if (
-//           isMobile &&
-//           navigator.canShare &&
-//           navigator.canShare({ files: [file] })
-//         ) {
-//           // Mobile: Use Native Share Sheet
-//           try {
-//             await navigator.share({
-//               title: "People Assets Result",
-//               text: "Check out my behavioral insights profile!",
-//               files: [file],
-//             });
-//           } catch (e) {
-//             forceDownload(); // Fallback if they cancel or it fails
-//           }
-//         } else {
-//           // Desktop/Laptop: Copy to Clipboard + Download
-//           try {
-//             // Try to write the image directly to the clipboard
-//             await navigator.clipboard.write([
-//               new ClipboardItem({ "image/png": blob }),
-//             ]);
-//             alert(
-//               "✓ Image copied to clipboard!\n\nYou can now paste (CTRL+V) it directly into WhatsApp, LinkedIn, or Email. A backup file will also download.",
-//             );
-//             forceDownload();
-//           } catch (err) {
-//             // If clipboard fails (browser permissions), just download
-//             alert("Downloading your image so you can share it!");
-//             forceDownload();
-//           }
-//         }
-//       },
-//       "image/png",
-//       1.0,
-//     );
-//   } catch (error) {
-//     console.error("Error generating shareable image:", error);
-//   } finally {
-//     document.body.style.cursor = originalCursor;
-//   }
-// }
-
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              title: "My AI Profile Summary",
+              files: [file],
+            });
+          } catch (e) {
+            // Trigger fallback modal if Safari or Google App blocks it
+            if (e.name === "NotAllowedError" || e.name === "AbortError") {
+              showFallbackImageModal(dataUrl);
+            }
+          }
+        } else {
+          if (!isMobile) {
+            const link = document.createElement("a");
+            link.download = `${filename}.png`;
+            link.href = dataUrl;
+            link.click();
+          } else {
+            showFallbackImageModal(dataUrl);
+          }
+        }
+        document.body.style.cursor = originalCursor;
+      },
+      "image/png",
+      0.95,
+    );
+  } catch (error) {
+    console.error("Error generating shareable image:", error);
+    alert("Could not generate image. Please try again in Safari.");
+    document.body.style.cursor = originalCursor;
+  }
+}
 // Close mobile menu if the user taps anywhere outside of it
 document.addEventListener("click", function (event) {
   const drawer = document.getElementById("mobile-drawer");
